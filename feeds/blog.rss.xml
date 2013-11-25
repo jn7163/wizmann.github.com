@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.github.io/</link><description></description><atom:link href="http://wizmann.github.io/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 25 Nov 2013 00:00:00 +0800</lastBuildDate><item><title>使用pip和virtuanenv</title><link>http://wizmann.github.io/using-pip-and-virtualenv.html</link><description>&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"What’s pip?"&lt;/p&gt;
+&lt;p&gt;"A python package manager"&lt;/p&gt;
+&lt;p&gt;"How do I install it?"&lt;/p&gt;
+&lt;p&gt;"easy_install pip"&lt;/p&gt;
+&lt;p&gt;"What’s easy_install?"&lt;/p&gt;
+&lt;p&gt;"A python package manager"&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;pip和easy_install都是python的包管理工具，类似于ruby的gem以及nodejs的npm。&lt;/p&gt;
+&lt;p&gt;而pip是easy_install的升级版，在这个&lt;a href="http://www.pip-installer.org/en/1.0.2/#pip-compared-to-easy-install"&gt;页面&lt;/a&gt;中提到了pip对于easy_install的升级。其中提到了一点非常重要。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pip is complementary with virtualenv, and it is encouraged that you use virtualenv to isolate your installation.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果有同学不熟悉virtualenv，这里是一个小小的介绍。（以下翻译来自：&lt;a href="http://blogs.360.cn/blog/how-360-uses-python-1-virtualenv/"&gt;戳我&lt;/a&gt;）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;virtualenv 是一个创建隔离的Python环境的工具。&lt;/p&gt;
+&lt;p&gt;virtualenv要解决的根本问题是库的版本和依赖，以及权限问题。假设你有一个程序，需要LibFoo的版本1，而另一个程序需要版本2，如何同时使用两个应用程序呢？如果将所有的库都安装在 /usr/lib/python2.7/site-packages（或者你的系统的标准包安装路径），非常容易出现将不该升级的库升级的问题。&lt;/p&gt;
+&lt;p&gt;另外，在一台共享的机器上，如果没有全局的 site-packages 目录的权限（例如一个共享的主机），如何安装Python库呢？&lt;/p&gt;
+&lt;p&gt;在这些情况下，就是该用到virtualenv的地方。它能够创建一个自己的安装目录，形成一个独立的环境，不会影响其他的virtualenv环境，甚至可以不受全局的site-packages当中安装的包的影响&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;由于virtualenv的以上优点。我们使用pip与virtualenv配合，可以很轻松保证线上线下运行环境一致，实现自动化部署。&lt;/p&gt;
+&lt;p&gt;举一个例子。&lt;/p&gt;
+&lt;p&gt;在线下开发时，我们使用&lt;code&gt;virtualenv env&lt;/code&gt;创建一个Python虚拟环境。并使用&lt;code&gt;source env/bin/activate&lt;/code&gt;激活。&lt;/p&gt;
+&lt;p&gt;然后我们可以在这个虚拟环境中安装我们需要的包。此时我们的环境与全局完全隔离，所有Python运行环境只以来于现有的虚拟环境。&lt;/p&gt;
+&lt;p&gt;在部署服务时，拷贝整个虚拟环境必然是不明智的选择。我们使用&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;将本环境的依赖写入&lt;code&gt;requirements.txt&lt;/code&gt;文件。&lt;/p&gt;
+&lt;p&gt;然后在线上新建&lt;code&gt;env_online&lt;/code&gt;，激活之。并调用&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;，此时线上服务器会下载所有依赖包。在安装结束后，我们就克隆了线下的环境。&lt;/p&gt;
+&lt;p&gt;当然，如果线上服务器没有连接外网。我们可以使用离线方法安装需要的包。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip bundle env.pybundle -r requirements.txt&lt;/code&gt;会重新下载所有依赖的包，并写入&lt;code&gt;env.pybundle&lt;/code&gt;。然后我们将其上传到线上，使用&lt;code&gt;pip install env.pybundle&lt;/code&gt;安装即可。&lt;/p&gt;
+&lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.github.io,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Hello World</title><link>http://wizmann.github.io/hello-world.html</link><description>&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.github.io,2013-11-24:hello-world.html</guid><category>闲聊</category></item></channel></rss>
