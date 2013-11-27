@@ -41,20 +41,7 @@
 &lt;p&gt;然后选取价格最高的t个点数，并算出总花费。&lt;/p&gt;
 &lt;p&gt;参考自&lt;a href="http://codeforces.com/blog/entry/9728"&gt;liyishuai&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;代码&lt;/h3&gt;
-&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>巫师的水晶球</title><link>http://wizmann.tk/search.html</link><description>&lt;script&gt;
-  (function() {
-    var cx = '014849709279617884656:0dxa4_bmang';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-&lt;/script&gt;
-
-&lt;p&gt;&lt;gcse:search&gt;&lt;/gcse:search&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:search.html</guid></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
+&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
 &lt;p&gt;传说是很不错的计算机科学公开课。使用&lt;a href="http://book.douban.com/subject/5333562/"&gt;深入理解计算机系统&lt;/a&gt;做教材，正好是我要读的书，所以顺便听听课。&lt;/p&gt;
 &lt;p&gt;豆瓣上有人写了&lt;a href="http://book.douban.com/review/6093947/"&gt;推荐&lt;/a&gt;，观点是这课虽然不错，但是比较浅。根据我现在的理解来说，确实比较浅，如果有不错的高级语言编程基础（C/C++/Java/Pascal等，脚本就算了），很多东西可以速推。&lt;/p&gt;
 &lt;p&gt;接下来的一些日志会是这门课的作业、实验和感想。现在先挖个坑。慢慢填上。&lt;/p&gt;
