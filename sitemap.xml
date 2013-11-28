@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2013-11-27T22:52:02-00:00</lastmod>
+<lastmod>2013-11-28T22:16:52-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2013-11-27T22:52:02-00:00</lastmod>
+<lastmod>2013-11-28T22:16:52-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2013-11-27T22:52:02-00:00</lastmod>
+<lastmod>2013-11-28T22:16:52-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2013-11-27T22:52:02-00:00</lastmod>
+<lastmod>2013-11-28T22:16:52-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -47,6 +47,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/Washington-University-CSE351.html</loc>
+<lastmod>2013-11-26T00:00:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/linux-lockless-llist.html</loc>
 <lastmod>2013-11-26T00:00:00-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
@@ -74,8 +81,29 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/bing-fa-bian-cheng.html</loc>
+<lastmod>2013-11-26T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/suan-fa.html</loc>
 <lastmod>2013-11-27T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/lian-biao.html</loc>
+<lastmod>2013-11-26T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/lock-less.html</loc>
+<lastmod>2013-11-26T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -111,6 +139,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/xian-liao.html</loc>
 <lastmod>2013-11-24T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/linux.html</loc>
+<lastmod>2013-11-26T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
