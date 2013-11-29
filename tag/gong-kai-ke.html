@@ -85,6 +85,30 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://wizmann.tk/ml-foundations-pla.html">機器學習基石 - PLA算法初步</a></h2>
+                <div class="summary"><h2>什么是PLA算法</h2>
+<p>PLA = Perceptrons Learning Alogrithm</p>
+<p>WikiPedia上有一个大概的历史背景介绍。</p>
+<blockquote>
+<p>感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。</p>
+</blockquote>
+<h2>PLA算法的原理</h2>
+<p><img alt="感知机示意图" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" /></p>
+<blockquote>
+<p>对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。</p>
+</blockquote>
+<p>由此我们就可以推导出公式如下。</p>
+<p><img alt="neuron sum" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" /></p>
+<p>我们可以为这个“神经元”的激发值设定一个阈值<code>threshold</code>。</p>
+<p>如果 <code>a &gt; threshold</code>，则判定输入为正例。
+如果 <code>a &lt; threshold</code>，则判定输入为负例。
+对于 <code>a == threshold</code>的情况，认为是特殊情况，不予考虑。</p>
+<p>所以，我们的感知器分类器就可以得到以下式子 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/ml-foundations-pla.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/cse351-lab1.html">CSE351 - Lab 1: Manipulating Bits Using C</a></h2>
                 <div class="summary"><p>今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。</p>
 <p>以上是前言。</p>
@@ -147,24 +171,29 @@
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/algorithm.html">
-                        algorithm
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -173,8 +202,23 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
                         并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/algorithm.html">
+                        algorithm
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -188,23 +232,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
                     </a>
                 </li>
 
