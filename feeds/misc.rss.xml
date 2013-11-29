@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/misc.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 29 Nov 2013 00:00:00 +0800</lastBuildDate><item><title>站内搜索</title><link>http://wizmann.tk/search.html</link><description>&lt;script&gt;
+  (function() {
+    var cx = '014849709279617884656:fngtp2ctovw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+&lt;/script&gt;
+
+&lt;p&gt;&lt;gcse:searchbox-only&gt;&lt;/gcse:searchbox-only&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:search.html</guid></item></channel></rss>

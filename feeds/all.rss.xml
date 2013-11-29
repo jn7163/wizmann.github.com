@@ -1,270 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 27 Nov 2013 00:00:00 +0800</lastBuildDate><item><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-215-div-2.html</link><description>&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
-&lt;p&gt;傻逼才错的题。不幸中枪。&lt;/p&gt;
-&lt;p&gt;没什么可说的。直接看代码就好。&lt;/p&gt;
-&lt;h3&gt;B. Sereja and Suffixes&lt;/h3&gt;
-&lt;p&gt;关键思想在于统计A[i...n-1]中有多少互不相同的数。&lt;/p&gt;
-&lt;p&gt;使用离线思想，把查询按&lt;code&gt;greater&amp;lt;int&amp;gt;&lt;/code&gt;排序，然后使用Hash表进行统计，简单题。&lt;/p&gt;
-&lt;h3&gt;C. Sereja and Algorithm&lt;/h3&gt;
-&lt;p&gt;思路题。&lt;/p&gt;
-&lt;p&gt;我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。&lt;/p&gt;
-&lt;p&gt;所以我们只需要统计出A[i...j]中x, y, z的个数。&lt;/p&gt;
-&lt;p&gt;然后进行排列。&lt;/p&gt;
-&lt;p&gt;我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;zy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
-&lt;span class="n"&gt;xz&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
-&lt;span class="n"&gt;yx&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
-
-&lt;span class="c1"&gt;//[]中的是循环节&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;所以只需要数学上的一点计算就可算出我们可不可以生成以上的排列。&lt;/p&gt;
-&lt;h3&gt;D. Sereja ans Anagrams&lt;/h3&gt;
-&lt;p&gt;坑题。&lt;/p&gt;
-&lt;p&gt;一个简单的双端队列 + Hash表统计。&lt;/p&gt;
-&lt;p&gt;坑有两处，一是最后的结果需要去重。这个是我做法的问题，用一个Hash表判重，如果qa满足条件，后续就不需要枚举qa这个点了。&lt;/p&gt;
-&lt;p&gt;二是一些中间结果会爆int，所以要实时估计数据规模。&lt;/p&gt;
-&lt;h2&gt;E. Sereja and the Arrangement of Numbers&lt;/h2&gt;
-&lt;p&gt;欧拉路径。&lt;/p&gt;
-&lt;p&gt;先科普一下。（好吧，其实大家都知道，只有我忘记了。。。）&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;对于一个给定的连通图，怎样判断是否存在着一个恰好包含了所有的边，并且没有重复的路径？&lt;/p&gt;
-&lt;p&gt;这就是一笔画问题。用图论的术语来说，就是判断这个图是否是一个能够遍历完所有的边而没有重复。这样的图现称为欧拉图。这时遍历的路径称作欧拉路径（一个环或者一条链），如果路径闭合（一个圈），则称为欧拉回路。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;我们来简化一下问题。如果我们有k个numbers，若要生成一个符合条件的序列。则这k个数字的相邻关系必然能构成一个欧拉路径。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;连通的无向图 G 有欧拉路径的充要条件是：G中奇顶点（连接的边数量为奇数的顶点）的数目等于0或者2。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;所以我们容易求出在有k个点时，图中应该有多少条边，也就意味着我们的序列应该有多长。&lt;/p&gt;
-&lt;p&gt;回到我们的问题上来，我们限定了序列的长度，所以图中边的数目也有了限制。于是我们由边数使用二分枚举反推点数。&lt;/p&gt;
-&lt;p&gt;然后选取价格最高的t个点数，并算出总花费。&lt;/p&gt;
-&lt;p&gt;参考自&lt;a href="http://codeforces.com/blog/entry/9728"&gt;liyishuai&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;代码&lt;/h3&gt;
-&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link>http://wizmann.tk/cse351-lab1.html</link><description>&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
-&lt;p&gt;以上是前言。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h3&gt;bitAnd &amp;amp; bitOr&lt;/h3&gt;
-&lt;p&gt;德摩根定理的应用&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * bitAnd - x&amp;amp;y using only ~ and | &lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: bitAnd(6, 5) = 4&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ~ |&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 8&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitAnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * bitOr - x|y using only ~ and &amp;amp; &lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: bitOr(6, 5) = 7&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 8&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitOr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;isTmax&lt;/h3&gt;
-&lt;p&gt;因为&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Tmax == INT_MAX == 0x7fff ffff&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;=&amp;gt; &lt;code&gt;INT_MAX + INT_MAX + 2 == 0&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;又因为&lt;code&gt;-1 == 0xffff ffff&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;=&amp;gt; &lt;code&gt;-1 + -1 + 2 = 0&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;于是我们还要加一条判断是否是-1的逻辑。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
-&lt;span class="cm"&gt; * isTmax - returns 1 if x is the maximum, two&amp;#39;s complement number,&lt;/span&gt;
-&lt;span class="cm"&gt; *     and 0 otherwise &lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | +&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isTmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;isZero&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
-&lt;span class="cm"&gt; * isZero - returns 1 if x == 0, and 0 otherwise &lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: isZero(5) = 0, isZero(0) = 1&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 2&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isZero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;fitsBits&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * fitsBits - return 1 if x can be represented as an &lt;/span&gt;
-&lt;span class="cm"&gt; *  n-bit, two&amp;#39;s complement integer.&lt;/span&gt;
-&lt;span class="cm"&gt; *   1 &amp;lt;= n &amp;lt;= 32&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 15&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;fitsBits&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// equal to 32 - n&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;getByte&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * getByte - Extract byte n from word x&lt;/span&gt;
-&lt;span class="cm"&gt; *   Bytes numbered from 0 (LSB) to 3 (MSB)&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: getByte(0x12345678,1) = 0x56&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getByte&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0xFF&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0xFF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;isNegative&lt;/h3&gt;
-&lt;p&gt;找到符号位&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise &lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: isNegative(-1) = 1.&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNegative&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;addOK&lt;/h3&gt;
-&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * addOK - Determine if can compute x+y without overflow&lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: addOK(0x80000000,0x80000000) = 0,&lt;/span&gt;
-&lt;span class="cm"&gt; *            addOK(0x80000000,0x70000000) = 1, &lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 20&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;addOK&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt;  &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;isGreater&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * isGreater - if x &amp;gt; y  then return 1, else return 0 &lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: isGreater(4,5) = 0, isGreater(5,4) = 1&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 24&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isGreater&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x_minus_y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sminus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(((&lt;/span&gt;&lt;span class="n"&gt;x_minus_y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;x_minus_y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sminus&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;replaceByte&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * replaceByte(x,n,c) - Replace byte n in x with c&lt;/span&gt;
-&lt;span class="cm"&gt; *   Bytes numbered from 0 (LSB) to 3 (MSB)&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: replaceByte(0x12345678,1,0xab) = 0x1234ab78&lt;/span&gt;
-&lt;span class="cm"&gt; *   You can assume 0 &amp;lt;= n &amp;lt;= 3 and 0 &amp;lt;= c &amp;lt;= 255&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;replaceByte&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="mh"&gt;0xFF&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;rotateLeft&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * rotateLeft - Rotate x to the left by n&lt;/span&gt;
-&lt;span class="cm"&gt; *   Can assume that 0 &amp;lt;= n &amp;lt;= 31&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: rotateLeft(0x87654321,4) = 0x76543218&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 25&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 3 &lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;rotateLeft&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;bitCount&lt;/h3&gt;
-&lt;p&gt;这个是从&lt;a href="http://stackoverflow.com/a/3815253/2927439"&gt;stackoverflow&lt;/a&gt;上找来的答案，很厉害，不过还没看明白为啥。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
-&lt;span class="cm"&gt; * bitCount - returns count of number of 1&amp;#39;s in word&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: bitCount(5) = 2, bitCount(7) = 3&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 40&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 4&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitCount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x55555555&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x55555555&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x33333333&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x33333333&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0F0F0F0F&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0F0F0F0F&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x00FF00FF&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x00FF00FF&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0000FFFF&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0000FFFF&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;isNonZero&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;(~x + 1) == -x&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;=&amp;gt; &lt;code&gt;x | -x&lt;/code&gt;的符号位为负&lt;/p&gt;
-&lt;p&gt;对于特殊数据&lt;code&gt;INT_MIN&lt;/code&gt;也可以处理&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * isNonZero - Check whether x is nonzero using&lt;/span&gt;
-&lt;span class="cm"&gt; *              the legal operators except !&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: isNonZero(3) = 1, isNonZero(0) = 0&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 4 &lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNonZero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cse351-lab1.html</guid><category>CSE351</category><category>公开课</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
-&lt;p&gt;传说是很不错的计算机科学公开课。使用&lt;a href="http://book.douban.com/subject/5333562/"&gt;深入理解计算机系统&lt;/a&gt;做教材，正好是我要读的书，所以顺便听听课。&lt;/p&gt;
-&lt;p&gt;豆瓣上有人写了&lt;a href="http://book.douban.com/review/6093947/"&gt;推荐&lt;/a&gt;，观点是这课虽然不错，但是比较浅。根据我现在的理解来说，确实比较浅，如果有不错的高级语言编程基础（C/C++/Java/Pascal等，脚本就算了），很多东西可以速推。&lt;/p&gt;
-&lt;p&gt;接下来的一些日志会是这门课的作业、实验和感想。现在先挖个坑。慢慢填上。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;课程视频：&lt;a href="http://pan.baidu.com/wap/link?&amp;amp;shareid=3687486382&amp;amp;uk=2919707929&amp;amp;third=0&amp;amp;page=1"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;课程主页：&lt;a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</guid><category>公开课</category><category>计算机科学</category><category>CSE351</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 28 Nov 2013 00:00:00 +0800</lastBuildDate><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
 &lt;p&gt;最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(&lt;a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773"&gt;戳我&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;我打算借助这个问答中的内容，以我比较熟悉的数据结构与算法为索引来阅读开源代码。&lt;/p&gt;
 &lt;h1&gt;正文&lt;/h1&gt;
@@ -650,7 +385,272 @@
 &lt;p&gt;大概意思是说只有从列表上删除下来的元素才可以安全的遍历。（这点理解的不深入）&lt;/p&gt;
 &lt;h2&gt;后记&lt;/h2&gt;
 &lt;p&gt;本来是想把这llist的代码看明白的。但是，大概只看懂了60%。。。&lt;/p&gt;
-&lt;p&gt;以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:linux-lockless-llist.html</guid><category>linux</category><category>lock-less</category><category>链表</category><category>并发编程</category></item><item><title>使用pip和virtuanenv</title><link>http://wizmann.tk/using-pip-and-virtualenv.html</link><description>&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
+&lt;p&gt;以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 28 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-28:linux-lockless-llist.html</guid><category>linux</category><category>lock-less</category><category>链表</category><category>并发编程</category></item><item><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-215-div-2.html</link><description>&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
+&lt;p&gt;傻逼才错的题。不幸中枪。&lt;/p&gt;
+&lt;p&gt;没什么可说的。直接看代码就好。&lt;/p&gt;
+&lt;h3&gt;B. Sereja and Suffixes&lt;/h3&gt;
+&lt;p&gt;关键思想在于统计A[i...n-1]中有多少互不相同的数。&lt;/p&gt;
+&lt;p&gt;使用离线思想，把查询按&lt;code&gt;greater&amp;lt;int&amp;gt;&lt;/code&gt;排序，然后使用Hash表进行统计，简单题。&lt;/p&gt;
+&lt;h3&gt;C. Sereja and Algorithm&lt;/h3&gt;
+&lt;p&gt;思路题。&lt;/p&gt;
+&lt;p&gt;我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。&lt;/p&gt;
+&lt;p&gt;所以我们只需要统计出A[i...j]中x, y, z的个数。&lt;/p&gt;
+&lt;p&gt;然后进行排列。&lt;/p&gt;
+&lt;p&gt;我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;zy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
+&lt;span class="n"&gt;xz&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
+&lt;span class="n"&gt;yx&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
+
+&lt;span class="c1"&gt;//[]中的是循环节&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;所以只需要数学上的一点计算就可算出我们可不可以生成以上的排列。&lt;/p&gt;
+&lt;h3&gt;D. Sereja ans Anagrams&lt;/h3&gt;
+&lt;p&gt;坑题。&lt;/p&gt;
+&lt;p&gt;一个简单的双端队列 + Hash表统计。&lt;/p&gt;
+&lt;p&gt;坑有两处，一是最后的结果需要去重。这个是我做法的问题，用一个Hash表判重，如果qa满足条件，后续就不需要枚举qa这个点了。&lt;/p&gt;
+&lt;p&gt;二是一些中间结果会爆int，所以要实时估计数据规模。&lt;/p&gt;
+&lt;h2&gt;E. Sereja and the Arrangement of Numbers&lt;/h2&gt;
+&lt;p&gt;欧拉路径。&lt;/p&gt;
+&lt;p&gt;先科普一下。（好吧，其实大家都知道，只有我忘记了。。。）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于一个给定的连通图，怎样判断是否存在着一个恰好包含了所有的边，并且没有重复的路径？&lt;/p&gt;
+&lt;p&gt;这就是一笔画问题。用图论的术语来说，就是判断这个图是否是一个能够遍历完所有的边而没有重复。这样的图现称为欧拉图。这时遍历的路径称作欧拉路径（一个环或者一条链），如果路径闭合（一个圈），则称为欧拉回路。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们来简化一下问题。如果我们有k个numbers，若要生成一个符合条件的序列。则这k个数字的相邻关系必然能构成一个欧拉路径。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;连通的无向图 G 有欧拉路径的充要条件是：G中奇顶点（连接的边数量为奇数的顶点）的数目等于0或者2。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以我们容易求出在有k个点时，图中应该有多少条边，也就意味着我们的序列应该有多长。&lt;/p&gt;
+&lt;p&gt;回到我们的问题上来，我们限定了序列的长度，所以图中边的数目也有了限制。于是我们由边数使用二分枚举反推点数。&lt;/p&gt;
+&lt;p&gt;然后选取价格最高的t个点数，并算出总花费。&lt;/p&gt;
+&lt;p&gt;参考自&lt;a href="http://codeforces.com/blog/entry/9728"&gt;liyishuai&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;代码&lt;/h3&gt;
+&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link>http://wizmann.tk/cse351-lab1.html</link><description>&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
+&lt;p&gt;以上是前言。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;bitAnd &amp;amp; bitOr&lt;/h3&gt;
+&lt;p&gt;德摩根定理的应用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * bitAnd - x&amp;amp;y using only ~ and | &lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: bitAnd(6, 5) = 4&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ~ |&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 8&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitAnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * bitOr - x|y using only ~ and &amp;amp; &lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: bitOr(6, 5) = 7&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 8&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitOr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;isTmax&lt;/h3&gt;
+&lt;p&gt;因为&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Tmax == INT_MAX == 0x7fff ffff&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;=&amp;gt; &lt;code&gt;INT_MAX + INT_MAX + 2 == 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;又因为&lt;code&gt;-1 == 0xffff ffff&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;=&amp;gt; &lt;code&gt;-1 + -1 + 2 = 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;于是我们还要加一条判断是否是-1的逻辑。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
+&lt;span class="cm"&gt; * isTmax - returns 1 if x is the maximum, two&amp;#39;s complement number,&lt;/span&gt;
+&lt;span class="cm"&gt; *     and 0 otherwise &lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | +&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isTmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;isZero&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
+&lt;span class="cm"&gt; * isZero - returns 1 if x == 0, and 0 otherwise &lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: isZero(5) = 0, isZero(0) = 1&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 2&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 1&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isZero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;fitsBits&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * fitsBits - return 1 if x can be represented as an &lt;/span&gt;
+&lt;span class="cm"&gt; *  n-bit, two&amp;#39;s complement integer.&lt;/span&gt;
+&lt;span class="cm"&gt; *   1 &amp;lt;= n &amp;lt;= 32&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 15&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;fitsBits&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// equal to 32 - n&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;shift&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;getByte&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * getByte - Extract byte n from word x&lt;/span&gt;
+&lt;span class="cm"&gt; *   Bytes numbered from 0 (LSB) to 3 (MSB)&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: getByte(0x12345678,1) = 0x56&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getByte&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0xFF&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0xFF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;isNegative&lt;/h3&gt;
+&lt;p&gt;找到符号位&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise &lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: isNegative(-1) = 1.&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNegative&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;addOK&lt;/h3&gt;
+&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * addOK - Determine if can compute x+y without overflow&lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: addOK(0x80000000,0x80000000) = 0,&lt;/span&gt;
+&lt;span class="cm"&gt; *            addOK(0x80000000,0x70000000) = 1, &lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 20&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;addOK&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt;  &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;isGreater&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * isGreater - if x &amp;gt; y  then return 1, else return 0 &lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: isGreater(4,5) = 0, isGreater(5,4) = 1&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 24&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isGreater&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x_minus_y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sminus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(((&lt;/span&gt;&lt;span class="n"&gt;x_minus_y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;x_minus_y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sminus&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;replaceByte&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * replaceByte(x,n,c) - Replace byte n in x with c&lt;/span&gt;
+&lt;span class="cm"&gt; *   Bytes numbered from 0 (LSB) to 3 (MSB)&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: replaceByte(0x12345678,1,0xab) = 0x1234ab78&lt;/span&gt;
+&lt;span class="cm"&gt; *   You can assume 0 &amp;lt;= n &amp;lt;= 3 and 0 &amp;lt;= c &amp;lt;= 255&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;replaceByte&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="mh"&gt;0xFF&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;rotateLeft&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * rotateLeft - Rotate x to the left by n&lt;/span&gt;
+&lt;span class="cm"&gt; *   Can assume that 0 &amp;lt;= n &amp;lt;= 31&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: rotateLeft(0x87654321,4) = 0x76543218&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 25&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 3 &lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;rotateLeft&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;bitCount&lt;/h3&gt;
+&lt;p&gt;这个是从&lt;a href="http://stackoverflow.com/a/3815253/2927439"&gt;stackoverflow&lt;/a&gt;上找来的答案，很厉害，不过还没看明白为啥。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
+&lt;span class="cm"&gt; * bitCount - returns count of number of 1&amp;#39;s in word&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: bitCount(5) = 2, bitCount(7) = 3&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 40&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 4&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitCount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x55555555&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x55555555&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x33333333&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x33333333&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0F0F0F0F&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0F0F0F0F&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x00FF00FF&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x00FF00FF&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0000FFFF&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mh"&gt;0x0000FFFF&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;isNonZero&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;(~x + 1) == -x&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;=&amp;gt; &lt;code&gt;x | -x&lt;/code&gt;的符号位为负&lt;/p&gt;
+&lt;p&gt;对于特殊数据&lt;code&gt;INT_MIN&lt;/code&gt;也可以处理&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * isNonZero - Check whether x is nonzero using&lt;/span&gt;
+&lt;span class="cm"&gt; *              the legal operators except !&lt;/span&gt;
+&lt;span class="cm"&gt; *   Examples: isNonZero(3) = 1, isNonZero(0) = 0&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 4 &lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNonZero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cse351-lab1.html</guid><category>CSE351</category><category>公开课</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
+&lt;p&gt;传说是很不错的计算机科学公开课。使用&lt;a href="http://book.douban.com/subject/5333562/"&gt;深入理解计算机系统&lt;/a&gt;做教材，正好是我要读的书，所以顺便听听课。&lt;/p&gt;
+&lt;p&gt;豆瓣上有人写了&lt;a href="http://book.douban.com/review/6093947/"&gt;推荐&lt;/a&gt;，观点是这课虽然不错，但是比较浅。根据我现在的理解来说，确实比较浅，如果有不错的高级语言编程基础（C/C++/Java/Pascal等，脚本就算了），很多东西可以速推。&lt;/p&gt;
+&lt;p&gt;接下来的一些日志会是这门课的作业、实验和感想。现在先挖个坑。慢慢填上。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;课程视频：&lt;a href="http://pan.baidu.com/wap/link?&amp;amp;shareid=3687486382&amp;amp;uk=2919707929&amp;amp;third=0&amp;amp;page=1"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;课程主页：&lt;a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</guid><category>公开课</category><category>计算机科学</category><category>CSE351</category></item><item><title>使用pip和virtuanenv</title><link>http://wizmann.tk/using-pip-and-virtualenv.html</link><description>&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;"What’s pip?"&lt;/p&gt;
 &lt;p&gt;"A python package manager"&lt;/p&gt;
