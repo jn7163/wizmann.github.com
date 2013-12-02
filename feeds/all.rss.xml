@@ -808,7 +808,7 @@
 &lt;h3&gt;跳过等待&lt;/h3&gt;
 &lt;p&gt;在上面引用的博文里面有说，就是强制执行页面中的js，实现跳转。&lt;/p&gt;
 &lt;p&gt;还做了一个DOM修改，变成现在这种很漂漂的样子～～&lt;/p&gt;
-&lt;p&gt;!(Yunfile-Craker-1)&lt;a href="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png"&gt;2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Yunfile-Craker-1" src="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;忽略超时错误&lt;/h3&gt;
 &lt;p&gt;覆盖了下载函数，跳过超时判断。&lt;/p&gt;
 &lt;h2&gt;现有问题&lt;/h2&gt;
