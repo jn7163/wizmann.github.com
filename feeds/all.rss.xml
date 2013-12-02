@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 02 Dec 2013 00:00:00 +0800</lastBuildDate><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Go back to work！&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 02 Dec 2013 21:16:00 +0800</lastBuildDate><item><title>Yunfile下载破解</title><link>http://wizmann.tk/yunfile-cracker.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+&lt;p&gt;大家都知道&lt;code&gt;Yunfile&lt;/code&gt;是做什么的咩？反正我是不知道。。。&lt;/p&gt;
+&lt;p&gt;今天下午无聊，写了一个yunfile下载的破解插件。&lt;/p&gt;
+&lt;h2&gt;功能：&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;非会员跳过下载等待的30s（或者更长时间）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载页面不会报“因长时间未操作，需要重新下载”的错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里感谢&lt;strong&gt;luacloud&lt;/strong&gt;的&lt;a href="http://www.luacloud.com/2012/crack-yunfile-network-disk-30-wait-for-restrictions.html"&gt;博文&lt;/a&gt;，为插件的编写提供了原型。&lt;/p&gt;
+&lt;h2&gt;具体功能实现：&lt;/h2&gt;
+&lt;h3&gt;跳过等待&lt;/h3&gt;
+&lt;p&gt;在上面引用的博文里面有说，就是强制执行页面中的js，实现跳转。&lt;/p&gt;
+&lt;p&gt;还做了一个DOM修改，变成现在这种很漂漂的样子～～&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Yunfile-Craker-1" src="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png" /&gt;&lt;/p&gt;
+&lt;h3&gt;忽略超时错误&lt;/h3&gt;
+&lt;p&gt;覆盖了下载函数，跳过超时判断。&lt;/p&gt;
+&lt;h2&gt;现有问题&lt;/h2&gt;
+&lt;p&gt;在一些情况下，点击下载按钮会返回到下载页。&lt;/p&gt;
+&lt;p&gt;虽然我们不需要再等30s了，但是还是很烦。&lt;/p&gt;
+&lt;p&gt;也有我有机会修复这个问题。&lt;/p&gt;
+&lt;h3&gt;代码&lt;/h3&gt;
+&lt;p&gt;代码在&lt;a href="https://github.com/Wizmann/Utils/tree/master/Chrome-extension/yunfile-cracker"&gt;这里&lt;/a&gt;呀～&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 21:16:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:yunfile-cracker.html</guid><category>创造力</category><category>Yunfile</category><category>Chrome-Extension</category></item><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Go back to work！&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Big brother is watching you!" src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" /&gt;&lt;/p&gt;
 
 
@@ -791,31 +816,6 @@
 &lt;p&gt;然后在线上新建&lt;code&gt;env_online&lt;/code&gt;，激活之。并调用&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;，此时线上服务器会下载所有依赖包。在安装结束后，我们就克隆了线下的环境。&lt;/p&gt;
 &lt;p&gt;当然，如果线上服务器没有连接外网。我们可以使用离线方法安装需要的包。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip bundle env.pybundle -r requirements.txt&lt;/code&gt;会重新下载所有依赖的包，并写入&lt;code&gt;env.pybundle&lt;/code&gt;。然后我们将其上传到线上，使用&lt;code&gt;pip install env.pybundle&lt;/code&gt;安装即可。&lt;/p&gt;
-&lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Yunfile下载破解</title><link>http://wizmann.tk/yunfile-cracker.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
-&lt;p&gt;大家都知道&lt;code&gt;Yunfile&lt;/code&gt;是做什么的咩？反正我是不知道。。。&lt;/p&gt;
-&lt;p&gt;今天下午无聊，写了一个yunfile下载的破解插件。&lt;/p&gt;
-&lt;h2&gt;功能：&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;非会员跳过下载等待的30s（或者更长时间）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;下载页面不会报“因长时间未操作，需要重新下载”的错误&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这里感谢&lt;strong&gt;luacloud&lt;/strong&gt;的&lt;a href="http://www.luacloud.com/2012/crack-yunfile-network-disk-30-wait-for-restrictions.html"&gt;博文&lt;/a&gt;，为插件的编写提供了原型。&lt;/p&gt;
-&lt;h2&gt;具体功能实现：&lt;/h2&gt;
-&lt;h3&gt;跳过等待&lt;/h3&gt;
-&lt;p&gt;在上面引用的博文里面有说，就是强制执行页面中的js，实现跳转。&lt;/p&gt;
-&lt;p&gt;还做了一个DOM修改，变成现在这种很漂漂的样子～～&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Yunfile-Craker-1" src="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png" /&gt;&lt;/p&gt;
-&lt;h3&gt;忽略超时错误&lt;/h3&gt;
-&lt;p&gt;覆盖了下载函数，跳过超时判断。&lt;/p&gt;
-&lt;h2&gt;现有问题&lt;/h2&gt;
-&lt;p&gt;在一些情况下，点击下载按钮会返回到下载页。&lt;/p&gt;
-&lt;p&gt;虽然我们不需要再等30s了，但是还是很烦。&lt;/p&gt;
-&lt;p&gt;也有我有机会修复这个问题。&lt;/p&gt;
-&lt;h3&gt;代码&lt;/h3&gt;
-&lt;p&gt;代码在&lt;a href="https://github.com/Wizmann/Utils/tree/master/Chrome-extension/yunfile-cracker"&gt;这里&lt;/a&gt;呀～&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 21:16:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-24:yunfile-cracker.html</guid><category>创造力</category><category>Yunfile</category><category>Chrome-Extension</category></item><item><title>Hello World</title><link>http://wizmann.tk/hello-world.html</link><description>&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
+&lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Hello World</title><link>http://wizmann.tk/hello-world.html</link><description>&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-24:hello-world.html</guid><category>闲聊</category></item></channel></rss>
