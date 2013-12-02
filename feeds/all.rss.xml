@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 29 Nov 2013 00:00:00 +0800</lastBuildDate><item><title>機器學習基石 - PLA算法初步</title><link>http://wizmann.tk/ml-foundations-pla.html</link><description>&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 02 Dec 2013 00:00:00 +0800</lastBuildDate><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Go back to work！&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Big brother is watching you!" src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;&lt;audio src="http://wizmann-tk-pic.u.qiniudn.com/ticking.mp3" autoplay="autoplay" loop="loop"/&gt;&lt;/p&gt;
+&lt;p&gt;根据科学研究表明，在很大程度上，在工作时配上单调有节奏的背景音，可以大幅度提高效率。&lt;/p&gt;
+&lt;p&gt;（上面一条是我瞎说的）&lt;/p&gt;
+&lt;p&gt;推荐一个时间管理的Chrome插件，番茄土豆。&lt;a href="http://www.douban.com/group/pomotodo/"&gt;戳我&lt;/a&gt;进入番茄土豆豆瓣小组。&lt;/p&gt;
+&lt;p&gt;这个tick-tick的音效就是从插件中搞出来的。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:tick-tick.html</guid><category>闲聊</category><category>创造力</category></item><item><title>機器學習基石 - PLA算法初步</title><link>http://wizmann.tk/ml-foundations-pla.html</link><description>&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
 &lt;p&gt;PLA = Perceptrons Learning Alogrithm&lt;/p&gt;
 &lt;p&gt;WikiPedia上有一个大概的历史背景介绍。&lt;/p&gt;
 &lt;blockquote&gt;
