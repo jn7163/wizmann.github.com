@@ -137,6 +137,11 @@
 
 
 &lt;p&gt;我们从代码中可以看到，Handle类中使用了&lt;code&gt;size_t *use&lt;/code&gt;用来对于对象进行引用计数。如果计数为0，则Handle类会删除自身。也许我们会忘记释放内存，但是编译器会帮你管理好你的对象的。&lt;/p&gt;
+&lt;h3&gt;句柄类的另一个优点&lt;/h3&gt;
+&lt;p&gt;句柄类的另一个优点是可以降低文件间的编译依存关系。&lt;/p&gt;
+&lt;p&gt;句柄类可以将接口从实现中分离，从而分离编译依赖。&lt;/p&gt;
+&lt;p&gt;例如，我们有一个&lt;code&gt;Person&lt;/code&gt;类，又声明了&lt;code&gt;PersonImpl&lt;/code&gt;句柄类。&lt;/p&gt;
+&lt;p&gt;则我们如果修改了&lt;code&gt;Person&lt;/code&gt;类的实现部分，并且保持接口部分不变。则我们只需要重新编译含入&lt;code&gt;Person&lt;/code&gt;类的文件。含入&lt;code&gt;PersonImpl&lt;/code&gt;类的文件不需要重新编译。&lt;/p&gt;
 &lt;h3&gt;shared_ptr&lt;/h3&gt;
 &lt;p&gt;shared_ptr是boost中引入的新类型，原理和句柄类类似，但是加入了如下特性。&lt;/p&gt;
 &lt;ul&gt;

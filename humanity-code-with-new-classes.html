@@ -247,6 +247,11 @@
 
 
 <p>我们从代码中可以看到，Handle类中使用了<code>size_t *use</code>用来对于对象进行引用计数。如果计数为0，则Handle类会删除自身。也许我们会忘记释放内存，但是编译器会帮你管理好你的对象的。</p>
+<h3>句柄类的另一个优点</h3>
+<p>句柄类的另一个优点是可以降低文件间的编译依存关系。</p>
+<p>句柄类可以将接口从实现中分离，从而分离编译依赖。</p>
+<p>例如，我们有一个<code>Person</code>类，又声明了<code>PersonImpl</code>句柄类。</p>
+<p>则我们如果修改了<code>Person</code>类的实现部分，并且保持接口部分不变。则我们只需要重新编译含入<code>Person</code>类的文件。含入<code>PersonImpl</code>类的文件不需要重新编译。</p>
 <h3>shared_ptr</h3>
 <p>shared_ptr是boost中引入的新类型，原理和句柄类类似，但是加入了如下特性。</p>
 <ul>
@@ -429,43 +434,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/algorithm.html">
-                        algorithm
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -479,13 +454,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -494,8 +464,43 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
                         并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/algorithm.html">
+                        algorithm
                     </a>
                 </li>
 
