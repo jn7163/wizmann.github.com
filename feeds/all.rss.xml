@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 09 Dec 2013 23:02:00 +0800</lastBuildDate><item><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-218-div-2.html</link><description>&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 11 Dec 2013 00:00:00 +0800</lastBuildDate><item><title>在Google面试之后想到的</title><link>http://wizmann.tk/after-google-interview.html</link><description>&lt;p&gt;&lt;img alt="思维导图" src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview.png" /&gt;&lt;/p&gt;
+&lt;p&gt;另外，面试过程中没被吓尿也算是我心理比较强大吧。&lt;/p&gt;
+&lt;p&gt;#屌丝心态#。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 11 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-11:after-google-interview.html</guid><category>闲聊</category></item><item><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-218-div-2.html</link><description>&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
 &lt;p&gt;将Array切片，然后按位统计某一位上1的个数C(1)和2的个数C(2)。然后在这一位上的操作数就为M = min(C(1), C(2))。&lt;/p&gt;
 &lt;p&gt;简单题&lt;/p&gt;
 &lt;h3&gt;B. Fox Dividing Cheese&lt;/h3&gt;

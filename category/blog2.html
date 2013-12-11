@@ -84,6 +84,29 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://wizmann.tk/linux-lockless-llist.html">Linux内核中的少锁链表</a></h2>
+                <div class="summary"><h1>前言</h1>
+<p>最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(<a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773">戳我</a>)</p>
+<p>我打算借助这个问答中的内容，以我比较熟悉的数据结构与算法为索引来阅读开源代码。</p>
+<h1>正文</h1>
+<h2>Talk is cheap</h2>
+<blockquote>
+<p>Lock-less NULL terminated single linked list</p>
+</blockquote>
+<p><a href="https://github.com/mirrors/linux-2.6/blob/master/include/linux/llist.h">linux-2.6/include/linux/llist.h</a></p>
+<p><a href="https://github.com/mirrors/linux-2.6/blob/master/lib/llist.c">linux-2.6/lib/llist.c</a></p>
+<h2>知识准备</h2>
+<h3>volatile</h3>
+<blockquote>
+<p>volatile关键字声明的变量或对象通常拥有和优化和（或）多线程相关的特殊属性。</p>
+<p>通常，volatile关键字用来阻止（伪）编译器对那些它认为变量的值不能“被代码本身”改变的代码上执行任何优化。 </p>
+<p>如果不使用volatile关键字，编译器将假设当前程序是系统中唯一能改变这个值部分。 为了阻止编译器像上面那样优化代码，需要使用volatile关键字。</p>
+<p>From: http://zh.wikipedia.org/wiki/Volatile%E5 ...</p></blockquote>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/linux-lockless-llist.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/cf-215-div-2.html">Codeforces Round #215 (Div. 2)不完全不正确题解</a></h2>
                 <div class="summary"><h3>A. Sereja and Coat Rack</h3>
 <p>傻逼才错的题。不幸中枪。</p>
@@ -206,14 +229,19 @@
                         公开课
                     </a>
                 </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
                 <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/ti-jie.html">
                         题解
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -227,38 +255,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        Chrome-Extension
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -267,18 +270,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -287,8 +285,33 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        Chrome-Extension
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
 
