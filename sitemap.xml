@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2013-12-29T13:35:46-00:00</lastmod>
+<lastmod>2013-12-29T20:24:44-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2013-12-29T13:35:46-00:00</lastmod>
+<lastmod>2013-12-29T20:24:44-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2013-12-29T13:35:46-00:00</lastmod>
+<lastmod>2013-12-29T20:24:44-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2013-12-29T13:35:46-00:00</lastmod>
+<lastmod>2013-12-29T20:24:44-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/cf-3c-tic-tac-toe.html</loc>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -145,7 +152,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2013-12-29T13:12:00-00:00</lastmod>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -167,6 +174,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/linux.html</loc>
 <lastmod>2013-11-28T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/she-ji-mo-shi.html</loc>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -194,14 +208,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/suan-fa.html</loc>
-<lastmod>2013-12-25T19:05:00-00:00</lastmod>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tag/codeforces.html</loc>
-<lastmod>2013-12-25T19:05:00-00:00</lastmod>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -264,7 +278,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/algorithm.html</loc>
-<lastmod>2013-12-28T14:42:00-00:00</lastmod>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -306,7 +320,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2013-12-29T13:12:00-00:00</lastmod>
+<lastmod>2013-12-29T20:23:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - Categories</title>
+    <title>Maerlyn's Rainbow - 设计模式</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -83,12 +83,33 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-    <section id="categories">
-        <h1>Categories for Maerlyn's Rainbow</h1>
-        <ul>
-                <li><a href="category/blog.html">Blog</a></li>
-        </ul>
-    </section>
+            <article>
+                <h2><a href="http://wizmann.tk/cf-3c-tic-tac-toe.html">Codeforces 3C - Tic-tac-toe</a></h2>
+                <div class="summary">
+                    <h1>啥？</h1>
+<p><a href="http://codeforces.com/problemset/problem/3/C">Tic-tac-toe</a>是我很久之前在CF上做的一道题。非常考细心的模拟题。</p>
+<p>最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。</p>
+<h1>原题做法</h1>
+<p>没有任何“算法”成分。纯模拟。</p>
+<p>又由于数据量实在是太小（3 × 3的矩阵），所以只要是思路正确。代码怎么写都能过。</p>
+<p>于是在这里就不赘述。手快的众位10分钟切此题无压力。</p>
+<h1>What's new?</h1>
+<p>如果我们扩展一下这个问题。如果让你设计一个Tic-tac-toe的对战系统（人机对战、人人对战等），你将如何设计？</p>
+<h1>the STATE pattern</h1>
+<p>我们可以看出，这个对战系统其实可以用一个状态机来表示。</p>
+<p><img alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" /></p>
+<p>于是我们的对战系统也可以写成一个状态机的模式。</p>
+<h1>show me the CODE</h1>
+<p>首先我们声明一个<code>State</code>接口类型。</p>
+<p>由于Tic-tac-toe游戏只有两种操作类型：<code>P1 move</code>和<code>P2 move</code>。</p>
+<p>所以我们的接口就很简单。</p>
+<div class="highlight"><pre><span class="n">class</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-3c-tic-tac-toe.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
