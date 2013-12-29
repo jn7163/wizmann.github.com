@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 28 Dec 2013 14:42:00 +0800</lastBuildDate><item><title>How to "Rotate Image"?</title><link>http://wizmann.tk/how-to-rotate-image-leetcode.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 29 Dec 2013 13:12:00 +0800</lastBuildDate><item><title>这是一篇加密日志</title><link>http://wizmann.tk/this-is-an-encrypted-passage.html</link><description>&lt;p&gt;加密日志使用的是&lt;a href="https://github.com/mindcruzer/pelican-protect-content"&gt;pelican-protect-content&lt;/a&gt;，不过实现方法相当丑。&lt;/p&gt;
+&lt;p&gt;不过pelican也没有什么优雅的方法，也许下一个版本会有改观吧。。。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;无聊写点啥呢～&lt;/p&gt;
+&lt;p&gt;在学校：&lt;/p&gt;
+&lt;p&gt;老师：X同学，请你写个XX算法吧。。。
+（傻逼呵呵的写。。。）
+X同学：写完了！
+老师：请你计算一下在这个算法中，一共使用了几次比较操作？&lt;/p&gt;
+&lt;p&gt;在国内某公司：&lt;/p&gt;
+&lt;p&gt;面试官：X同学，有如下这个场景，请你写个程序求解。。。
+（傻逼呵呵的写。。。）
+X同学：写完了！
+面试官：请把这个算法的常数优化一下。。。&lt;/p&gt;
+&lt;p&gt;在GG家：&lt;/p&gt;
+&lt;p&gt;面试官：X同学，有如下这个场景，请你写个程序求解。。。
+（傻逼呵呵的写。。。）
+X同学：写完了！
+面试官：请证明一下你的算法是正确的。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 13:12:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:this-is-an-encrypted-passage.html</guid><category>encrypted</category></item><item><title>How to "Rotate Image"?</title><link>http://wizmann.tk/how-to-rotate-image-leetcode.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
 &lt;p&gt;原题&lt;a href="http://oj.leetcode.com/problems/rotate-image/"&gt;戳我&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Rotate Image&lt;/p&gt;
