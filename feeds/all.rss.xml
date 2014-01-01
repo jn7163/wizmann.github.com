@@ -10,8 +10,8 @@
 &lt;p&gt;&lt;img alt="图1" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;从端点扩张交错路&lt;/h3&gt;
 &lt;p&gt;假设我们已经有一个红黑交错路&lt;code&gt;P&lt;/code&gt;，其端点为&lt;code&gt;A&lt;/code&gt;和&lt;code&gt;B&lt;/code&gt;，其路径被标记为&lt;code&gt;黑红&lt;/code&gt;。此时，我们向&lt;code&gt;P&lt;/code&gt;中的一个端点（假设为&lt;code&gt;A&lt;/code&gt;）加入一条边&lt;code&gt;T&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;此时我们有&lt;code&gt;边T + 交错路P（黑红）&lt;/code&gt;。当我们将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;时，我们就扩展了交错路&lt;code&gt;P&lt;/code&gt;。
-如果我们要保持红黑交错路的&lt;strong&gt;性质&lt;/strong&gt;。则我们必须将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;此时我们有&lt;code&gt;边T + 交错路P（黑红）&lt;/code&gt;。当我们将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;时，我们就扩展了交错路&lt;code&gt;P&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果我们要保持红黑交错路的&lt;strong&gt;性质&lt;/strong&gt;。则我们必须将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;于是&lt;code&gt;P（BR） =&amp;gt; P'(BRB)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="图2" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-2.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;分割交错路&lt;/h3&gt;
@@ -29,33 +29,39 @@
 &lt;h3&gt;你可以证明你的算法吗&lt;/h3&gt;
 &lt;p&gt;我们选取左集端点&lt;code&gt;T&lt;/code&gt;到图中，此时图中有&lt;code&gt;k&lt;/code&gt;条边与点&lt;code&gt;T&lt;/code&gt;连接。这&lt;code&gt;k&lt;/code&gt;条边分别为&lt;code&gt;p1...pk&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;选取&lt;code&gt;p1...pk&lt;/code&gt;中的任一条边&lt;code&gt;px&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; 图中没有交错路 &lt;em&gt;或者&lt;/em&gt; 图中有交错路，但&lt;code&gt;px&lt;/code&gt;的端点不在交错路中 ：
-将&lt;code&gt;px&lt;/code&gt;标为&lt;font color="red"&gt;红色&lt;/font&gt;。
-返回true。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; 图中有交错路，且&lt;code&gt;px&lt;/code&gt;的端点在交错路中：
-...&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;的另一个端点是交错路的头/尾端点。（重申，交错路是&lt;strong&gt;无向的&lt;/strong&gt;）
-... ...那么，我们可以直接扩展交错路。将&lt;code&gt;px&lt;/code&gt;标为&lt;font color="red"&gt;红色&lt;/font&gt;。
-... ...返回true
-...&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;的另一个端点在交错路的中间。
-... ...则我们在此端点分割交错路，将&lt;code&gt;T&lt;/code&gt;点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;不存在：
-则返回false， 洗洗睡了&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; 图中没有交错路 &lt;em&gt;或者&lt;/em&gt; 图中有交错路，但&lt;code&gt;px&lt;/code&gt;的端点不在交错路中 ：&lt;/p&gt;
+&lt;p&gt;将&lt;code&gt;px&lt;/code&gt;标为&lt;font color="red"&gt;红色&lt;/font&gt;。&lt;/p&gt;
+&lt;p&gt;返回true。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; 图中有交错路，且&lt;code&gt;px&lt;/code&gt;的端点在交错路中：&lt;/p&gt;
+&lt;p&gt;...&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;的另一个端点是交错路的头/尾端点。（重申，交错路是&lt;strong&gt;无向的&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;... ...那么，我们可以直接扩展交错路。将&lt;code&gt;px&lt;/code&gt;标为&lt;font color="red"&gt;红色&lt;/font&gt;。&lt;/p&gt;
+&lt;p&gt;... ...返回true&lt;/p&gt;
+&lt;p&gt;...&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;的另一个端点在交错路的中间。&lt;/p&gt;
+&lt;p&gt;... ...则我们在此端点分割交错路，将&lt;code&gt;T&lt;/code&gt;点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果&lt;/em&gt; &lt;code&gt;px&lt;/code&gt;不存在：&lt;/p&gt;
+&lt;p&gt;则返回false， 洗洗睡了&lt;/p&gt;
 &lt;p&gt;所以我们在每一次操作之后，会得到一个返回值。如果为true，则匹配数&lt;code&gt;+1&lt;/code&gt;。反之则不变。&lt;/p&gt;
 &lt;p&gt;p.s. 我觉得我的证明我自己都TMD看不懂。。。好挫败。。。&lt;/p&gt;
 &lt;h2&gt;代码&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//左集端点数，右集端点数&lt;/span&gt;
-&lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 边集
-char inPath&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 是否在交错路中
-int match&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 只存储黑色路径
-int hungary()
-{
-    int sum = 0; // 总数标为0
-    for (int i = 0; i &lt;span class="nt"&gt;&amp;lt; n&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt; &lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;++)&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
-        &lt;span class="na"&gt;memset&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;inPath&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt; &lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;inPath&lt;/span&gt;&lt;span class="err"&gt;));&lt;/span&gt; &lt;span class="err"&gt;//&lt;/span&gt; &lt;span class="err"&gt;新加入的点不在任何交错路中&lt;/span&gt;
-        &lt;span class="na"&gt;sum&lt;/span&gt; &lt;span class="err"&gt;+=&lt;/span&gt; &lt;span class="na"&gt;deal&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;)?&lt;/span&gt; &lt;span class="na"&gt;1:&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
-    &lt;span class="err"&gt;}&lt;/span&gt;
-    &lt;span class="na"&gt;return&lt;/span&gt; &lt;span class="na"&gt;sum&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
-&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//左集端点数，右集端点数&lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="c1"&gt;// 边集&lt;/span&gt;
+&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="no"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; 
+&lt;span class="c1"&gt;// 是否在交错路中&lt;/span&gt;
+&lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="no"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="c1"&gt;// 只存储黑色路径 &lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="no"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; 
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;hungary&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// 总数标为0&lt;/span&gt;
+    &lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// 新加入的点不在任何交错路中&lt;/span&gt;
+        &lt;span class="n"&gt;memset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt; 
+        &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;deal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -64,7 +70,8 @@ int hungary()
     &lt;span class="c1"&gt;// 遍历所有的边&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 如果点在交错路中，pass&lt;/span&gt;
+        &lt;span class="c1"&gt;// 如果点在交错路中，pass&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
         &lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
         &lt;span class="c1"&gt;// 如果找到一个不在交错路中的点，将其加入交错路，此轮算法结束&lt;/span&gt;
@@ -81,9 +88,9 @@ int hungary()
 
 
 &lt;h2&gt;参考&lt;/h2&gt;
-&lt;p&gt;byvoid: &lt;a href="https://www.byvoid.com/blog/hungary"&gt;匈牙利算法&lt;/a&gt;
-Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;
-wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;h1&gt;啥？&lt;/h1&gt;
+&lt;p&gt;byvoid: &lt;a href="https://www.byvoid.com/blog/hungary"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;h1&gt;啥？&lt;/h1&gt;
 &lt;p&gt;&lt;a href="http://codeforces.com/problemset/problem/3/C"&gt;Tic-tac-toe&lt;/a&gt;是我很久之前在CF上做的一道题。非常考细心的模拟题。&lt;/p&gt;
 &lt;p&gt;最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。&lt;/p&gt;
 &lt;h1&gt;原题做法&lt;/h1&gt;
