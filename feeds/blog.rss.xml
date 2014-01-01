@@ -28,26 +28,21 @@
 &lt;p&gt;因为我们要求出最大匹配，所以我们设完成匹配的边为红色。&lt;/p&gt;
 &lt;h3&gt;你可以证明你的算法吗&lt;/h3&gt;
 &lt;p&gt;我们选取左集端点&lt;code&gt;T&lt;/code&gt;到图中，此时图中有&lt;code&gt;k&lt;/code&gt;条边与点&lt;code&gt;T&lt;/code&gt;连接。这&lt;code&gt;k&lt;/code&gt;条边分别为&lt;code&gt;p1...pk&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;选取&lt;/span&gt;&lt;span class="n"&gt;p1&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="err"&gt;中的任一条边&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;
-
-&lt;span class="err"&gt;如果&lt;/span&gt; &lt;span class="err"&gt;图中没有交错路&lt;/span&gt; &lt;span class="err"&gt;或者&lt;/span&gt; &lt;span class="err"&gt;图中有交错路但&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;的端点不在交错路中&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt;
-    &lt;span class="err"&gt;将&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;标为红色&lt;/span&gt;
-    &lt;span class="err"&gt;返回&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
-
-&lt;span class="err"&gt;如果&lt;/span&gt; &lt;span class="err"&gt;图中有交错路，且&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;的端点在交错路中：&lt;/span&gt;
-    &lt;span class="err"&gt;如果&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;的另一个端点是交错路的头&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;尾端点。（重申，交错路是无向的）&lt;/span&gt;
-        &lt;span class="err"&gt;那么，我们可以直接扩展交错路。&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;标为红色&lt;/span&gt;
-        &lt;span class="err"&gt;返回&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
-    &lt;span class="err"&gt;如果&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;的另一个端点在交错路的中间。&lt;/span&gt;
-        &lt;span class="err"&gt;则我们在此端点分割交错路，将&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="err"&gt;点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作&lt;/span&gt;
-
-&lt;span class="err"&gt;如果&lt;/span&gt; &lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="err"&gt;不存在：&lt;/span&gt;
-    &lt;span class="err"&gt;则返回&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt; &lt;span class="err"&gt;洗洗睡了&lt;/span&gt;
-
-&lt;span class="err"&gt;所以我们在每一次操作之后，会得到一个返回值。如果为&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="err"&gt;，则匹配数&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="err"&gt;。反之则不变。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
+&lt;p&gt;&lt;code&gt;
+选取p1...pk中的任一条边px&lt;/p&gt;
+&lt;p&gt;如果 图中没有交错路 或者 图中有交错路但px的端点不在交错路中 ：
+    将px标为红色
+    返回true。&lt;/p&gt;
+&lt;p&gt;如果 图中有交错路，且px的端点在交错路中：
+    如果 px的另一个端点是交错路的头/尾端点。（重申，交错路是无向的）
+        那么，我们可以直接扩展交错路。px标为红色
+        返回true
+    如果 px的另一个端点在交错路的中间。
+        则我们在此端点分割交错路，将T点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作&lt;/p&gt;
+&lt;p&gt;如果 px不存在：
+    则返回false， 洗洗睡了&lt;/p&gt;
+&lt;p&gt;所以我们在每一次操作之后，会得到一个返回值。如果为true，则匹配数+1。反之则不变。
+&lt;/code&gt; &lt;/p&gt;
 &lt;p&gt;p.s. 我觉得我的证明我自己都TMD看不懂。。。好挫败。。。&lt;/p&gt;
 &lt;h2&gt;代码&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//左集端点数，右集端点数&lt;/span&gt;
