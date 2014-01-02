@@ -86,25 +86,38 @@
             <article>
                 <h2><a href="http://wizmann.tk/cf-3c-tic-tac-toe.html">Codeforces 3C - Tic-tac-toe</a></h2>
                 <div class="summary">
-                    <h1>啥？</h1>
+                    <p>Date: 2013-12-29 20:23
+Title: Codeforces 3C - Tic-tac-toe
+Tags: codeforces, algorithm, 算法, 设计模式
+Slug: cf-3c-tic-tac-toe</p>
+
+<h1>啥？</h1>
+
 <p><a href="http://codeforces.com/problemset/problem/3/C">Tic-tac-toe</a>是我很久之前在CF上做的一道题。非常考细心的模拟题。</p>
+
 <p>最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。</p>
+
 <h1>原题做法</h1>
+
 <p>没有任何“算法”成分。纯模拟。</p>
+
 <p>又由于数据量实在是太小（3 × 3的矩阵），所以只要是思路正确。代码怎么写都能过。</p>
+
 <p>于是在这里就不赘述。手快的众位10分钟切此题无压力。</p>
-<h1>What's new?</h1>
+
+<h1>What&#39;s new?</h1>
+
 <p>如果我们扩展一下这个问题。如果让你设计一个Tic-tac-toe的对战系统（人机对战、人人对战等），你将如何设计？</p>
+
 <h1>the STATE pattern</h1>
+
 <p>我们可以看出，这个对战系统其实可以用一个状态机来表示。</p>
-<p><img alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" /></p>
+
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png"></p>
+
 <p>于是我们的对战系统也可以写成一个状态机的模式。</p>
-<h1>show me the CODE</h1>
-<p>首先我们声明一个<code>State</code>接口类型。</p>
-<p>由于Tic-tac-toe游戏只有两种操作类型：<code>P1 move</code>和<code>P2 move</code>。</p>
-<p>所以我们的接口就很简单。</p>
-<div class="highlight"><pre><span class="n">class</span> <span class="n">State</span> <span class="p">{</span>
-<span class="nl">public ...</span></pre></div>
+
+<h1>show me ...</h1>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-3c-tic-tac-toe.html">more ...</a>
                 </div>
             </article>
@@ -132,13 +145,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -147,8 +160,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -157,18 +170,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -177,38 +190,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/encrypted.html">
                         encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -217,8 +205,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -227,8 +220,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -237,8 +240,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
 

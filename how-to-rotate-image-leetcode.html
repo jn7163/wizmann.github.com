@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="How to "Rotate Image"?"/>
             <meta property="og:url" content="http://wizmann.tk/how-to-rotate-image-leetcode.html"/>
-            <meta property="og:description" content="啥？ 原题戳我 Rotate Image You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees (clockwise). Follow up: Could you do this in-place? 示意图如下： 当然，矩阵中的数字不一定是规律的。 为什么要提出这个问题 自觉是一个不聪明的人（双低。。。<(=＠_＠;=)?>）。 别人一下子就想明白的事，在我这里要计算好几个来回。 所以努力想找到一个思维方法去弥补这个不足。 就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。 初步思路 ..."/>
+            <meta property="og:description" content="Date: 2013-12-28 14:42 Title: How to “Rotate Image”? Tags: Leetcode, algorithm, 思维 Slug: how-to-rotate-image-leetcode 啥？ 原题戳我 Rotate Image You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees (clockwise). Follow up: Could you do this in-place? 示意图如下： 当然，矩阵中的数字不一定 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -113,44 +113,82 @@
 	<a href="http://wizmann.tk/tag/si-wei.html">思维</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h2>啥？</h2>
+                <p>Date: 2013-12-28 14:42
+Title: How to &ldquo;Rotate Image&rdquo;?
+Tags: Leetcode, algorithm, 思维
+Slug: how-to-rotate-image-leetcode</p>
+
+<h2>啥？</h2>
+
 <p>原题<a href="http://oj.leetcode.com/problems/rotate-image/">戳我</a></p>
+
 <blockquote>
 <p>Rotate Image</p>
+
 <p>You are given an n x n 2D matrix representing an image.</p>
+
 <p>Rotate the image by 90 degrees (clockwise).</p>
+
 <p>Follow up:</p>
+
 <p>Could you do this in-place?</p>
 </blockquote>
+
 <p>示意图如下：</p>
-<p><img alt="rotate-image" src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" /></p>
+
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" alt="rotate-image"></p>
+
 <p>当然，矩阵中的数字<strong>不一定</strong>是规律的。</p>
+
 <h2>为什么要提出这个问题</h2>
+
 <p>自觉是一个<strong>不聪明</strong>的人（双低。。。&lt;(=＠_＠;=)?&gt;）。</p>
+
 <p>别人一下子就想明白的事，在我这里要计算好几个来回。</p>
+
 <p>所以努力想找到一个思维方法去弥补这个不足。</p>
+
 <p>就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。</p>
+
 <h2>初步思路</h2>
+
 <p>由于不可以使用<strong>额外的空间</strong>。所以必须找到一个坐标映射<code>f(x, y) =&gt; (next_x, next_y)</code>。</p>
+
 <p>这样，我们就可以通过循环来<code>swap</code>矩阵中的元素。</p>
+
 <h2>遇到问题</h2>
+
 <p>如何确定映射<code>f(x, y)</code>？</p>
+
 <p>由于我的思维不能支持我在头脑中形成正确的公式。</p>
+
 <p>于是我想到，因为我们要求的变换是在二维矩阵中的简单移位。所以我们可以做出如下一个方程。</p>
+
 <p><code>f(x, y) = (ax + by + c, dx + ey + f)</code></p>
+
 <p>然后找出特殊点，代入方程中，求出<code>a</code>到<code>f</code>各自代表的值。</p>
+
 <p>于是求出映射<code>f(x, y) =&gt; (y, n - x)</code>。</p>
+
 <p>即可以分解为：<code>reverse_X(Matrix.T)</code></p>
+
 <h2>思考方式</h2>
+
 <p>以上的方法是我失败了N次之后才想到的。（弱。。。）</p>
+
 <p>于是我又有了进一步的思考。</p>
+
 <p>这样的思考方式是不是最佳的。如果大家遇到这样的问题，会用什么巧妙的方法去思考，去优雅的解决问题。</p>
+
 <p>不过要记得我们的条件</p>
+
 <ul>
 <li>矩阵顺时针旋转90度</li>
 <li>in-place变换，不得使用额外的空间</li>
 </ul>
+
 <p>欢迎大家提出自己的看法。代码请贴到<a href="https://gist.github.com/">gist</a>或<a href="http://lpaste.net/">hpaste</a>等网站上，不要把代码直接写到评论中，我会及时update本文，展示大家的想法。</p>
+
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -202,13 +240,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -217,8 +255,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -227,18 +265,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -247,38 +285,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/encrypted.html">
                         encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -287,8 +300,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -297,8 +315,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -307,8 +335,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
 

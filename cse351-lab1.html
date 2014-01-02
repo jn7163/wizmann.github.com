@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="CSE351 - Lab 1: Manipulating Bits Using C"/>
             <meta property="og:url" content="http://wizmann.tk/cse351-lab1.html"/>
-            <meta property="og:description" content="今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。 以上是前言。 bitAnd & bitOr 德摩根定理的应用 /* * bitAnd - x&y using only ~ and | * Example: bitAnd(6, 5) = 4 * Legal ops: ~ | * Max ops: 8 * Rating: 1 */ int bitAnd(int x, int y) { return ~(~x | ~y); /* * bitOr - x|y using only ~ and & * Example: bitOr(6, 5) = 7 * Legal ops: ~ & * Max ops: 8 ..."/>
+            <meta property="og:description" content="Date: 2013-11-27 Title: CSE351 - Lab 1: Manipulating Bits Using C Tags: CSE351, 公开课 Slug: cse351-lab1 今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。 以上是前言。 bitAnd & bitOr 德摩根定理的应用 /* * bitAnd - x&y using only ~ and | * Example: bitAnd(6, 5) = 4 * Legal ops: ~ | * Max ops: 8 * Rating: 1 */ int bitAnd(int x, int y) { return ~(~x | ~y); /* * bitOr ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -111,10 +111,19 @@
 	<a href="http://wizmann.tk/tag/gong-kai-ke.html">公开课</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。</p>
+                <p>Date: 2013-11-27
+Title: CSE351 - Lab 1: Manipulating Bits Using C
+Tags: CSE351, 公开课
+Slug: cse351-lab1</p>
+
+<p>今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。</p>
+
 <p>以上是前言。</p>
-<hr />
+
+<hr>
+
 <h3>bitAnd &amp; bitOr</h3>
+
 <p>德摩根定理的应用</p>
 <div class="highlight"><pre><span class="cm">/* </span>
 <span class="cm"> * bitAnd - x&amp;y using only ~ and | </span>
@@ -126,8 +135,6 @@
 <span class="kt">int</span> <span class="nf">bitAnd</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="o">~</span><span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">|</span> <span class="o">~</span><span class="n">y</span><span class="p">);</span>
 </pre></div>
-
-
 <div class="highlight"><pre><span class="cm">/* </span>
 <span class="cm"> * bitOr - x|y using only ~ and &amp; </span>
 <span class="cm"> *   Example: bitOr(6, 5) = 7</span>
@@ -140,13 +147,18 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>isTmax</h3>
+
 <p>因为</p>
+
 <p><code>Tmax == INT_MAX == 0x7fff ffff</code></p>
+
 <p>=&gt; <code>INT_MAX + INT_MAX + 2 == 0</code></p>
+
 <p>又因为<code>-1 == 0xffff ffff</code></p>
+
 <p>=&gt; <code>-1 + -1 + 2 = 0</code></p>
+
 <p>于是我们还要加一条判断是否是-1的逻辑。</p>
 <div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * isTmax - returns 1 if x is the maximum, two&#39;s complement number,</span>
@@ -160,7 +172,6 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>isZero</h3>
 <div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * isZero - returns 1 if x == 0, and 0 otherwise </span>
@@ -173,7 +184,6 @@
   <span class="k">return</span> <span class="o">!</span><span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
 
 <h3>fitsBits</h3>
 <div class="highlight"><pre><span class="cm">/* </span>
@@ -191,7 +201,6 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>getByte</h3>
 <div class="highlight"><pre><span class="cm">/* </span>
 <span class="cm"> * getByte - Extract byte n from word x</span>
@@ -206,40 +215,41 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>isNegative</h3>
-<p>找到符号位</p>
-<div class="highlight"><pre><span class="cm">/* </span>
-<span class="cm"> * isNegative - return 1 if x &lt; 0, return 0 otherwise </span>
-<span class="cm"> *   Example: isNegative(-1) = 1.</span>
-<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
-<span class="cm"> *   Max ops: 6</span>
-<span class="cm"> *   Rating: 2</span>
-<span class="cm"> */</span>
-<span class="kt">int</span> <span class="nf">isNegative</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
 
+<p>找到符号位
+<code>cpp
+/* 
+ * isNegative - return 1 if x &lt; 0, return 0 otherwise 
+ *   Example: isNegative(-1) = 1.
+ *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+ *   Max ops: 6
+ *   Rating: 2
+ */
+int isNegative(int x) {
+    return !!(x &amp; (1 &lt;&lt; 31));
+}
+</code></p>
 
 <h3>addOK</h3>
-<p>如果a和b同号，且a + b与a异号，则不可以加</p>
-<div class="highlight"><pre><span class="cm">/* </span>
-<span class="cm"> * addOK - Determine if can compute x+y without overflow</span>
-<span class="cm"> *   Example: addOK(0x80000000,0x80000000) = 0,</span>
-<span class="cm"> *            addOK(0x80000000,0x70000000) = 1, </span>
-<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
-<span class="cm"> *   Max ops: 20</span>
-<span class="cm"> *   Rating: 3</span>
-<span class="cm"> */</span>
-<span class="kt">int</span> <span class="nf">addOK</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">sx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">sy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">return</span>  <span class="o">!</span><span class="p">((</span><span class="o">!</span><span class="p">(</span><span class="n">sx</span> <span class="o">^</span> <span class="n">sy</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sx</span> <span class="o">^</span> <span class="n">sum</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
 
+<p>如果a和b同号，且a + b与a异号，则不可以加
+<code>cpp
+/* 
+ * addOK - Determine if can compute x+y without overflow
+ *   Example: addOK(0x80000000,0x80000000) = 0,
+ *            addOK(0x80000000,0x70000000) = 1, 
+ *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+ *   Max ops: 20
+ *   Rating: 3
+ */
+int addOK(int x, int y) {
+    int sum = ((x + y) &gt;&gt; 31) &amp; 1;
+    int sx = (x &gt;&gt; 31) &amp; 1;
+    int sy = (y &gt;&gt; 31) &amp; 1;
+    return  !((!(sx ^ sy)) &amp; (sx ^ sum));
+}
+</code></p>
 
 <h3>isGreater</h3>
 <div class="highlight"><pre><span class="cm">/* </span>
@@ -258,7 +268,6 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>replaceByte</h3>
 <div class="highlight"><pre><span class="cm">/* </span>
 <span class="cm"> * replaceByte(x,n,c) - Replace byte n in x with c</span>
@@ -273,7 +282,6 @@
   <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="mi">0</span> <span class="o">^</span> <span class="mh">0xFF</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)))</span> <span class="o">|</span> <span class="p">(</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
-
 
 <h3>rotateLeft</h3>
 <div class="highlight"><pre><span class="cm">/* </span>
@@ -291,8 +299,8 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>bitCount</h3>
+
 <p>这个是从<a href="http://stackoverflow.com/a/3815253/2927439">stackoverflow</a>上找来的答案，很厉害，不过还没看明白为啥。</p>
 <div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * bitCount - returns count of number of 1&#39;s in word</span>
@@ -312,23 +320,27 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>isNonZero</h3>
+
 <p><code>(~x + 1) == -x</code></p>
+
 <p>=&gt; <code>x | -x</code>的符号位为负</p>
-<p>对于特殊数据<code>INT_MIN</code>也可以处理</p>
-<div class="highlight"><pre><span class="cm">/* </span>
-<span class="cm"> * isNonZero - Check whether x is nonzero using</span>
-<span class="cm"> *              the legal operators except !</span>
-<span class="cm"> *   Examples: isNonZero(3) = 1, isNonZero(0) = 0</span>
-<span class="cm"> *   Legal ops: ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
-<span class="cm"> *   Max ops: 10</span>
-<span class="cm"> *   Rating: 4 </span>
-<span class="cm"> */</span>
-<span class="kt">int</span> <span class="nf">isNonZero</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">((</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+
+<p>对于特殊数据<code>INT_MIN</code>也可以处理
+<code>cpp
+/* 
+ * isNonZero - Check whether x is nonzero using
+ *              the legal operators except !
+ *   Examples: isNonZero(3) = 1, isNonZero(0) = 0
+ *   Legal ops: ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+ *   Max ops: 10
+ *   Rating: 4 
+ */
+int isNonZero(int x) {
+    return ((x | (~x + 1)) &gt;&gt; 31) &amp; 1;
+}
+</code></p>
+
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -380,13 +392,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -395,8 +407,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -405,18 +417,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -425,38 +437,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/encrypted.html">
                         encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -465,8 +452,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -475,8 +467,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -485,8 +487,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
 

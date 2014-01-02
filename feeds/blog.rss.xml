@@ -1,34 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 01 Jan 2014 22:01:00 +0800</lastBuildDate><item><title>匈牙利算法</title><link>http://wizmann.tk/hungary-algorithm.html</link><description>&lt;h2&gt;概念&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 01 Jan 2014 22:01:00 +0800</lastBuildDate><item><title>匈牙利算法</title><link>http://wizmann.tk/hungary-algorithm.html</link><description>&lt;p&gt;Date: 2014-01-01 22:01
+Title: 匈牙利算法
+Tags: algorithm
+Slug: hungary-algorithm&lt;/p&gt;
+
+&lt;h2&gt;概念&lt;/h2&gt;
+
 &lt;h3&gt;交错路&lt;/h3&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;交错路：设P是图G的一条路，如果P的任意两条相邻的边一定是一条属于M而另一条不属于M，就称P是一条交错路。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;通俗点来说，就是把一个图中的路径染成红黑两种。然后找出一条路，使这条路&lt;strong&gt;红黑交错&lt;/strong&gt;。&lt;/p&gt;
+
 &lt;p&gt;注：交错路是无向图，图中的箭头只是为了便于观察。&lt;/p&gt;
+
 &lt;p&gt;例如下图中的：&lt;code&gt;(3) -&amp;gt; (2) -&amp;gt; (1)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="图1" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png" alt="图1"&gt;&lt;/p&gt;
+
 &lt;h3&gt;从端点扩张交错路&lt;/h3&gt;
+
 &lt;p&gt;假设我们已经有一个红黑交错路&lt;code&gt;P&lt;/code&gt;，其端点为&lt;code&gt;A&lt;/code&gt;和&lt;code&gt;B&lt;/code&gt;，其路径被标记为&lt;code&gt;黑红&lt;/code&gt;。此时，我们向&lt;code&gt;P&lt;/code&gt;中的一个端点（假设为&lt;code&gt;A&lt;/code&gt;）加入一条边&lt;code&gt;T&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;此时我们有&lt;code&gt;边T + 交错路P（黑红）&lt;/code&gt;。当我们将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;时，我们就扩展了交错路&lt;code&gt;P&lt;/code&gt;。
 如果我们要保持红黑交错路的&lt;strong&gt;性质&lt;/strong&gt;。则我们必须将边&lt;code&gt;T&lt;/code&gt;标记为&lt;code&gt;黑色&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;于是&lt;code&gt;P（BR） =&amp;gt; P'(BRB)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="图2" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-2.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;于是&lt;code&gt;P（BR） =&amp;gt; P&amp;#39;(BRB)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-2.png" alt="图2"&gt;&lt;/p&gt;
+
 &lt;h3&gt;分割交错路&lt;/h3&gt;
+
 &lt;p&gt;易得，分割交错路不会改变它的性质。&lt;/p&gt;
+
 &lt;h3&gt;我们要红还是要黑&lt;/h3&gt;
+
 &lt;p&gt;如果我们翻转红黑交错路的颜色，例如从&lt;code&gt;RBR =&amp;gt; BRB&lt;/code&gt;，则我们的交错路仍然&lt;strong&gt;保持原来的性质&lt;/strong&gt;。&lt;/p&gt;
+
 &lt;p&gt;所以翻转颜色是安全的。&lt;/p&gt;
+
 &lt;h2&gt;算法实现&lt;/h2&gt;
+
 &lt;h3&gt;匹配&lt;/h3&gt;
+
 &lt;p&gt;匈牙利算法是用来求二分图最大匹配的算法。&lt;/p&gt;
+
 &lt;p&gt;于是我们人为标记集合中的点为&lt;code&gt;左集&lt;/code&gt;和&lt;code&gt;右集&lt;/code&gt;。&lt;/p&gt;
+
 &lt;h3&gt;红色是种好颜色&lt;/h3&gt;
+
 &lt;p&gt;由于&lt;code&gt;红黑交错路&lt;/code&gt;可以安全的翻转颜色。所以我们保持交错路中&lt;strong&gt;红色路多于黑色路&lt;/strong&gt;的性质也是安全的。&lt;/p&gt;
+
 &lt;p&gt;因为我们要求出最大匹配，所以我们设完成匹配的边为红色。&lt;/p&gt;
+
 &lt;h3&gt;你可以证明你的算法吗&lt;/h3&gt;
+
 &lt;p&gt;我们选取左集端点&lt;code&gt;T&lt;/code&gt;到图中，此时图中有&lt;code&gt;k&lt;/code&gt;条边与点&lt;code&gt;T&lt;/code&gt;连接。这&lt;code&gt;k&lt;/code&gt;条边分别为&lt;code&gt;p1...pk&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;选取p1...pk中的任一条边px
+
+&lt;pre&gt;&lt;code&gt;选取p1...pk中的任一条边px
 
 如果 图中没有交错路 或者 图中有交错路但px的端点不在交错路中 ：
     将px标为红色
@@ -44,28 +75,25 @@
 如果 px不存在：
     则返回false， 洗洗睡了
 
-所以我们在每一次操作之后，会得到一个返回值。如果为true，则匹配数+1。反之则不变。
-&lt;/pre&gt;&lt;/div&gt;
-
+所以我们在每一次操作之后，会得到一个返回值。如果为true，则匹配数+1。反之则不变。&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;p.s. 我觉得我的证明我自己都TMD看不懂。。。好挫败。。。&lt;/p&gt;
+
 &lt;h2&gt;代码&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//左集端点数，右集端点数&lt;/span&gt;
-&lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 边集
-char inPath&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 是否在交错路中
-int match&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;SIZE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;; // 只存储黑色路径
-int hungary()
-{
-    int sum = 0; // 总数标为0
-    for (int i = 0; i &lt;span class="nt"&gt;&amp;lt; n&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt; &lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;++)&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
-        &lt;span class="na"&gt;memset&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;inPath&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt; &lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;inPath&lt;/span&gt;&lt;span class="err"&gt;));&lt;/span&gt; &lt;span class="err"&gt;//&lt;/span&gt; &lt;span class="err"&gt;新加入的点不在任何交错路中&lt;/span&gt;
-        &lt;span class="na"&gt;sum&lt;/span&gt; &lt;span class="err"&gt;+=&lt;/span&gt; &lt;span class="na"&gt;deal&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;)?&lt;/span&gt; &lt;span class="na"&gt;1:&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
-    &lt;span class="err"&gt;}&lt;/span&gt;
-    &lt;span class="na"&gt;return&lt;/span&gt; &lt;span class="na"&gt;sum&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
-&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//左集端点数，右集端点数&lt;/span&gt;
+&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;// 边集&lt;/span&gt;
+&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;// 是否在交错路中&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;// 只存储黑色路径&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;hungary&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 总数标为0&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;memset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;inPath&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt; &lt;span class="c1"&gt;// 新加入的点不在任何交错路中&lt;/span&gt;
+        &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;deal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;deal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="c1"&gt;// 遍历所有的边&lt;/span&gt;
@@ -86,38 +114,60 @@ int hungary()
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;参考&lt;/h2&gt;
+
 &lt;p&gt;byvoid: &lt;a href="https://www.byvoid.com/blog/hungary"&gt;匈牙利算法&lt;/a&gt;
 Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;
-wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;h1&gt;啥？&lt;/h1&gt;
+wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;p&gt;Date: 2013-12-29 20:23
+Title: Codeforces 3C - Tic-tac-toe
+Tags: codeforces, algorithm, 算法, 设计模式
+Slug: cf-3c-tic-tac-toe&lt;/p&gt;
+
+&lt;h1&gt;啥？&lt;/h1&gt;
+
 &lt;p&gt;&lt;a href="http://codeforces.com/problemset/problem/3/C"&gt;Tic-tac-toe&lt;/a&gt;是我很久之前在CF上做的一道题。非常考细心的模拟题。&lt;/p&gt;
+
 &lt;p&gt;最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。&lt;/p&gt;
+
 &lt;h1&gt;原题做法&lt;/h1&gt;
+
 &lt;p&gt;没有任何“算法”成分。纯模拟。&lt;/p&gt;
+
 &lt;p&gt;又由于数据量实在是太小（3 × 3的矩阵），所以只要是思路正确。代码怎么写都能过。&lt;/p&gt;
+
 &lt;p&gt;于是在这里就不赘述。手快的众位10分钟切此题无压力。&lt;/p&gt;
-&lt;h1&gt;What's new?&lt;/h1&gt;
+
+&lt;h1&gt;What&amp;#39;s new?&lt;/h1&gt;
+
 &lt;p&gt;如果我们扩展一下这个问题。如果让你设计一个Tic-tac-toe的对战系统（人机对战、人人对战等），你将如何设计？&lt;/p&gt;
+
 &lt;h1&gt;the STATE pattern&lt;/h1&gt;
+
 &lt;p&gt;我们可以看出，这个对战系统其实可以用一个状态机来表示。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png"&gt;&lt;/p&gt;
+
 &lt;p&gt;于是我们的对战系统也可以写成一个状态机的模式。&lt;/p&gt;
+
 &lt;h1&gt;show me the CODE&lt;/h1&gt;
+
 &lt;p&gt;首先我们声明一个&lt;code&gt;State&lt;/code&gt;接口类型。&lt;/p&gt;
+
 &lt;p&gt;由于Tic-tac-toe游戏只有两种操作类型：&lt;code&gt;P1 move&lt;/code&gt;和&lt;code&gt;P2 move&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;所以我们的接口就很简单。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;State&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;State&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="nl"&gt;public:&lt;/span&gt;
     &lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;igame&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;igame&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
+    &lt;span class="k"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;virtual&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;State&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
 &lt;span class="nl"&gt;protected:&lt;/span&gt;
     &lt;span class="n"&gt;Game&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="nl"&gt;private:&lt;/span&gt;
@@ -125,126 +175,128 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;那么&lt;code&gt;FirstState&lt;/code&gt;的实现如下：
+&amp;ldquo;cpp
+class FirstState: public State {
+public:
+    virtual int first(int x, int y);
+    virtual int second(int x, int y);
+    virtual void show_state() {
+        print(&amp;quot;FirstState&amp;rdquo;);
+    }
+};&lt;/p&gt;
 
-&lt;p&gt;那么&lt;code&gt;FirstState&lt;/code&gt;的实现如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;FirstState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;State&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="nl"&gt;public:&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;FirstState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;p&gt;int FirstState::first(int x, int y) {
+    int res = game -&amp;gt; make_move(x, y, FIRST);
+    if (res == ILLEGAL) {
+        game -&amp;gt; set_state(ILLEGAL);
+        return ILLEGAL;
+    }
+    int next = game -&amp;gt; next();
+    switch(next) {
+        case SECOND:
+            game -&amp;gt; set_state(SECOND);
+            break;
+        case FIRST_WIN:
+            game -&amp;gt; set_state(FIRST_WIN);
+            break;
+        case DRAW:
+            game -&amp;gt; set_state(DRAW);
+            break;
+        default:
+            game -&amp;gt; set_state(ILLEGAL);
+            break;
+    }
+    return 0;
+}&lt;/p&gt;
 
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;FirstState&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;make_move&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;FIRST&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="k"&gt;switch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;SECOND&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SECOND&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;FIRST_WIN&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FIRST_WIN&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;DRAW&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DRAW&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="nl"&gt;default:&lt;/span&gt;
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;p&gt;int FirstState::second(int x, int y) {
+    // P2不能操作
+    return ILLEGAL;
+}
+&amp;ldquo;&lt;/p&gt;
 
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;FirstState&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// P2不能操作&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;同理，&lt;code&gt;SecondState&lt;/code&gt;的实现：
+&amp;rdquo;cpp
+class SecondState: public State {
+public:
+    virtual int first(int x, int y); 
+    virtual int second(int x, int y);&lt;/p&gt;
 
+&lt;pre&gt;&lt;code&gt;virtual void show_state() {
+    print("SecondState");
+}&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;同理，&lt;code&gt;SecondState&lt;/code&gt;的实现：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;SecondState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;State&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="nl"&gt;public:&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;p&gt;};&lt;/p&gt;
 
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SecondState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;p&gt;int SecondState::first(int x, int y) {
+    // P1不能操作
+    return ILLEGAL;
+}&lt;/p&gt;
 
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;SecondState&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// P1不能操作&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;p&gt;int SecondState::second(int x, int y) {
+    int res = game -&amp;gt; make_move(x, y, SECOND);
+    if (res == ILLEGAL) {
+        return ILLEGAL;
+    }&lt;/p&gt;
 
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;SecondState&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;make_move&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SECOND&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;pre&gt;&lt;code&gt;int next = game -&amp;gt; next();
+switch(next) {
+    case FIRST:
+        game -&amp;gt; set_state(FIRST);
+        break;
+    case SECOND_WIN:
+        game -&amp;gt; set_state(SECOND_WIN);
+        break;
+    case DRAW:
+        game -&amp;gt; set_state(DRAW);
+        break;
+    default:
+        game -&amp;gt; set_state(ILLEGAL);
+}
+return 0;&lt;/code&gt;&lt;/pre&gt;
 
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="k"&gt;switch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;FIRST&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FIRST&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;SECOND_WIN&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SECOND_WIN&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;DRAW&lt;/span&gt;:
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DRAW&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="nl"&gt;default:&lt;/span&gt;
-            &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;}
+&amp;ldquo;&lt;/p&gt;
 
+&lt;p&gt;对于结束状态，因为所有的操作都是非法的。我们可以如下实现：
+&amp;rdquo;cpp
+class EndState: public State {
+public:
+    virtual int first(int x, int y) {
+        return ILLEGAL;
+    }
+    virtual int second(int x,int y) {
+        return ILLEGAL;
+    }
+};&lt;/p&gt;
 
-&lt;p&gt;对于结束状态，因为所有的操作都是非法的。我们可以如下实现：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;EndState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;State&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="nl"&gt;public:&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-
-&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;FirstWinState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;EndState&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;FirstWinState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;SecondWinState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;EndState&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SecondWinState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;DrawState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;      &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;EndState&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DrawState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;IllegalState&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;   &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;EndState&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;virtual&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;show_state&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;IllegalState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;p&gt;class FirstWinState:  public EndState {
+    virtual void show_state() {
+        print(&amp;ldquo;FirstWinState&amp;rdquo;);
+    }
+};
+class SecondWinState: public EndState {
+    virtual void show_state() {
+        print(&amp;ldquo;SecondWinState&amp;rdquo;);
+    }
+};
+class DrawState:      public EndState {
+    virtual void show_state() {
+        print(&amp;ldquo;DrawState&amp;rdquo;);
+    }
+};
+class IllegalState:   public EndState {
+    virtual void show_state() {
+        print(&amp;ldquo;IllegalState&amp;rdquo;);
+    }
+};
+&amp;ldquo;&lt;/p&gt;
 
 &lt;p&gt;到这里，状态机里的所有状态我们都已经声明好了。&lt;/p&gt;
+
 &lt;p&gt;于是我们开始实现&lt;code&gt;Game&lt;/code&gt;类。因为是示例代码，所以有的函数都内联了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;Game&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Game&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="nl"&gt;public:&lt;/span&gt;
     &lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;next_state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -277,12 +329,12 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
             &lt;span class="n"&gt;board&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="n"&gt;firststate&lt;/span&gt;    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;secondstate&lt;/span&gt;   &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;firstwinstate&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
-    &lt;span class="n"&gt;secondwinstate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;drawstate&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;illegalstate&lt;/span&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;firststate&lt;/span&gt;    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;secondstate&lt;/span&gt;   &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;firstwinstate&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
+    &lt;span class="n"&gt;secondwinstate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;drawstate&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;illegalstate&lt;/span&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_game&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Game&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="c1"&gt;// 在开始的时候，要P1先手&lt;/span&gt;
     &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FIRST&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -474,7 +526,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;最后补上我们的常量声明：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ILLEGAL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;DRAW&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -484,87 +535,173 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;SECOND_WIN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;how it works&lt;/h2&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;状态模式： 允许对象在内部状态改变时改变它的行为，对象看起来好象修改了它的类   &lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;&lt;code&gt;class Game&lt;/code&gt;中的&lt;code&gt;state_ptr&lt;/code&gt;指针标示了当然自动机的状态。从&lt;code&gt;class Game&lt;/code&gt;调用&lt;code&gt;first&lt;/code&gt;和&lt;code&gt;second&lt;/code&gt;函数的行为被委托给了当前的&lt;code&gt;State&lt;/code&gt;，产生了不同的动作。&lt;/p&gt;
+
 &lt;h2&gt;为什么要这么写&lt;/h2&gt;
+
 &lt;p&gt;从上面的代码可以看出，除了那两个写的像屎一样的函数，我们写了好多看起来&lt;strong&gt;无用&lt;/strong&gt;的代码。如果用别的方法，我们也许在200行之内就可以完成现有的功能。&lt;/p&gt;
+
 &lt;p&gt;但是。。。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;世界上唯一不变的，就是一切都在变&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;使用&lt;strong&gt;状态模式&lt;/strong&gt;，我们可以轻松的扩展现有的状态。并且，对于类的内部动作有一个良好的封装。&lt;/p&gt;
+
 &lt;p&gt;这样，用户在使用我们的状态机时只需要根据需要改变它的状态，并不需要知道它是如何变化的。&lt;/p&gt;
+
 &lt;p&gt;例如，&lt;a href="http://book.douban.com/subject/21964984/"&gt;《领域特定语言》&lt;/a&gt;一书中，就有使用状态模式构建易于被领域专家理解和使用的DSL。&lt;/p&gt;
+
 &lt;p&gt;（p.s. DSL我了解不多，如果理解有偏差，请谅解）&lt;/p&gt;
+
 &lt;h2&gt;参考资料&lt;/h2&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://codeforces.com/problemset/problem/3/C"&gt;Codeforces 3C - Tic-tac-toe&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://book.douban.com/subject/2243615/"&gt;Head First 设计模式&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2&gt;代码下载&lt;/h2&gt;
-&lt;p&gt;&lt;a href="https://s.yunio.com/voeWtA"&gt;云诺网盘 - 戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 20:23:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:cf-3c-tic-tac-toe.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>设计模式</category></item><item><title>这是一篇加密日志</title><link>http://wizmann.tk/this-is-an-encrypted-passage.html</link><description>&lt;p&gt;加密日志使用的是&lt;a href="https://github.com/mindcruzer/pelican-protect-content"&gt;pelican-protect-content&lt;/a&gt;，不过实现方法相当丑。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://s.yunio.com/voeWtA"&gt;云诺网盘 - 戳我&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 20:23:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:cf-3c-tic-tac-toe.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>设计模式</category></item><item><title>这是一篇加密日志</title><link>http://wizmann.tk/this-is-an-encrypted-passage.html</link><description>&lt;p&gt;Date: 2013-12-29 13:12
+Title: 这是一篇加密日志
+Tags: encrypted
+Slug: this-is-an-encrypted-passage
+Password: wozhemeruonizhidaoma&lt;/p&gt;
+
+&lt;p&gt;加密日志使用的是&lt;a href="https://github.com/mindcruzer/pelican-protect-content"&gt;pelican-protect-content&lt;/a&gt;，不过实现方法相当丑。&lt;/p&gt;
+
 &lt;p&gt;不过pelican也没有什么优雅的方法，也许下一个版本会有改观吧。。。&lt;/p&gt;
-&lt;hr /&gt;
+
+&lt;hr&gt;
+
 &lt;p&gt;无聊写点啥呢～&lt;/p&gt;
+
 &lt;p&gt;在学校：&lt;/p&gt;
+
 &lt;p&gt;老师：X同学，请你写个XX算法吧。。。&lt;/p&gt;
+
 &lt;p&gt;（傻逼呵呵的写。。。）&lt;/p&gt;
+
 &lt;p&gt;X同学：写完了！&lt;/p&gt;
+
 &lt;p&gt;老师：请你计算一下在这个算法中，一共使用了几次比较操作？&lt;/p&gt;
+
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
 &lt;p&gt;在国内某公司：&lt;/p&gt;
+
 &lt;p&gt;面试官：X同学，有如下这个场景，请你写个程序求解。。。&lt;/p&gt;
+
 &lt;p&gt;（傻逼呵呵的写。。。）&lt;/p&gt;
+
 &lt;p&gt;X同学：写完了！&lt;/p&gt;
+
 &lt;p&gt;面试官：请把这个算法的常数优化一下。。。&lt;/p&gt;
+
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
 &lt;p&gt;在GG家：&lt;/p&gt;
+
 &lt;p&gt;面试官：X同学，有如下这个场景，请你写个程序求解。。。&lt;/p&gt;
+
 &lt;p&gt;（傻逼呵呵的写。。。）&lt;/p&gt;
+
 &lt;p&gt;X同学：写完了！&lt;/p&gt;
-&lt;p&gt;面试官：请证明一下你的算法是正确的。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 13:12:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:this-is-an-encrypted-passage.html</guid><category>encrypted</category></item><item><title>How to "Rotate Image"?</title><link>http://wizmann.tk/how-to-rotate-image-leetcode.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+
+&lt;p&gt;面试官：请证明一下你的算法是正确的。。。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 13:12:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:this-is-an-encrypted-passage.html</guid><category>encrypted</category></item><item><title>How to "Rotate Image"?</title><link>http://wizmann.tk/how-to-rotate-image-leetcode.html</link><description>&lt;p&gt;Date: 2013-12-28 14:42
+Title: How to &amp;ldquo;Rotate Image&amp;rdquo;?
+Tags: Leetcode, algorithm, 思维
+Slug: how-to-rotate-image-leetcode&lt;/p&gt;
+
+&lt;h2&gt;啥？&lt;/h2&gt;
+
 &lt;p&gt;原题&lt;a href="http://oj.leetcode.com/problems/rotate-image/"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;Rotate Image&lt;/p&gt;
+
 &lt;p&gt;You are given an n x n 2D matrix representing an image.&lt;/p&gt;
+
 &lt;p&gt;Rotate the image by 90 degrees (clockwise).&lt;/p&gt;
+
 &lt;p&gt;Follow up:&lt;/p&gt;
+
 &lt;p&gt;Could you do this in-place?&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;示意图如下：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="rotate-image" src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" alt="rotate-image"&gt;&lt;/p&gt;
+
 &lt;p&gt;当然，矩阵中的数字&lt;strong&gt;不一定&lt;/strong&gt;是规律的。&lt;/p&gt;
+
 &lt;h2&gt;为什么要提出这个问题&lt;/h2&gt;
+
 &lt;p&gt;自觉是一个&lt;strong&gt;不聪明&lt;/strong&gt;的人（双低。。。&amp;lt;(=＠_＠;=)?&amp;gt;）。&lt;/p&gt;
+
 &lt;p&gt;别人一下子就想明白的事，在我这里要计算好几个来回。&lt;/p&gt;
+
 &lt;p&gt;所以努力想找到一个思维方法去弥补这个不足。&lt;/p&gt;
+
 &lt;p&gt;就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。&lt;/p&gt;
+
 &lt;h2&gt;初步思路&lt;/h2&gt;
+
 &lt;p&gt;由于不可以使用&lt;strong&gt;额外的空间&lt;/strong&gt;。所以必须找到一个坐标映射&lt;code&gt;f(x, y) =&amp;gt; (next_x, next_y)&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;这样，我们就可以通过循环来&lt;code&gt;swap&lt;/code&gt;矩阵中的元素。&lt;/p&gt;
+
 &lt;h2&gt;遇到问题&lt;/h2&gt;
+
 &lt;p&gt;如何确定映射&lt;code&gt;f(x, y)&lt;/code&gt;？&lt;/p&gt;
+
 &lt;p&gt;由于我的思维不能支持我在头脑中形成正确的公式。&lt;/p&gt;
+
 &lt;p&gt;于是我想到，因为我们要求的变换是在二维矩阵中的简单移位。所以我们可以做出如下一个方程。&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;f(x, y) = (ax + by + c, dx + ey + f)&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;然后找出特殊点，代入方程中，求出&lt;code&gt;a&lt;/code&gt;到&lt;code&gt;f&lt;/code&gt;各自代表的值。&lt;/p&gt;
+
 &lt;p&gt;于是求出映射&lt;code&gt;f(x, y) =&amp;gt; (y, n - x)&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;即可以分解为：&lt;code&gt;reverse_X(Matrix.T)&lt;/code&gt;&lt;/p&gt;
+
 &lt;h2&gt;思考方式&lt;/h2&gt;
+
 &lt;p&gt;以上的方法是我失败了N次之后才想到的。（弱。。。）&lt;/p&gt;
+
 &lt;p&gt;于是我又有了进一步的思考。&lt;/p&gt;
+
 &lt;p&gt;这样的思考方式是不是最佳的。如果大家遇到这样的问题，会用什么巧妙的方法去思考，去优雅的解决问题。&lt;/p&gt;
+
 &lt;p&gt;不过要记得我们的条件&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;矩阵顺时针旋转90度&lt;/li&gt;
 &lt;li&gt;in-place变换，不得使用额外的空间&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;欢迎大家提出自己的看法。代码请贴到&lt;a href="https://gist.github.com/"&gt;gist&lt;/a&gt;或&lt;a href="http://lpaste.net/"&gt;hpaste&lt;/a&gt;等网站上，不要把代码直接写到评论中，我会及时update本文，展示大家的想法。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 28 Dec 2013 14:42:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-28:how-to-rotate-image-leetcode.html</guid><category>Leetcode</category><category>algorithm</category><category>思维</category></item><item><title>Codeforces Round #221 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-221-div-2.html</link><description>&lt;h2&gt;A. Lever&lt;/h2&gt;
+
+&lt;p&gt;欢迎大家提出自己的看法。代码请贴到&lt;a href="https://gist.github.com/"&gt;gist&lt;/a&gt;或&lt;a href="http://lpaste.net/"&gt;hpaste&lt;/a&gt;等网站上，不要把代码直接写到评论中，我会及时update本文，展示大家的想法。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 28 Dec 2013 14:42:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-28:how-to-rotate-image-leetcode.html</guid><category>Leetcode</category><category>algorithm</category><category>思维</category></item><item><title>Codeforces Round #221 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-221-div-2.html</link><description>&lt;p&gt;Date: 2013-12-25 19:05
+Title: Codeforces Round #221 (Div. 2)不完全不正确题解
+Tags: codeforces, algorithm, 算法, 题解
+Slug: cf-221-div-2&lt;/p&gt;
+
+&lt;h2&gt;A. Lever&lt;/h2&gt;
+
 &lt;p&gt;水题，杠杆原理。&lt;/p&gt;
+
 &lt;p&gt;用&lt;code&gt;^&lt;/code&gt;把字符串分割开。然后分别计算两边的重量即可。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#Result: Dec 24, 2013 6:04:41 PM    Wizmann  A - Lever   Python 2   Accepted     312 ms  4200 KB&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;calc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ss&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -592,9 +729,10 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
     &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;right&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;B. I.O.U.&lt;/h2&gt;
+
 &lt;p&gt;水题，算出每个人负债和贷出（这个词的现学的~）的绝对值差。&lt;/p&gt;
+
 &lt;p&gt;然后再求和除2。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#Result: Dec 24, 2013 6:12:53 PM    Wizmann  B - I.O.U.  Python 2   Accepted     46 ms   0 KB&lt;/span&gt;
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
@@ -618,12 +756,16 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;C. Divisible by Seven&lt;/h2&gt;
+
 &lt;p&gt;脑筋急转弯。&lt;/p&gt;
+
 &lt;p&gt;通过打表，我们可以看出。&lt;code&gt;permutation(1, 6, 8, 9) % 7 == [0 ... 6]&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;由此我们就可以看出，无论其它数字排列如何，只要在其后面补上&lt;code&gt;1, 6, 8, 9&lt;/code&gt;的一个排列。就可以使其模7得0。&lt;/p&gt;
+
 &lt;p&gt;对于只有&lt;code&gt;1，6, 8, 9&lt;/code&gt;和很多&lt;code&gt;0&lt;/code&gt;的情况。我们就把&lt;code&gt;0&lt;/code&gt;放在&lt;code&gt;1, 6，8，9&lt;/code&gt;后面。&lt;/p&gt;
+
 &lt;p&gt;代码比较乱。不过思路很明显:)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//Result: Dec 24, 2013 7:48:42 PM   Wizmann  C - Divisible by Seven  GNU C++    Accepted     140 ms  1000 KB&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
@@ -711,14 +853,20 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;D. Maximum Submatrix 2&lt;/h2&gt;
+
 &lt;p&gt;其实这题也应该是水题。&lt;/p&gt;
+
 &lt;p&gt;给你一个&lt;code&gt;0/1&lt;/code&gt;矩阵，可以做行交换，让你求出交换后能获得的最大由&lt;code&gt;1&lt;/code&gt;组成的子阵。&lt;/p&gt;
+
 &lt;p&gt;这个题和两个题很相似，一个是经典的&lt;code&gt;最大子阵和&lt;/code&gt;问题，另一个是不太经典的&lt;code&gt;直方图中最大矩形&lt;/code&gt;问题。&lt;/p&gt;
+
 &lt;p&gt;我们可以看出，因为只有行变换，所以对列上的&lt;code&gt;0/1&lt;/code&gt;分布没有任何影响。于是我们可以处理出以某列为基准时，某行的最大子阵。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="子阵" src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf221-div2-d.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf221-div2-d.png" alt="子阵"&gt;&lt;/p&gt;
+
 &lt;p&gt;如图所示，我们计算到第二列的时候。可以处理出每一行的最大子阵。由于我们可以进行行变换，于是我们将每行的最大子阵进行排序。然后遍历求出当前的最大子阵，从而得出答案。&lt;/p&gt;
+
 &lt;p&gt;代码简单。不过有性能问题。没有充分使用cache，不过100+ms就过了，懒得优化了。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;cstdlib&amp;gt;&lt;/span&gt;
@@ -784,17 +932,24 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;E. Circling Round Treasures&lt;/h2&gt;
+
 &lt;p&gt;赛后学习来的代码。状压DP。&lt;/p&gt;
+
 &lt;p&gt;题目描述超级复杂，其实在题目中已经暗示了做法。&lt;/p&gt;
+
 &lt;p&gt;不过以这个代码复杂程度，比赛时能做出来也是比较牛的人了。&lt;/p&gt;
+
 &lt;p&gt;不想赘述解法了，只说一个关键点：&lt;/p&gt;
+
 &lt;blockquote&gt;
-&lt;p&gt;Let's draw a ray that starts from point p and does not intersect other points of the table (such ray must exist).&lt;/p&gt;
-&lt;p&gt;Let's count the number of segments of the polyline that intersect the painted ray. If this number is odd, we assume that point p (and consequently, the table cell) lie inside the polyline (path). Otherwise, we assume that it lies outside.&lt;/p&gt;
+&lt;p&gt;Let&amp;#39;s draw a ray that starts from point p and does not intersect other points of the table (such ray must exist).&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s count the number of segments of the polyline that intersect the painted ray. If this number is odd, we assume that point p (and consequently, the table cell) lie inside the polyline (path). Otherwise, we assume that it lies outside.&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;题目中给出了判断一个宝藏是否在路径中的一个判断算法。即判断点是否在多边形中的经典射线法。&lt;/p&gt;
+
 &lt;p&gt;我们可以记录某一步是否在某个宝藏的&lt;code&gt;射线&lt;/code&gt;上。而射线的方向则可以自定。代码中的射线方向是&lt;code&gt;+x&lt;/code&gt;方向。如果某一条边经过了这条射线，则修改当前状态。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//Result: Dec 25, 2013 2:22:27 PM   Wizmann  E - Circling Round Treasures    GNU C++    Accepted    31 ms   1400 KB&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
@@ -928,32 +1083,60 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;最后，炫耀一下&lt;/h2&gt;
-&lt;p&gt;&lt;img alt="rank" src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf221-div2-rank.png" /&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 25 Dec 2013 19:05:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-25:cf-221-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>自己动手搭建第三方的Codeforces CDN</title><link>http://wizmann.tk/third-party-codeforces-cdn.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf221-div2-rank.png" alt="rank"&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 25 Dec 2013 19:05:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-25:cf-221-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>自己动手搭建第三方的Codeforces CDN</title><link>http://wizmann.tk/third-party-codeforces-cdn.html</link><description>&lt;p&gt;Date: 2013-12-14
+Title: 自己动手搭建第三方的Codeforces CDN
+Tags: codeforces, chrome-extension, useless
+Slug: third-party-codeforces-cdn&lt;/p&gt;
+
+&lt;h2&gt;啥？&lt;/h2&gt;
+
 &lt;p&gt;校园网上CF那叫一个卡。&lt;/p&gt;
+
 &lt;p&gt;原因是什么呢？ 因为codeforces大量的使用了ajax技术，所以引用了很多js/css文件，并且引用的位置位于页面之前。&lt;/p&gt;
+
 &lt;p&gt;这就造成了，我们在上CF的时候，其实页面内容已经读取出来了。但是因为js/css文件没有加载完成，所以页面还是一片空白。&lt;/p&gt;
+
 &lt;h2&gt;解决方案&lt;/h2&gt;
+
 &lt;p&gt;由于js/css/img文件都是所谓的&lt;code&gt;静态&lt;/code&gt;文件，那么我们可以缓存这些文件到一个访问速度快的网络上来。&lt;/p&gt;
+
 &lt;p&gt;这就是CDN技术。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;CDN的全称是Content Delivery Network，即内容分发网络。其目的是通过在现有的Internet中增加一层新的网络架构，将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提高用户访问网站的响应速度&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;但是俄罗斯人那边没有做CDN，或者他们的CDN距离天朝实在是太远了。&lt;/p&gt;
+
 &lt;p&gt;所以我们只好手动缓存这些静态文件到七牛云上，使用七牛的CDN技术来加速我们的访问了。&lt;/p&gt;
+
 &lt;p&gt;&lt;a href="http://www.qiniu.com/"&gt;七牛云&lt;/a&gt;为个人用户提供了10G存储空间和每月10G流量，这对于我们缓存一个网站的静态文件来说，已经足富裕了。根据我现在的使用状况，所有静态文件加在一起大概在3M左右，搭建这样一个免费CDN可以供十几个人使用。&lt;/p&gt;
+
 &lt;h2&gt;设计架构&lt;/h2&gt;
+
 &lt;p&gt;我们使用&lt;code&gt;CS模式&lt;/code&gt;来完成这个网站加速的任务。&lt;/p&gt;
+
 &lt;p&gt;Server端当然就是七牛云啦。复杂的任务都交给了工程师们完成，我们只需要声明需要缓存&lt;code&gt;codeforces.com&lt;/code&gt;的静态文件就可以了。&lt;/p&gt;
+
 &lt;p&gt;Client端使用的是Chrome-extension。Chrome-extension使用&lt;code&gt;webRequest&lt;/code&gt;来“劫持”我们的流量，将其指向我们的七牛云缓存。&lt;/p&gt;
+
 &lt;h2&gt;Server端配置&lt;/h2&gt;
+
 &lt;p&gt;非常简单的操作。设置一个镜像存储就可以了。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="七牛云设置" src="http://wizmann-tk-pic.u.qiniudn.com/blog-codeforces-cdn-qiniu-settings.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-codeforces-cdn-qiniu-settings.png" alt="七牛云设置"&gt;&lt;/p&gt;
+
 &lt;p&gt;然后我们记下七牛云为我们分配的域名，以备后用。&lt;/p&gt;
+
 &lt;h2&gt;Client端配置&lt;/h2&gt;
+
 &lt;p&gt;这个稍微复杂一点，不过也是很轻松的。&lt;/p&gt;
+
 &lt;p&gt;我们新建一个开发版的chrome-extension。（由于我没有开发者账号，所以一般都是线下开发，放到github上让大家搞的。&lt;/p&gt;
+
 &lt;p&gt;写&lt;code&gt;manifest.json&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Codeforce CDN加速&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -980,63 +1163,112 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;然后写&lt;code&gt;background.js&lt;/code&gt;，“劫持”发往&lt;code&gt;work.codeforces.ru&lt;/code&gt;的流量。
+&lt;code&gt;javascript
+chrome.webRequest.onBeforeRequest.addListener(
+    function(details) {
+        console.log(details.url);
+        if (details.url.match(&amp;quot;http://worker.codeforces.ru&amp;quot;)) {
+            var url = details.url.replace(
+                    &amp;quot;http://worker.codeforces.ru&amp;quot;, 
+                    &amp;quot;http://你的七牛云域名.com&amp;quot;);
+            return {redirectUrl: url};
+        }
+    },
+    {urls:[&amp;quot;http://worker.codeforces.ru/*&amp;quot;]},
+    [&amp;quot;blocking&amp;quot;]
+);
+&lt;/code&gt;
+然后安装插件，就可以完美使用了。&lt;/p&gt;
 
-&lt;p&gt;然后写&lt;code&gt;background.js&lt;/code&gt;，“劫持”发往&lt;code&gt;work.codeforces.ru&lt;/code&gt;的流量。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;chrome&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;webRequest&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;onBeforeRequest&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;details&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;details&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;details&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://worker.codeforces.ru&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;details&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-                    &lt;span class="s2"&gt;&amp;quot;http://worker.codeforces.ru&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-                    &lt;span class="s2"&gt;&amp;quot;http://你的七牛云域名.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;redirectUrl&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;},&lt;/span&gt;
-    &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;urls&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://worker.codeforces.ru/*&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]},&lt;/span&gt;
-    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;blocking&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;然后安装插件，就可以完美使用了。&lt;/p&gt;
 &lt;p&gt;根据我的实验，在清空浏览器缓存的情况下。加速前需要3min的页面大概现在只需要不到10s。&lt;/p&gt;
+
 &lt;h2&gt;潜在问题以及不完美的解决方案&lt;/h2&gt;
+
 &lt;p&gt;由于我们是第三方的山寨CDN，所以当codeforces.com更新它的静态文件时，我们是不知道的。&lt;/p&gt;
+
 &lt;p&gt;所以我们需要一个刷新静态文件的机制。但是我们又不能监控文件改变。&lt;/p&gt;
+
 &lt;p&gt;最终，我想到的一个不完美的解决方案是定时刷新。&lt;/p&gt;
+
 &lt;p&gt;详细来说，就是每周找一个时间，清空我们的缓存。在下一次访问的时候，七牛云会自动替我们刷新所有的静态文件。&lt;/p&gt;
+
 &lt;p&gt;七牛云的python-sdk提供了遍历/删除文件的方案（我在里面还找到了一个小小的Bug）。我们只需要定时执行它就可以了。&lt;/p&gt;
+
 &lt;p&gt;于是我使用了BAE + bottle.py + niqiu-python-sdk的组合。在BAE上部署了一个bottle.py应用，然后使用&lt;code&gt;cron&lt;/code&gt;定时执行刷新任务。&lt;/p&gt;
+
 &lt;h2&gt;代码&lt;/h2&gt;
-&lt;p&gt;Github: &lt;a href="https://github.com/Wizmann/codeforces-cdn"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 14 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-14:third-party-codeforces-cdn.html</guid><category>codeforces</category><category>chrome-extension</category><category>useless</category></item><item><title>在Google面试之后想到的</title><link>http://wizmann.tk/after-google-interview.html</link><description>&lt;p&gt;&lt;img alt="思维导图" src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Github: &lt;a href="https://github.com/Wizmann/codeforces-cdn"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 14 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-14:third-party-codeforces-cdn.html</guid><category>codeforces</category><category>chrome-extension</category><category>useless</category></item><item><title>在Google面试之后想到的</title><link>http://wizmann.tk/after-google-interview.html</link><description>&lt;p&gt;Date: 2013-12-11
+Title: 在Google面试之后想到的
+Tags: 闲聊
+Slug: after-google-interview&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" alt="思维导图"&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;a href="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview.png"&gt;戳我看高清无码大图&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;另外，面试过程中没被吓尿也算是我心理比较强大吧。&lt;/p&gt;
-&lt;p&gt;#屌丝心态#。。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 11 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-11:after-google-interview.html</guid><category>闲聊</category></item><item><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-218-div-2.html</link><description>&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
+
+&lt;p&gt;#屌丝心态#。。。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 11 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-11:after-google-interview.html</guid><category>闲聊</category></item><item><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-218-div-2.html</link><description>&lt;p&gt;Date: 2013-12-9 23:02
+Title: Codeforces Round #218 (Div. 2)不完全不正确题解
+Tags: codeforces, algorithm, 算法, 题解
+Slug: cf-218-div-2&lt;/p&gt;
+
+&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
+
 &lt;p&gt;将Array切片，然后按位统计某一位上1的个数C(1)和2的个数C(2)。然后在这一位上的操作数就为M = min(C(1), C(2))。&lt;/p&gt;
+
 &lt;p&gt;简单题&lt;/p&gt;
+
 &lt;h3&gt;B. Fox Dividing Cheese&lt;/h3&gt;
+
 &lt;p&gt;傻逼才错的题，不幸中枪。&lt;/p&gt;
+
 &lt;p&gt;不想多说了，直接看代码吧。手贱不是病，贱起来要人命。&lt;/p&gt;
+
 &lt;h3&gt;C. Hamburgers&lt;/h3&gt;
+
 &lt;p&gt;模拟 + 二分。&lt;/p&gt;
+
 &lt;p&gt;和CJL还讨论过这题的纯模拟做法，看了半天代码没找到问题。于是刚才用Python自己实现了一个，在代码正确的情况下，没有WA，但是T在了22组上。&lt;/p&gt;
+
 &lt;p&gt;所以这题最好使用二分，如果用模拟的话，需要考虑各种情况。代码见下，细节上注意就好。&lt;/p&gt;
+
 &lt;h3&gt;D. Vessels&lt;/h3&gt;
+
 &lt;p&gt;这题得好好讲一下～比赛时做出来了好得意～&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Vessels" src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-d-vessels.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-d-vessels.png" alt="Vessels"&gt;&lt;/p&gt;
+
 &lt;p&gt;题意是给出一组层层叠的容器，每一个容器都有自己的容量。然后我们向某些容器里灌水，如果水的体积超过了某个容器的容量，则剩余的水溢出到下一个容器中。最后一个容器溢出的水会落到地面上，所以忽略不计。&lt;/p&gt;
+
 &lt;p&gt;我们可以看出，如果某一个容器是满的，那么它就再也不会空下来，并且流经它的水全部溢出给下面的容器。&lt;/p&gt;
+
 &lt;p&gt;于是我们用一个数组记录当前容器注水的时候，水会流向哪个容器。&lt;/p&gt;
+
 &lt;p&gt;由于在初始状态下，所有容器都是空的。所以&lt;code&gt;to[i] = i&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;如果某容器由于注水满掉了，我们就把注水的指向指到&lt;code&gt;i + 1&lt;/code&gt;，就有&lt;code&gt;to[i] = i + 1&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;下次在向容器i注水的时候，我们通过查询&lt;code&gt;to[i]&lt;/code&gt;的值，就可以知道水的流向。&lt;/p&gt;
+
 &lt;p&gt;这可以转化为一个并查集问题。如果i满了，&lt;code&gt;to[i] == i + 1&lt;/code&gt;。与此同时，i+1也满了，则&lt;code&gt;to[i + 1] == i + 2&lt;/code&gt;。从题意我们可以看出，此时&lt;code&gt;to[i] == to[i + 1] == i + 2&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;这样我们就几乎可以把每次注水的流向的查询优化到&lt;code&gt;O(1)&lt;/code&gt;。剩下的就是基本的加减法和输入输出操作了。&lt;/p&gt;
+
 &lt;h3&gt;E. Subway Innovation&lt;/h3&gt;
+
 &lt;p&gt;推公式题，专治智商不够。&lt;/p&gt;
+
 &lt;p&gt;上一份别人的题解，我估计推不出来了。。。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="E题题解" src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-e.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-e.png" alt="E题题解"&gt;&lt;/p&gt;
+
 &lt;h3&gt;以下是代码&lt;/h3&gt;
+
 &lt;h4&gt;A&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="n"&gt;ll&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
@@ -1056,7 +1288,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h4&gt;B&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;fractions&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;gcd&lt;/span&gt;
@@ -1094,7 +1325,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h4&gt;C&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
@@ -1182,7 +1412,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h4&gt;D&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;cstdlib&amp;gt;&lt;/span&gt;
@@ -1266,7 +1495,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h4&gt;E&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;cstring&amp;gt;&lt;/span&gt;
@@ -1338,9 +1566,18 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 23:02:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:cf-218-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>使用新类型创建更人性化的代码</title><link>http://wizmann.tk/humanity-code-with-new-classes.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 23:02:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:cf-218-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>使用新类型创建更人性化的代码</title><link>http://wizmann.tk/humanity-code-with-new-classes.html</link><description>&lt;p&gt;Date: 2013-12-09 15:01
+Title: 使用新类型创建更人性化的代码
+Tags: cpp
+Slug: humanity-code-with-new-classes&lt;/p&gt;
+
+&lt;h2&gt;啥？&lt;/h2&gt;
+
 &lt;p&gt;这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。&lt;/p&gt;
+
 &lt;p&gt;关键词：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;RAII&lt;/li&gt;
 &lt;li&gt;智能指针&lt;/li&gt;
@@ -1349,13 +1586,19 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;li&gt;模板特化&lt;/li&gt;
 &lt;li&gt;依赖编译器的缺省行为&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;对于C++的艺术，我只是个入门者。如果文章中有什么问题，欢迎大家指出，我会及时进行修改。&lt;/p&gt;
+
 &lt;h2&gt;一个友好的互斥锁&lt;/h2&gt;
+
 &lt;h3&gt;互斥锁的定义&lt;/h3&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;互斥锁（英语：英语：Mutual exclusion，缩写 Mutex）是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;h3&gt;如何使用互斥锁&lt;/h3&gt;
+
 &lt;p&gt;这里只做最简单的示范。具体的使用方法和原理不在本文的讨论范围之内。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;pthread.h&amp;gt;&lt;/span&gt;
 
@@ -1384,15 +1627,22 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;代码不需要多解释，通过一个锁来保证多线程push_back函数的可重入性。&lt;/p&gt;
+
 &lt;p&gt;但是我们需要对代码的安全性做一些评估。&lt;/p&gt;
+
 &lt;p&gt;例如，我们如何处理，函数在unlock mutex之前异常结束的情况。&lt;/p&gt;
+
 &lt;p&gt;这并不是不可能的，例如&lt;code&gt;vec.push_back(v)&lt;/code&gt;抛出了一个&lt;code&gt;std::bad_alloc&lt;/code&gt;异常。或者在这之前因为一些原因，函数做出了&lt;code&gt;return -1&lt;/code&gt;的行为。&lt;/p&gt;
+
 &lt;p&gt;也许我们在逻辑上可以接受这些错误（比如做出一些失败处理）。但是，对于因为我们没有unlock我们的同步锁，于是死锁就产生了。&lt;/p&gt;
+
 &lt;p&gt;这是一个极大的隐患，死锁的危害我也不用多说。&lt;/p&gt;
+
 &lt;p&gt;那么我们有什么方法可以避免这种局面。&lt;/p&gt;
+
 &lt;h3&gt;一个新的Mutex类型&lt;/h3&gt;
+
 &lt;p&gt;我们可以使用&lt;strong&gt;析构函数&lt;/strong&gt;的特性来编写如下的类。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;pthread.h&amp;gt;&lt;/span&gt;
 
@@ -1416,24 +1666,36 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;OK，如果我们使用这个类做为同步锁的管理类，那么，如果函数中出现了非预期的情况而跳出的时候。&lt;code&gt;Mutex&lt;/code&gt;类就会自动调用自身的析构函数来解锁。避免了死锁的发生。&lt;/p&gt;
+
 &lt;h3&gt;总结&lt;/h3&gt;
+
 &lt;p&gt;&lt;code&gt;pthread_mutex_t&lt;/code&gt;是一个类型，但是我们在这个类型之上又新建了一个新的类型来进行资源管理。以此来获得更人性化，更安全以及更可读的代码。&lt;/p&gt;
+
 &lt;h3&gt;拓展阅读&lt;/h3&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.searchtb.com/2011/01/pthreads-mutex-vs-pthread-spinlock.html"&gt;Pthreads mutex vs Pthreads spinlock&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;对于mutex和spinlock有一个详细的介绍，并且对比了这两种锁的性能。&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Effective C++ 条款14&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;以上的例子来源于此，并且做了一些简化。&lt;/p&gt;
+
 &lt;h2&gt;句柄类&lt;/h2&gt;
+
 &lt;p&gt;我们都知道，由于C++没有自动内存回收机制，所以内存操作都需要代码编写者手动完成。&lt;/p&gt;
+
 &lt;p&gt;这就造成了潜在的内存泄露问题 ———— 不小心手贱怎么办？&lt;/p&gt;
+
 &lt;p&gt;于是我们就引入了句柄类，一种使用&lt;strong&gt;引用计数法&lt;/strong&gt;来管理内存的方法。&lt;/p&gt;
+
 &lt;h3&gt;一个泛型句柄类&lt;/h3&gt;
+
 &lt;p&gt;代码来自《C++ Primer 第4版》，有小小的格式上的改动。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* generic handle class: Provides pointerlike behavior. Although&lt;/span&gt;
 &lt;span class="cm"&gt;access through&lt;/span&gt;
@@ -1474,41 +1736,55 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;我们从代码中可以看到，Handle类中使用了&lt;code&gt;size_t *use&lt;/code&gt;用来对于对象进行引用计数。如果计数为0，则Handle类会删除自身。也许我们会忘记释放内存，但是编译器会帮你管理好你的对象的。&lt;/p&gt;
+
 &lt;h3&gt;句柄类的另一个优点&lt;/h3&gt;
+
 &lt;p&gt;句柄类的另一个优点是可以降低文件间的编译依存关系。&lt;/p&gt;
+
 &lt;p&gt;句柄类可以将接口从实现中分离，从而分离编译依赖。&lt;/p&gt;
+
 &lt;p&gt;例如，我们有一个&lt;code&gt;Person&lt;/code&gt;类，又声明了&lt;code&gt;PersonImpl&lt;/code&gt;句柄类。&lt;/p&gt;
+
 &lt;p&gt;则我们如果修改了&lt;code&gt;Person&lt;/code&gt;类的实现部分，并且保持接口部分不变。则我们只需要重新编译含入&lt;code&gt;Person&lt;/code&gt;类的文件。含入&lt;code&gt;PersonImpl&lt;/code&gt;类的文件不需要重新编译。&lt;/p&gt;
+
 &lt;h3&gt;shared_ptr&lt;/h3&gt;
+
 &lt;p&gt;shared_ptr是boost中引入的新类型，原理和句柄类类似，但是加入了如下特性。&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;线程安全&lt;/li&gt;
 &lt;li&gt;支持自定义析构操作（删除器）&lt;/li&gt;
 &lt;li&gt;有现成的库为啥不用&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;在《Effective C++》一书中，作者对于&lt;code&gt;shared_ptr&lt;/code&gt;大为推崇，用了很大篇幅来介绍它的用法，在这里就不赘述了。&lt;/p&gt;
+
 &lt;h3&gt;潜在问题&lt;/h3&gt;
+
 &lt;p&gt;有失有得，我们在一定程度上提升了内存安全性的同时，我们也必须付出一定的代价。&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;内存性能问题&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;我们的一个句柄类或智能指针中，不仅有我们的对象指针，而且还保存着引用计数。如果我们处于内存敏感的场景，那么我们必须认真的考虑收益和代价。&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;计算性能问题&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;如果我们的句柄类需要线程安全性，那么我们也必须要付出相应的时间上的代价。&lt;/p&gt;
+
 &lt;h3&gt;拓展阅读&lt;/h3&gt;
+
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;《Effective C++》第三章 资源管理&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;《C++ Primer第四版》 16.5 一个泛型句柄类&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;《Effective C++》第三章 资源管理&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;《C++ Primer第四版》 16.5 一个泛型句柄类&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2&gt;防止接口误用&lt;/h2&gt;
+
 &lt;p&gt;Python有一个非常好的特性（也许别的语言也有）。例如：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pass_date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;month&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;pass&lt;/span&gt;
@@ -1517,9 +1793,10 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
     &lt;span class="n"&gt;pass_date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1234&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;month&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;在函数的调用中，可以明确形参与实参的对应关系。这就可以从很大程度上解决了接口误用的问题。&lt;/p&gt;
+
 &lt;p&gt;而在C++中，我们可以使用新建类型来解决这个问题。&lt;/p&gt;
+
 &lt;p&gt;还以&lt;code&gt;pass_date&lt;/code&gt;这个函数为例。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Year&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;explicit&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1548,9 +1825,10 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;偏特化类中的成员函数&lt;/h2&gt;
+
 &lt;p&gt;这个方法来源于stackoverflow上的一个&lt;a href="http://stackoverflow.com/questions/20147821/c-how-to-partial-specialization-a-template-function-in-a-template-class"&gt;问题&lt;/a&gt;。&lt;/p&gt;
+
 &lt;p&gt;我比较推崇下面这个答案，虽然它不是被顶的最多的那个。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;template&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;typename&lt;/span&gt; &lt;span class="n"&gt;Group&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ApplyNorm&lt;/span&gt;
@@ -1593,75 +1871,138 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;它使用一个新类&lt;code&gt;ApplyNorm&lt;/code&gt;实现了类成员函数的偏特化。&lt;/p&gt;
+
 &lt;h3&gt;拓展阅读&lt;/h3&gt;
-&lt;p&gt;《C++ Primer第4版》 16.6 模板特化&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 15:01:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:humanity-code-with-new-classes.html</guid><category>cpp</category></item><item><title>Yunfile下载破解</title><link>http://wizmann.tk/yunfile-cracker.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+
+&lt;p&gt;《C++ Primer第4版》 16.6 模板特化&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 15:01:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:humanity-code-with-new-classes.html</guid><category>cpp</category></item><item><title>Yunfile下载破解</title><link>http://wizmann.tk/yunfile-cracker.html</link><description>&lt;p&gt;Date: 2013-12-02 21:16
+Title: Yunfile下载破解
+Tags: 创造力, Yunfile, Chrome-Extension
+Slug: yunfile-cracker&lt;/p&gt;
+
+&lt;h2&gt;啥？&lt;/h2&gt;
+
 &lt;p&gt;大家都知道&lt;code&gt;Yunfile&lt;/code&gt;是做什么的咩？反正我是不知道。。。&lt;/p&gt;
+
 &lt;p&gt;今天下午无聊，写了一个yunfile下载的破解插件。&lt;/p&gt;
+
 &lt;h2&gt;功能：&lt;/h2&gt;
+
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;非会员跳过下载等待的30s（或者更长时间）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;下载页面不会报“因长时间未操作，需要重新下载”的错误&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;非会员跳过下载等待的30s（或者更长时间）&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下载页面不会报“因长时间未操作，需要重新下载”的错误&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;这里感谢&lt;strong&gt;luacloud&lt;/strong&gt;的&lt;a href="http://www.luacloud.com/2012/crack-yunfile-network-disk-30-wait-for-restrictions.html"&gt;博文&lt;/a&gt;，为插件的编写提供了原型。&lt;/p&gt;
+
 &lt;h2&gt;具体功能实现：&lt;/h2&gt;
+
 &lt;h3&gt;跳过等待&lt;/h3&gt;
+
 &lt;p&gt;在上面引用的博文里面有说，就是强制执行页面中的js，实现跳转。&lt;/p&gt;
+
 &lt;p&gt;还做了一个DOM修改，变成现在这种很漂漂的样子～～&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Yunfile-Craker-1" src="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/yunfile-craker-1.png" alt="Yunfile-Craker-1"&gt;&lt;/p&gt;
+
 &lt;h3&gt;忽略超时错误&lt;/h3&gt;
+
 &lt;p&gt;覆盖了下载函数，跳过超时判断。&lt;/p&gt;
+
 &lt;h2&gt;现有问题&lt;/h2&gt;
+
 &lt;p&gt;在一些情况下，点击下载按钮会返回到下载页。&lt;/p&gt;
+
 &lt;p&gt;虽然我们不需要再等30s了，但是还是很烦。&lt;/p&gt;
+
 &lt;p&gt;也有我有机会修复这个问题。&lt;/p&gt;
+
 &lt;h3&gt;代码&lt;/h3&gt;
-&lt;p&gt;代码在&lt;a href="https://github.com/Wizmann/Utils/tree/master/Chrome-extension/yunfile-cracker"&gt;这里&lt;/a&gt;呀～&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 21:16:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:yunfile-cracker.html</guid><category>创造力</category><category>Yunfile</category><category>Chrome-Extension</category></item><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Go back to work！&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Big brother is watching you!" src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" /&gt;&lt;/p&gt;
+
+&lt;p&gt;代码在&lt;a href="https://github.com/Wizmann/Utils/tree/master/Chrome-extension/yunfile-cracker"&gt;这里&lt;/a&gt;呀～&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 21:16:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:yunfile-cracker.html</guid><category>创造力</category><category>Yunfile</category><category>Chrome-Extension</category></item><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Date: 2013-12-02
+Title: Tick-tick
+Tags: 闲聊, 创造力
+Slug: tick-tick&lt;/p&gt;
+
+&lt;p&gt;Go back to work！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" alt="Big brother is watching you!"&gt;&lt;/p&gt;
+
 
 
 &lt;p&gt;&lt;audio src="http://wizmann-tk-pic.u.qiniudn.com/ticking.mp3" autoplay="autoplay" loop="loop"/&gt;&lt;/p&gt;
+
 &lt;p&gt;根据科学研究表明，在很大程度上，在工作时配上单调有节奏的背景音，可以大幅度提高效率。&lt;/p&gt;
+
 &lt;p&gt;（上面一条是我瞎说的）&lt;/p&gt;
+
 &lt;p&gt;推荐一个时间管理的Chrome插件，番茄土豆。&lt;a href="http://www.douban.com/group/pomotodo/"&gt;戳我&lt;/a&gt;进入番茄土豆豆瓣小组。&lt;/p&gt;
-&lt;p&gt;背景中的tick-tick的音效就是从插件中搞出来的。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:tick-tick.html</guid><category>闲聊</category><category>创造力</category></item><item><title>機器學習基石 - PLA算法初步</title><link>http://wizmann.tk/ml-foundations-pla.html</link><description>&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
+
+&lt;p&gt;背景中的tick-tick的音效就是从插件中搞出来的。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:tick-tick.html</guid><category>闲聊</category><category>创造力</category></item><item><title>機器學習基石 - PLA算法初步</title><link>http://wizmann.tk/ml-foundations-pla.html</link><description>&lt;p&gt;Date: 2013-11-29
+Title: 機器學習基石 - PLA算法初步
+Tags: 公开课, 分类器
+Slug: ml-foundations-pla&lt;/p&gt;
+
+&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
+
 &lt;p&gt;PLA = Perceptrons Learning Alogrithm&lt;/p&gt;
+
 &lt;p&gt;WikiPedia上有一个大概的历史背景介绍。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;h2&gt;PLA算法的原理&lt;/h2&gt;
-&lt;p&gt;&lt;img alt="感知机示意图" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" alt="感知机示意图"&gt;&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;由此我们就可以推导出公式如下。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="neuron sum" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" alt="neuron sum"&gt;&lt;/p&gt;
+
 &lt;p&gt;我们可以为这个“神经元”的激发值设定一个阈值&lt;code&gt;threshold&lt;/code&gt;。&lt;/p&gt;
+
 &lt;p&gt;如果 &lt;code&gt;a &amp;gt; threshold&lt;/code&gt;，则判定输入为正例。
 如果 &lt;code&gt;a &amp;lt; threshold&lt;/code&gt;，则判定输入为负例。
 对于 &lt;code&gt;a == threshold&lt;/code&gt;的情况，认为是特殊情况，不予考虑。&lt;/p&gt;
+
 &lt;p&gt;所以，我们的感知器分类器就可以得到以下式子。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="perceptron-formula-2" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-2.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-2.png" alt="perceptron-formula-2"&gt;&lt;/p&gt;
+
 &lt;p&gt;我们在数据向量中加入了阈值，并把式子统一成向量积的形式。&lt;/p&gt;
+
 &lt;h2&gt;PLA算法的错误修正&lt;/h2&gt;
+
 &lt;p&gt;PLA算法是_错误驱动_的算法。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;当我们训练这个算法时，只要输出值是正确的，这个算法就不会进行任何数据的调整。反之，当输出值与实际值异号，这个算法就会自动调整参数的比重。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img alt="错误修正" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-update.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-update.png" alt="错误修正"&gt;&lt;/p&gt;
+
 &lt;p&gt;我们先取一个随机向量&lt;code&gt;W&lt;/code&gt;，与现有的数据&lt;code&gt;X[i]&lt;/code&gt;做点乘，取得结果的符号。&lt;/p&gt;
+
 &lt;p&gt;如果符号符合我们的预期的话，则&lt;code&gt;continue&lt;/code&gt;。
 否则就要对&lt;code&gt;W&lt;/code&gt;进行修正。&lt;/p&gt;
+
 &lt;p&gt;修正的方式是&lt;code&gt;W += y * X[i]&lt;/code&gt;，每一次修正都是减少现有向量&lt;code&gt;W&lt;/code&gt;与向量&lt;code&gt;y * X[i]&lt;/code&gt;的夹角，从而调整答案的正确性。&lt;/p&gt;
+
 &lt;h2&gt;Naive PLA 与 Pocket PLA&lt;/h2&gt;
+
 &lt;h3&gt;Naive PLA&lt;/h3&gt;
+
 &lt;p&gt;Naive PLA算法的思想很简单。一直修正向量&lt;code&gt;W&lt;/code&gt;，直到向量&lt;code&gt;W&lt;/code&gt;满足所有数据为止。&lt;/p&gt;
+
 &lt;p&gt;代码如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
 
@@ -1684,12 +2025,16 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;Pocket PLA&lt;/h3&gt;
+
 &lt;p&gt;Naive PLA的一大问题就是如果数据有杂音，不能完美的分类的话，算法就不会中止。&lt;/p&gt;
+
 &lt;p&gt;所以，对于有杂音的数据，我们只能期望找到错误最少的结果。然后这是一个&lt;code&gt;NP Hard&lt;/code&gt;问题。&lt;/p&gt;
+
 &lt;p&gt;Pocket PLA一个贪心的近似算法。和Naive PLA算法类似。&lt;/p&gt;
+
 &lt;p&gt;变顺序迭代为随机迭代，如果找出错误，则修正结果。在修正过程中，记录犯错误最少的向量。&lt;/p&gt;
+
 &lt;p&gt;代码如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
 
@@ -1722,37 +2067,66 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;least_false&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h2&gt;参考链接&lt;/h2&gt;
+
 &lt;p&gt;本文主要参考了&lt;a href="http://shaoxiongjiang.com/2013/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8-%E6%84%9F%E7%9F%A5%E5%99%A8-perceptron/"&gt;机器学习入门 - 感知器 (Perceptron)&lt;/a&gt;和Wikipedia上面&lt;a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8"&gt;感知机&lt;/a&gt;的词条。&lt;/p&gt;
+
 &lt;p&gt;以及&lt;a href="https://class.coursera.org/ntumlone-001/class"&gt;機器學習基石 (Machine Learning Foundations)&lt;/a&gt;公开课的幻灯片。&lt;/p&gt;
+
 &lt;h2&gt;Updated&lt;/h2&gt;
+
 &lt;p&gt;2013-12-8&lt;/p&gt;
+
 &lt;p&gt;修改了pocket-pla算法，提升了效率和准确性。&lt;/p&gt;
-&lt;p&gt;参考了&lt;a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632"&gt;课程论坛&lt;/a&gt;的讨论。并且感谢Li Tianyi同学指出我的问题。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</guid><category>公开课</category><category>分类器</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
+
+&lt;p&gt;参考了&lt;a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632"&gt;课程论坛&lt;/a&gt;的讨论。并且感谢Li Tianyi同学指出我的问题。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</guid><category>公开课</category><category>分类器</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;p&gt;Date: 2013-11-28
+Title: Linux内核中的少锁链表
+Tags: linux, lock-less, 链表, 并发编程
+Slug: linux-lockless-llist&lt;/p&gt;
+
+&lt;h1&gt;前言&lt;/h1&gt;
+
 &lt;p&gt;最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(&lt;a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773"&gt;戳我&lt;/a&gt;)&lt;/p&gt;
+
 &lt;p&gt;我打算借助这个问答中的内容，以我比较熟悉的数据结构与算法为索引来阅读开源代码。&lt;/p&gt;
+
 &lt;h1&gt;正文&lt;/h1&gt;
+
 &lt;h2&gt;Talk is cheap&lt;/h2&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;Lock-less NULL terminated single linked list&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;&lt;a href="https://github.com/mirrors/linux-2.6/blob/master/include/linux/llist.h"&gt;linux-2.6/include/linux/llist.h&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;a href="https://github.com/mirrors/linux-2.6/blob/master/lib/llist.c"&gt;linux-2.6/lib/llist.c&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2&gt;知识准备&lt;/h2&gt;
+
 &lt;h3&gt;volatile&lt;/h3&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;volatile关键字声明的变量或对象通常拥有和优化和（或）多线程相关的特殊属性。&lt;/p&gt;
+
 &lt;p&gt;通常，volatile关键字用来阻止（伪）编译器对那些它认为变量的值不能“被代码本身”改变的代码上执行任何优化。 &lt;/p&gt;
+
 &lt;p&gt;如果不使用volatile关键字，编译器将假设当前程序是系统中唯一能改变这个值部分。 为了阻止编译器像上面那样优化代码，需要使用volatile关键字。&lt;/p&gt;
+
 &lt;p&gt;From: http://zh.wikipedia.org/wiki/Volatile%E5%8F%98%E9%87%8F&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;h3&gt;typeof&lt;/h3&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;Another way to refer to the type of an expression is with typeof. The syntax of using of this keyword looks like sizeof, but the construct acts semantically like a type name defined with typedef. &lt;/p&gt;
+
 &lt;p&gt;From: http://gcc.gnu.org/onlinedocs/gcc/Typeof.html&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;&lt;code&gt;typeof&lt;/code&gt;和&lt;code&gt;sizeof&lt;/code&gt;类似，sizeof求的是变量/类型的大小，而typeof是求变量/类型的&lt;strong&gt;数据类型&lt;/strong&gt;。&lt;/p&gt;
+
 &lt;p&gt;typeof在#define中的应用很多，例如：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define max(a,b) \&lt;/span&gt;
 &lt;span class="cp"&gt;   ({ typeof (a) _a = (a); \&lt;/span&gt;
@@ -1760,28 +2134,40 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cp"&gt;     _a &amp;gt; _b ? _a : _b; })&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;&lt;code&gt;typeof(a)&lt;/code&gt;获得了&lt;code&gt;a&lt;/code&gt;的类型，声明了一个同类型的&lt;code&gt;_a&lt;/code&gt;变量。&lt;/p&gt;
+
 &lt;p&gt;p.s. 上面是一个安全的用&lt;code&gt;#define&lt;/code&gt;实现的&lt;code&gt;max&lt;/code&gt;函数。&lt;/p&gt;
+
 &lt;h3&gt;ACCESS_ONCE&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define ACCESS_ONCE(x) (*(volatile typeof(x) *)&amp;amp;(x))；&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;&lt;code&gt;ACCESS_ONCE&lt;/code&gt;使用了一个类型转换，使用&lt;code&gt;volatile&lt;/code&gt;修饰 &lt;code&gt;x&lt;/code&gt;。避免编译器优化带来的潜在岐义。&lt;/p&gt;
+
 &lt;h3&gt;cmpxchg&lt;/h3&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization. &lt;/p&gt;
+
 &lt;p&gt;It compares the contents of a memory location to a given value and, only if they are the same, modifies the contents of that memory location to a given new value. &lt;/p&gt;
+
 &lt;p&gt;This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. &lt;/p&gt;
+
 &lt;p&gt;The result of the operation must indicate whether it performed the substitution; this can be done either with a simple Boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).&lt;/p&gt;
-&lt;p&gt;...&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
 &lt;p&gt;In the x86 (since 80486) and Itanium architectures this is implemented as the compare and exchange (CMPXCHG) instruction, though here the LOCK prefix should be there to make it really atomic.&lt;/p&gt;
+
 &lt;p&gt;From: http://en.wikipedia.org/wiki/Compare-and-swap&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;&lt;code&gt;cmpxchg&lt;/code&gt;是在Intel平台上&lt;code&gt;atomic compare-and-swap&lt;/code&gt;操作的实现。&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;cmpxchg&lt;/code&gt;还被用来实现&lt;code&gt;spinlock&lt;/code&gt;，&lt;a href="http://stackoverflow.com/questions/6935442/x86-spinlock-using-cmpxchg"&gt;戳我&lt;/a&gt;。&lt;/p&gt;
+
 &lt;h2&gt;Show me the code&lt;/h2&gt;
+
 &lt;h3&gt;数据类型&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_head&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1792,9 +2178,10 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;一个简单的类型包裹。&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;llist_head&lt;/code&gt;是链表头，而&lt;code&gt;llist_node&lt;/code&gt;是链表中&lt;strong&gt;链&lt;/strong&gt;的部分。&lt;/p&gt;
+
 &lt;h3&gt;初始化&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define LLIST_HEAD_INIT(name)        { NULL }&lt;/span&gt;
 &lt;span class="cp"&gt;#define LLIST_HEAD(name)        struct llist_head name = LLIST_HEAD_INIT(name)&lt;/span&gt;
@@ -1809,8 +2196,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;链表的遍历&lt;/h3&gt;
+
 &lt;h4&gt;llist_entry&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_entry - get the struct of this entry&lt;/span&gt;
@@ -1822,25 +2209,27 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cp"&gt;        container_of(ptr, type, member)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;声明一个链表时，我们需要把&lt;code&gt;llist_node&lt;/code&gt;包含在链表节点中，&lt;code&gt;llist_head&lt;/code&gt;是链表头。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;是从链表节点中的&lt;code&gt;llist_node&lt;/code&gt;成员变量获得链表节点的地址。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;宏是从&lt;code&gt;container_of&lt;/code&gt;宏继承而来的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * container_of - cast a member of a structure out to the containing structure&lt;/span&gt;
-&lt;span class="cm"&gt; * @ptr:        the pointer to the member.&lt;/span&gt;
-&lt;span class="cm"&gt; * @type:        the type of the container struct this is embedded in.&lt;/span&gt;
-&lt;span class="cm"&gt; * @member:        the name of the member within the struct.&lt;/span&gt;
-&lt;span class="cm"&gt; *&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;container_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;({&lt;/span&gt;                        \
-        &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;__mptr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;        \
-        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;__mptr&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;offsetof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;);})&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;是从链表节点中的&lt;code&gt;llist_node&lt;/code&gt;成员变量获得链表节点的地址。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;宏是从&lt;code&gt;container_of&lt;/code&gt;宏继承而来的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * container_of - cast a member of a structure out to the containing structure
+ * @ptr:        the pointer to the member.
+ * @type:        the type of the container struct this is embedded in.
+ * @member:        the name of the member within the struct.
+ *
+ */
+#define container_of(ptr, type, member) ({                        \
+        const typeof( ((type *)0)-&amp;gt;member ) *__mptr = (ptr);        \
+        (type *)( (char *)__mptr - offsetof(type,member) );})&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;具体原理可以小小参考一下&lt;a href="http://hi.baidu.com/holinux/item/af2e32c9dcbd3953ac00ef49"&gt;这里&lt;/a&gt;。&lt;/p&gt;
+
 &lt;h4&gt;for_each&lt;/h4&gt;
+
 &lt;h5&gt;llist_for_each&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_for_each - iterate over some deleted entries of a lock-less list&lt;/span&gt;
@@ -1860,8 +2249,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cp"&gt;        for ((pos) = (node); pos; (pos) = (pos)-&amp;gt;next)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;一个&lt;code&gt;for循环&lt;/code&gt;。简单的宏。&lt;/p&gt;
+
 &lt;h5&gt;llist_for_each_entry&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_for_each_entry - iterate over some deleted entries of lock-less list of given type&lt;/span&gt;
@@ -1884,17 +2273,15 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cp"&gt;             (pos) = llist_entry((pos)-&amp;gt;member.next, typeof(*(pos)), member))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;遍历链表的类。
 用伪代码来表述一下就是。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;链表节点&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="err"&gt;指针&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
-        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;链表下一个节点&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// 遍历操作&lt;/span&gt;
-    &lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
+&lt;pre&gt;&lt;code&gt;for ((pos) = 链表节点;
+        &amp;amp;(pos)-&amp;gt;next指针 != NULL; 
+        (pos) = 链表下一个节点) {
+    // 遍历操作
+    pos.foo = bar;
+}&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h5&gt;llist_for_each_entry_safe&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
@@ -1921,9 +2308,10 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cp"&gt;             pos = n)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;&lt;code&gt;safe&lt;/code&gt;表示单链表中的节点有可能被增加/删除。&lt;/p&gt;
+
 &lt;p&gt;使用&lt;code&gt;(n = llist_entry(pos-&amp;gt;member.next, typeof(*n), member), true)&lt;/code&gt;可以保持遍历的安全性。&lt;/p&gt;
+
 &lt;h6&gt;llist_next&lt;/h6&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;llist_next&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1931,8 +2319,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;链表元素的操作&lt;/h3&gt;
+
 &lt;h5&gt;llist_add_batch&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_add_batch - add several linked entries in batch&lt;/span&gt;
@@ -1955,8 +2343,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;批量增加命令，使用&lt;code&gt;cmpxchg&lt;/code&gt;保持线程安全。&lt;/p&gt;
+
 &lt;h5&gt;llist_add&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_add - add a new entry&lt;/span&gt;
@@ -1970,7 +2358,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;llist_add_batch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h5&gt;llist_empty&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
@@ -1987,8 +2374,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;使用&lt;code&gt;ACCESS_ONCE&lt;/code&gt;避免编译器优化，保持线程安全性。&lt;/p&gt;
+
 &lt;h5&gt;llist_del_all&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_del_all - delete all entries from lock-less list&lt;/span&gt;
@@ -2004,43 +2391,42 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h5&gt;llist_del_first&lt;/h5&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * llist_del_first - delete the first entry of lock-less list&lt;/span&gt;
-&lt;span class="cm"&gt; * @head:        the head for your lock-less list&lt;/span&gt;
-&lt;span class="cm"&gt; *&lt;/span&gt;
-&lt;span class="cm"&gt; * If list is empty, return NULL, otherwise, return the first entry&lt;/span&gt;
-&lt;span class="cm"&gt; * deleted, this is the newest added one.&lt;/span&gt;
-&lt;span class="cm"&gt; *&lt;/span&gt;
-&lt;span class="cm"&gt; * Only one llist_del_first user can be used simultaneously with&lt;/span&gt;
-&lt;span class="cm"&gt; * multiple llist_add users without lock.  Because otherwise&lt;/span&gt;
-&lt;span class="cm"&gt; * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,&lt;/span&gt;
-&lt;span class="cm"&gt; * llist_add) sequence in another user may change @head-&amp;gt;first-&amp;gt;next,&lt;/span&gt;
-&lt;span class="cm"&gt; * but keep @head-&amp;gt;first.  If multiple consumers are needed, please&lt;/span&gt;
-&lt;span class="cm"&gt; * use llist_del_all or use lock between consumers.&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;llist_del_first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_head&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-        &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(;;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="no"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="no"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="n"&gt;old_entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cmpxchg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-                        &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;pre&gt;&lt;code&gt;/**
+ * llist_del_first - delete the first entry of lock-less list
+ * @head:        the head for your lock-less list
+ *
+ * If list is empty, return NULL, otherwise, return the first entry
+ * deleted, this is the newest added one.
+ *
+ * Only one llist_del_first user can be used simultaneously with
+ * multiple llist_add users without lock.  Because otherwise
+ * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,
+ * llist_add) sequence in another user may change @head-&amp;gt;first-&amp;gt;next,
+ * but keep @head-&amp;gt;first.  If multiple consumers are needed, please
+ * use llist_del_all or use lock between consumers.
+ */
+struct llist_node *llist_del_first(struct llist_head *head)
+{
+        struct llist_node *entry, *old_entry, *next;
 
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+        entry = head-&amp;gt;first;
+        for (;;) {
+                if (entry == NULL)
+                        return NULL;
+                old_entry = entry;
+                next = entry-&amp;gt;next;
+                entry = cmpxchg(&amp;amp;head-&amp;gt;first, old_entry, next);
+                if (entry == old_entry)
+                        break;
+        }
 
+        return entry;
+}&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;删除第一个值。同样的无锁操作。&lt;/p&gt;
+
 &lt;h5&gt;llist_reverse_order&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * llist_reverse_order - reverse order of a llist chain&lt;/span&gt;
@@ -2065,41 +2451,42 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="n"&gt;EXPORT_SYMBOL_GPL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;llist_reverse_order&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;如何反转一个单链表&lt;/p&gt;
+
 &lt;h2&gt;少锁链表是如何实现的&lt;/h2&gt;
+
 &lt;h3&gt;add函数中的原子操作&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;new_last&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ACCESS_ONCE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmpxchg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;new_first&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;其中&lt;code&gt;cmpxchg&lt;/code&gt;的性质类似于锁。保证赋值是成功的且是是原子的。&lt;/p&gt;
+
 &lt;h3&gt;del_first中的原子操作&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cmpxchg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h3&gt;del_all中的原子操作&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nf"&gt;xchg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;少锁链表如何处理并发&lt;/h3&gt;
-&lt;p&gt;在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt; &lt;span class="cm"&gt;/*&lt;/span&gt;
-&lt;span class="cm"&gt; *           |   add    | del_first |  del_all&lt;/span&gt;
-&lt;span class="cm"&gt; * add       |    -     |     -     |     -&lt;/span&gt;
-&lt;span class="cm"&gt; * del_first |          |     L     |     L&lt;/span&gt;
-&lt;span class="cm"&gt; * del_all   |          |           |     -&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。
+&lt;code&gt;c
+ /*
+ *           |   add    | del_first |  del_all
+ * add       |    -     |     -     |     -
+ * del_first |          |     L     |     L
+ * del_all   |          |           |     -
+ */
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;add&lt;/code&gt;操作和头指针没有关系，所以它可以和其它操作并行。
 &lt;code&gt;del_first&lt;/code&gt;依赖于&lt;code&gt;list-&amp;gt;first-&amp;gt;next&lt;/code&gt;在操作时不变化。
 而&lt;code&gt;del_all&lt;/code&gt;只对&lt;code&gt;list-&amp;gt;first&lt;/code&gt;的指针进行操作。所以是可以并行的。&lt;/p&gt;
+
 &lt;h3&gt;少锁链表如何处理遍历&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
 &lt;span class="cm"&gt; * The list entries deleted via llist_del_all can be traversed with&lt;/span&gt;
@@ -2111,56 +2498,102 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="cm"&gt; */&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;大概意思是说只有从列表上删除下来的元素才可以安全的遍历。（这点理解的不深入）&lt;/p&gt;
+
 &lt;h2&gt;后记&lt;/h2&gt;
+
 &lt;p&gt;本来是想把这llist的代码看明白的。但是，大概只看懂了60%。。。&lt;/p&gt;
-&lt;p&gt;以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 28 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-28:linux-lockless-llist.html</guid><category>linux</category><category>lock-less</category><category>链表</category><category>并发编程</category></item><item><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-215-div-2.html</link><description>&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
+
+&lt;p&gt;以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 28 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-28:linux-lockless-llist.html</guid><category>linux</category><category>lock-less</category><category>链表</category><category>并发编程</category></item><item><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-215-div-2.html</link><description>&lt;p&gt;Date: 2013-11-27
+Title: Codeforces Round #215 (Div. 2)不完全不正确题解
+Tags: codeforces, algorithm, 算法, 题解
+Slug: cf-215-div-2&lt;/p&gt;
+
+&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
+
 &lt;p&gt;傻逼才错的题。不幸中枪。&lt;/p&gt;
+
 &lt;p&gt;没什么可说的。直接看代码就好。&lt;/p&gt;
+
 &lt;h3&gt;B. Sereja and Suffixes&lt;/h3&gt;
-&lt;p&gt;关键思想在于统计A[i...n-1]中有多少互不相同的数。&lt;/p&gt;
+
+&lt;p&gt;关键思想在于统计A[i&amp;hellip;n-1]中有多少互不相同的数。&lt;/p&gt;
+
 &lt;p&gt;使用离线思想，把查询按&lt;code&gt;greater&amp;lt;int&amp;gt;&lt;/code&gt;排序，然后使用Hash表进行统计，简单题。&lt;/p&gt;
+
 &lt;h3&gt;C. Sereja and Algorithm&lt;/h3&gt;
+
 &lt;p&gt;思路题。&lt;/p&gt;
+
 &lt;p&gt;我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。&lt;/p&gt;
-&lt;p&gt;所以我们只需要统计出A[i...j]中x, y, z的个数。&lt;/p&gt;
+
+&lt;p&gt;所以我们只需要统计出A[i&amp;hellip;j]中x, y, z的个数。&lt;/p&gt;
+
 &lt;p&gt;然后进行排列。&lt;/p&gt;
+
 &lt;p&gt;我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;zy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;xzy&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
-&lt;span class="n"&gt;xz&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;yxz&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
-&lt;span class="n"&gt;yx&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;zyx&lt;/span&gt;&lt;span class="p"&gt;]...&lt;/span&gt;
 
-&lt;span class="c1"&gt;//[]中的是循环节&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code&gt;zy[xzy][xzy]...
+xz[yxz][yxz]...
+yx[zyx][zyx]...
 
+//[]中的是循环节&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;所以只需要数学上的一点计算就可算出我们可不可以生成以上的排列。&lt;/p&gt;
+
 &lt;h3&gt;D. Sereja ans Anagrams&lt;/h3&gt;
+
 &lt;p&gt;坑题。&lt;/p&gt;
+
 &lt;p&gt;一个简单的双端队列 + Hash表统计。&lt;/p&gt;
+
 &lt;p&gt;坑有两处，一是最后的结果需要去重。这个是我做法的问题，用一个Hash表判重，如果qa满足条件，后续就不需要枚举qa这个点了。&lt;/p&gt;
+
 &lt;p&gt;二是一些中间结果会爆int，所以要实时估计数据规模。&lt;/p&gt;
+
 &lt;h2&gt;E. Sereja and the Arrangement of Numbers&lt;/h2&gt;
+
 &lt;p&gt;欧拉路径。&lt;/p&gt;
+
 &lt;p&gt;先科普一下。（好吧，其实大家都知道，只有我忘记了。。。）&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;对于一个给定的连通图，怎样判断是否存在着一个恰好包含了所有的边，并且没有重复的路径？&lt;/p&gt;
+
 &lt;p&gt;这就是一笔画问题。用图论的术语来说，就是判断这个图是否是一个能够遍历完所有的边而没有重复。这样的图现称为欧拉图。这时遍历的路径称作欧拉路径（一个环或者一条链），如果路径闭合（一个圈），则称为欧拉回路。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;我们来简化一下问题。如果我们有k个numbers，若要生成一个符合条件的序列。则这k个数字的相邻关系必然能构成一个欧拉路径。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;连通的无向图 G 有欧拉路径的充要条件是：G中奇顶点（连接的边数量为奇数的顶点）的数目等于0或者2。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;所以我们容易求出在有k个点时，图中应该有多少条边，也就意味着我们的序列应该有多长。&lt;/p&gt;
+
 &lt;p&gt;回到我们的问题上来，我们限定了序列的长度，所以图中边的数目也有了限制。于是我们由边数使用二分枚举反推点数。&lt;/p&gt;
+
 &lt;p&gt;然后选取价格最高的t个点数，并算出总花费。&lt;/p&gt;
+
 &lt;p&gt;参考自&lt;a href="http://codeforces.com/blog/entry/9728"&gt;liyishuai&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3&gt;代码&lt;/h3&gt;
-&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link>http://wizmann.tk/cse351-lab1.html</link><description>&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
+
+&lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link>http://wizmann.tk/cse351-lab1.html</link><description>&lt;p&gt;Date: 2013-11-27
+Title: CSE351 - Lab 1: Manipulating Bits Using C
+Tags: CSE351, 公开课
+Slug: cse351-lab1&lt;/p&gt;
+
+&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
+
 &lt;p&gt;以上是前言。&lt;/p&gt;
-&lt;hr /&gt;
+
+&lt;hr&gt;
+
 &lt;h3&gt;bitAnd &amp;amp; bitOr&lt;/h3&gt;
+
 &lt;p&gt;德摩根定理的应用&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
 &lt;span class="cm"&gt; * bitAnd - x&amp;amp;y using only ~ and | &lt;/span&gt;
@@ -2172,8 +2605,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;bitAnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
 &lt;span class="cm"&gt; * bitOr - x|y using only ~ and &amp;amp; &lt;/span&gt;
 &lt;span class="cm"&gt; *   Example: bitOr(6, 5) = 7&lt;/span&gt;
@@ -2186,13 +2617,18 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;isTmax&lt;/h3&gt;
+
 &lt;p&gt;因为&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;Tmax == INT_MAX == 0x7fff ffff&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;=&amp;gt; &lt;code&gt;INT_MAX + INT_MAX + 2 == 0&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;又因为&lt;code&gt;-1 == 0xffff ffff&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;=&amp;gt; &lt;code&gt;-1 + -1 + 2 = 0&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;于是我们还要加一条判断是否是-1的逻辑。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
 &lt;span class="cm"&gt; * isTmax - returns 1 if x is the maximum, two&amp;#39;s complement number,&lt;/span&gt;
@@ -2206,7 +2642,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;isZero&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
 &lt;span class="cm"&gt; * isZero - returns 1 if x == 0, and 0 otherwise &lt;/span&gt;
@@ -2219,7 +2654,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h3&gt;fitsBits&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
@@ -2237,7 +2671,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;getByte&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
 &lt;span class="cm"&gt; * getByte - Extract byte n from word x&lt;/span&gt;
@@ -2252,40 +2685,41 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;isNegative&lt;/h3&gt;
-&lt;p&gt;找到符号位&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise &lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: isNegative(-1) = 1.&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNegative&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;找到符号位
+&lt;code&gt;cpp
+/* 
+ * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise 
+ *   Example: isNegative(-1) = 1.
+ *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;
+ *   Max ops: 6
+ *   Rating: 2
+ */
+int isNegative(int x) {
+    return !!(x &amp;amp; (1 &amp;lt;&amp;lt; 31));
+}
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3&gt;addOK&lt;/h3&gt;
-&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * addOK - Determine if can compute x+y without overflow&lt;/span&gt;
-&lt;span class="cm"&gt; *   Example: addOK(0x80000000,0x80000000) = 0,&lt;/span&gt;
-&lt;span class="cm"&gt; *            addOK(0x80000000,0x70000000) = 1, &lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 20&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;addOK&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt;  &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加
+&lt;code&gt;cpp
+/* 
+ * addOK - Determine if can compute x+y without overflow
+ *   Example: addOK(0x80000000,0x80000000) = 0,
+ *            addOK(0x80000000,0x70000000) = 1, 
+ *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;
+ *   Max ops: 20
+ *   Rating: 3
+ */
+int addOK(int x, int y) {
+    int sum = ((x + y) &amp;gt;&amp;gt; 31) &amp;amp; 1;
+    int sx = (x &amp;gt;&amp;gt; 31) &amp;amp; 1;
+    int sy = (y &amp;gt;&amp;gt; 31) &amp;amp; 1;
+    return  !((!(sx ^ sy)) &amp;amp; (sx ^ sum));
+}
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3&gt;isGreater&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
@@ -2304,7 +2738,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;replaceByte&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
 &lt;span class="cm"&gt; * replaceByte(x,n,c) - Replace byte n in x with c&lt;/span&gt;
@@ -2319,7 +2752,6 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="mh"&gt;0xFF&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h3&gt;rotateLeft&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
@@ -2337,8 +2769,8 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;bitCount&lt;/h3&gt;
+
 &lt;p&gt;这个是从&lt;a href="http://stackoverflow.com/a/3815253/2927439"&gt;stackoverflow&lt;/a&gt;上找来的答案，很厉害，不过还没看明白为啥。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*&lt;/span&gt;
 &lt;span class="cm"&gt; * bitCount - returns count of number of 1&amp;#39;s in word&lt;/span&gt;
@@ -2358,57 +2790,108 @@ wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;isNonZero&lt;/h3&gt;
+
 &lt;p&gt;&lt;code&gt;(~x + 1) == -x&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;=&amp;gt; &lt;code&gt;x | -x&lt;/code&gt;的符号位为负&lt;/p&gt;
-&lt;p&gt;对于特殊数据&lt;code&gt;INT_MIN&lt;/code&gt;也可以处理&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
-&lt;span class="cm"&gt; * isNonZero - Check whether x is nonzero using&lt;/span&gt;
-&lt;span class="cm"&gt; *              the legal operators except !&lt;/span&gt;
-&lt;span class="cm"&gt; *   Examples: isNonZero(3) = 1, isNonZero(0) = 0&lt;/span&gt;
-&lt;span class="cm"&gt; *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class="cm"&gt; *   Max ops: 10&lt;/span&gt;
-&lt;span class="cm"&gt; *   Rating: 4 &lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNonZero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cse351-lab1.html</guid><category>CSE351</category><category>公开课</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
+
+&lt;p&gt;对于特殊数据&lt;code&gt;INT_MIN&lt;/code&gt;也可以处理
+&lt;code&gt;cpp
+/* 
+ * isNonZero - Check whether x is nonzero using
+ *              the legal operators except !
+ *   Examples: isNonZero(3) = 1, isNonZero(0) = 0
+ *   Legal ops: ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;
+ *   Max ops: 10
+ *   Rating: 4 
+ */
+int isNonZero(int x) {
+    return ((x | (~x + 1)) &amp;gt;&amp;gt; 31) &amp;amp; 1;
+}
+&lt;/code&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cse351-lab1.html</guid><category>CSE351</category><category>公开课</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;Date: 2013-11-26
+Title: CSE 351 - Hardware/Software Interface
+Tags: 公开课, 计算机科学, CSE351
+Slug: Washington-University-CSE351&lt;/p&gt;
+
+&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
+
 &lt;p&gt;传说是很不错的计算机科学公开课。使用&lt;a href="http://book.douban.com/subject/5333562/"&gt;深入理解计算机系统&lt;/a&gt;做教材，正好是我要读的书，所以顺便听听课。&lt;/p&gt;
+
 &lt;p&gt;豆瓣上有人写了&lt;a href="http://book.douban.com/review/6093947/"&gt;推荐&lt;/a&gt;，观点是这课虽然不错，但是比较浅。根据我现在的理解来说，确实比较浅，如果有不错的高级语言编程基础（C/C++/Java/Pascal等，脚本就算了），很多东西可以速推。&lt;/p&gt;
+
 &lt;p&gt;接下来的一些日志会是这门课的作业、实验和感想。现在先挖个坑。慢慢填上。&lt;/p&gt;
-&lt;hr /&gt;
+
+&lt;hr&gt;
+
 &lt;p&gt;课程视频：&lt;a href="http://pan.baidu.com/wap/link?&amp;amp;shareid=3687486382&amp;amp;uk=2919707929&amp;amp;third=0&amp;amp;page=1"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;课程主页：&lt;a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html"&gt;戳我&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</guid><category>公开课</category><category>计算机科学</category><category>CSE351</category></item><item><title>使用pip和virtuanenv</title><link>http://wizmann.tk/using-pip-and-virtualenv.html</link><description>&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
+
+&lt;p&gt;课程主页：&lt;a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</guid><category>公开课</category><category>计算机科学</category><category>CSE351</category></item><item><title>使用pip和virtuanenv</title><link>http://wizmann.tk/using-pip-and-virtualenv.html</link><description>&lt;p&gt;Date: 2013-11-25
+Title: 使用pip和virtuanenv
+Tags: python
+Slug: using-pip-and-virtualenv&lt;/p&gt;
+
+&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
+
 &lt;blockquote&gt;
-&lt;p&gt;"What’s pip?"&lt;/p&gt;
-&lt;p&gt;"A python package manager"&lt;/p&gt;
-&lt;p&gt;"How do I install it?"&lt;/p&gt;
-&lt;p&gt;"easy_install pip"&lt;/p&gt;
-&lt;p&gt;"What’s easy_install?"&lt;/p&gt;
-&lt;p&gt;"A python package manager"&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;What’s pip?&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;A python package manager&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;How do I install it?&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;easy_install pip&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;What’s easy_install?&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;A python package manager&amp;rdquo;&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;pip和easy_install都是python的包管理工具，类似于ruby的gem以及nodejs的npm。&lt;/p&gt;
+
 &lt;p&gt;而pip是easy_install的升级版，在这个&lt;a href="http://www.pip-installer.org/en/1.0.2/#pip-compared-to-easy-install"&gt;页面&lt;/a&gt;中提到了pip对于easy_install的升级。其中提到了一点非常重要。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;pip is complementary with virtualenv, and it is encouraged that you use virtualenv to isolate your installation.&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;如果有同学不熟悉virtualenv，这里是一个小小的介绍。（以下翻译来自：&lt;a href="http://blogs.360.cn/blog/how-360-uses-python-1-virtualenv/"&gt;戳我&lt;/a&gt;）&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;virtualenv 是一个创建隔离的Python环境的工具。&lt;/p&gt;
+
 &lt;p&gt;virtualenv要解决的根本问题是库的版本和依赖，以及权限问题。假设你有一个程序，需要LibFoo的版本1，而另一个程序需要版本2，如何同时使用两个应用程序呢？如果将所有的库都安装在 /usr/lib/python2.7/site-packages（或者你的系统的标准包安装路径），非常容易出现将不该升级的库升级的问题。&lt;/p&gt;
+
 &lt;p&gt;另外，在一台共享的机器上，如果没有全局的 site-packages 目录的权限（例如一个共享的主机），如何安装Python库呢？&lt;/p&gt;
+
 &lt;p&gt;在这些情况下，就是该用到virtualenv的地方。它能够创建一个自己的安装目录，形成一个独立的环境，不会影响其他的virtualenv环境，甚至可以不受全局的site-packages当中安装的包的影响&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;由于virtualenv的以上优点。我们使用pip与virtualenv配合，可以很轻松保证线上线下运行环境一致，实现自动化部署。&lt;/p&gt;
+
 &lt;p&gt;举一个例子。&lt;/p&gt;
+
 &lt;p&gt;在线下开发时，我们使用&lt;code&gt;virtualenv env&lt;/code&gt;创建一个Python虚拟环境。并使用&lt;code&gt;source env/bin/activate&lt;/code&gt;激活。&lt;/p&gt;
+
 &lt;p&gt;然后我们可以在这个虚拟环境中安装我们需要的包。此时我们的环境与全局完全隔离，所有Python运行环境只以来于现有的虚拟环境。&lt;/p&gt;
+
 &lt;p&gt;在部署服务时，拷贝整个虚拟环境必然是不明智的选择。我们使用&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;将本环境的依赖写入&lt;code&gt;requirements.txt&lt;/code&gt;文件。&lt;/p&gt;
+
 &lt;p&gt;然后在线上新建&lt;code&gt;env_online&lt;/code&gt;，激活之。并调用&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;，此时线上服务器会下载所有依赖包。在安装结束后，我们就克隆了线下的环境。&lt;/p&gt;
+
 &lt;p&gt;当然，如果线上服务器没有连接外网。我们可以使用离线方法安装需要的包。&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;pip bundle env.pybundle -r requirements.txt&lt;/code&gt;会重新下载所有依赖的包，并写入&lt;code&gt;env.pybundle&lt;/code&gt;。然后我们将其上传到线上，使用&lt;code&gt;pip install env.pybundle&lt;/code&gt;安装即可。&lt;/p&gt;
-&lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Hello World</title><link>http://wizmann.tk/hello-world.html</link><description>&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
+
+&lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Hello World</title><link>http://wizmann.tk/hello-world.html</link><description>&lt;p&gt;Date: 2013-11-24
+Title: Hello World
+Tags: 闲聊
+Slug: hello-world&lt;/p&gt;
+
+&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-24:hello-world.html</guid><category>闲聊</category></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-24:hello-world.html</guid><category>闲聊</category></item></channel></rss>

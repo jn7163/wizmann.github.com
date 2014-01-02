@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="使用新类型创建更人性化的代码"/>
             <meta property="og:url" content="http://wizmann.tk/humanity-code-with-new-classes.html"/>
-            <meta property="og:description" content="啥？ 这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。 关键词： RAII 智能指针 接口友好 模板 模板特化 依赖编译器的缺省行为 对于C++的艺术，我只是个入门者。如果文章中有什么问题，欢迎大家指出，我会及时进行修改。 一个友好的互斥锁 互斥锁的定义 互斥锁（英语：英语：Mutual exclusion，缩写 Mutex）是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。 如何使用互斥锁 这里只做最简单的示范。具体的使用方法和原理不在本文的讨论范围之内。 #include <pthread.h> class MyIntArray ..."/>
+            <meta property="og:description" content="Date: 2013-12-09 15:01 Title: 使用新类型创建更人性化的代码 Tags: cpp Slug: humanity-code-with-new-classes 啥？ 这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。 关键词： RAII 智能指针 接口友好 模板 模板特化 依赖编译器的缺省行为 对于C++的艺术，我只是个入门者。如果文章中有什么问题，欢迎大家指出，我会及时进行修改。 一个友好的互斥锁 互斥锁的定义 互斥锁（英语：英语：Mutual exclusion，缩写 Mutex）是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -109,9 +109,17 @@
 	<a href="http://wizmann.tk/tag/cpp.html">cpp</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h2>啥？</h2>
+                <p>Date: 2013-12-09 15:01
+Title: 使用新类型创建更人性化的代码
+Tags: cpp
+Slug: humanity-code-with-new-classes</p>
+
+<h2>啥？</h2>
+
 <p>这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。</p>
+
 <p>关键词：</p>
+
 <ul>
 <li>RAII</li>
 <li>智能指针</li>
@@ -120,13 +128,19 @@
 <li>模板特化</li>
 <li>依赖编译器的缺省行为</li>
 </ul>
+
 <p>对于C++的艺术，我只是个入门者。如果文章中有什么问题，欢迎大家指出，我会及时进行修改。</p>
+
 <h2>一个友好的互斥锁</h2>
+
 <h3>互斥锁的定义</h3>
+
 <blockquote>
 <p>互斥锁（英语：英语：Mutual exclusion，缩写 Mutex）是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。</p>
 </blockquote>
+
 <h3>如何使用互斥锁</h3>
+
 <p>这里只做最简单的示范。具体的使用方法和原理不在本文的讨论范围之内。</p>
 <div class="highlight"><pre><span class="cp">#include &lt;pthread.h&gt;</span>
 
@@ -155,15 +169,22 @@
 <span class="p">};</span>
 </pre></div>
 
-
 <p>代码不需要多解释，通过一个锁来保证多线程push_back函数的可重入性。</p>
+
 <p>但是我们需要对代码的安全性做一些评估。</p>
+
 <p>例如，我们如何处理，函数在unlock mutex之前异常结束的情况。</p>
+
 <p>这并不是不可能的，例如<code>vec.push_back(v)</code>抛出了一个<code>std::bad_alloc</code>异常。或者在这之前因为一些原因，函数做出了<code>return -1</code>的行为。</p>
+
 <p>也许我们在逻辑上可以接受这些错误（比如做出一些失败处理）。但是，对于因为我们没有unlock我们的同步锁，于是死锁就产生了。</p>
+
 <p>这是一个极大的隐患，死锁的危害我也不用多说。</p>
+
 <p>那么我们有什么方法可以避免这种局面。</p>
+
 <h3>一个新的Mutex类型</h3>
+
 <p>我们可以使用<strong>析构函数</strong>的特性来编写如下的类。</p>
 <div class="highlight"><pre><span class="cp">#include &lt;pthread.h&gt;</span>
 
@@ -187,24 +208,36 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <p>OK，如果我们使用这个类做为同步锁的管理类，那么，如果函数中出现了非预期的情况而跳出的时候。<code>Mutex</code>类就会自动调用自身的析构函数来解锁。避免了死锁的发生。</p>
+
 <h3>总结</h3>
+
 <p><code>pthread_mutex_t</code>是一个类型，但是我们在这个类型之上又新建了一个新的类型来进行资源管理。以此来获得更人性化，更安全以及更可读的代码。</p>
+
 <h3>拓展阅读</h3>
+
 <ul>
 <li><a href="http://www.searchtb.com/2011/01/pthreads-mutex-vs-pthread-spinlock.html">Pthreads mutex vs Pthreads spinlock</a></li>
 </ul>
+
 <p>对于mutex和spinlock有一个详细的介绍，并且对比了这两种锁的性能。</p>
+
 <ul>
 <li>Effective C++ 条款14</li>
 </ul>
+
 <p>以上的例子来源于此，并且做了一些简化。</p>
+
 <h2>句柄类</h2>
+
 <p>我们都知道，由于C++没有自动内存回收机制，所以内存操作都需要代码编写者手动完成。</p>
+
 <p>这就造成了潜在的内存泄露问题 ———— 不小心手贱怎么办？</p>
+
 <p>于是我们就引入了句柄类，一种使用<strong>引用计数法</strong>来管理内存的方法。</p>
+
 <h3>一个泛型句柄类</h3>
+
 <p>代码来自《C++ Primer 第4版》，有小小的格式上的改动。</p>
 <div class="highlight"><pre><span class="cm">/* generic handle class: Provides pointerlike behavior. Although</span>
 <span class="cm">access through</span>
@@ -245,41 +278,55 @@
 <span class="p">};</span>
 </pre></div>
 
-
 <p>我们从代码中可以看到，Handle类中使用了<code>size_t *use</code>用来对于对象进行引用计数。如果计数为0，则Handle类会删除自身。也许我们会忘记释放内存，但是编译器会帮你管理好你的对象的。</p>
+
 <h3>句柄类的另一个优点</h3>
+
 <p>句柄类的另一个优点是可以降低文件间的编译依存关系。</p>
+
 <p>句柄类可以将接口从实现中分离，从而分离编译依赖。</p>
+
 <p>例如，我们有一个<code>Person</code>类，又声明了<code>PersonImpl</code>句柄类。</p>
+
 <p>则我们如果修改了<code>Person</code>类的实现部分，并且保持接口部分不变。则我们只需要重新编译含入<code>Person</code>类的文件。含入<code>PersonImpl</code>类的文件不需要重新编译。</p>
+
 <h3>shared_ptr</h3>
+
 <p>shared_ptr是boost中引入的新类型，原理和句柄类类似，但是加入了如下特性。</p>
+
 <ul>
 <li>线程安全</li>
 <li>支持自定义析构操作（删除器）</li>
 <li>有现成的库为啥不用</li>
 </ul>
+
 <p>在《Effective C++》一书中，作者对于<code>shared_ptr</code>大为推崇，用了很大篇幅来介绍它的用法，在这里就不赘述了。</p>
+
 <h3>潜在问题</h3>
+
 <p>有失有得，我们在一定程度上提升了内存安全性的同时，我们也必须付出一定的代价。</p>
+
 <ul>
 <li>内存性能问题</li>
 </ul>
+
 <p>我们的一个句柄类或智能指针中，不仅有我们的对象指针，而且还保存着引用计数。如果我们处于内存敏感的场景，那么我们必须认真的考虑收益和代价。</p>
+
 <ul>
 <li>计算性能问题</li>
 </ul>
+
 <p>如果我们的句柄类需要线程安全性，那么我们也必须要付出相应的时间上的代价。</p>
+
 <h3>拓展阅读</h3>
+
 <ul>
-<li>
-<p>《Effective C++》第三章 资源管理</p>
-</li>
-<li>
-<p>《C++ Primer第四版》 16.5 一个泛型句柄类</p>
-</li>
+<li><p>《Effective C++》第三章 资源管理</p></li>
+<li><p>《C++ Primer第四版》 16.5 一个泛型句柄类</p></li>
 </ul>
+
 <h2>防止接口误用</h2>
+
 <p>Python有一个非常好的特性（也许别的语言也有）。例如：</p>
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">pass_date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -288,9 +335,10 @@
     <span class="n">pass_date</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 
-
 <p>在函数的调用中，可以明确形参与实参的对应关系。这就可以从很大程度上解决了接口误用的问题。</p>
+
 <p>而在C++中，我们可以使用新建类型来解决这个问题。</p>
+
 <p>还以<code>pass_date</code>这个函数为例。</p>
 <div class="highlight"><pre><span class="k">struct</span> <span class="n">Year</span> <span class="p">{</span>
     <span class="k">explicit</span> <span class="kt">int</span> <span class="n">year</span><span class="p">;</span>
@@ -319,9 +367,10 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h2>偏特化类中的成员函数</h2>
+
 <p>这个方法来源于stackoverflow上的一个<a href="http://stackoverflow.com/questions/20147821/c-how-to-partial-specialization-a-template-function-in-a-template-class">问题</a>。</p>
+
 <p>我比较推崇下面这个答案，虽然它不是被顶的最多的那个。</p>
 <div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Group</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">ApplyNorm</span>
@@ -364,10 +413,12 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <p>它使用一个新类<code>ApplyNorm</code>实现了类成员函数的偏特化。</p>
+
 <h3>拓展阅读</h3>
+
 <p>《C++ Primer第4版》 16.6 模板特化</p>
+
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -419,13 +470,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -434,8 +485,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -444,18 +495,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -464,38 +515,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/encrypted.html">
                         encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -504,8 +530,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -514,8 +545,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -524,8 +565,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
 
