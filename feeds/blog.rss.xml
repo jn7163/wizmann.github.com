@@ -116,9 +116,11 @@ Slug: hungary-algorithm&lt;/p&gt;
 
 &lt;h2&gt;参考&lt;/h2&gt;
 
-&lt;p&gt;byvoid: &lt;a href="https://www.byvoid.com/blog/hungary"&gt;匈牙利算法&lt;/a&gt;
-Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;
-wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;byvoid: &lt;a href="https://www.byvoid.com/blog/hungary"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
 </description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;p&gt;Date: 2013-12-29 20:23
 Title: Codeforces 3C - Tic-tac-toe
 Tags: codeforces, algorithm, 算法, 设计模式
