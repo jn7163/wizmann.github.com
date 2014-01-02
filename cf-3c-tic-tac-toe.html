@@ -171,46 +171,45 @@ Slug: cf-3c-tic-tac-toe</p>
 <span class="p">};</span>
 </pre></div>
 
-<p>那么<code>FirstState</code>的实现如下：
-&ldquo;cpp
-class FirstState: public State {
-public:
-    virtual int first(int x, int y);
-    virtual int second(int x, int y);
-    virtual void show_state() {
-        print(&quot;FirstState&rdquo;);
-    }
-};</p>
+<p>那么<code>FirstState</code>的实现如下：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">FirstState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;FirstState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<p>int FirstState::first(int x, int y) {
-    int res = game -&gt; make_move(x, y, FIRST);
-    if (res == ILLEGAL) {
-        game -&gt; set_state(ILLEGAL);
-        return ILLEGAL;
-    }
-    int next = game -&gt; next();
-    switch(next) {
-        case SECOND:
-            game -&gt; set_state(SECOND);
-            break;
-        case FIRST_WIN:
-            game -&gt; set_state(FIRST_WIN);
-            break;
-        case DRAW:
-            game -&gt; set_state(DRAW);
-            break;
-        default:
-            game -&gt; set_state(ILLEGAL);
-            break;
-    }
-    return 0;
-}</p>
+<span class="kt">int</span> <span class="n">FirstState</span><span class="o">::</span><span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">make_move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">FIRST</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">ILLEGAL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">();</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">SECOND</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">SECOND</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">FIRST_WIN</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">FIRST_WIN</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">DRAW</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">DRAW</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p>int FirstState::second(int x, int y) {
-    // P2不能操作
-    return ILLEGAL;
-}
-&ldquo;</p>
+<span class="kt">int</span> <span class="n">FirstState</span><span class="o">::</span><span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// P2不能操作</span>
+    <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>同理，<code>SecondState</code>的实现：</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">SecondState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
@@ -615,18 +614,33 @@ public:
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/cse351.html">
                         CSE351
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -639,19 +653,9 @@ public:
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -665,48 +669,8 @@ public:
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        Leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/encrypted.html">
                         encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -715,13 +679,48 @@ public:
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        Leetcode
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/lock-less.html">
                         lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
                     </a>
                 </li>
 
