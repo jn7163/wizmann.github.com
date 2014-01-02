@@ -120,13 +120,13 @@ Title: Codeforces 3C - Tic-tac-toe
 Tags: codeforces, algorithm, 算法, 设计模式
 Slug: cf-3c-tic-tac-toe</p>
 
-<h1>啥？</h1>
+<h2>啥？</h2>
 
 <p><a href="http://codeforces.com/problemset/problem/3/C">Tic-tac-toe</a>是我很久之前在CF上做的一道题。非常考细心的模拟题。</p>
 
 <p>最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。</p>
 
-<h1>原题做法</h1>
+<h2>原题做法</h2>
 
 <p>没有任何“算法”成分。纯模拟。</p>
 
@@ -134,11 +134,11 @@ Slug: cf-3c-tic-tac-toe</p>
 
 <p>于是在这里就不赘述。手快的众位10分钟切此题无压力。</p>
 
-<h1>What&#39;s new?</h1>
+<h2>What&#39;s new?</h2>
 
 <p>如果我们扩展一下这个问题。如果让你设计一个Tic-tac-toe的对战系统（人机对战、人人对战等），你将如何设计？</p>
 
-<h1>the STATE pattern</h1>
+<h2>the STATE pattern</h2>
 
 <p>我们可以看出，这个对战系统其实可以用一个状态机来表示。</p>
 
@@ -146,7 +146,7 @@ Slug: cf-3c-tic-tac-toe</p>
 
 <p>于是我们的对战系统也可以写成一个状态机的模式。</p>
 
-<h1>show me the CODE</h1>
+<h2>show me the CODE</h2>
 
 <p>首先我们声明一个<code>State</code>接口类型。</p>
 
@@ -212,82 +212,78 @@ public:
 }
 &ldquo;</p>
 
-<p>同理，<code>SecondState</code>的实现：
-&rdquo;cpp
-class SecondState: public State {
-public:
-    virtual int first(int x, int y); 
-    virtual int second(int x, int y);</p>
+<p>同理，<code>SecondState</code>的实现：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">SecondState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span> 
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
 
-<pre><code>virtual void show_state() {
-    print("SecondState");
-}</code></pre>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;SecondState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<p>};</p>
+<span class="kt">int</span> <span class="n">SecondState</span><span class="o">::</span><span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// P1不能操作</span>
+    <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p>int SecondState::first(int x, int y) {
-    // P1不能操作
-    return ILLEGAL;
-}</p>
+<span class="kt">int</span> <span class="n">SecondState</span><span class="o">::</span><span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">make_move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">SECOND</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">ILLEGAL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<p>int SecondState::second(int x, int y) {
-    int res = game -&gt; make_move(x, y, SECOND);
-    if (res == ILLEGAL) {
-        return ILLEGAL;
-    }</p>
+    <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">();</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">FIRST</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">FIRST</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">SECOND_WIN</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">SECOND_WIN</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">DRAW</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">DRAW</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<pre><code>int next = game -&gt; next();
-switch(next) {
-    case FIRST:
-        game -&gt; set_state(FIRST);
-        break;
-    case SECOND_WIN:
-        game -&gt; set_state(SECOND_WIN);
-        break;
-    case DRAW:
-        game -&gt; set_state(DRAW);
-        break;
-    default:
-        game -&gt; set_state(ILLEGAL);
-}
-return 0;</code></pre>
+<p>对于结束状态，因为所有的操作都是非法的。我们可以如下实现：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">EndState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<p>}
-&ldquo;</p>
-
-<p>对于结束状态，因为所有的操作都是非法的。我们可以如下实现：
-&rdquo;cpp
-class EndState: public State {
-public:
-    virtual int first(int x, int y) {
-        return ILLEGAL;
-    }
-    virtual int second(int x,int y) {
-        return ILLEGAL;
-    }
-};</p>
-
-<p>class FirstWinState:  public EndState {
-    virtual void show_state() {
-        print(&ldquo;FirstWinState&rdquo;);
-    }
-};
-class SecondWinState: public EndState {
-    virtual void show_state() {
-        print(&ldquo;SecondWinState&rdquo;);
-    }
-};
-class DrawState:      public EndState {
-    virtual void show_state() {
-        print(&ldquo;DrawState&rdquo;);
-    }
-};
-class IllegalState:   public EndState {
-    virtual void show_state() {
-        print(&ldquo;IllegalState&rdquo;);
-    }
-};
-&ldquo;</p>
+<span class="k">class</span> <span class="nc">FirstWinState</span><span class="o">:</span>  <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;FirstWinState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">SecondWinState</span><span class="o">:</span> <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;SecondWinState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">DrawState</span><span class="o">:</span>      <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;DrawState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">IllegalState</span><span class="o">:</span>   <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;IllegalState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
 
 <p>到这里，状态机里的所有状态我们都已经声明好了。</p>
 
@@ -634,13 +630,13 @@ class IllegalState:   public EndState {
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -649,33 +645,18 @@ class IllegalState:   public EndState {
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/chuang-zao-li.html">
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
                         设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        Leetcode
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -689,28 +670,8 @@ class IllegalState:   public EndState {
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -719,13 +680,48 @@ class IllegalState:   public EndState {
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        Leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
                     </a>
                 </li>
 
