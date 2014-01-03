@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="機器學習基石 - PLA算法初步"/>
             <meta property="og:url" content="http://wizmann.tk/ml-foundations-pla.html"/>
-            <meta property="og:description" content="Date: 2013-11-29 Title: 機器學習基石 - PLA算法初步 Tags: 公开课, 分类器 Slug: ml-foundations-pla 什么是PLA算法 PLA = Perceptrons Learning Alogrithm WikiPedia上有一个大概的历史背景介绍。 感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。 PLA算法的原理 对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。 由此我们就可以推导出公式如下。 我们可以为这个“神经元”的激发值设定一个阈值threshold。 如果 a > threshold，则判定输入为正例。 如果 a ..."/>
+            <meta property="og:description" content="什么是PLA算法 PLA = Perceptrons Learning Alogrithm WikiPedia上有一个大概的历史背景介绍。 感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。 PLA算法的原理 对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。 由此我们就可以推导出公式如下。 我们可以为这个“神经元”的激发值设定一个阈值threshold。 如果 a > threshold，则判定输入为正例。 如果 a < threshold，则判定输入为负例。 对于 a == threshold的情况，认为是特殊情况，不予考虑。 所以，我们的感知器分类器就可以得到以下式子 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -111,104 +111,71 @@
 	<a href="http://wizmann.tk/tag/fen-lei-qi.html">分类器</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Date: 2013-11-29
-Title: 機器學習基石 - PLA算法初步
-Tags: 公开课, 分类器
-Slug: ml-foundations-pla</p>
-
-<h2>什么是PLA算法</h2>
-
+                <p><h2>什么是PLA算法</h2>
 <p>PLA = Perceptrons Learning Alogrithm</p>
-
 <p>WikiPedia上有一个大概的历史背景介绍。</p>
-
 <blockquote>
 <p>感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。</p>
 </blockquote>
-
 <h2>PLA算法的原理</h2>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" alt="感知机示意图"></p>
-
+<p><img alt="感知机示意图" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" /></p>
 <blockquote>
 <p>对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。</p>
 </blockquote>
-
 <p>由此我们就可以推导出公式如下。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" alt="neuron sum"></p>
-
+<p><img alt="neuron sum" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" /></p>
 <p>我们可以为这个“神经元”的激发值设定一个阈值<code>threshold</code>。</p>
-
 <p>如果 <code>a &gt; threshold</code>，则判定输入为正例。
 如果 <code>a &lt; threshold</code>，则判定输入为负例。
 对于 <code>a == threshold</code>的情况，认为是特殊情况，不予考虑。</p>
-
 <p>所以，我们的感知器分类器就可以得到以下式子。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-2.png" alt="perceptron-formula-2"></p>
-
+<p><img alt="perceptron-formula-2" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-2.png" /></p>
 <p>我们在数据向量中加入了阈值，并把式子统一成向量积的形式。</p>
-
 <h2>PLA算法的错误修正</h2>
-
 <p>PLA算法是_错误驱动_的算法。</p>
-
 <blockquote>
 <p>当我们训练这个算法时，只要输出值是正确的，这个算法就不会进行任何数据的调整。反之，当输出值与实际值异号，这个算法就会自动调整参数的比重。</p>
 </blockquote>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-update.png" alt="错误修正"></p>
-
+<p><img alt="错误修正" src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-update.png" /></p>
 <p>我们先取一个随机向量<code>W</code>，与现有的数据<code>X[i]</code>做点乘，取得结果的符号。</p>
-
 <p>如果符号符合我们的预期的话，则<code>continue</code>。
 否则就要对<code>W</code>进行修正。</p>
-
 <p>修正的方式是<code>W += y * X[i]</code>，每一次修正都是减少现有向量<code>W</code>与向量<code>y * X[i]</code>的夹角，从而调整答案的正确性。</p>
-
 <h2>Naive PLA 与 Pocket PLA</h2>
-
 <h3>Naive PLA</h3>
-
 <p>Naive PLA算法的思想很简单。一直修正向量<code>W</code>，直到向量<code>W</code>满足所有数据为止。</p>
-
 <p>代码如下：</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span></p>
 
-<span class="k">def</span> <span class="nf">naive_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">):</span>
+<p><span class="k">def</span> <span class="nf">naive_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">):</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
         <span class="n">iteration</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">false_data</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">false_data</span> <span class="o">=</span> <span class="mi">0</span></p>
 
-        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datas</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-                <span class="n">error</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
-                <span class="n">false_data</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">w</span> <span class="o">+=</span> <span class="n">error</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">print</span> <span class="s">&#39;iter</span><span class="si">%d</span><span class="s"> (</span><span class="si">%d</span><span class="s"> / </span><span class="si">%d</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">false_data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">datas</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">false_data</span><span class="p">:</span>
-            <span class="k">break</span>
-    <span class="k">return</span> <span class="n">w</span>
-</pre></div>
+<pre><code>&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;datas&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;sign&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;sign&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  
+            &lt;span class="n"&gt;false_data&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;iter&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt; (&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt; / &lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt;)&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;iteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;false_data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;datas&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;false_data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;break&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;</code></pre>
 
-<h3>Pocket PLA</h3>
+<p></pre></div></p>
 
+<p><h3>Pocket PLA</h3>
 <p>Naive PLA的一大问题就是如果数据有杂音，不能完美的分类的话，算法就不会中止。</p>
-
 <p>所以，对于有杂音的数据，我们只能期望找到错误最少的结果。然后这是一个<code>NP Hard</code>问题。</p>
-
 <p>Pocket PLA一个贪心的近似算法。和Naive PLA算法类似。</p>
-
 <p>变顺序迭代为随机迭代，如果找出错误，则修正结果。在修正过程中，记录犯错误最少的向量。</p>
-
 <p>代码如下：</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span></p>
 
-<span class="k">def</span> <span class="nf">pocket_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+<p><span class="k">def</span> <span class="nf">pocket_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
     <span class="c">###############</span>
     <span class="k">def</span> <span class="nf">_calc_false</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
@@ -220,36 +187,31 @@ Slug: ml-foundations-pla</p>
     <span class="c">###############</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">least_false</span> <span class="o">=</span> <span class="n">_calc_false</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">w</span></p>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">datas</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">t_false</span> <span class="o">=</span> <span class="n">_calc_false</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<pre><code>&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;limit&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;datas&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sign&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sign&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;t_false&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;_calc_false&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-            <span class="n">w</span> <span class="o">=</span> <span class="n">t</span>
+        &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;
 
-            <span class="k">if</span> <span class="n">t_false</span> <span class="o">&lt;=</span> <span class="n">least_false</span><span class="p">:</span>
-                <span class="n">least_false</span> <span class="o">=</span> <span class="n">t_false</span>
-                <span class="n">res</span> <span class="o">=</span> <span class="n">t</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">least_false</span>
-</pre></div>
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;t_false&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;least_false&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;least_false&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t_false&lt;/span&gt;
+            &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;least_false&lt;/span&gt;</code></pre>
 
-<h2>参考链接</h2>
+<p></pre></div></p>
 
+<p><h2>参考链接</h2>
 <p>本文主要参考了<a href="http://shaoxiongjiang.com/2013/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8-%E6%84%9F%E7%9F%A5%E5%99%A8-perceptron/">机器学习入门 - 感知器 (Perceptron)</a>和Wikipedia上面<a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知机</a>的词条。</p>
-
 <p>以及<a href="https://class.coursera.org/ntumlone-001/class">機器學習基石 (Machine Learning Foundations)</a>公开课的幻灯片。</p>
-
 <h2>Updated</h2>
-
 <p>2013-12-8</p>
-
 <p>修改了pocket-pla算法，提升了效率和准确性。</p>
-
-<p>参考了<a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632">课程论坛</a>的讨论。并且感谢Li Tianyi同学指出我的问题。</p>
+<p>参考了<a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632">课程论坛</a>的讨论。并且感谢Li Tianyi同学指出我的问题。</p></p>
 
             </div>
             <!-- /.entry-content -->
@@ -302,33 +264,13 @@ Slug: ml-foundations-pla</p>
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -337,8 +279,8 @@ Slug: ml-foundations-pla</p>
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -346,14 +288,59 @@ Slug: ml-foundations-pla</p>
                         题解
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        Leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -367,43 +354,8 @@ Slug: ml-foundations-pla</p>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        Leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/lian-biao.html">
                         链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -412,13 +364,23 @@ Slug: ml-foundations-pla</p>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
                     </a>
                 </li>
 
