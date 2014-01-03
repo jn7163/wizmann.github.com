@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 01 Jan 2014 22:01:00 +0800</lastBuildDate><item><title>匈牙利算法</title><link>http://wizmann.tk/hungary-algorithm.html</link><description>&lt;p&gt;Date: 2014-01-01 22:01
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 03 Jan 2014 00:00:00 +0800</lastBuildDate><item><title>读书 - 《Head first 设计模式》</title><link>http://wizmann.tk/read-head-first-design-pattern.html</link><description>&lt;p&gt;Date: 2014-01-03
+Title: 读书 - 《Head first 设计模式》
+Tags: 读书, head-first, 设计模式
+Slug: read-head-first-design-pattern&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://img5.douban.com/lpic/s2686916.jpg" alt="Head first设计模式"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://book.douban.com/subject/2243615/"&gt;豆瓣读书&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;为什么读这本书&lt;/h2&gt;
+
+&lt;p&gt;在面XX家的时候，被问过一个设计模式问题。当时连面向对象都搞不懂，更不用说设计模式。&lt;/p&gt;
+
+&lt;p&gt;于是入了“四人帮”的&lt;a href="http://book.douban.com/subject/1052241/"&gt;设计模式&lt;/a&gt;来看，被里面的内容彻底搞晕。然后只能找了这本看起来很娱乐化的书来读。&lt;/p&gt;
+
+&lt;p&gt;这本书大概有600多页，比“四人帮”书厚很多。一个原因是这本书是“范例驱动”的，包含很多“项目”背景介绍，以及实现思路；第二个原因是，这本书的示例代码用的是&lt;strong&gt;Java&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;（笑，不黑了好嘛。。。&lt;/p&gt;
+
+&lt;h2&gt;为什么要设计模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;这世界唯一不变的，就是变化&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;（没有逼格的人连名人名言都引用不好。。。&lt;/p&gt;
+
+&lt;p&gt;我们的代码总是需要不断的改变来适应现实世界中不断的变化。（烧死那个PM！）&lt;/p&gt;
+
+&lt;p&gt;我们需要一种&lt;code&gt;对代码影响最小&lt;/code&gt;的方式来修改软件以适应变化。这就是我们使用设计模式的原因。&lt;/p&gt;
+
+&lt;h2&gt;“内隐知识”&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;设计模式有了名字，人们就可以认识到它的存在。对于没有名字的东西，人们几乎不可能认识到它的存在，并对之进行讨论。这种不能用语言表达的知识我们称之为内隐知识。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;其实我们在写程序的时候，或多或少都用到了“设计模式”，只是我们没有意识到而已。&lt;/p&gt;
+
+&lt;p&gt;而计算机科学家总结出了设计模式，使其从&lt;code&gt;内隐知识&lt;/code&gt;或&lt;code&gt;经验论&lt;/code&gt;的范畴中脱离出来，成为真正可以讨论、学习、运用的知识。&lt;/p&gt;
+
+&lt;h2&gt;读书当中的缺憾&lt;/h2&gt;
+
+&lt;p&gt;还是由于个人工程代码经验不足，不能100%的理解设计模式的真谛。&lt;/p&gt;
+
+&lt;p&gt;上次动手写了一个&lt;code&gt;状态模式&lt;/code&gt;的井字游戏，还是写的有些吃力的。也许在工作中或时个人项目中，能多实践吧。&lt;/p&gt;
+
+&lt;h2&gt;思维导图&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://wizmann-tk-pic.u.qiniudn.com/blog-design-pattern-mindmap.png"&gt;戳我&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 03 Jan 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-03:read-head-first-design-pattern.html</guid><category>读书</category><category>head-first</category><category>设计模式</category></item><item><title>匈牙利算法</title><link>http://wizmann.tk/hungary-algorithm.html</link><description>&lt;p&gt;Date: 2014-01-01 22:01
 Title: 匈牙利算法
 Tags: algorithm
 Slug: hungary-algorithm&lt;/p&gt;
