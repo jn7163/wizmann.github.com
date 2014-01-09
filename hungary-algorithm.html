@@ -109,55 +109,81 @@
 	<a href="http://wizmann.tk/tag/algorithm.html">algorithm</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><h2>概念</h2>
+                <h2>概念</h2>
+
 <h3>交错路</h3>
+
 <blockquote>
 <p>交错路：设P是图G的一条路，如果P的任意两条相邻的边一定是一条属于M而另一条不属于M，就称P是一条交错路。</p>
 </blockquote>
+
 <p>通俗点来说，就是把一个图中的路径染成红黑两种。然后找出一条路，使这条路<strong>红黑交错</strong>。</p>
+
 <p>注：交错路是无向图，图中的箭头只是为了便于观察。</p>
+
 <p>例如下图中的：<code>(3) -&gt; (2) -&gt; (1)</code></p>
-<p><img alt="图1" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png" /></p>
+
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png" alt="图1"></p>
+
 <h3>从端点扩张交错路</h3>
+
 <p>假设我们已经有一个红黑交错路<code>P</code>，其端点为<code>A</code>和<code>B</code>，其路径被标记为<code>黑红</code>。此时，我们向<code>P</code>中的一个端点（假设为<code>A</code>）加入一条边<code>T</code>。</p>
+
 <p>此时我们有<code>边T + 交错路P（黑红）</code>。当我们将边<code>T</code>标记为<code>黑色</code>时，我们就扩展了交错路<code>P</code>。
 如果我们要保持红黑交错路的<strong>性质</strong>。则我们必须将边<code>T</code>标记为<code>黑色</code>。</p>
+
 <p>于是<code>P（BR） =&gt; P&#39;(BRB)</code></p>
-<p><img alt="图2" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-2.png" /></p>
+
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-2.png" alt="图2"></p>
+
 <h3>分割交错路</h3>
+
 <p>易得，分割交错路不会改变它的性质。</p>
+
 <h3>我们要红还是要黑</h3>
+
 <p>如果我们翻转红黑交错路的颜色，例如从<code>RBR =&gt; BRB</code>，则我们的交错路仍然<strong>保持原来的性质</strong>。</p>
+
 <p>所以翻转颜色是安全的。</p>
+
 <h2>算法实现</h2>
+
 <h3>匹配</h3>
+
 <p>匈牙利算法是用来求二分图最大匹配的算法。</p>
+
 <p>于是我们人为标记集合中的点为<code>左集</code>和<code>右集</code>。</p>
+
 <h3>红色是种好颜色</h3>
+
 <p>由于<code>红黑交错路</code>可以安全的翻转颜色。所以我们保持交错路中<strong>红色路多于黑色路</strong>的性质也是安全的。</p>
+
 <p>因为我们要求出最大匹配，所以我们设完成匹配的边为红色。</p>
+
 <h3>你可以证明你的算法吗</h3>
+
 <p>我们选取左集端点<code>T</code>到图中，此时图中有<code>k</code>条边与点<code>T</code>连接。这<code>k</code>条边分别为<code>p1...pk</code>。</p>
-<div class="highlight"><pre><span class="err">选取</span><span class="n">p1</span><span class="p">...</span><span class="n">pk</span><span class="err">中的任一条边</span><span class="n">px</span></p>
 
-<p><span class="err">如果</span> <span class="err">图中没有交错路</span> <span class="err">或者</span> <span class="err">图中有交错路但</span><span class="n">px</span><span class="err">的端点不在交错路中</span> <span class="err">：</span>
-    <span class="err">将</span><span class="n">px</span><span class="err">标为红色</span>
-    <span class="err">返回</span><span class="nb">true</span><span class="err">。</span></p>
+<pre><code>选取p1...pk中的任一条边px
 
-<p><span class="err">如果</span> <span class="err">图中有交错路，且</span><span class="n">px</span><span class="err">的端点在交错路中：</span>
-    <span class="err">如果</span> <span class="n">px</span><span class="err">的另一个端点是交错路的头</span><span class="o">/</span><span class="err">尾端点。（重申，交错路是无向的）</span>
-        <span class="err">那么，我们可以直接扩展交错路。</span><span class="n">px</span><span class="err">标为红色</span>
-        <span class="err">返回</span><span class="nb">true</span>
-    <span class="err">如果</span> <span class="n">px</span><span class="err">的另一个端点在交错路的中间。</span>
-        <span class="err">则我们在此端点分割交错路，将</span><span class="n">T</span><span class="err">点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作</span></p>
+如果 图中没有交错路 或者 图中有交错路但px的端点不在交错路中 ：
+    将px标为红色
+    返回true。
 
-<p><span class="err">如果</span> <span class="n">px</span><span class="err">不存在：</span>
-    <span class="err">则返回</span><span class="nb">false</span><span class="err">，</span> <span class="err">洗洗睡了</span></p>
+如果 图中有交错路，且px的端点在交错路中：
+    如果 px的另一个端点是交错路的头/尾端点。（重申，交错路是无向的）
+        那么，我们可以直接扩展交错路。px标为红色
+        返回true
+    如果 px的另一个端点在交错路的中间。
+        则我们在此端点分割交错路，将T点加入某一交错路。并且选取此交错路的一个端点执行这个扩展操作
 
-<p><span class="err">所以我们在每一次操作之后，会得到一个返回值。如果为</span><span class="nb">true</span><span class="err">，则匹配数</span><span class="o">+</span><span class="mi">1</span><span class="err">。反之则不变。</span>
-</pre></div></p>
+如果 px不存在：
+    则返回false， 洗洗睡了
+
+所以我们在每一次操作之后，会得到一个返回值。如果为true，则匹配数+1。反之则不变。</code></pre>
 
 <p>p.s. 我觉得我的证明我自己都TMD看不懂。。。好挫败。。。</p>
+
 <h2>代码</h2>
 <div class="highlight"><pre><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="c1">//左集端点数，右集端点数</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">g</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span> <span class="c1">// 边集</span>
@@ -173,8 +199,6 @@
     <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-
-
 <div class="highlight"><pre><span class="kt">bool</span> <span class="nf">deal</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// 遍历所有的边</span>
@@ -195,10 +219,12 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h2>参考</h2>
+
 <p>byvoid: <a href="https://www.byvoid.com/blog/hungary">匈牙利算法</a></p>
+
 <p>Matrix67: <a href="http://www.matrix67.com/blog/archives/116">二分图最大匹配的König定理及其证明</a></p>
+
 <p>wikipedia: <a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95">匈牙利算法</a></p>
 
             </div>
@@ -252,18 +278,33 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
                 </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
+                    </a>
+                </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -277,23 +318,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -302,8 +333,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -317,38 +358,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -362,13 +373,28 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
                         并发编程
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
                     </a>
                 </li>
 

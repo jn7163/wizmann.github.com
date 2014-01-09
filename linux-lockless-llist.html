@@ -115,58 +115,89 @@
 	<a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">并发编程</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><h1>前言</h1>
+                <h1>前言</h1>
+
 <p>最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(<a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773">戳我</a>)</p>
+
 <p>我打算借助这个问答中的内容，以我比较熟悉的数据结构与算法为索引来阅读开源代码。</p>
+
 <h1>正文</h1>
+
 <h2>Talk is cheap</h2>
+
 <blockquote>
 <p>Lock-less NULL terminated single linked list</p>
 </blockquote>
+
 <p><a href="https://github.com/mirrors/linux-2.6/blob/master/include/linux/llist.h">linux-2.6/include/linux/llist.h</a></p>
+
 <p><a href="https://github.com/mirrors/linux-2.6/blob/master/lib/llist.c">linux-2.6/lib/llist.c</a></p>
+
 <h2>知识准备</h2>
+
 <h3>volatile</h3>
+
 <blockquote>
 <p>volatile关键字声明的变量或对象通常拥有和优化和（或）多线程相关的特殊属性。</p>
+
 <p>通常，volatile关键字用来阻止（伪）编译器对那些它认为变量的值不能“被代码本身”改变的代码上执行任何优化。 </p>
+
 <p>如果不使用volatile关键字，编译器将假设当前程序是系统中唯一能改变这个值部分。 为了阻止编译器像上面那样优化代码，需要使用volatile关键字。</p>
+
 <p>From: http://zh.wikipedia.org/wiki/Volatile%E5%8F%98%E9%87%8F</p>
 </blockquote>
+
 <h3>typeof</h3>
+
 <blockquote>
 <p>Another way to refer to the type of an expression is with typeof. The syntax of using of this keyword looks like sizeof, but the construct acts semantically like a type name defined with typedef. </p>
+
 <p>From: http://gcc.gnu.org/onlinedocs/gcc/Typeof.html</p>
 </blockquote>
+
 <p><code>typeof</code>和<code>sizeof</code>类似，sizeof求的是变量/类型的大小，而typeof是求变量/类型的<strong>数据类型</strong>。</p>
+
 <p>typeof在#define中的应用很多，例如：</p>
-<div class="highlight"><pre><span class="cp">#define max(a,b) &lt;/span&gt;
-<span class="cp">   ({ typeof (a) _a = (a); &lt;/span&gt;
-<span class="cp">       typeof (b) _b = (b); &lt;/span&gt;
+<div class="highlight"><pre><span class="cp">#define max(a,b) \</span>
+<span class="cp">   ({ typeof (a) _a = (a); \</span>
+<span class="cp">       typeof (b) _b = (b); \</span>
 <span class="cp">     _a &gt; _b ? _a : _b; })</span>
-</pre></div></p>
+</pre></div>
 
 <p><code>typeof(a)</code>获得了<code>a</code>的类型，声明了一个同类型的<code>_a</code>变量。</p>
+
 <p>p.s. 上面是一个安全的用<code>#define</code>实现的<code>max</code>函数。</p>
+
 <h3>ACCESS_ONCE</h3>
 <div class="highlight"><pre><span class="cp">#define ACCESS_ONCE(x) (*(volatile typeof(x) *)&amp;(x))；</span>
 </pre></div>
 
-
 <p><code>ACCESS_ONCE</code>使用了一个类型转换，使用<code>volatile</code>修饰 <code>x</code>。避免编译器优化带来的潜在岐义。</p>
+
 <h3>cmpxchg</h3>
+
 <blockquote>
 <p>compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization. </p>
+
 <p>It compares the contents of a memory location to a given value and, only if they are the same, modifies the contents of that memory location to a given new value. </p>
+
 <p>This is done as a single atomic operation. The atomicity guarantees that the new value is calculated based on up-to-date information; if the value had been updated by another thread in the meantime, the write would fail. </p>
+
 <p>The result of the operation must indicate whether it performed the substitution; this can be done either with a simple Boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it).</p>
+
 <p>&hellip;</p>
+
 <p>In the x86 (since 80486) and Itanium architectures this is implemented as the compare and exchange (CMPXCHG) instruction, though here the LOCK prefix should be there to make it really atomic.</p>
+
 <p>From: http://en.wikipedia.org/wiki/Compare-and-swap</p>
 </blockquote>
+
 <p><code>cmpxchg</code>是在Intel平台上<code>atomic compare-and-swap</code>操作的实现。</p>
+
 <p><code>cmpxchg</code>还被用来实现<code>spinlock</code>，<a href="http://stackoverflow.com/questions/6935442/x86-spinlock-using-cmpxchg">戳我</a>。</p>
+
 <h2>Show me the code</h2>
+
 <h3>数据类型</h3>
 <div class="highlight"><pre><span class="k">struct</span> <span class="n">llist_head</span> <span class="p">{</span>
         <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>
@@ -177,9 +208,10 @@
 <span class="p">};</span>
 </pre></div>
 
-
 <p>一个简单的类型包裹。</p>
+
 <p><code>llist_head</code>是链表头，而<code>llist_node</code>是链表中<strong>链</strong>的部分。</p>
+
 <h3>初始化</h3>
 <div class="highlight"><pre><span class="cp">#define LLIST_HEAD_INIT(name)        { NULL }</span>
 <span class="cp">#define LLIST_HEAD(name)        struct llist_head name = LLIST_HEAD_INIT(name)</span>
@@ -194,8 +226,8 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>链表的遍历</h3>
+
 <h4>llist_entry</h4>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_entry - get the struct of this entry</span>
@@ -207,25 +239,27 @@
 <span class="cp">        container_of(ptr, type, member)</span>
 </pre></div>
 
-
 <p>声明一个链表时，我们需要把<code>llist_node</code>包含在链表节点中，<code>llist_head</code>是链表头。</p>
-<p><code>llist_entry</code>是从链表节点中的<code>llist_node</code>成员变量获得链表节点的地址。</p>
-<p><code>llist_entry</code>宏是从<code>container_of</code>宏继承而来的。</p>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * container_of - cast a member of a structure out to the containing structure</span>
-<span class="cm"> * @ptr:        the pointer to the member.</span>
-<span class="cm"> * @type:        the type of the container struct this is embedded in.</span>
-<span class="cm"> * @member:        the name of the member within the struct.</span>
-<span class="cm"> *</span>
-<span class="cm"> */</span>
-<span class="p">#</span><span class="n">define</span> <span class="n">container_of</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span> <span class="p">({</span>                        \
-        <span class="k">const</span> <span class="n">typeof</span><span class="p">(</span> <span class="p">((</span><span class="k">type</span> <span class="o">*</span><span class="p">)</span><span class="mh">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">member</span> <span class="p">)</span> <span class="o">*</span><span class="n">__mptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">ptr</span><span class="p">);</span>        \
-        <span class="p">(</span><span class="k">type</span> <span class="o">*</span><span class="p">)(</span> <span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="p">)</span><span class="n">__mptr</span> <span class="o">-</span> <span class="n">offsetof</span><span class="p">(</span><span class="k">type</span><span class="p">,</span><span class="n">member</span><span class="p">)</span> <span class="p">);})</span>
-</pre></div>
 
+<p><code>llist_entry</code>是从链表节点中的<code>llist_node</code>成员变量获得链表节点的地址。</p>
+
+<p><code>llist_entry</code>宏是从<code>container_of</code>宏继承而来的。</p>
+
+<pre><code>/**
+ * container_of - cast a member of a structure out to the containing structure
+ * @ptr:        the pointer to the member.
+ * @type:        the type of the container struct this is embedded in.
+ * @member:        the name of the member within the struct.
+ *
+ */
+#define container_of(ptr, type, member) ({                        \
+        const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr);        \
+        (type *)( (char *)__mptr - offsetof(type,member) );})</code></pre>
 
 <p>具体原理可以小小参考一下<a href="http://hi.baidu.com/holinux/item/af2e32c9dcbd3953ac00ef49">这里</a>。</p>
+
 <h4>for_each</h4>
+
 <h5>llist_for_each</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_for_each - iterate over some deleted entries of a lock-less list</span>
@@ -245,8 +279,8 @@
 <span class="cp">        for ((pos) = (node); pos; (pos) = (pos)-&gt;next)</span>
 </pre></div>
 
-
 <p>一个<code>for循环</code>。简单的宏。</p>
+
 <h5>llist_for_each_entry</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_for_each_entry - iterate over some deleted entries of lock-less list of given type</span>
@@ -269,17 +303,15 @@
 <span class="cp">             (pos) = llist_entry((pos)-&gt;member.next, typeof(*(pos)), member))</span>
 </pre></div>
 
-
 <p>遍历链表的类。
 用伪代码来表述一下就是。</p>
-<div class="highlight"><pre><span class="k">for</span> <span class="p">((</span><span class="n">pos</span><span class="p">)</span> <span class="o">=</span> <span class="err">链表节点</span><span class="p">;</span>
-        <span class="o">&amp;</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">next</span><span class="err">指针</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> 
-        <span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="o">=</span> <span class="err">链表下一个节点</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// 遍历操作</span>
-    <span class="n">pos</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="n">bar</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
 
+<pre><code>for ((pos) = 链表节点;
+        &amp;(pos)-&gt;next指针 != NULL; 
+        (pos) = 链表下一个节点) {
+    // 遍历操作
+    pos.foo = bar;
+}</code></pre>
 
 <h5>llist_for_each_entry_safe</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
@@ -306,9 +338,10 @@
 <span class="cp">             pos = n)</span>
 </pre></div>
 
-
 <p><code>safe</code>表示单链表中的节点有可能被增加/删除。</p>
+
 <p>使用<code>(n = llist_entry(pos-&gt;member.next, typeof(*n), member), true)</code>可以保持遍历的安全性。</p>
+
 <h6>llist_next</h6>
 <div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="nf">llist_next</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span>
 <span class="p">{</span>
@@ -316,8 +349,8 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h3>链表元素的操作</h3>
+
 <h5>llist_add_batch</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_add_batch - add several linked entries in batch</span>
@@ -340,8 +373,8 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <p>批量增加命令，使用<code>cmpxchg</code>保持线程安全。</p>
+
 <h5>llist_add</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_add - add a new entry</span>
@@ -355,7 +388,6 @@
         <span class="k">return</span> <span class="n">llist_add_batch</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
-
 
 <h5>llist_empty</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
@@ -372,8 +404,8 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <p>使用<code>ACCESS_ONCE</code>避免编译器优化，保持线程安全性。</p>
+
 <h5>llist_del_all</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_del_all - delete all entries from lock-less list</span>
@@ -389,43 +421,42 @@
 <span class="p">}</span>
 </pre></div>
 
-
 <h5>llist_del_first</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_del_first - delete the first entry of lock-less list</span>
-<span class="cm"> * @head:        the head for your lock-less list</span>
-<span class="cm"> *</span>
-<span class="cm"> * If list is empty, return NULL, otherwise, return the first entry</span>
-<span class="cm"> * deleted, this is the newest added one.</span>
-<span class="cm"> *</span>
-<span class="cm"> * Only one llist_del_first user can be used simultaneously with</span>
-<span class="cm"> * multiple llist_add users without lock.  Because otherwise</span>
-<span class="cm"> * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,</span>
-<span class="cm"> * llist_add) sequence in another user may change @head-&gt;first-&gt;next,</span>
-<span class="cm"> * but keep @head-&gt;first.  If multiple consumers are needed, please</span>
-<span class="cm"> * use llist_del_all or use lock between consumers.</span>
-<span class="cm"> */</span>
-<span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">llist_del_first</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">entry</span><span class="p">,</span> <span class="o">*</span><span class="n">old_entry</span><span class="p">,</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
 
-        <span class="n">entry</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">entry</span> <span class="o">==</span> <span class="no">NULL</span><span class="p">)</span>
-                        <span class="k">return</span> <span class="no">NULL</span><span class="p">;</span>
-                <span class="n">old_entry</span> <span class="o">=</span> <span class="n">entry</span><span class="p">;</span>
-                <span class="n">next</span> <span class="o">=</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="n">entry</span> <span class="o">=</span> <span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">old_entry</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">entry</span> <span class="o">==</span> <span class="n">old_entry</span><span class="p">)</span>
-                        <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
+<pre><code>/**
+ * llist_del_first - delete the first entry of lock-less list
+ * @head:        the head for your lock-less list
+ *
+ * If list is empty, return NULL, otherwise, return the first entry
+ * deleted, this is the newest added one.
+ *
+ * Only one llist_del_first user can be used simultaneously with
+ * multiple llist_add users without lock.  Because otherwise
+ * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,
+ * llist_add) sequence in another user may change @head-&gt;first-&gt;next,
+ * but keep @head-&gt;first.  If multiple consumers are needed, please
+ * use llist_del_all or use lock between consumers.
+ */
+struct llist_node *llist_del_first(struct llist_head *head)
+{
+        struct llist_node *entry, *old_entry, *next;
 
-        <span class="k">return</span> <span class="n">entry</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+        entry = head-&gt;first;
+        for (;;) {
+                if (entry == NULL)
+                        return NULL;
+                old_entry = entry;
+                next = entry-&gt;next;
+                entry = cmpxchg(&amp;head-&gt;first, old_entry, next);
+                if (entry == old_entry)
+                        break;
+        }
 
+        return entry;
+}</code></pre>
 
 <p>删除第一个值。同样的无锁操作。</p>
+
 <h5>llist_reverse_order</h5>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * llist_reverse_order - reverse order of a llist chain</span>
@@ -450,41 +481,42 @@
 <span class="n">EXPORT_SYMBOL_GPL</span><span class="p">(</span><span class="n">llist_reverse_order</span><span class="p">);</span>
 </pre></div>
 
-
 <p>如何反转一个单链表</p>
+
 <h2>少锁链表是如何实现的</h2>
+
 <h3>add函数中的原子操作</h3>
 <div class="highlight"><pre><span class="k">do</span> <span class="p">{</span>
     <span class="n">new_last</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span> <span class="o">=</span> <span class="n">ACCESS_ONCE</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">new_first</span><span class="p">)</span> <span class="o">!=</span> <span class="n">first</span><span class="p">);</span>
 </pre></div>
 
-
 <p>其中<code>cmpxchg</code>的性质类似于锁。保证赋值是成功的且是是原子的。</p>
+
 <h3>del_first中的原子操作</h3>
 <div class="highlight"><pre><span class="n">entry</span> <span class="o">=</span> <span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">old_entry</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
 </pre></div>
-
 
 <h3>del_all中的原子操作</h3>
 <div class="highlight"><pre><span class="k">return</span> <span class="nf">xchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 </pre></div>
 
-
 <h3>少锁链表如何处理并发</h3>
-<p>在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。</p>
-<div class="highlight"><pre> <span class="cm">/*</span>
-<span class="cm"> *           |   add    | del_first |  del_all</span>
-<span class="cm"> * add       |    -     |     -     |     -</span>
-<span class="cm"> * del_first |          |     L     |     L</span>
-<span class="cm"> * del_all   |          |           |     -</span>
-<span class="cm"> */</span>
-</pre></div>
 
+<p>在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。
+<code>c
+ /*
+ *           |   add    | del_first |  del_all
+ * add       |    -     |     -     |     -
+ * del_first |          |     L     |     L
+ * del_all   |          |           |     -
+ */
+</code></p>
 
 <p><code>add</code>操作和头指针没有关系，所以它可以和其它操作并行。
 <code>del_first</code>依赖于<code>list-&gt;first-&gt;next</code>在操作时不变化。
 而<code>del_all</code>只对<code>list-&gt;first</code>的指针进行操作。所以是可以并行的。</p>
+
 <h3>少锁链表如何处理遍历</h3>
 <div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * The list entries deleted via llist_del_all can be traversed with</span>
@@ -496,10 +528,12 @@
 <span class="cm"> */</span>
 </pre></div>
 
-
 <p>大概意思是说只有从列表上删除下来的元素才可以安全的遍历。（这点理解的不深入）</p>
+
 <h2>后记</h2>
+
 <p>本来是想把这llist的代码看明白的。但是，大概只看懂了60%。。。</p>
+
 <p>以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。</p>
 
             </div>
@@ -553,18 +587,33 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
                 </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
+                    </a>
+                </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -578,23 +627,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -603,8 +642,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -618,38 +667,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -663,13 +682,28 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
                         并发编程
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
                     </a>
                 </li>
 

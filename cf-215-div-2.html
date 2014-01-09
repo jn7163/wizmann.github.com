@@ -115,47 +115,76 @@
 	<a href="http://wizmann.tk/tag/ti-jie.html">题解</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><h3>A. Sereja and Coat Rack</h3>
-<p>傻逼才错的题。不幸中枪。</p>
-<p>没什么可说的。直接看代码就好。</p>
-<h3>B. Sereja and Suffixes</h3>
-<p>关键思想在于统计A[i&hellip;n-1]中有多少互不相同的数。</p>
-<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
-<h3>C. Sereja and Algorithm</h3>
-<p>思路题。</p>
-<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
-<p>所以我们只需要统计出A[i&hellip;j]中x, y, z的个数。</p>
-<p>然后进行排列。</p>
-<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
-<div class="highlight"><pre><span class="n">zy</span><span class="p">[</span><span class="n">xzy</span><span class="p">][</span><span class="n">xzy</span><span class="p">]...</span>
-<span class="n">xz</span><span class="p">[</span><span class="n">yxz</span><span class="p">][</span><span class="n">yxz</span><span class="p">]...</span>
-<span class="n">yx</span><span class="p">[</span><span class="n">zyx</span><span class="p">][</span><span class="n">zyx</span><span class="p">]...</span></p>
+                <h3>A. Sereja and Coat Rack</h3>
 
-<p><span class="c1">//[]中的是循环节</span>
-</pre></div></p>
+<p>傻逼才错的题。不幸中枪。</p>
+
+<p>没什么可说的。直接看代码就好。</p>
+
+<h3>B. Sereja and Suffixes</h3>
+
+<p>关键思想在于统计A[i&hellip;n-1]中有多少互不相同的数。</p>
+
+<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
+
+<h3>C. Sereja and Algorithm</h3>
+
+<p>思路题。</p>
+
+<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
+
+<p>所以我们只需要统计出A[i&hellip;j]中x, y, z的个数。</p>
+
+<p>然后进行排列。</p>
+
+<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
+
+<pre><code>zy[xzy][xzy]...
+xz[yxz][yxz]...
+yx[zyx][zyx]...
+
+//[]中的是循环节</code></pre>
 
 <p>所以只需要数学上的一点计算就可算出我们可不可以生成以上的排列。</p>
+
 <h3>D. Sereja ans Anagrams</h3>
+
 <p>坑题。</p>
+
 <p>一个简单的双端队列 + Hash表统计。</p>
+
 <p>坑有两处，一是最后的结果需要去重。这个是我做法的问题，用一个Hash表判重，如果qa满足条件，后续就不需要枚举qa这个点了。</p>
+
 <p>二是一些中间结果会爆int，所以要实时估计数据规模。</p>
+
 <h2>E. Sereja and the Arrangement of Numbers</h2>
+
 <p>欧拉路径。</p>
+
 <p>先科普一下。（好吧，其实大家都知道，只有我忘记了。。。）</p>
+
 <blockquote>
 <p>对于一个给定的连通图，怎样判断是否存在着一个恰好包含了所有的边，并且没有重复的路径？</p>
+
 <p>这就是一笔画问题。用图论的术语来说，就是判断这个图是否是一个能够遍历完所有的边而没有重复。这样的图现称为欧拉图。这时遍历的路径称作欧拉路径（一个环或者一条链），如果路径闭合（一个圈），则称为欧拉回路。</p>
 </blockquote>
+
 <p>我们来简化一下问题。如果我们有k个numbers，若要生成一个符合条件的序列。则这k个数字的相邻关系必然能构成一个欧拉路径。</p>
+
 <blockquote>
 <p>连通的无向图 G 有欧拉路径的充要条件是：G中奇顶点（连接的边数量为奇数的顶点）的数目等于0或者2。</p>
 </blockquote>
+
 <p>所以我们容易求出在有k个点时，图中应该有多少条边，也就意味着我们的序列应该有多长。</p>
+
 <p>回到我们的问题上来，我们限定了序列的长度，所以图中边的数目也有了限制。于是我们由边数使用二分枚举反推点数。</p>
+
 <p>然后选取价格最高的t个点数，并算出总花费。</p>
+
 <p>参考自<a href="http://codeforces.com/blog/entry/9728">liyishuai</a></p>
+
 <h3>代码</h3>
+
 <p>仅供参考：<a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)">戳我</a></p>
 
             </div>
@@ -209,18 +238,33 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
                 </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/codeforces.html">
+                        codeforces
+                    </a>
+                </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -234,23 +278,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -259,8 +293,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -274,38 +318,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -319,13 +333,28 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
                         并发编程
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
                     </a>
                 </li>
 
