@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2014-01-09T14:51:22-00:00</lastmod>
+<lastmod>2014-01-09T14:55:35-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2014-01-09T14:51:22-00:00</lastmod>
+<lastmod>2014-01-09T14:55:35-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2014-01-09T14:51:22-00:00</lastmod>
+<lastmod>2014-01-09T14:55:35-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2014-01-09T14:51:22-00:00</lastmod>
+<lastmod>2014-01-09T14:55:35-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/misaka-pelican.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -166,7 +173,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2014-01-03T00:00:00-00:00</lastmod>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/pelican.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -186,6 +200,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/markdown.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/linux.html</loc>
 <lastmod>2013-11-28T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -193,8 +214,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/she-ji-mo-shi.html</loc>
-<lastmod>2014-01-03T00:00:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/cao-kuai-meng.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -256,6 +277,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/metadata.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/si-wei.html</loc>
 <lastmod>2013-12-28T14:42:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -286,6 +314,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/chrome-extension.html</loc>
 <lastmod>2013-12-14T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/she-ji-mo-shi.html</loc>
+<lastmod>2014-01-03T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/cpp.html</loc>
+<lastmod>2013-12-09T15:01:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -326,8 +368,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/cpp.html</loc>
-<lastmod>2013-12-09T15:01:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/misaka.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -348,7 +390,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2014-01-03T00:00:00-00:00</lastmod>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
