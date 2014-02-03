@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 闲聊</title>
+    <title>Maerlyn's Rainbow - 面试</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -84,40 +84,36 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/after-google-interview.html">在Google面试之后想到的</a></h2>
+                <h2><a href="http://wizmann.tk/find-the-geo-location-of-a-host.html">如何判断一个网站的地理信息</a></h2>
                 <div class="summary">
-                    <p><img src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" alt="思维导图"></p>
+                    <h2>啥？</h2>
 
-<p><a href="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview.png">戳我看高清无码大图</a></p>
+<p>面试题：</p>
 
-<p>另外，面试过程中没被吓尿也算是我心理比较强大吧。</p>
+<blockquote>
+<p>有一个网站，如何判断这个网站的地理信息</p>
+</blockquote>
 
-<p>#屌丝心态#。。。</p>
+<h2>方法</h2>
 
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/after-google-interview.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/tick-tick.html">Tick-tick</a></h2>
-                <div class="summary">
-                    <p>Go back to work！</p>
+<h3>使用反向DNS</h3>
 
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" alt="Big brother is watching you!"></p>
+<p>当我们只有网站的IP地址时，我们可以使用<strong>反向DNS</strong>来获得这个IP地址对应的域名。</p>
 
+<blockquote>
+<p>反向域名解析，Reverse DNS。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。</p>
+</blockquote>
 
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/tick-tick.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/hello-world.html">Hello World</a></h2>
-                <div class="summary">
-                    <p>打算把博客迁到这里来了</p>
-<div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Hello World&#39;</span>
-</pre></div>
+<p>我们可以使用<code>dig -x</code>来进行查询</p>
 
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hello-world.html">more ...</a>
+<pre><code>$ dig -x 75.126.43.235
+
+; &lt;&lt;&gt;&gt; DiG 9.8.1-P1 &lt;&lt;&gt;&gt; -x 75.126.43.235
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 26688
+;; flags: qr rd ra ...</code></pre>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/find-the-geo-location-of-a-host.html">more ...</a>
                 </div>
             </article>
             <hr/>

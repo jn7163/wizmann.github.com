@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 闲聊</title>
+    <title>Maerlyn's Rainbow - 索引</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -84,40 +84,22 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/after-google-interview.html">在Google面试之后想到的</a></h2>
+                <h2><a href="http://wizmann.tk/geo-hash-algorithm.html">GeoHash算法</a></h2>
                 <div class="summary">
-                    <p><img src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" alt="思维导图"></p>
+                    <h2>GeoHash</h2>
 
-<p><a href="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview.png">戳我看高清无码大图</a></p>
+<blockquote>
+<p>Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.</p>
+</blockquote>
 
-<p>另外，面试过程中没被吓尿也算是我心理比较强大吧。</p>
+<p>简单说，GeoHash是一个将经纬度信息编码成一个string的算法。从而便于储存、查找。</p>
 
-<p>#屌丝心态#。。。</p>
+<h2>GeoHash算法的步骤</h2>
 
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/after-google-interview.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/tick-tick.html">Tick-tick</a></h2>
-                <div class="summary">
-                    <p>Go back to work！</p>
+<p>GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。</p>
 
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" alt="Big brother is watching you!"></p>
-
-
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/tick-tick.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/hello-world.html">Hello World</a></h2>
-                <div class="summary">
-                    <p>打算把博客迁到这里来了</p>
-<div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Hello World&#39;</span>
-</pre></div>
-
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hello-world.html">more ...</a>
+<p>我们以纬度举例 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/geo-hash-algorithm.html">more ...</a>
                 </div>
             </article>
             <hr/>

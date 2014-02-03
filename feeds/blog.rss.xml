@@ -1,5 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 18 Jan 2014 14:47:00 +0800</lastBuildDate><item><title>Codeforces Round #223 (Div. 2) 不完全不正确题解</title><link>http://wizmann.tk/cf-223-div-2.html</link><description>&lt;p&gt;由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 04 Feb 2014 00:10:00 +0800</lastBuildDate><item><title>GeoHash算法</title><link>http://wizmann.tk/geo-hash-algorithm.html</link><description>&lt;h2&gt;GeoHash&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;简单说，GeoHash是一个将经纬度信息编码成一个string的算法。从而便于储存、查找。&lt;/p&gt;
+
+&lt;h2&gt;GeoHash算法的步骤&lt;/h2&gt;
+
+&lt;p&gt;GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。&lt;/p&gt;
+
+&lt;p&gt;我们以纬度举例。&lt;/p&gt;
+
+&lt;p&gt;由于地球纬度区间是[-90,90]，所以取区间中点&lt;code&gt;pivot&lt;/code&gt;。如果某地点P的纬度大于&lt;code&gt;pivot&lt;/code&gt;的值，则编码的第1位为&lt;code&gt;1&lt;/code&gt;，反之为&lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;然后缩小范围，迭代N次。得到最后的结果。&lt;/p&gt;
+
+&lt;p&gt;经度的范围是[-180, 180]。我们重复上面的过程，也可以得到经度编码。&lt;/p&gt;
+
+&lt;p&gt;最后我们把经度和纬度的编码进行交错组合，偶数位放经度，奇数位放纬度。得到最后的GeoHash编码。&lt;/p&gt;
+
+&lt;p&gt;例如，经纬度&lt;code&gt;(57.64911,10.40744)&lt;/code&gt;可以使用base32编码为 &lt;code&gt;u4pruydqqvj&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2&gt;GeoHash算法的用途&lt;/h2&gt;
+
+&lt;p&gt;由于GeoHash使用经纬度交错编码，所以我们使用某一个&lt;b&gt;前辍&lt;/b&gt;，就可以划定一个经纬度范围。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-geohash-grid.jpg" alt="GeoHash-grid"&gt;&lt;/p&gt;
+
+&lt;p&gt;如果我们对GeoHash编码这一列进行索引加速，则可以在较快的时间内查找到某一个范围内的所有grid，进而获得POI等信息。&lt;/p&gt;
+
+&lt;h2&gt;GeoHash的压缩思想&lt;/h2&gt;
+
+&lt;p&gt;GeoHash的交错编码为区间查找提供了遍历。而对经纬度的逼近编码则提供了非常好的压缩特性。&lt;/p&gt;
+
+&lt;p&gt;易得，一个点位于&lt;code&gt;pivot&lt;/code&gt;的左右/上下的机率是相同的。所以编码的每一位的信息量都是&lt;code&gt;-logPr[s]&lt;/code&gt;=&amp;gt;&lt;code&gt;1bit&lt;/code&gt;，达到了数据压缩的下限。&lt;/p&gt;
+
+&lt;p&gt;又由于二分逼近的良好性能，使得压缩/解压缩的速度可以达到极限。&lt;/p&gt;
+
+&lt;p&gt;不过在实际应用中，POI不可能完全平均分布，所以GeoHash的压缩只是一种接近最优解的方案。但是由于二分逼近法带来的可索引性，GeoHash绝对可以称的上是一个精妙完美的设计了。&lt;/p&gt;
+
+&lt;h2&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;GeoHash的三个特性，&lt;b&gt;可索引&lt;/b&gt;，&lt;b&gt;压缩&lt;/b&gt;，&lt;b&gt;便于存储&lt;/b&gt;。&lt;/p&gt;
+
+&lt;p&gt;还有，好久不写文了。&lt;/p&gt;
+
+&lt;h2&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://book.douban.com/subject/11554138/"&gt;HBase in Action&lt;/a&gt;, Chpt. 8&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://book.douban.com/subject/3729518/"&gt;深入搜索引擎&lt;/a&gt;, Chpt. 2&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Geohash"&gt;GeoHash - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cnblogs.com/LBSer/p/3310455.html"&gt;GeoHash核心原理解析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 04 Feb 2014 00:10:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-04:geo-hash-algorithm.html</guid><category>GeoHash</category><category>POI</category><category>压缩</category><category>索引</category></item><item><title>如何判断一个网站的地理信息</title><link>http://wizmann.tk/find-the-geo-location-of-a-host.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+
+&lt;p&gt;面试题：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有一个网站，如何判断这个网站的地理信息&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;方法&lt;/h2&gt;
+
+&lt;h3&gt;使用反向DNS&lt;/h3&gt;
+
+&lt;p&gt;当我们只有网站的IP地址时，我们可以使用&lt;strong&gt;反向DNS&lt;/strong&gt;来获得这个IP地址对应的域名。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;反向域名解析，Reverse DNS。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我们可以使用&lt;code&gt;dig -x&lt;/code&gt;来进行查询&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ dig -x 75.126.43.235
+
+; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.8.1-P1 &amp;lt;&amp;lt;&amp;gt;&amp;gt; -x 75.126.43.235
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 26688
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;235.43.126.75.in-addr.arpa.    IN  PTR
+
+;; ANSWER SECTION:
+235.43.126.75.in-addr.arpa. 3518 IN PTR 75.126.43.235-static.reverse.softlayer.com.
+
+;; Query time: 76 msec
+;; SERVER: 8.8.4.4#53(8.8.4.4)
+;; WHEN: Fri Jan 24 18:15:22 2014
+;; MSG SIZE  rcvd: 100&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们可以从接续出来的域名中，获得一些信息，例如公司名/机构名，以及&lt;code&gt;.cn&lt;/code&gt;, &lt;code&gt;.us&lt;/code&gt;等有可能标识地理位置的信息。&lt;/p&gt;
+
+&lt;p&gt;但是，反向DNS不一定成功。&lt;/p&gt;
+
+&lt;h2&gt;查询DNS LOC信息&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;In the Domain Name System, a LOC record (RFC 1876) is a means for expressing geographic location information for a domain name.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以我们可以尝试使用&lt;code&gt;dig loc&lt;/code&gt;命令来查询位置信息。（不一定成功&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ dig loc SW1A2AA.find.me.uk
+
+; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.8.1-P1 &amp;lt;&amp;lt;&amp;gt;&amp;gt; loc SW1A2AA.find.me.uk
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 49682
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;SW1A2AA.find.me.uk.        IN  LOC
+
+;; ANSWER SECTION:
+SW1A2AA.find.me.uk. 21600   IN  LOC 51 30 12.748 N 0 7 39.611 W 0.00m 0.00m 0.00m 0.00m
+
+;; Query time: 1232 msec
+;; SERVER: 8.8.4.4#53(8.8.4.4)
+;; WHEN: Fri Jan 24 18:21:44 2014
+;; MSG SIZE  rcvd: 64&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;随便看看&lt;/h2&gt;
+
+&lt;p&gt;查看我们要调查的网站，找寻可用的线索。（囧&lt;/p&gt;
+
+&lt;h2&gt;使用whois服务&lt;/h2&gt;
+
+&lt;p&gt;http://whois.chinaz.com/sina.com&lt;/p&gt;
+
+&lt;p&gt;我们可以看到域名的注册信息，其中也必然透露了线索。&lt;/p&gt;
+
+&lt;h2&gt;traceroute与whois配合使用&lt;/h2&gt;
+
+&lt;p&gt;可以根据包的转发状况来获得最终的地理位置&lt;/p&gt;
+
+&lt;h2&gt;使用Time of day service&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;telnet www.bupt.edu.cn 13&lt;/code&gt;可以获得主机的当前时间，从而判断主机所在的经度。（不一定成功。。。&lt;/p&gt;
+
+&lt;h2&gt;参考链接&lt;/h2&gt;
+
+&lt;p&gt;http://www.private.org.il/IP2geo.html&lt;/p&gt;
+
+&lt;p&gt;http://www.ipgeo.com/&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 24 Jan 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-24:find-the-geo-location-of-a-host.html</guid><category>面试</category></item><item><title>Codeforces Round #223 (Div. 2) 不完全不正确题解</title><link>http://wizmann.tk/cf-223-div-2.html</link><description>&lt;p&gt;由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。&lt;/p&gt;
 
 &lt;p&gt;等有实力切D题了，再去打一区。（弱&lt;/p&gt;
 
@@ -2716,17 +2865,17 @@ chrome.webRequest.onBeforeRequest.addListener(
 &lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;是从链表节点中的&lt;code&gt;llist_node&lt;/code&gt;成员变量获得链表节点的地址。&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;llist_entry&lt;/code&gt;宏是从&lt;code&gt;container_of&lt;/code&gt;宏继承而来的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;/**
- * container_of - cast a member of a structure out to the containing structure
- * @ptr:        the pointer to the member.
- * @type:        the type of the container struct this is embedded in.
- * @member:        the name of the member within the struct.
- *
- */
-#define container_of(ptr, type, member) ({                        \
-        const typeof( ((type *)0)-&amp;gt;member ) *__mptr = (ptr);        \
-        (type *)( (char *)__mptr - offsetof(type,member) );})&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;span class="cm"&gt; * container_of - cast a member of a structure out to the containing structure&lt;/span&gt;
+&lt;span class="cm"&gt; * @ptr:        the pointer to the member.&lt;/span&gt;
+&lt;span class="cm"&gt; * @type:        the type of the container struct this is embedded in.&lt;/span&gt;
+&lt;span class="cm"&gt; * @member:        the name of the member within the struct.&lt;/span&gt;
+&lt;span class="cm"&gt; *&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="cp"&gt;#define container_of(ptr, type, member) ({                        \&lt;/span&gt;
+&lt;span class="cp"&gt;        const typeof( ((type *)0)-&amp;gt;member ) *__mptr = (ptr);        \&lt;/span&gt;
+&lt;span class="cp"&gt;        (type *)( (char *)__mptr - offsetof(type,member) );})&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;具体原理可以小小参考一下&lt;a href="http://hi.baidu.com/holinux/item/af2e32c9dcbd3953ac00ef49"&gt;这里&lt;/a&gt;。&lt;/p&gt;
 
@@ -2894,38 +3043,38 @@ chrome.webRequest.onBeforeRequest.addListener(
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;h5&gt;llist_del_first&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;span class="cm"&gt; * llist_del_first - delete the first entry of lock-less list&lt;/span&gt;
+&lt;span class="cm"&gt; * @head:        the head for your lock-less list&lt;/span&gt;
+&lt;span class="cm"&gt; *&lt;/span&gt;
+&lt;span class="cm"&gt; * If list is empty, return NULL, otherwise, return the first entry&lt;/span&gt;
+&lt;span class="cm"&gt; * deleted, this is the newest added one.&lt;/span&gt;
+&lt;span class="cm"&gt; *&lt;/span&gt;
+&lt;span class="cm"&gt; * Only one llist_del_first user can be used simultaneously with&lt;/span&gt;
+&lt;span class="cm"&gt; * multiple llist_add users without lock.  Because otherwise&lt;/span&gt;
+&lt;span class="cm"&gt; * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,&lt;/span&gt;
+&lt;span class="cm"&gt; * llist_add) sequence in another user may change @head-&amp;gt;first-&amp;gt;next,&lt;/span&gt;
+&lt;span class="cm"&gt; * but keep @head-&amp;gt;first.  If multiple consumers are needed, please&lt;/span&gt;
+&lt;span class="cm"&gt; * use llist_del_all or use lock between consumers.&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;llist_del_first&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_head&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;llist_node&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-&lt;pre&gt;&lt;code&gt;/**
- * llist_del_first - delete the first entry of lock-less list
- * @head:        the head for your lock-less list
- *
- * If list is empty, return NULL, otherwise, return the first entry
- * deleted, this is the newest added one.
- *
- * Only one llist_del_first user can be used simultaneously with
- * multiple llist_add users without lock.  Because otherwise
- * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,
- * llist_add) sequence in another user may change @head-&amp;gt;first-&amp;gt;next,
- * but keep @head-&amp;gt;first.  If multiple consumers are needed, please
- * use llist_del_all or use lock between consumers.
- */
-struct llist_node *llist_del_first(struct llist_head *head)
-{
-        struct llist_node *entry, *old_entry, *next;
+        &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(;;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;old_entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;next&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cmpxchg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;old_entry&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                        &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
 
-        entry = head-&amp;gt;first;
-        for (;;) {
-                if (entry == NULL)
-                        return NULL;
-                old_entry = entry;
-                next = entry-&amp;gt;next;
-                entry = cmpxchg(&amp;amp;head-&amp;gt;first, old_entry, next);
-                if (entry == old_entry)
-                        break;
-        }
-
-        return entry;
-}&lt;/code&gt;&lt;/pre&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;删除第一个值。同样的无锁操作。&lt;/p&gt;
 
@@ -2975,15 +3124,14 @@ struct llist_node *llist_del_first(struct llist_head *head)
 
 &lt;h3&gt;少锁链表如何处理并发&lt;/h3&gt;
 
-&lt;p&gt;在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。
-&lt;code&gt;c
- /*
+&lt;p&gt;在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/*
  *           |   add    | del_first |  del_all
  * add       |    -     |     -     |     -
  * del_first |          |     L     |     L
  * del_all   |          |           |     -
- */
-&lt;/code&gt;&lt;/p&gt;
+ */&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;code&gt;add&lt;/code&gt;操作和头指针没有关系，所以它可以和其它操作并行。
 &lt;code&gt;del_first&lt;/code&gt;依赖于&lt;code&gt;list-&amp;gt;first-&amp;gt;next&lt;/code&gt;在操作时不变化。
