@@ -41,6 +41,32 @@
 
 &lt;p&gt;不过在实际应用中，POI不可能完全平均分布，所以GeoHash的压缩只是一种接近最优解的方案。但是由于二分逼近法带来的可索引性，GeoHash绝对可以称的上是一个精妙完美的设计了。&lt;/p&gt;
 
+&lt;h2&gt;应用 - 拉取目标周围的POI&lt;/h2&gt;
+
+&lt;p&gt;我们在一些LBS应用中，经常需要拉取某一点周围的POI。&lt;/p&gt;
+
+&lt;p&gt;假设我们将POI存储为一个&lt;code&gt;pvlist&lt;/code&gt;映射。并且获得了某点的GeoHash值。那么我们怎么取得周围的POI呢？&lt;/p&gt;
+
+&lt;p&gt;理想状态下，“附近的POI”都是在一个以某点为圆心的圆进行查找。但是由于GeoHash划分的范围是一个矩形，所以我们使用一个&lt;code&gt;3×3&lt;/code&gt;的大矩形来替代圆形范围。&lt;/p&gt;
+
+&lt;p&gt;其中&lt;code&gt;3×3&lt;/code&gt;矩形中最中间的矩形是我们确定的那个点。&lt;/p&gt;
+
+&lt;p&gt;然后，我们根据给出的半径&lt;code&gt;r&lt;/code&gt;确定GeoHash的精确度。使得我们的&lt;code&gt;3×3&lt;/code&gt;大矩形可以包含理想的圆形范围。&lt;/p&gt;
+
+&lt;p&gt;于是下一步的目标就是找到某点GeoHash的&lt;strong&gt;8个&lt;/strong&gt;临近的GeoHash。&lt;/p&gt;
+
+&lt;p&gt;由上文我们可以得出，GeoHash的经纬度是分别编码的。以一个&lt;code&gt;4×4&lt;/code&gt;的地图为例。&lt;/p&gt;
+
+&lt;p&gt;这是在纬度上的划分。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-geohash-latitude-grid.png" alt="纬度"&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看出，连续的&lt;code&gt;GeoHash Grid&lt;/code&gt;的纬度编码也是连续的。&lt;/p&gt;
+
+&lt;p&gt;经度同理。&lt;/p&gt;
+
+&lt;p&gt;所以我们只需要&lt;code&gt;decode&lt;/code&gt;我们的GeoHash编码，将&lt;code&gt;longitude&lt;/code&gt;和&lt;code&gt;latitude&lt;/code&gt;编码分别进行&lt;code&gt;-1/+1&lt;/code&gt;的操作就可以获得&lt;strong&gt;附近的POI&lt;/strong&gt;的GeoHash码/前辍了。&lt;/p&gt;
+
 &lt;h2&gt;总结&lt;/h2&gt;
 
 &lt;p&gt;GeoHash的三个特性，&lt;b&gt;可索引&lt;/b&gt;，&lt;b&gt;压缩&lt;/b&gt;，&lt;b&gt;便于存储&lt;/b&gt;。&lt;/p&gt;
@@ -54,6 +80,7 @@
 &lt;li&gt;&lt;a href="http://book.douban.com/subject/3729518/"&gt;深入搜索引擎&lt;/a&gt;, Chpt. 2&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Geohash"&gt;GeoHash - Wikipedia&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.cnblogs.com/LBSer/p/3310455.html"&gt;GeoHash核心原理解析&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://code.google.com/p/python-geohash/"&gt;python-geohash&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 04 Feb 2014 00:10:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-04:geo-hash-algorithm.html</guid><category>GeoHash</category><category>POI</category><category>压缩</category><category>索引</category></item><item><title>如何判断一个网站的地理信息</title><link>http://wizmann.tk/find-the-geo-location-of-a-host.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
 

@@ -157,6 +157,32 @@
 
 <p>不过在实际应用中，POI不可能完全平均分布，所以GeoHash的压缩只是一种接近最优解的方案。但是由于二分逼近法带来的可索引性，GeoHash绝对可以称的上是一个精妙完美的设计了。</p>
 
+<h2>应用 - 拉取目标周围的POI</h2>
+
+<p>我们在一些LBS应用中，经常需要拉取某一点周围的POI。</p>
+
+<p>假设我们将POI存储为一个<code>pvlist</code>映射。并且获得了某点的GeoHash值。那么我们怎么取得周围的POI呢？</p>
+
+<p>理想状态下，“附近的POI”都是在一个以某点为圆心的圆进行查找。但是由于GeoHash划分的范围是一个矩形，所以我们使用一个<code>3×3</code>的大矩形来替代圆形范围。</p>
+
+<p>其中<code>3×3</code>矩形中最中间的矩形是我们确定的那个点。</p>
+
+<p>然后，我们根据给出的半径<code>r</code>确定GeoHash的精确度。使得我们的<code>3×3</code>大矩形可以包含理想的圆形范围。</p>
+
+<p>于是下一步的目标就是找到某点GeoHash的<strong>8个</strong>临近的GeoHash。</p>
+
+<p>由上文我们可以得出，GeoHash的经纬度是分别编码的。以一个<code>4×4</code>的地图为例。</p>
+
+<p>这是在纬度上的划分。</p>
+
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-geohash-latitude-grid.png" alt="纬度"></p>
+
+<p>可以看出，连续的<code>GeoHash Grid</code>的纬度编码也是连续的。</p>
+
+<p>经度同理。</p>
+
+<p>所以我们只需要<code>decode</code>我们的GeoHash编码，将<code>longitude</code>和<code>latitude</code>编码分别进行<code>-1/+1</code>的操作就可以获得<strong>附近的POI</strong>的GeoHash码/前辍了。</p>
+
 <h2>总结</h2>
 
 <p>GeoHash的三个特性，<b>可索引</b>，<b>压缩</b>，<b>便于存储</b>。</p>
@@ -170,6 +196,7 @@
 <li><a href="http://book.douban.com/subject/3729518/">深入搜索引擎</a>, Chpt. 2</li>
 <li><a href="http://en.wikipedia.org/wiki/Geohash">GeoHash - Wikipedia</a></li>
 <li><a href="http://www.cnblogs.com/LBSer/p/3310455.html">GeoHash核心原理解析</a></li>
+<li><a href="https://code.google.com/p/python-geohash/">python-geohash</a></li>
 </ul>
 
             </div>
@@ -223,11 +250,6 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
                     </a>
@@ -237,24 +259,14 @@
                         题解
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/suan-fa.html">
+                        算法
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
                         设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -267,74 +279,19 @@
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                        创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -343,18 +300,18 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        Leetcode
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -363,13 +320,28 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/python.html">
                         python
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -378,8 +350,48 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        Leetcode
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi.html">
+                        面试
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -388,8 +400,23 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
                     </a>
                 </li>
 
