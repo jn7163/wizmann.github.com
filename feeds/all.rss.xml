@@ -90,7 +90,108 @@
 
 &lt;h2&gt;关于开发&lt;/h2&gt;
 
-&lt;p&gt;未完待续&amp;hellip;&lt;/p&gt;
+&lt;p&gt;无图无JJ，先上一张效果图。&lt;/p&gt;
+
+&lt;p&gt;由于是个人开发，所以界面比较粗糙。如果有前端神牛，可以做出更炫的效果。&lt;/p&gt;
+
+&lt;p&gt;还有一个原因是手机的dpi比电脑屏幕的要高一些（用retina屏幕的土豪们退散），所以同样大小的“窗口”，电脑的显示会粗糙很多。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-app-ui.png" alt="节操App"&gt;&lt;/p&gt;
+
+&lt;h3&gt;应用载体&lt;/h3&gt;
+
+&lt;p&gt;由于拉取数据的操作是HTTP POST。因为浏览器的安全策略，我们不能跨域POST。所以我使用了Chrome浏览器中的App插件。&lt;/p&gt;
+
+&lt;p&gt;Chrome为App插件提供了相对宽松的安全策略，我们可以跨域POST，可以获得图像，可以修改一个webview里面的代码。。。&lt;/p&gt;
+
+&lt;p&gt;更重要的是，我们可以把一个ChromeApp基本视为一个本地应用，放到桌面上或者启动栏上。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-chrome-app-launcher.png" alt="启动器"&gt;&lt;/p&gt;
+
+&lt;p&gt;我用的是Xubuntu，在其它系统上，如Win、MacOS以及其它不同的Linux发行版，也可以达到类似的效果。&lt;/p&gt;
+
+&lt;h3&gt;总体规划&lt;/h3&gt;
+
+&lt;p&gt;从上面我们可以看出来，这一个页面主要分为三部分。&lt;/p&gt;
+
+&lt;p&gt;第一个是Logo，一个&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;标签。&lt;/p&gt;
+
+&lt;p&gt;第二个是一个按钮组，用来切换下面的内容列表的内容。&lt;/p&gt;
+
+&lt;p&gt;第三个是内容列表，列表中的每一个元素都对应着一篇节操文章。&lt;/p&gt;
+
+&lt;p&gt;于是，我选用了MVC模式来解决界面问题。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;M - Model
+每一个节操文章，其中有&lt;code&gt;icon&lt;/code&gt;, &lt;code&gt;title&lt;/code&gt;, &lt;code&gt;channel&lt;/code&gt;, &lt;code&gt;subcribe_num&lt;/code&gt;几个字段。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;V - View
+前端展示&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C - Control
+控制器，切换频道、刷新以及下一页等与服务器端交互的功能。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;说到前端MVC，我们就不能不说到一个JS框架 —— AngularJS。&lt;/p&gt;
+
+&lt;h4&gt;AngularJS&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/AngularJS-large.png" alt="AngularJS"&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;AngularJS是一款开源 JavaScript函式库，由Google维护，用来协助单一页面应用程式运行的。它的目标是透过MVC模式 (MVC) 功能增强基于浏览器的应用，使开发和测试变得更加容易。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;AngularJS是一个设计非常巧妙的JS框架。由于我是前端文盲，所以只使用了其中最基础的部分。&lt;/p&gt;
+
+&lt;p&gt;在AngularJS上面我也不想多说什么，因为比较菜。大家可以参考AngularJS的文档以及Chrome Extension的文档。Chrome Extension官方给出的范例都有Javascript/AngularJS两个版本，非常值得学习。（亲儿子就是不一样 ^_^)&lt;/p&gt;
+
+&lt;h3&gt;前端框架&lt;/h3&gt;
+
+&lt;p&gt;上面说过了用做前端JS框架的AngularJS。&lt;/p&gt;
+
+&lt;p&gt;这里再说一个我使用的前端CSS框架 —— Bootstrap3。&lt;/p&gt;
+
+&lt;p&gt;同样，这个也不用多说，因为在开发者中，Bootstrap2/3已经非常流行了，可以极大的降低前端开发的门槛。&lt;/p&gt;
+
+&lt;h3&gt;展示逻辑&lt;/h3&gt;
+
+&lt;p&gt;我们已经讨论过首页的展示逻辑。当用户点击首页的一条记录时，我们就要为用户展现一篇节操文章。&lt;/p&gt;
+
+&lt;p&gt;节操文章分为两种，一是图片，二是音频。&lt;/p&gt;
+
+&lt;p&gt;由于上面说过的dpi差异的原因，我们使用一个相对比较大的新窗口来做展现。于是我们使用&lt;code&gt;webview&lt;/code&gt;来展示服务器端的新页面。&lt;/p&gt;
+
+&lt;p&gt;此时遇到了一个问题，由于服务器端的页面中没有对声音做支持。移动端App中的声音地址是使用Protobuf传输，然后在本地播放的。但是在我们的场景下，获得声音的窗口与展示页面的窗口不是同一个。&lt;/p&gt;
+
+&lt;p&gt;对于这个问题的解决方案，我们有两个：&lt;/p&gt;
+
+&lt;h4&gt;使用回调函数传入参数&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;chrome.app.window.create&lt;/code&gt;中可以使用回调函数，传入音频地址。然后新窗口使用&lt;code&gt;&amp;lt;audio&amp;gt;&lt;/code&gt;标签进行播放。&lt;/p&gt;
+
+&lt;h4&gt;JS注入&lt;/h4&gt;
+
+&lt;p&gt;由于良心的节操大大的好，在页面中提供了音频的播放地址。&lt;/p&gt;
+
+&lt;p&gt;所以我们可以向webview里直接注入一段代码。先是创建一个不可见的&lt;code&gt;&amp;lt;audio&amp;gt;&lt;/code&gt;标签，然后加入一段js，播放本页面的音频。&lt;/p&gt;
+
+&lt;h2&gt;未来开发打算&lt;/h2&gt;
+
+&lt;p&gt;节操的页面展示是检查&lt;code&gt;User-agent&lt;/code&gt;的，对于PC端的页面，所有的推荐链接都是无效的。&lt;/p&gt;
+
+&lt;p&gt;如果有可能的话，可以修改&lt;code&gt;webview&lt;/code&gt;的&lt;code&gt;User-agent&lt;/code&gt;为Android设备，这样就能有更好的用户体验。&lt;/p&gt;
+
+&lt;p&gt;还有前端确实也是比较丑。。。&lt;del&gt;但是你来咬我呀～&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;最后是我没有Visa卡，所以没法发布这个App。。。所以乃们哪个土豪有开发者账号的，可以把这个App搞走再开发做个发布。也是比较好的～&lt;/p&gt;
+
+&lt;h2&gt;更多的废话&lt;/h2&gt;
+
+&lt;p&gt;我原来和同学讨论过，有没有可能开发出一个叫&lt;code&gt;AVM&lt;/code&gt;的东西，把Android应用迁移到PC端来用，这样Linux就不至于什么应用都没有了。但是现在我还没有看到除了超低效率的虚拟机之外的其它解法。&lt;/p&gt;
+
+&lt;p&gt;不过Google正在试验一种叫&lt;a href="https://developers.google.com/native-client/dev/"&gt;NaCl&lt;/a&gt;的技术，支持一个轻量的虚拟机，运行一个本地应用并能与前端展现交互。&lt;/p&gt;
+
+&lt;p&gt;我想，如果有一天，NaCl能统一Android与Chrome平台，成为了智能终端开发的主流，那么平台与平台之间的差异就更小了吧。。。&lt;/p&gt;
 </description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 25 Feb 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-25:moujiecao.html</guid><category>crack</category><category>android</category><category>app</category><category>chrome-extension</category><category>protobuf</category><category>angularjs</category></item><item><title>GeoHash算法</title><link>http://wizmann.tk/geo-hash-algorithm.html</link><description>&lt;h2&gt;GeoHash&lt;/h2&gt;
 
 &lt;blockquote&gt;
