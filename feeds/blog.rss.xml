@@ -1,5 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 04 Feb 2014 00:10:00 +0800</lastBuildDate><item><title>GeoHash算法</title><link>http://wizmann.tk/geo-hash-algorithm.html</link><description>&lt;h2&gt;GeoHash&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 25 Feb 2014 00:00:00 +0800</lastBuildDate><item><title>破解节操的下限</title><link>http://wizmann.tk/moujiecao.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://jiecao.fm/"&gt;节操精选&lt;/a&gt;是一个&lt;strong&gt;没有下限&lt;/strong&gt;的文字图片聚合类移动应用，现在支持Android/iOS移动平台。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-ui.png" alt="界面"&gt;&lt;/p&gt;
+
+&lt;p&gt;本人是一个非常懒的人，有电脑就不想碰手机。。。于是萌生了一个在PC端使用这个应用的想法。。。&lt;/p&gt;
+
+&lt;h2&gt;HowTo&lt;/h2&gt;
+
+&lt;p&gt;从界面上我们可以看出，这个App的逻辑其实比较简单。重要的部分有如下几个：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;获取CS通信协议&lt;strong&gt;（最重要）&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;频道间切换（精选 - 热门 - 音频- 阅读）&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;展示某一条精选&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在某一条精选中播放语音&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;获取通信协议&lt;/h2&gt;
+
+&lt;p&gt;节操还是非常良心的！并没有在后台数据通信中进行任何加密的措施。&lt;/p&gt;
+
+&lt;p&gt;抓包工具我使用的是在Windows环境下的&lt;a href="http://www.telerik.com/fiddler"&gt;Fiddler&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;这个工具可以建立一个HTTP代理，手机通过代理上网，在电脑上就可以截获所有的数据包进行分析。&lt;/p&gt;
+
+&lt;p&gt;在Linux下，可以使用TinyProxy + Wireshark进行抓包，不过配置小麻烦。不过我一直是在Windows下抓包，然后在Linux下做分析和开发的。=。=。。。&lt;/p&gt;
+
+&lt;p&gt;图就不上了，如果大家有兴趣自己来搞的话，可以抓来试试。&lt;/p&gt;
+
+&lt;p&gt;简而言之，我们从HTTP包中的&lt;code&gt;Content-type&lt;/code&gt;字段中，发现了我们想要的信息 —— &lt;code&gt;application/xprotobuf&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;我去！真良心～&lt;/p&gt;
+
+&lt;h3&gt;Protobuf简介&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. Google uses Protocol Buffers for almost all of its internal RPC protocols and file formats.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;简而言之，Protobuf是一个用于数据传输的DSL（Domain Specific Language）。Protobuf提供了一个编译器，开发者只需要声明需要传输的数据字义，就可以自动编译出适用多种语言的传输代码。&lt;/p&gt;
+
+&lt;p&gt;Protobuf官方支持C++, Java, 和 Python。第三方开发者还提供了更多语言的支持。在我的开发中，我使用了&lt;code&gt;dcodeIO-ProtoBuf.js&lt;/code&gt;，一个开源的JS的Protobuf库，有兴趣的话可以从Github中获取。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;message Person {
+  required int32 id = 1;
+  required string name = 2;
+  optional string email = 3;
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;破解Protobuf报文&lt;/h3&gt;
+
+&lt;p&gt;破解Protobuf报文其实就是用&lt;code&gt;明文攻击&lt;/code&gt;获取Protobuf的传输数据定义。然后我们生成接受这个报文的Protobuf代码，就可以解析相应的报文了。&lt;/p&gt;
+
+&lt;p&gt;有两种方法，一种简单的，一种难的。&lt;/p&gt;
+
+&lt;p&gt;我们当然要从逼格高的困难方法开始讲。&lt;/p&gt;
+
+&lt;h4&gt;A hard way to crack protobuf&lt;/h4&gt;
+
+&lt;p&gt;重点参考：&lt;a href="http://www.cnblogs.com/shitouer/archive/2013/04/12/google-protocol-buffers-encoding.html"&gt;Google Protocol Buffers 编码(Encoding)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;其思想就是找到Protobuf的编码规律，然后一个字段一个字段的反推，从而找到完整的数据定义。&lt;/p&gt;
+
+&lt;p&gt;同时，Protobuf又有一个很好的兼容性，即如果我们的数据定义是原数据定义的子集，同样可以解析出子集中的所有字段。&lt;/p&gt;
+
+&lt;p&gt;所以我们只需要找到重要的几个字段来搞就可以了。破解过程比较无趣，一个位一个位的检查，无脑推。&lt;/p&gt;
+
+&lt;h4&gt;An easy way to crack protobuf&lt;/h4&gt;
+
+&lt;p&gt;因为我们可以轻松的搞到节操的Apk包，又由于Apk包是可以&lt;strong&gt;反编译&lt;/strong&gt;的！&lt;/p&gt;
+
+&lt;p&gt;于是我们就可以直接看代码获得Protobuf的数据定义。&lt;/p&gt;
+
+&lt;p&gt;这个才叫真无脑。&lt;/p&gt;
+
+&lt;p&gt;反编译我使用的是&lt;a href="https://code.google.com/p/dex2jar/"&gt;dex2jar&lt;/a&gt;和&lt;a href="http://jd.benow.ca/"&gt;jdgui&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;虽然这两个工具都有其局限性，但是搞这个一个App还是轻轻松松。&lt;/p&gt;
+
+&lt;p&gt;于是我们就获得了一个完整的数据定义。但是由于还是要给&lt;a href="http://weibo.com/121100059"&gt;美丽的CEO姐姐&lt;/a&gt;一点面子的～&lt;/p&gt;
+
+&lt;p&gt;所以就不公开了～上一个高清有码大图～&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-protobuf.png" alt="protobuf"&gt;&lt;/p&gt;
+
+&lt;h2&gt;关于开发&lt;/h2&gt;
+
+&lt;p&gt;未完待续&amp;hellip;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 25 Feb 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-25:moujiecao.html</guid><category>crack</category><category>android</category><category>app</category><category>chrome-extension</category><category>protobuf</category><category>angularjs</category></item><item><title>GeoHash算法</title><link>http://wizmann.tk/geo-hash-algorithm.html</link><description>&lt;h2&gt;GeoHash&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.&lt;/p&gt;
@@ -2763,99 +2855,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 &lt;p&gt;修改了pocket-pla算法，提升了效率和准确性。&lt;/p&gt;
 
 &lt;p&gt;参考了&lt;a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632"&gt;课程论坛&lt;/a&gt;的讨论。并且感谢Li Tianyi同学指出我的问题。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</guid><category>公开课</category><category>分类器</category></item><item><title>破解节操的下限</title><link>http://wizmann.tk/moujiecao.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://jiecao.fm/"&gt;节操精选&lt;/a&gt;是一个&lt;strong&gt;没有下限&lt;/strong&gt;的文字图片聚合类移动应用，现在支持Android/iOS移动平台。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-ui.png" alt="界面"&gt;&lt;/p&gt;
-
-&lt;p&gt;本人是一个非常懒的人，有电脑就不想碰手机。。。于是萌生了一个在PC端使用这个应用的想法。。。&lt;/p&gt;
-
-&lt;h2&gt;HowTo&lt;/h2&gt;
-
-&lt;p&gt;从界面上我们可以看出，这个App的逻辑其实比较简单。重要的部分有如下几个：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;获取CS通信协议&lt;strong&gt;（最重要）&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;频道间切换（精选 - 热门 - 音频- 阅读）&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;展示某一条精选&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;在某一条精选中播放语音&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;获取通信协议&lt;/h2&gt;
-
-&lt;p&gt;节操还是非常良心的！并没有在后台数据通信中进行任何加密的措施。&lt;/p&gt;
-
-&lt;p&gt;抓包工具我使用的是在Windows环境下的&lt;a href="http://www.telerik.com/fiddler"&gt;Fiddler&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;这个工具可以建立一个HTTP代理，手机通过代理上网，在电脑上就可以截获所有的数据包进行分析。&lt;/p&gt;
-
-&lt;p&gt;在Linux下，可以使用TinyProxy + Wireshark进行抓包，不过配置小麻烦。不过我一直是在Windows下抓包，然后在Linux下做分析和开发的。=。=。。。&lt;/p&gt;
-
-&lt;p&gt;图就不上了，如果大家有兴趣自己来搞的话，可以抓来试试。&lt;/p&gt;
-
-&lt;p&gt;简而言之，我们从HTTP包中的&lt;code&gt;Content-type&lt;/code&gt;字段中，发现了我们想要的信息 —— &lt;code&gt;application/xprotobuf&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;我去！真良心～&lt;/p&gt;
-
-&lt;h3&gt;Protobuf简介&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. Google uses Protocol Buffers for almost all of its internal RPC protocols and file formats.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;简而言之，Protobuf是一个用于数据传输的DSL（Domain Specific Language）。Protobuf提供了一个编译器，开发者只需要声明需要传输的数据字义，就可以自动编译出适用多种语言的传输代码。&lt;/p&gt;
-
-&lt;p&gt;Protobuf官方支持C++, Java, 和 Python。第三方开发者还提供了更多语言的支持。在我的开发中，我使用了&lt;code&gt;dcodeIO-ProtoBuf.js&lt;/code&gt;，一个开源的JS的Protobuf库，有兴趣的话可以从Github中获取。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;message Person {
-  required int32 id = 1;
-  required string name = 2;
-  optional string email = 3;
-}&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;破解Protobuf报文&lt;/h3&gt;
-
-&lt;p&gt;破解Protobuf报文其实就是用&lt;code&gt;明文攻击&lt;/code&gt;获取Protobuf的传输数据定义。然后我们生成接受这个报文的Protobuf代码，就可以解析相应的报文了。&lt;/p&gt;
-
-&lt;p&gt;有两种方法，一种简单的，一种难的。&lt;/p&gt;
-
-&lt;p&gt;我们当然要从逼格高的困难方法开始讲。&lt;/p&gt;
-
-&lt;h4&gt;A hard way to crack protobuf&lt;/h4&gt;
-
-&lt;p&gt;重点参考：&lt;a href="http://www.cnblogs.com/shitouer/archive/2013/04/12/google-protocol-buffers-encoding.html"&gt;Google Protocol Buffers 编码(Encoding)&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;其思想就是找到Protobuf的编码规律，然后一个字段一个字段的反推，从而找到完整的数据定义。&lt;/p&gt;
-
-&lt;p&gt;同时，Protobuf又有一个很好的兼容性，即如果我们的数据定义是原数据定义的子集，同样可以解析出子集中的所有字段。&lt;/p&gt;
-
-&lt;p&gt;所以我们只需要找到重要的几个字段来搞就可以了。破解过程比较无趣，一个位一个位的检查，无脑推。&lt;/p&gt;
-
-&lt;h4&gt;An easy way to crack protobuf&lt;/h4&gt;
-
-&lt;p&gt;因为我们可以轻松的搞到节操的Apk包，又由于Apk包是可以&lt;strong&gt;反编译&lt;/strong&gt;的！&lt;/p&gt;
-
-&lt;p&gt;于是我们就可以直接看代码获得Protobuf的数据定义。&lt;/p&gt;
-
-&lt;p&gt;这个才叫真无脑。&lt;/p&gt;
-
-&lt;p&gt;反编译我使用的是&lt;a href="https://code.google.com/p/dex2jar/"&gt;dex2jar&lt;/a&gt;和&lt;a href="http://jd.benow.ca/"&gt;jdgui&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;虽然这两个工具都有其局限性，但是搞这个一个App还是轻轻松松。&lt;/p&gt;
-
-&lt;p&gt;于是我们就获得了一个完整的数据定义。但是由于还是要给&lt;a href="http://weibo.com/121100059"&gt;美丽的CEO姐姐&lt;/a&gt;一点面子的～&lt;/p&gt;
-
-&lt;p&gt;所以就不公开了～上一个高清有码大图～&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-protobuf.png" alt="protobuf"&gt;&lt;/p&gt;
-
-&lt;h2&gt;关于开发&lt;/h2&gt;
-
-&lt;p&gt;未完待续&amp;hellip;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:moujiecao.html</guid><category>crack</category><category>android</category><category>app</category><category>chrome-extension</category><category>protobuf</category><category>angularjs</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</guid><category>公开课</category><category>分类器</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
 
 &lt;p&gt;最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(&lt;a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773"&gt;戳我&lt;/a&gt;)&lt;/p&gt;
 
