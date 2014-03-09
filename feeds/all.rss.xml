@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 25 Feb 2014 00:00:00 +0800</lastBuildDate><item><title>破解节操的下限</title><link>http://wizmann.tk/moujiecao.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 09 Mar 2014 22:44:15 +0800</lastBuildDate><item><title>Quartile and Normal Distribution</title><link>http://wizmann.tk/quartile-and-normal-distribution.html</link><description>&lt;h2&gt;What is Quartile?&lt;/h2&gt;
+
+&lt;p&gt;Quartile is a concept of descriptive statics. The quartiles of a ranked data set are the three points that divide the data set into four equal groups, each group comprising a quarter of data.&lt;/p&gt;
+
+&lt;h2&gt;Definitions&lt;/h2&gt;
+
+&lt;h3&gt;first quartile (Q1)&lt;/h3&gt;
+
+&lt;p&gt;First quartile, also known as lower quartile, splits off the lowest 25% of data.&lt;/p&gt;
+
+&lt;h3&gt;second quartile (Q2)&lt;/h3&gt;
+
+&lt;p&gt;Second quartile is the median of the data set, cuts data set in half.&lt;/p&gt;
+
+&lt;h3&gt;third quartile (Q3)&lt;/h3&gt;
+
+&lt;p&gt;Third quartile, known as upper quartile, splits off the highest 25% data.&lt;/p&gt;
+
+&lt;p&gt;The different between &lt;em&gt;Q1&lt;/em&gt; and &lt;em&gt;Q3&lt;/em&gt; is called the InterQuartile Range(IQR).&lt;/p&gt;
+
+&lt;h2&gt;Box-and-Whisker-plot and Quartile&lt;/h2&gt;
+
+&lt;p&gt;A box-and-whisker-plot is a convenient way of graphically depicting groups of numerical data through their quartiles.&lt;/p&gt;
+
+&lt;p&gt;The buttom and top of the box is always Q1 and Q3, and the band in the box is always Q2(the median). And the ends of the whiskers can be presented in several different ways.&lt;/p&gt;
+
+&lt;h2&gt;Tukey Boxplot&lt;/h2&gt;
+
+&lt;p&gt;Tukey boxplot defines two type of whiskers, which are called &lt;em&gt;inner fence&lt;/em&gt; and &lt;em&gt;outer fence&lt;/em&gt;. The value of &lt;em&gt;inner fence&lt;/em&gt; is &lt;code&gt;Q1 - 1.5 * IQR&lt;/code&gt; and &lt;code&gt;Q3 + 1.5 * IQR&lt;/code&gt;. At the same time, the value of &lt;em&gt;outer fence&lt;/em&gt; is &lt;code&gt;Q1 + 3 * IQR&lt;/code&gt; and &lt;code&gt;Q3 + 3 * IQR&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The data outside the fence is called the &lt;em&gt;suspected outliers&lt;/em&gt; and &lt;em&gt;outliners&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;If the data happens to be normally distributed, &lt;code&gt;IQR = 1.35σ&lt;/code&gt;. It means that only 0.52% of the set of data should be out of the &lt;em&gt;inner fence&lt;/em&gt; and  hardly any of the data should be out of the &lt;em&gt;outer fence&lt;/em&gt;. As a result, if a data is considered as a &lt;em&gt;outliners&lt;/em&gt;, it is largely an exception.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/Boxplot.png" alt="Boxplot and Normal Distribution"&gt;&lt;/p&gt;
+
+&lt;h2&gt;Reference&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Boxplot"&gt;Box plot - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.physics.csbsju.edu/stats/box2.html"&gt;Box Plot: Display of Distribution&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.wasu.com.cn/fwyzc/wasubzhzl/201207/P020140102519718744101.pdf"&gt;Tables for statistical distributions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 09 Mar 2014 22:44:15 +0800</pubDate><guid>tag:wizmann.tk,2014-03-09:quartile-and-normal-distribution.html</guid><category>quartile</category><category>normal-distribution</category></item><item><title>破解节操的下限</title><link>http://wizmann.tk/moujiecao.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"&gt;&lt;/p&gt;
 
