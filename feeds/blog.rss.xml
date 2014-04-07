@@ -4,6 +4,9 @@
 &lt;p&gt;For most time, we use &lt;code&gt;malloc&lt;/code&gt; or &lt;code&gt;new&lt;/code&gt; for memory allocation, which will get it on &lt;em&gt;heap&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;However, access memory on &lt;em&gt;heap&lt;/em&gt; is not as effective as the memory on &lt;em&gt;stack&lt;/em&gt;, because the heap is &amp;ldquo;free-floating region of memory&amp;rdquo;. To the contrary, memory on &lt;em&gt;stack&lt;/em&gt; is managed by CPU automacitally and tightly. As a result, the further of the &lt;em&gt;stack&lt;/em&gt; compared to &lt;em&gt;heap&lt;/em&gt; is that we can have a faster read/write speed due to the fact that &lt;em&gt;stack&lt;/em&gt; memory is more likely to optimized by &lt;strong&gt;CPU cache&lt;/strong&gt;, in addition, it only uses a single instruction to allocate or deallocate &lt;em&gt;stack&lt;/em&gt; memory. Just like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sub&lt;/span&gt; &lt;span class="n"&gt;esp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0x10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;allocate&lt;/span&gt;
+&lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;esp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0x10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;deallocate&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2&gt;alloca&lt;/h2&gt;
 
