@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 09 Mar 2014 22:44:15 +0800</lastBuildDate><item><title>Quartile and Normal Distribution</title><link>http://wizmann.tk/quartile-and-normal-distribution.html</link><description>&lt;h2&gt;What is Quartile?&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 07 Apr 2014 21:08:59 +0800</lastBuildDate><item><title>"alloca" vs "placement new"</title><link>http://wizmann.tk/alloca-vs-placement-new.html</link><description>&lt;h2&gt;WHAT?!&lt;/h2&gt;
+
+&lt;p&gt;For most time, we use &lt;code&gt;malloc&lt;/code&gt; or &lt;code&gt;new&lt;/code&gt; for memory allocation, which will get it on &lt;em&gt;heap&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, access memory on &lt;em&gt;heap&lt;/em&gt; is not as effective as the memory on &lt;em&gt;stack&lt;/em&gt;, because the heap is &amp;ldquo;free-floating region of memory&amp;rdquo;. To the contrary, memory on &lt;em&gt;stack&lt;/em&gt; is managed by CPU automacitally and tightly. As a result, the further of the &lt;em&gt;stack&lt;/em&gt; compared to &lt;em&gt;heap&lt;/em&gt; is that we can have a faster read/write speed due to the fact that &lt;em&gt;stack&lt;/em&gt; memory is more likely to optimized by &lt;strong&gt;CPU cache&lt;/strong&gt;, in addition, it only uses a single instruction to allocate or deallocate &lt;em&gt;stack&lt;/em&gt; memory. Just like this.&lt;/p&gt;
+
+&lt;h2&gt;alloca&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;alloca()&lt;/code&gt; function allocates memory from the &lt;em&gt;stack&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;alloca&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It&amp;#39;s quite the same as the &lt;code&gt;malloc&lt;/code&gt; way. But we shouldn&amp;#39;t free the memory allocated on the &lt;em&gt;stack&lt;/em&gt;; these memory will be automatically deallocated when you leave the function(&lt;strong&gt;not the code block&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;h2&gt;placement new&lt;/h2&gt;
+
+&lt;p&gt;The placement new is one of the overloads of the &lt;code&gt;new&lt;/code&gt; functions; this new syntax can do something as the &lt;code&gt;alloca()&lt;/code&gt; function.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The placement new can be also used in some other scenarios but won&amp;#39;t be mentioned here.&lt;/p&gt;
+
+&lt;h2&gt;variable-length array&lt;/h2&gt;
+
+&lt;p&gt;C90 and C++ both support the variable-length array which will be allocated on &lt;em&gt;stack&lt;/em&gt;, and it will be deallocted whhen you leave the &lt;strong&gt;clode block&lt;/strong&gt;, such as &amp;ldquo;if&amp;rdquo;, &amp;ldquo;while&amp;rdquo;, etc.&lt;/p&gt;
+
+&lt;p&gt;This is much simplified, but be ware if you use both variable-length array and &lt;code&gt;alloca()&lt;/code&gt; in the same function, the deallocation of the array will also free anything more recenly allocated by alloca.&lt;/p&gt;
+
+&lt;h2&gt;Defects&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Stack&lt;/em&gt; has its limitation. If the allocation on &lt;em&gt;stack&lt;/em&gt; causes &lt;strong&gt;stack overflow&lt;/strong&gt; error, then the behavior of the program is undefined.&lt;/p&gt;
+
+&lt;p&gt;Further, the variable-length array and &lt;code&gt;alloca()&lt;/code&gt; are not included in &lt;em&gt;ANSI-C&lt;/em&gt; standard and therefore could limit portability.&lt;/p&gt;
+
+&lt;p&gt;The Google C++ style guide encourage developers to use &lt;code&gt;scoped_ptr&lt;/code&gt; or &lt;code&gt;scopted_array&lt;/code&gt; instead of variable-length array and &lt;code&gt;alloca()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Some experiment&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// compile with: g++ -std=c++0x -O2 -Wall -g -o &amp;quot;foo.cc&amp;quot; &amp;quot;foo&amp;quot;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;cstdlib&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;cstring&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;algorithm&amp;gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define print(x) cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; endl&lt;/span&gt;
+&lt;span class="cp"&gt;#define input(x) cin &amp;gt;&amp;gt; x&lt;/span&gt;
+
+&lt;span class="cp"&gt;#if defined(__i386__)&lt;/span&gt;
+&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;__inline__&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="nf"&gt;rdtsc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;__asm__&lt;/span&gt; &lt;span class="k"&gt;volatile&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;.byte 0x0f, 0x31&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;=A&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#elif defined(__x86_64__)&lt;/span&gt;
+&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;__inline__&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="nf"&gt;rdtsc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;hi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;__asm__&lt;/span&gt; &lt;span class="n"&gt;__volatile__&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rdtsc&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;=a&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;=d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hi&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;hi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;//#define MEMORY_ON_HEAP&lt;/span&gt;
+&lt;span class="c1"&gt;//#define MEMORY_ON_STACK&lt;/span&gt;
+
+&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;SIZE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;102400&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rdtsc&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;ifdef&lt;/span&gt; &lt;span class="n"&gt;MEMORY_ON_HEAP&lt;/span&gt; &lt;span class="c1"&gt;// RDSTC: 20586280&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;
+
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;ifdef&lt;/span&gt; &lt;span class="n"&gt;MEMORY_ON_STACK&lt;/span&gt; &lt;span class="c1"&gt;// RDSTC: 3660502&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;alloca&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+        &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;
+
+
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rdtsc&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can use &lt;code&gt;info register esp&lt;/code&gt; in gdb to inspect the &lt;em&gt;stack&lt;/em&gt; pointer before and after you call the allocation function or declare a variable-length array.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 07 Apr 2014 21:08:59 +0800</pubDate><guid>tag:wizmann.tk,2014-04-07:alloca-vs-placement-new.html</guid><category>cpp</category><category>memory</category><category>stack</category><category>heap</category><category>allocate</category><category>alloca</category><category>c++</category></item><item><title>Quartile and Normal Distribution</title><link>http://wizmann.tk/quartile-and-normal-distribution.html</link><description>&lt;h2&gt;What is Quartile?&lt;/h2&gt;
 
 &lt;p&gt;Quartile is a concept of descriptive statics. The quartiles of a ranked data set are the three points that divide the data set into four equal groups, each group comprising a quarter of data.&lt;/p&gt;
 
