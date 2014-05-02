@@ -2621,7 +2621,7 @@ SW1A2AA.find.me.uk. 21600   IN  LOC 51 30 12.748 N 0 7 39.611 W 0.00m 0.00m 0.00
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;然后写&lt;code&gt;background.js&lt;/code&gt;，“劫持”发往&lt;code&gt;work.codeforces.ru&lt;/code&gt;的流量。
-&lt;code&gt;javascript
+&lt;code&gt;js
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         console.log(details.url);
