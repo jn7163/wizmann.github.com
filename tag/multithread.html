@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>機器學習基石 - PLA算法初步</title>
+    <title>Maerlyn's Rainbow - multithread</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,10 +11,10 @@
 
     <!-- Open Graph tags -->
 
-            <meta property="og:type" content="article"/>
-            <meta property="og:title" content="機器學習基石 - PLA算法初步"/>
-            <meta property="og:url" content="http://wizmann.tk/ml-foundations-pla.html"/>
-            <meta property="og:description" content="什么是PLA算法 PLA = Perceptrons Learning Alogrithm WikiPedia上有一个大概的历史背景介绍。 感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。 PLA算法的原理 对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。 由此我们就可以推导出公式如下。 我们可以为这个“神经元”的激发值设定一个阈值threshold。 如果 a > threshold，则判定输入为正例。 如果 a < threshold，则判定输入为负例。 对于 a == threshold的情况，认为是特殊情况，不予考虑。 所以，我们的感知器分类器就可以得到以下式子 ..."/>
+            <meta property="og:type" content="website"/>
+            <meta property="og:title" content="Maerlyn's Rainbow"/>
+            <meta property="og:url" content="http://wizmann.tk"/>
+            <meta property="og:description" content="Maerlyn's Rainbow"/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -68,7 +68,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://wizmann.tk/category/blog.html">Blog</a>
                         </li>
             </ul>
@@ -83,197 +83,50 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="http://wizmann.tk/ml-foundations-pla.html"
-                       rel="bookmark"
-                       title="Permalink to 機器學習基石 - PLA算法初步">
-                        機器學習基石 - PLA算法初步
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="icon-calendar"></i>2013-11-29
-    </span>
+            <article>
+                <h2><a href="http://wizmann.tk/read-paper-barrier.html">逗比带你读论文之Barrier</a></h2>
+                <div class="summary">
+                    <p><img src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="知识共享许可协议"></p>
 
+<p><em>逗比带你读论文之Barrier</em> 由 <a href="http://wizmann.tk">Wizmann</a> 创作</p>
 
+<p>采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a>进行许可。</p>
 
-<span class="label label-default">Tags</span>
-	<a href="http://wizmann.tk/tag/gong-kai-ke.html">公开课</a>
-        /
-	<a href="http://wizmann.tk/tag/fen-lei-qi.html">分类器</a>
-</footer><!-- /.post-info -->                    </div>
+<h2>原文地址</h2>
+
+<p><a href="http://ridiculousfish.com/blog/posts/barrier.html">Barrier February 17th, 2007</a></p>
+
+<h2>前言：我艹！好多核！</h2>
+
+<p>虽然80核心的浮点数运算巨兽离我们还有些遥远，但是多核处理器已经走进了我们的生活。</p>
+
+<p>其实多核处理器已经不是新鲜名词了，在Power Macintosh 9500中，就使用了多核处理器。</p>
+
+<p>现在让我们深入了理解一下多核心处理器吧。</p>
+
+<h2>线程技术</h2>
+
+<h3>一些名词定义</h3>
+
+<h4>线程</h4>
+
+<p>线程只是 <strong>抢占调度的</strong>（pre-emptively scheduled） <strong>共享地址空间的</strong> 执行上下文。</p>
+
+<h4>多线程</h4>
+
+<p>用来简化控制流和绕开阻塞的系统调用的方法，并非用来实现程序的并行化</p>
+
+<h4>并发多线程</h4>
+
+<p>在物理上并发的线程，用来利用多核处理器来优化系统性能</p>
+
+<h3>为什么“并发多线程”是个神坑</h3>
+
+<p>人人都在说”并发多线程“是个神坑，但这种老生常谈并不是因为自然原因 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/read-paper-barrier.html">more ...</a>
                 </div>
-                <h2>什么是PLA算法</h2>
-
-<p>PLA = Perceptrons Learning Alogrithm</p>
-
-<p>WikiPedia上有一个大概的历史背景介绍。</p>
-
-<blockquote>
-<p>感知机（英语：Perceptron）是Frank Rosenblatt在1957年就职于Cornell航空实验室(Cornell Aeronautical Laboratory)时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈式人工神经网络，是一种二元线性分类器。</p>
-</blockquote>
-
-<h2>PLA算法的原理</h2>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-Ncell.png" alt="感知机示意图"></p>
-
-<blockquote>
-<p>对于每种输入值(1 - D)，我们计算一个权重。当前神经元的总激发值(a)就等于每种输入值(x)乘以权重(w)之和。</p>
-</blockquote>
-
-<p>由此我们就可以推导出公式如下。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-1.jpg" alt="neuron sum"></p>
-
-<p>我们可以为这个“神经元”的激发值设定一个阈值<code>threshold</code>。</p>
-
-<p>如果 <code>a &gt; threshold</code>，则判定输入为正例。
-如果 <code>a &lt; threshold</code>，则判定输入为负例。
-对于 <code>a == threshold</code>的情况，认为是特殊情况，不予考虑。</p>
-
-<p>所以，我们的感知器分类器就可以得到以下式子。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-formula-2.png" alt="perceptron-formula-2"></p>
-
-<p>我们在数据向量中加入了阈值，并把式子统一成向量积的形式。</p>
-
-<h2>PLA算法的错误修正</h2>
-
-<p>PLA算法是_错误驱动_的算法。</p>
-
-<blockquote>
-<p>当我们训练这个算法时，只要输出值是正确的，这个算法就不会进行任何数据的调整。反之，当输出值与实际值异号，这个算法就会自动调整参数的比重。</p>
-</blockquote>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-perceptron-update.png" alt="错误修正"></p>
-
-<p>我们先取一个随机向量<code>W</code>，与现有的数据<code>X[i]</code>做点乘，取得结果的符号。</p>
-
-<p>如果符号符合我们的预期的话，则<code>continue</code>。
-否则就要对<code>W</code>进行修正。</p>
-
-<p>修正的方式是<code>W += y * X[i]</code>，每一次修正都是减少现有向量<code>W</code>与向量<code>y * X[i]</code>的夹角，从而调整答案的正确性。</p>
-
-<h2>Naive PLA 与 Pocket PLA</h2>
-
-<h3>Naive PLA</h3>
-
-<p>Naive PLA算法的思想很简单。一直修正向量<code>W</code>，直到向量<code>W</code>满足所有数据为止。</p>
-
-<p>代码如下：</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">def</span> <span class="nf">naive_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">):</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">iteration</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">false_data</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datas</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-                <span class="n">error</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  
-                <span class="n">false_data</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">w</span> <span class="o">+=</span> <span class="n">error</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">print</span> <span class="s">&#39;iter</span><span class="si">%d</span><span class="s"> (</span><span class="si">%d</span><span class="s"> / </span><span class="si">%d</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">false_data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">datas</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">false_data</span><span class="p">:</span>
-            <span class="k">break</span>
-    <span class="k">return</span> <span class="n">w</span>
-</pre></div>
-
-<h3>Pocket PLA</h3>
-
-<p>Naive PLA的一大问题就是如果数据有杂音，不能完美的分类的话，算法就不会中止。</p>
-
-<p>所以，对于有杂音的数据，我们只能期望找到错误最少的结果。然后这是一个<code>NP Hard</code>问题。</p>
-
-<p>Pocket PLA一个贪心的近似算法。和Naive PLA算法类似。</p>
-
-<p>变顺序迭代为随机迭代，如果找出错误，则修正结果。在修正过程中，记录犯错误最少的向量。</p>
-
-<p>代码如下：</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-
-<span class="k">def</span> <span class="nf">pocket_pla</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
-    <span class="c">###############</span>
-    <span class="k">def</span> <span class="nf">_calc_false</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datas</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-                <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">res</span>
-    <span class="c">###############</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">least_false</span> <span class="o">=</span> <span class="n">_calc_false</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">w</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">datas</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">t_false</span> <span class="o">=</span> <span class="n">_calc_false</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-
-            <span class="n">w</span> <span class="o">=</span> <span class="n">t</span>
-
-            <span class="k">if</span> <span class="n">t_false</span> <span class="o">&lt;=</span> <span class="n">least_false</span><span class="p">:</span>
-                <span class="n">least_false</span> <span class="o">=</span> <span class="n">t_false</span>
-                <span class="n">res</span> <span class="o">=</span> <span class="n">t</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">least_false</span>
-</pre></div>
-
-<h2>参考链接</h2>
-
-<p>本文主要参考了<a href="http://shaoxiongjiang.com/2013/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8-%E6%84%9F%E7%9F%A5%E5%99%A8-perceptron/">机器学习入门 - 感知器 (Perceptron)</a>和Wikipedia上面<a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知机</a>的词条。</p>
-
-<p>以及<a href="https://class.coursera.org/ntumlone-001/class">機器學習基石 (Machine Learning Foundations)</a>公开课的幻灯片。</p>
-
-<h2>Updated</h2>
-
-<p>2013-12-8</p>
-
-<p>修改了pocket-pla算法，提升了效率和准确性。</p>
-
-<p>参考了<a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632">课程论坛</a>的讨论。并且感谢Li Tianyi同学指出我的问题。</p>
-
-            </div>
-            <!-- /.entry-content -->
-    <hr />
-    <section class="comments" id="comments">
-        <h2>Comments</h2>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'wizmann'; // required: replace example with your forum shortname
-            var disqus_identifier = 'ml-foundations-pla';
-            var disqus_url = 'http://wizmann.tk/ml-foundations-pla.html';
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function () {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-    </section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
