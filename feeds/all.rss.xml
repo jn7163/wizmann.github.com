@@ -1,5 +1,499 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 30 Apr 2014 17:39:00 +0800</lastBuildDate><item><title>Codeforces Round #242 (Div. 2) Tutorials and Solutions</title><link>http://wizmann.tk/cf-242-div-2.html</link><description>&lt;h2&gt;A. Squats&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 08 May 2014 19:05:26 +0800</lastBuildDate><item><title>逗比带你读论文之Barrier</title><link>http://wizmann.tk/read-paper-barrier.html</link><description>&lt;p&gt;&lt;img src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="知识共享许可协议"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;逗比带你读论文之Barrier&lt;/em&gt; 由 &lt;a href="http://wizmann.tk"&gt;Wizmann&lt;/a&gt; 创作&lt;/p&gt;
+
+&lt;p&gt;采用 &lt;a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议&lt;/a&gt;进行许可。&lt;/p&gt;
+
+&lt;h2&gt;原文地址&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://ridiculousfish.com/blog/posts/barrier.html"&gt;Barrier February 17th, 2007&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;前言：我艹！好多核！&lt;/h2&gt;
+
+&lt;p&gt;虽然80核心的浮点数运算巨兽离我们还有些遥远，但是多核处理器已经走进了我们的生活。&lt;/p&gt;
+
+&lt;p&gt;其实多核处理器已经不是新鲜名词了，在Power Macintosh 9500中，就使用了多核处理器。&lt;/p&gt;
+
+&lt;p&gt;现在让我们深入了理解一下多核心处理器吧。&lt;/p&gt;
+
+&lt;h2&gt;线程技术&lt;/h2&gt;
+
+&lt;h3&gt;一些名词定义&lt;/h3&gt;
+
+&lt;h4&gt;线程&lt;/h4&gt;
+
+&lt;p&gt;线程只是 &lt;strong&gt;抢占调度的&lt;/strong&gt;（pre-emptively scheduled） &lt;strong&gt;共享地址空间的&lt;/strong&gt; 执行上下文。&lt;/p&gt;
+
+&lt;h4&gt;多线程&lt;/h4&gt;
+
+&lt;p&gt;用来简化控制流和绕开阻塞的系统调用的方法，并非用来实现程序的并行化&lt;/p&gt;
+
+&lt;h4&gt;并发多线程&lt;/h4&gt;
+
+&lt;p&gt;在物理上并发的线程，用来利用多核处理器来优化系统性能&lt;/p&gt;
+
+&lt;h3&gt;为什么“并发多线程”是个神坑&lt;/h3&gt;
+
+&lt;p&gt;人人都在说”并发多线程“是个神坑，但这种老生常谈并不是因为自然原因，而是因为我们亲手作下的死。其根本原因在于我们对于单线程下的程序的过分优化在多线程下并不适用。&lt;/p&gt;
+
+&lt;p&gt;这是神马意思呢？由于CPU跑的太快以至于内存完全跟不上它的速度，于是我们开始猜测内存中的内容，使得CPU不必花时间再检查内存。”猜测“是通俗的说法，用专业名词讲，就是&lt;strong&gt;CPU&lt;/strong&gt;和&lt;strong&gt;编译器&lt;/strong&gt;对内存状态”做出越来越有侵略性的假设“。&lt;/p&gt;
+
+&lt;h2&gt;举个栗子&lt;/h2&gt;
+
+&lt;p&gt;这个是写线程&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// variable1 = variable2 = 0;&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;variable2&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;这个是读线程&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;local2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;local1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;local2&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;local1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;根据正常人的思绪，local2一定会小于local1，因为variable1一直比variable2要大。&lt;/p&gt;
+
+&lt;p&gt;但是事实是不是这样的呢？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;ctime&amp;gt;&lt;/span&gt;
+
+&lt;span class="cp"&gt;#include &amp;lt;pthread.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;sys/time.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;unistd.h&amp;gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;variable2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cp"&gt;#define ITERATIONS 200000000&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(;;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;variable2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;timeval&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;gettimeofday&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;failureCount&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;ITERATIONS&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;v2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v2&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;failureCount&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;gettimeofday&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tv_sec&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tv_usec&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mf"&gt;1000000.&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tv_sec&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tv_usec&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mf"&gt;1000000.&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%u failure%s (%2.1f percent of the time) in %2.1f seconds&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+           &lt;span class="n"&gt;failureCount&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;failureCount&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+           &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;100.&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;failureCount&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;ITERATIONS&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;pthread_t&lt;/span&gt; &lt;span class="n"&gt;thread1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;thread2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;pthread_create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;thread1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;pthread_create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;thread2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(;;)&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;程序的输出为：&lt;code&gt;0 failures (0.0 percent of the time) in 1.2 seconds&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;貌似是正确的？&lt;/h3&gt;
+
+&lt;p&gt;程序运行的正如我们预期的那样，那么我们可以确信程序是一定正确的吗？&lt;/p&gt;
+
+&lt;p&gt;不能。&lt;/p&gt;
+
+&lt;p&gt;因为程序中的两个线程如果在同一个CPU上被调度，我们永远都会得到正确的结果。&lt;/p&gt;
+
+&lt;h3&gt;线程与不同的CPU进行绑定&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;cpu_set_t&lt;/span&gt; &lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;CPU_ZERO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;CPU_SET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;sched_setaffinity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;cpu_set_t&lt;/span&gt; &lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;CPU_ZERO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;CPU_SET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;sched_setaffinity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cpuset&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// p.s. 我机器是i5双核四线程，所以绑在了CPU0和CPU2上&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;结果：&lt;code&gt;0 failures (0.0 percent of the time) in 1.4 seconds&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;貌似还是正确的？！&lt;/h3&gt;
+
+&lt;p&gt;还没错。。。不过CPU是在寄存器上乱搞的，而variable1和variable2是挨在一起的，这就导致了它们两个可能在缓存的同一行上，这使它们同时写入缓存同时写回内存。&lt;/p&gt;
+
+&lt;p&gt;我们将这两个变量一个放在堆上，一个放在栈上，看看效果如何。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;0 failures (0.0 percent of the time) in 1.2 seconds
+0 failures (0.0 percent of the time) in 1.2 seconds
+2000000000 failures (100.0 percent of the time) in 1.2 seconds&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;太感人了！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3&gt;我们的敌人 —— 编译器&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Multithreading bugs are very delicate.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;并行多线程的错误总是那么的奇妙，也许你的程序运行了几天安然无恙，但是不知道在某一天某一时，就挂了。&lt;/p&gt;
+
+&lt;p&gt;如果多个线程调度在同一个CPU核心上，Bug会被掩盖。&lt;br&gt;
+如果多个变量在CPU同一行Cache上，Bug会被掩盖。&lt;br&gt;
+如果你人品足够好的话，Bug同样会被掩盖。&lt;/p&gt;
+
+&lt;p&gt;但是，如果我们排除了以上的情况后，问题就浮现出来了。&lt;/p&gt;
+
+&lt;p&gt;我们来看一看reader的反汇编代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;gdb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;disas&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;
+&lt;span class="n"&gt;Dump&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;assembler&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400950&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt;   &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rbx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400951&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400953&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400958&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x80&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040095d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040095f&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;sub&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0xa0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400966&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rdi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400969&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rdx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040096c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;28&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;rep&lt;/span&gt; &lt;span class="n"&gt;stos&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;es&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rdi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040096f&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400971&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;movq&lt;/span&gt;   &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x4&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400979&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;41&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;callq&lt;/span&gt;  &lt;span class="mh"&gt;0x400790&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;sched_setaffinity&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040097e&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;46&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;lea&lt;/span&gt;    &lt;span class="mh"&gt;0x80&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rdi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400986&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;54&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400988&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;56&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;callq&lt;/span&gt;  &lt;span class="mh"&gt;0x400710&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gettimeofday&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040098d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;61&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="mh"&gt;0x2006e4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x601078&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;variable2_p&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400994&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;68&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="mh"&gt;0x2006e6&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x601080&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040099a&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;74&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x000000000040099c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;76&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x77359400&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009a1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;81&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;nopl&lt;/span&gt;   &lt;span class="mh"&gt;0x0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009a8&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;88&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;cmp&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009aa&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;90&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;adc&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009ad&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;93&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;sub&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009b0&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;96&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;jne&lt;/span&gt;    &lt;span class="mh"&gt;0x4009a8&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;88&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009b2&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;98&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;lea&lt;/span&gt;    &lt;span class="mh"&gt;0x90&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rdi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009ba&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;106&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009bc&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;108&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;callq&lt;/span&gt;  &lt;span class="mh"&gt;0x400710&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;gettimeofday&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009c1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;113&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cvtsi2sdq&lt;/span&gt; &lt;span class="mh"&gt;0x98&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009cb&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;123&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cvtsi2sdq&lt;/span&gt; &lt;span class="mh"&gt;0x90&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm1&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009d5&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;133&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;movsd&lt;/span&gt;  &lt;span class="mh"&gt;0x1a3&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm3&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x400b80&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009dd&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;141&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009df&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;143&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cvtsi2sdq&lt;/span&gt; &lt;span class="mh"&gt;0x88&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm2&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009e9&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;153&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cmp&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009ec&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;156&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x400b3d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009f1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;161&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009f6&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;166&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;divsd&lt;/span&gt;  &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009fa&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;170&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x00000000004009fc&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;172&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x400b40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;esi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a01&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;177&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;divsd&lt;/span&gt;  &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm2&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a05&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;181&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;addsd&lt;/span&gt;  &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm1&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a09&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;185&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cvtsi2sdq&lt;/span&gt; &lt;span class="mh"&gt;0x80&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a13&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;195&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;subsd&lt;/span&gt;  &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm1&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a17&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;199&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cvtsi2sd&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a1c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;204&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x400b3c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a21&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;209&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;cmovne&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rcx&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a25&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;213&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a2a&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;218&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;mulsd&lt;/span&gt;  &lt;span class="mh"&gt;0x156&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x400b88&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a32&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;226&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;subsd&lt;/span&gt;  &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm1&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a36&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;230&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;divsd&lt;/span&gt;  &lt;span class="mh"&gt;0x152&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;xmm0&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x400b90&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a3e&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;238&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;callq&lt;/span&gt;  &lt;span class="mh"&gt;0x400700&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;__printf_chk&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a43&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;243&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;xor&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;
+   &lt;span class="mh"&gt;0x0000000000400a45&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;245&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;   &lt;span class="n"&gt;callq&lt;/span&gt;  &lt;span class="mh"&gt;0x4006f0&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;简而言之，关键在以下几句：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mh"&gt;0x000000000040098d&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;61&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="mh"&gt;0x2006e4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x601078&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;variable2_p&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="mh"&gt;0x0000000000400994&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;68&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="mh"&gt;0x2006e6&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rip&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mh"&gt;0x601080&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="mh"&gt;0x000000000040099a&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;74&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;
+&lt;span class="mh"&gt;0x000000000040099c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;76&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;mov&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x77359400&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+&lt;span class="mh"&gt;0x00000000004009a1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;81&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;nopl&lt;/span&gt;   &lt;span class="mh"&gt;0x0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mh"&gt;0x00000000004009a8&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;88&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;cmp&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ecx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edx&lt;/span&gt;
+&lt;span class="mh"&gt;0x00000000004009aa&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;90&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;adc&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;ebx&lt;/span&gt;
+&lt;span class="mh"&gt;0x00000000004009ad&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;93&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;sub&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mh"&gt;0x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;
+&lt;span class="mh"&gt;0x00000000004009b0&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;+&lt;/span&gt;&lt;span class="mi"&gt;96&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;    &lt;span class="n"&gt;jne&lt;/span&gt;    &lt;span class="mh"&gt;0x4009a8&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;88&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;我们可以看出，循环体在+88～+96行，而对variable1与variable2的取值都放在了循环以外。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;注：&lt;br&gt;
+adc是带进位加法，adc $0x0, %ebx =&amp;gt; %ebx = $0x0 + %ebx + CF&lt;br&gt;
+cmp的结果正是放在CF（大于表示为溢出），ZF（相等表示为0），PF（小于表示为-1,则低8位全为1,故有偶数个1）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;** 你TMD在逗我？！ **&lt;/p&gt;
+
+&lt;p&gt;正是这个错误，导致了我们的结果要不是100%正确，要不是100%错误。&lt;/p&gt;
+
+&lt;h4&gt;编译器你消停会 —— volitile&lt;/h4&gt;
+
+&lt;p&gt;让我们修改一下代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;volatile&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;volatile&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;variable2_p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cp"&gt;#define ITERATIONS 500000000LL &lt;/span&gt;&lt;span class="c1"&gt;// 调小一下数据规模，因为volatile太慢了_(:з」∠)_&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;我得出的来的结果是：
+&lt;code&gt;
+0 failures (0.0 percent of the time) in 9.6 seconds
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;而作者得出的结果是：
+（时间上的差异不计，因为我们的数据规模不一样，我实验的次数要多一些。
+&lt;code&gt;
+fish ) ./a.out
+12462711 failures (24.9 percent of the time) in 3.7 seconds
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;从作者的结果来看，看起来效果好了很多，虽然慢了30多倍，但是结果并不是全对全错了。&lt;/p&gt;
+
+&lt;p&gt;而从我的结果来看，volatile看似神丹妙药，解决了所有的问题。(both g++ and clang++)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;这是为什么呢?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;根据本逗的了解，其原因在于体系结构的差异（都TM赖体制！）。&lt;/p&gt;
+
+&lt;p&gt;volatile只能保证如下两点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;volatile变量的访问不会优化成寄存器访问，而是每次都去访问“内存”（这个引号一会再解释）&lt;/li&gt;
+&lt;li&gt;volatile变量间的访问顺序不会被编译器乱序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;而其他的一切，volatile和编译器都不会给出任何保证。&lt;/p&gt;
+
+&lt;p&gt;例如，不同的CPU都有其内部的私有Cache，CPU的内存访问，如果命中了Cache，则不会真正的访问内存。但由于其私有Cache对于其它的CPU是不可见的，使用volatile就埋下的Bug的种子。&lt;/p&gt;
+
+&lt;p&gt;虽然在我们的实验中，程序运行的很好，没有出现Bug。但是，一是由于多线程的Bug都是subtle和delicate的，我不能保证在一个需要7x24工作的服务器程序中，它不会出现任何Bug；二是至少我们的代码是** not portable **的，如果有一天，我们从x86-64平台切换到了&lt;code&gt;PowerPC&lt;/code&gt;？或是&lt;code&gt;IA64&lt;/code&gt;？我们不能保证在这些体系结构上，编译器和CPU能为我们提供同样的保障。&lt;/p&gt;
+
+&lt;p&gt;于是有人高声疾呼 —— volatile不是TMD给多线程用的！(maybe like a parrot)&lt;/p&gt;
+
+&lt;h4&gt;CPU你也消停会！&lt;/h4&gt;
+
+&lt;p&gt;虽然，在上面的实验中，我们可以看出，在同一个CPU中，程序和预期相符。但是，我们不能保证，CPU不会乱序执行你的代码，把你坑成狗。&lt;/p&gt;
+
+&lt;p&gt;例如CPU会毫不费力的把var1++和var2++的顺序更改一下，相信我，它丫真的会这么做的。至少在现在主流的CPU上是会的。&lt;/p&gt;
+
+&lt;p&gt;（不过由于乱序执行需要更高的功耗，所以ARM和Intel Atom取消了乱序执行，不过谁知道哪天你的代码就会跑在ARM集群上呢？几千个手机组成的机柜233～）&lt;/p&gt;
+
+&lt;h4&gt;逗比别用锁！&lt;/h4&gt;
+
+&lt;p&gt;哐当加上一把大锁总是解决问题的最终方案。但是你造吗？根据作者的测试，加上一把mutex大锁会让这个小程序减慢130倍。加上一把spinlock小锁也会让速度减慢4倍。&lt;/p&gt;
+
+&lt;p&gt;所以，消停一下，看看作者接下来怎么说。&lt;/p&gt;
+
+&lt;h3&gt;内存屏障&lt;/h3&gt;
+
+&lt;p&gt;多CPU往往是各行其是的典范，它们个人玩个人的，从来不管自己的兄弟们在做什么。&lt;/p&gt;
+
+&lt;p&gt;现在我们有两种不现实的解决方法，一是把所有线程都运行在同一个CPU上，二是用一把大锁哐当把程序锁住。bad and slow ideas.&lt;/p&gt;
+
+&lt;p&gt;我们实际上，需要做的只是暂时停止编译器/CPU对某一段程序中对读写数据(load &amp;amp; store)的重排(reorder)。这种技术叫做内存屏障(memory barrier)。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(;;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;barrier&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;variable2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;variable2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;这样我们保证了，在var1++必然早于var2++。var2++后面也可以加一道barrier，只不过在我们的场景下，提供这种保证是不必须的。&lt;/p&gt;
+
+&lt;p&gt;作者又做了一次试验。（不要问我为什么不做，x86-64把我做实验的机会都毁了，差评）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fish ) ./a.out
+260 failures (0.0 percent of the time) in 0.9 seconds&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这次且错误减少了许多。&lt;/p&gt;
+
+&lt;p&gt;我们再把读线程写加上memory barrier.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;ITERATIONS&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;v2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;variable2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;barrier&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;variable1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v2&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;failureCount&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;看看结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fish ) ./a.out
+0 failures (0.0 percent of the time) in 4.2 seconds&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果正确了哦～～&lt;/p&gt;
+
+&lt;p&gt;我们可以看出，如果你对线程A的读写顺序做出要求，必然的，你也要对线程B的顺序做要求，以此类推，线程C，线程D……&lt;/p&gt;
+
+&lt;p&gt;所以，&lt;strong&gt;Memory barriers always come in pairs, or triplets or more.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;同样的，线程锁也是这样的，只有傻比自己锁自己。 :)&lt;/p&gt;
+
+&lt;h3&gt;CPU的乱序执行&lt;/h3&gt;
+
+&lt;p&gt;我们可以看到PowerPC有三种内存屏障，而DEC Alpha平台有更多。这意味着，CPU使用更激进的策略来重排指令，而强制限制其重排的代价是非常高的。&lt;/p&gt;
+
+&lt;p&gt;而x86平台则非常守序，作者猜测其原因是由于早期x86的指令技术并非完善，而在那时内存与CPU的速度不像现在这样悬殊，所以x86使用了&lt;code&gt;strongly ordered memory&lt;/code&gt;而非像上面几款CPU一样的采用过多的指令重排序。如今，由于x86背上了向前兼容性的包袱，看似我们的&amp;quot;好日子&amp;quot;一直不会结束。&lt;/p&gt;
+
+&lt;p&gt;x86-64，做为x86的64位升级版，同样没有实现&lt;code&gt;weakly ordered&lt;/code&gt;，或者说，保留了实现&lt;code&gt;weakly ordered&lt;/code&gt;的权利。而&lt;code&gt;IA64&lt;/code&gt;平台，如&lt;code&gt;Itanium&lt;/code&gt;，则实现了&lt;code&gt;weakly ordered&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;作者猜测x86_64之所以保守，是为了与IA64平台对抗。x86_64的对于x86良好的兼容性可以让程序员多活几年，所以x86_64在市场的表现更好。&lt;/p&gt;
+
+&lt;p&gt;作者还表示，而苹果放弃IA64平台转投x86-64多少有一些可惜，因为苹果并没有移植性问题，PowerPC已经逐渐衰落，为什么不试试IA64呢。&lt;/p&gt;
+
+&lt;p&gt;实际上，根据Wikipedia，现在支持IA64的操作系统非常少，只有WinNT Family，Red Hat Linux，Debian/Gentoo/Suse以及其它。而从Windows Server 2008 R2之后，Microsoft也表示不再支持Itanium。所以从现在看来，IA64平台相对x86/x64来说，是失败的。&lt;/p&gt;
+
+&lt;h3&gt;双重检查锁&lt;/h3&gt;
+
+&lt;p&gt;又到了一年一度的钓鱼时间 :)&lt;/p&gt;
+
+&lt;p&gt;让我们看一下如下的Obj-C代码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="nf"&gt;getSharedObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;id&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;LOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;sharedObject&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt; &lt;span class="n"&gt;alloc&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;UNLOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;这是非常经典的一种DCLP(Double Checked Lock Pattern)的实现。&lt;/p&gt;
+
+&lt;p&gt;这个看起来不错，但是你已经知道这并不靠谱了。当我们初始化我们的共享单例，先要再修改类内的指针，使其指向一块声明好的内存，再初始化一个sharedObject的instance。&lt;/p&gt;
+
+&lt;p&gt;不过，你是知道的，CPU和编译器会把一切都搞砸，它们会以任意的顺序执行我们的命令，同时处理器之间互相不通气，于是就会出现如下的情况：&lt;/p&gt;
+
+&lt;p&gt;线程A为指针声明了一段空间，但是还没来及初始化这个instance，线程A就被挂起了。&lt;/p&gt;
+
+&lt;p&gt;之后线程B接管一切，发现指针有值，之后欢天喜地的拿去用，却只发现取回的数据是undefined。&lt;/p&gt;
+
+&lt;p&gt;这就逗了。&lt;/p&gt;
+
+&lt;p&gt;不过根据上面的文章，你们应该知道怎么处理这个问题了 —— 用内存屏障啊！&lt;/p&gt;
+
+&lt;p&gt;p.s. 如果大家对obj-c不熟悉的话，可以看我另外一篇文章。那篇文章是关于Scott Meyers大神写的一篇论文，专门用来讨论DCLP问题的。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="nf"&gt;getSharedObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;id&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;LOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;id&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt; &lt;span class="n"&gt;alloc&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="n"&gt;OSMemoryBarrier&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+            &lt;span class="n"&gt;sharedObject&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;UNLOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;OSMemoryBarrier&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;而在《C++ and the Perils of Double-Checked Locking》一文中，Scott Meyers和Andrei Alexandrescu给出的解决方案如下。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;instance&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pInstance&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// insert memory barrier&lt;/span&gt;
+    &lt;span class="c1"&gt;// clear the cache to flush ``pInstance``&lt;/span&gt;
+    &lt;span class="c1"&gt;// prevents &amp;quot;downwards migration&amp;quot; of Singleton’s construction (by another thread);&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;Lock&lt;/span&gt; &lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pInstance&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="c1"&gt;// insert memory barrier&lt;/span&gt;
+            &lt;span class="c1"&gt;// prevent optimistic that eliminate the temporary variable ``tmp``&lt;/span&gt;
+            &lt;span class="c1"&gt;// prevents &amp;quot;upwards migration&amp;quot; of pInstance’s initialization&lt;/span&gt;
+            &lt;span class="n"&gt;pInstance&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt;  &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;两种解决方案的memory barrier插入的位置不同。但是都不能说是错的。因为一个是传static instance，一个是传pointer。&lt;/p&gt;
+
+&lt;p&gt;其实还有更“暴力”的方法。&lt;/p&gt;
+
+&lt;p&gt;直接来一把大锁，哐当把整个函数锁起来，并且在每一个线程内保留一个&lt;strong&gt;本线程专属&lt;/strong&gt;指向单例的指针（做cache）。这样N个线程只需要调用这个函数N次，线程竞争也相对少很多。并且根据Linux下的futex技术，无竞争下的锁相对节省了不少资源。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;instance&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Lock&lt;/span&gt; &lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pInstance&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;pInstance&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Singleton&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;pInstance&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;我们真要这么做吗？&lt;/h3&gt;
+
+&lt;p&gt;上面的obj-c代码中，保证双重检查锁正确的，其实是第二个内存屏障。但是，在那里，我们需要的其实是一个&amp;quot;data dependency barrier&amp;quot;。&lt;/p&gt;
+
+&lt;p&gt;Linux内核中给出很多经过精心优化的内存屏障，我们在这里可以使用。不过，要在使用的时候写好注释，一是为了未来的验证，二是为了记录自己当时的思路。&lt;/p&gt;
+
+&lt;p&gt;毕竟多线程的操作要小心再小心，我们需要充足的理由，更多的小心来应对。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="nf"&gt;getSharedObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;id&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;LOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;id&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt; &lt;span class="n"&gt;alloc&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="n"&gt;OSMemoryBarrier&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+            &lt;span class="n"&gt;sharedObject&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="n"&gt;UNLOCK&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="cm"&gt;/* data dependency memory barrier here */&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sharedObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;一切都结束了吗？&lt;/h3&gt;
+
+&lt;p&gt;是的。不过让我们总结一下吧。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/barrier_tank.png" alt="Mutex Tank"&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;处理器和编译器就是两个想玩死你的孙则，它们会把你的代码到处移动。所以&lt;strong&gt;Be warned and wary!&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;多线程的错误是非常subtle和delicate的，所以我们很难设计测试用例，只能无助的等着Bug自己把头伸出来。（我就是想背下来那两个单词！）&lt;/li&gt;
+&lt;li&gt;因此，别指责QA了，他们也不是故意的。RD要对自己的代码负责&lt;/li&gt;
+&lt;li&gt;锁很安全，但是也很重。如果你自己一不小心把自己锁起来的话(deadlock)，其实也不是那么安全。&lt;/li&gt;
+&lt;li&gt;内存屏障是一种更快的，不阻塞的，不会死锁的一种锁的替代物。它们总要花费更多的心思，并且也不是到处可用的银弹。但是它确实很快，有更好的伸缩性。&lt;/li&gt;
+&lt;li&gt;内存屏障往往是成对出现的。了解第二个内存屏障要出现在哪里，有助于你理解你的代码，即使你所使用的体系结构不需要第二个内存屏障。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;扩展阅读&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href="https://www.kernel.org/doc/Documentation/memory-barriers.txt"&gt;LINUX KERNEL MEMORY BARRIERS&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.8112"&gt;Memory Consistency and Event Ordering in Scalable Shared-Memory Multiprocessors&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 08 May 2014 19:05:26 +0800</pubDate><guid>tag:wizmann.tk,2014-05-08:read-paper-barrier.html</guid><category>cpp memory-barrier asm multiprocess multithread thread cocurrency</category></item><item><title>Codeforces Round #242 (Div. 2) Tutorials and Solutions</title><link>http://wizmann.tk/cf-242-div-2.html</link><description>&lt;h2&gt;A. Squats&lt;/h2&gt;
 
 &lt;p&gt;Trun &lt;code&gt;x =&amp;gt; X&lt;/code&gt; or &lt;code&gt;X =&amp;gt; x&lt;/code&gt; to make the number of &amp;#39;x&amp;#39; is equal to the number of &amp;#39;X&amp;#39;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;

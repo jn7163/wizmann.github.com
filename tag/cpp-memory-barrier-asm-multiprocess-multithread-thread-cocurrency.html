@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow</title>
+    <title>Maerlyn's Rainbow - cpp memory-barrier asm multiprocess multithread thread cocurrency</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -127,128 +127,7 @@
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-242-div-2.html">Codeforces Round #242 (Div. 2) Tutorials and Solutions</a></h2>
-                <div class="summary">
-                    <h2>A. Squats</h2>
 
-<p>Trun <code>x =&gt; X</code> or <code>X =&gt; x</code> to make the number of &#39;x&#39; is equal to the number of &#39;X&#39;.</p>
-<div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">())</span>
-<span class="n">hamsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">raw_input</span><span class="p">()]</span>
-
-<span class="n">sits</span> <span class="o">=</span> <span class="n">hamsters</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">stands</span> <span class="o">=</span> <span class="n">hamsters</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;X&#39;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">sits</span> <span class="o">==</span> <span class="n">stands</span><span class="p">:</span>
-    <span class="k">print</span> <span class="mi">0</span>
-    <span class="k">print</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hamsters</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">sits</span> <span class="o">&gt;</span> <span class="n">stands ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-242-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-240-div-2.html">Codeforces Round #240 (Div. 2) Tutorials and Solutions(incomplete and incorrect)</a></h2>
-                <div class="summary">
-                    <h2>Overview</h2>
-
-<p>It has been months that I didn&#39;t participate in the contest on CF, now I&#39;m back. :)</p>
-
-<p>This round of contest makes me confused that the problem B and C is a little bit too twisted, if you can&#39;t catch the vital point, you will get a ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-240-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/alloca-vs-placement-new.html">"alloca" vs "placement new"</a></h2>
-                <div class="summary">
-                    <h2>WHAT?!</h2>
-
-<p>For most time, we use <code>malloc</code> or <code>new</code> for memory allocation, which will get it on <em>heap</em>.</p>
-
-<p>However, access memory on <em>heap</em> is not as effective as the memory on <em>stack</em>, because the heap is &ldquo;free-floating region of memory&rdquo;. To the contrary, memory on <em>stack</em> is managed by CPU ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/alloca-vs-placement-new.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/quartile-and-normal-distribution.html">Quartile and Normal Distribution</a></h2>
-                <div class="summary">
-                    <h2>What is Quartile?</h2>
-
-<p>Quartile is a concept of descriptive statics. The quartiles of a ranked data set are the three points that divide the data set into four equal groups, each group comprising a quarter of data.</p>
-
-<h2>Definitions</h2>
-
-<h3>first quartile (Q1)</h3>
-
-<p>First quartile, also known as lower quartile, splits off ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/quartile-and-normal-distribution.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/moujiecao.html">破解节操的下限</a></h2>
-                <div class="summary">
-                    <h2>啥？</h2>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"></p>
-
-<p><a href="http://jiecao.fm/">节操精选</a>是一个<strong>没有下限</strong>的文字图片聚合类移动应用，现在支持Android/iOS移动平台。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-ui.png" alt="界面"></p>
-
-<p>本人是一个非常懒的人，有电脑就不想碰手机。。。于是萌生了一个在PC端使用这个应用的想法。。。</p>
-
-<h2>HowTo</h2>
-
-<p>从界面上我们可以看出，这个App的逻辑其实比较简单。重要的部分有如下几个：</p>
-
-<ul>
-<li><p>获取CS通信协议<strong>（最重要）</strong></p></li>
-<li><p>频道间切换（精选 - 热门 - 音频- 阅读）</p></li>
-<li><p>展示某一条精选</p></li>
-<li><p>在某一条精选中播放语音</p></li>
-</ul>
-
-<h2>获取通信协议</h2>
-
-<p>节操还是非常良心的！并没有在后台数据通信中进行任何加密的措施。</p>
-
-<p>抓包工具我使用的是在Windows环境下的<a href="http://www.telerik.com/fiddler">Fiddler</a>。</p>
-
-<p>这个工具可以建立一个HTTP代理，手机通过代理上网，在电脑上就可以截获所有的数据包进行分析。</p>
-
-<p>在Linux下，可以使用TinyProxy + Wireshark进行抓包，不过配置小麻烦。不过我一直是在Windows下抓包，然后在Linux下做分析和开发的。=。=。。。</p>
-
-<p>图就不上了，如果大家有兴趣自己来搞的话，可以抓来试试。</p>
-
-<p>简而言之，我们从HTTP包中的<code>Content-type</code>字段中，发现了我们想要的信息 —— <code>application/xprotobuf</code>。</p>
-
-<p>我去！真良心～</p>
-
-<h3>Protobuf简介 ...</h3>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/moujiecao.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-
-        <ul class="pagination">
-                <li class="prev disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a
-                        href="http://wizmann.tk/index.html">1</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/index2.html">2</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/index3.html">3</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/index4.html">4</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/index5.html">5</a></li>
-                <li class="next"><a
-                        href="http://wizmann.tk/index2.html">&raquo;</a></li>
-        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
