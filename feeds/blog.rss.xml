@@ -153,16 +153,16 @@ And we use &lt;code&gt;put_nowait&lt;/code&gt; and &lt;code&gt;get_nowait&lt;/co
 &lt;p&gt;As it is said in the book, it&amp;#39;s a hard problem. And here is a &lt;a href="http://stackoverflow.com/questions/5538192/how-to-implement-a-queue-with-three-stacks"&gt;discuss&lt;/a&gt; in the Stackoverflow where I find this &lt;a href="http://stackoverflow.com/a/5568094/2927439"&gt;solution&lt;/a&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;| | | |3| | | |
- | | | |_| | | |
- | | |_____| | |
- | |         | |
- | |   |2|   | |
- | |   |_|   | |
- | |_________| |
- |             |
- |     |1|     |
- |     |_|     |
- |_____________|&lt;/code&gt;&lt;/pre&gt;
+| | | |_| | | |
+| | |_____| | |
+| |         | |
+| |   |2|   | |
+| |   |_|   | |
+| |_________| |
+|             |
+|     |1|     |
+|     |_|     |
+|_____________|&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This solution uses nested stacks to perform as a &lt;strong&gt;linked-list&lt;/strong&gt;, and use the &lt;strong&gt;linked-list&lt;/strong&gt; to perform as a queue.&lt;/p&gt;
 
