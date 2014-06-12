@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>How to "Rotate Image"?</title>
+    <title>A simple problem - World at War</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,9 +12,9 @@
     <!-- Open Graph tags -->
 
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content="How to "Rotate Image"?"/>
-            <meta property="og:url" content="http://wizmann.tk/how-to-rotate-image-leetcode.html"/>
-            <meta property="og:description" content="啥？ 原题戳我 Rotate Image You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees (clockwise). Follow up: Could you do this in-place? 示意图如下： 当然，矩阵中的数字不一定是规律的。 为什么要提出这个问题 自觉是一个不聪明的人（双低。。。<(=＠_＠;=)?>）。 别人一下子就想明白的事，在我这里要计算好几个来回。 所以努力想找到一个思维方法去弥补这个不足。 就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。 初步思路 ..."/>
+            <meta property="og:title" content="A simple problem - World at War"/>
+            <meta property="og:url" content="http://wizmann.tk/world-at-war.html"/>
+            <meta property="og:description" content="Background This problem is from the book “Algorithm 4th edition” (Exersise 4.1.10) There are N cities and M undirected roads between those cities. People can travel to any city along the roads. One day, a war breaks out. Our cities are under attack! As we can't defend ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -89,10 +89,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://wizmann.tk/how-to-rotate-image-leetcode.html"
+                    <a href="http://wizmann.tk/world-at-war.html"
                        rel="bookmark"
-                       title="Permalink to How to "Rotate Image"?">
-                        How to "Rotate Image"?
+                       title="Permalink to A simple problem - World at War">
+                        A simple problem - World at War
                     </a>
                 </h1>
             </header>
@@ -102,89 +102,91 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>2013-12-28
+        <i class="icon-calendar"></i>2014-06-12
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://wizmann.tk/tag/leetcode.html">Leetcode</a>
-        /
 	<a href="http://wizmann.tk/tag/algorithm.html">algorithm</a>
         /
-	<a href="http://wizmann.tk/tag/si-wei.html">思维</a>
+	<a href="http://wizmann.tk/tag/interview.html">interview</a>
+        /
+	<a href="http://wizmann.tk/tag/graph.html">graph</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h2>啥？</h2>
-
-<p>原题<a href="http://oj.leetcode.com/problems/rotate-image/">戳我</a></p>
+                <h2>Background</h2>
 
 <blockquote>
-<p>Rotate Image</p>
-
-<p>You are given an n x n 2D matrix representing an image.</p>
-
-<p>Rotate the image by 90 degrees (clockwise).</p>
-
-<p>Follow up:</p>
-
-<p>Could you do this in-place?</p>
+<p>This problem is from the book &ldquo;<a href="http://book.douban.com/subject/19952400/">Algorithm 4th edition</a>&rdquo; (Exersise 4.1.10)</p>
 </blockquote>
 
-<p>示意图如下：</p>
+<p>There are N cities and M undirected roads between those cities. People can travel to any city along the roads.</p>
 
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" alt="rotate-image"></p>
+<p>One day, a war breaks out. Our cities are under attack! As we can&#39;t defend all these N cities, the commander wants you to find the least important city, which means that if this city fell to the enemy, the traffic among other cities would not be affected.</p>
 
-<p>当然，矩阵中的数字<strong>不一定</strong>是规律的。</p>
+<p>If there are multiple answers, print any one of them. If there&#39;s no that kind of city, print -1.</p>
 
-<h2>为什么要提出这个问题</h2>
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-world-at-war.png" alt="world-at-war"></p>
 
-<p>自觉是一个<strong>不聪明</strong>的人（双低。。。&lt;(=＠_＠;=)?&gt;）。</p>
+<h2>The spanning tree of a graph</h2>
 
-<p>别人一下子就想明白的事，在我这里要计算好几个来回。</p>
+<blockquote>
+<p>It is a spanning tree of a graph G if it spans G (that is, it includes every vertex of G) and is a subgraph of G (every edge in the tree belongs to G). 
+&ndash; wikipedia</p>
+</blockquote>
 
-<p>所以努力想找到一个思维方法去弥补这个不足。</p>
+<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-spanning-tree.png" alt="spanning-tree"></p>
 
-<p>就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。</p>
+<p>For example, there is a spanning tree of a graph. These nodes in green is leaf node. So it is easy to know that if we remove a leaf node, the graph won&#39;t be affect. The rest of the graph (and the spanning tree) are still connected.</p>
 
-<h2>初步思路</h2>
+<p>So the answer is here.</p>
 
-<p>由于不可以使用<strong>额外的空间</strong>。所以必须找到一个坐标映射<code>f(x, y) =&gt; (next_x, next_y)</code>。</p>
+<h2>How to generate a spanning tree</h2>
 
-<p>这样，我们就可以通过循环来<code>swap</code>矩阵中的元素。</p>
+<p>There are multiple ways to generate a spanning three of a undirected graph. The most famous algorithm is <strong>prim</strong>, which will generate a MST(minimum spanning tree) with O(n**2) time complexity.</p>
 
-<h2>遇到问题</h2>
+<p>However, MST is not needed in this scenario, because an arbitrary spanning tree is enough to find one of the leaf nodes.</p>
 
-<p>如何确定映射<code>f(x, y)</code>？</p>
+<p>Depth first search (a.k.a DFS) is one of the simplest way to generate the spanning tree. We just start from arbitrary node of the graph, and search through the graph until it comes to a dead-end &ndash; the leaf node. Then print the answer.</p>
 
-<p>由于我的思维不能支持我在头脑中形成正确的公式。</p>
+<p>Problem solved.</p>
 
-<p>于是我想到，因为我们要求的变换是在二维矩阵中的简单移位。所以我们可以做出如下一个方程。</p>
+<h2>Show me the code</h2>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">least_important_city</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">g</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 
-<p><code>f(x, y) = (ax + by + c, dx + ey + f)</code></p>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visit</span><span class="p">;</span>
+        <span class="n">visit</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">fill</span><span class="p">(</span><span class="n">visit</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">visit</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
 
-<p>然后找出特殊点，代入方程中，求出<code>a</code>到<code>f</code>各自代表的值。</p>
-
-<p>于是求出映射<code>f(x, y) =&gt; (y, n - x)</code>。</p>
-
-<p>即可以分解为：<code>reverse_X(Matrix.T)</code></p>
-
-<h2>思考方式</h2>
-
-<p>以上的方法是我失败了N次之后才想到的。（弱。。。）</p>
-
-<p>于是我又有了进一步的思考。</p>
-
-<p>这样的思考方式是不是最佳的。如果大家遇到这样的问题，会用什么巧妙的方法去思考，去优雅的解决问题。</p>
-
-<p>不过要记得我们的条件</p>
-
-<ul>
-<li>矩阵顺时针旋转90度</li>
-<li>in-place变换，不得使用额外的空间</li>
-</ul>
-
-<p>欢迎大家提出自己的看法。代码请贴到<a href="https://gist.github.com/">gist</a>或<a href="http://lpaste.net/">hpaste</a>等网站上，不要把代码直接写到评论中，我会及时update本文，展示大家的想法。</p>
+        <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">bool</span> <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="n">visit</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">begin</span><span class="p">();</span> 
+                    <span class="n">iter</span> <span class="o">!=</span> <span class="n">g</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">end</span><span class="p">();</span> 
+                    <span class="o">++</span><span class="n">iter</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visit</span><span class="p">[</span><span class="n">next</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="n">now</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+                    <span class="n">flag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">now</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
 
             </div>
             <!-- /.entry-content -->
@@ -195,8 +197,8 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'wizmann'; // required: replace example with your forum shortname
-            var disqus_identifier = 'how-to-rotate-image-leetcode';
-            var disqus_url = 'http://wizmann.tk/how-to-rotate-image-leetcode.html';
+            var disqus_identifier = 'world-at-war';
+            var disqus_url = 'http://wizmann.tk/world-at-war.html';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
