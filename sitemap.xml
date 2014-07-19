@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2014-07-19T11:03:48-00:00</lastmod>
+<lastmod>2014-07-20T00:18:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2014-07-19T11:03:48-00:00</lastmod>
+<lastmod>2014-07-20T00:18:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2014-07-19T11:03:48-00:00</lastmod>
+<lastmod>2014-07-20T00:18:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2014-07-19T11:03:48-00:00</lastmod>
+<lastmod>2014-07-20T00:18:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/cpu-cache-miss.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -264,14 +271,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2014-07-19T11:00:38-00:00</lastmod>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/pelican.html</loc>
-<lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/si-wei.html</loc>
+<lastmod>2013-12-28T14:42:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -279,6 +286,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/lian-biao.html</loc>
 <lastmod>2013-11-28T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/pelican.html</loc>
+<lastmod>2014-01-09T14:55:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -396,6 +410,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/cache.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/codeforces.html</loc>
 <lastmod>2014-06-21T19:24:37-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -466,8 +487,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/si-wei.html</loc>
-<lastmod>2013-12-28T14:42:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/profile.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -515,8 +536,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/crack.html</loc>
-<lastmod>2014-02-25T00:00:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/cachegrind.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/leetcode.html</loc>
+<lastmod>2013-12-28T14:42:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -613,6 +641,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/crack.html</loc>
+<lastmod>2014-02-25T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/valgrind.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/gong-kai-ke.html</loc>
 <lastmod>2013-11-29T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -655,8 +697,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/leetcode.html</loc>
-<lastmod>2013-12-28T14:42:00-00:00</lastmod>
+<loc>http://wizmann.tk/tag/cpu.html</loc>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -670,7 +712,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2014-07-19T11:00:38-00:00</lastmod>
+<lastmod>2014-07-20T00:18:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
