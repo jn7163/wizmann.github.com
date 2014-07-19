@@ -158,6 +158,10 @@ Average for a matrix of 257: 1875==14282==
 
 &lt;p&gt;由此可见，Cache的Miss Rate基本决定了程序的运行速度，运行时间比例和D1 MISS RATE的比例基本一致。&lt;/p&gt;
 
+&lt;ul&gt;
+&lt;li&gt;注：本机环境与cachegrind参数是不一致的，在本机上由于cache较大，且采用8位组相联，所以D1 cache miss较少，差异主要体现在LLd Miss Rate上。&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2&gt;实际意义&lt;/h2&gt;
 
 &lt;p&gt;如果程序对一段内存进行顺序读取的时候，以上的缓存失效问题有可能会显现出来。但是缓存失效只是程序性能问题的一个可能的原因，应该在对程序进行profile之后再做结论。&lt;/p&gt;
