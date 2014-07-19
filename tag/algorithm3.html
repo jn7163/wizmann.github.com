@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 思维</title>
+    <title>Maerlyn's Rainbow - algorithm</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,46 +86,51 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/how-to-rotate-image-leetcode.html">How to "Rotate Image"?</a></h2>
+                <h2><a href="http://wizmann.tk/cf-215-div-2.html">Codeforces Round #215 (Div. 2)不完全不正确题解</a></h2>
                 <div class="summary">
-                    <h2>啥？</h2>
+                    <h3>A. Sereja and Coat Rack</h3>
 
-<p>原题<a href="http://oj.leetcode.com/problems/rotate-image/">戳我</a></p>
+<p>傻逼才错的题。不幸中枪。</p>
 
-<blockquote>
-<p>Rotate Image</p>
+<p>没什么可说的。直接看代码就好。</p>
 
-<p>You are given an n x n 2D matrix representing an image.</p>
+<h3>B. Sereja and Suffixes</h3>
 
-<p>Rotate the image by 90 degrees (clockwise).</p>
+<p>关键思想在于统计A[i&hellip;n-1]中有多少互不相同的数。</p>
 
-<p>Follow up:</p>
+<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
 
-<p>Could you do this in-place?</p>
-</blockquote>
+<h3>C. Sereja and Algorithm</h3>
 
-<p>示意图如下：</p>
+<p>思路题。</p>
 
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" alt="rotate-image"></p>
+<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
 
-<p>当然，矩阵中的数字<strong>不一定</strong>是规律的。</p>
+<p>所以我们只需要统计出A[i&hellip;j]中x, y, z的个数。</p>
 
-<h2>为什么要提出这个问题</h2>
+<p>然后进行排列。</p>
 
-<p>自觉是一个<strong>不聪明</strong>的人（双低。。。&lt;(=＠_＠;=)?&gt;）。</p>
+<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
 
-<p>别人一下子就想明白的事，在我这里要计算好几个来回。</p>
-
-<p>所以努力想找到一个思维方法去弥补这个不足。</p>
-
-<p>就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。</p>
-
-<h2>初步思路 ...</h2>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/how-to-rotate-image-leetcode.html">more ...</a>
+<pre><code>zy[xzy][xzy]...
+xz[yxz][yxz]...
+yx[zyx ...</code></pre>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-215-div-2.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="http://wizmann.tk/tag/algorithm2.html">&laquo;</a>
+                </li>
+                <li class=""><a
+                        href="http://wizmann.tk/tag/algorithm.html">1</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/tag/algorithm2.html">2</a></li>
+                <li class="active"><a
+                        href="http://wizmann.tk/tag/algorithm3.html">3</a></li>
+                <li class="next disabled"><a href="#">&laquo;</a></li>
+        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>

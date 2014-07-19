@@ -1,5 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 21 Jun 2014 19:24:37 +0800</lastBuildDate><item><title>Codeforces Round #253 Tutorial</title><link>http://wizmann.tk/cf-253.html</link><description>&lt;hr&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 19 Jul 2014 11:00:38 +0800</lastBuildDate><item><title>玩玩算法题1：Sherlock and Queries</title><link>http://wizmann.tk/interview-problem-1-sherlock-and-queries.html</link><description>&lt;h2&gt;题目大意&lt;/h2&gt;
+
+&lt;p&gt;给你三个数组:A[N], B[M], C[M]。让你按如下pseudo-code给出的规则计算，求出最终A[N]每一项的值。
+&lt;code&gt;
+for i = 1 to M do
+    for j = 1 to N do
+        if j % B[i] == 0 then
+            A[j] = A[j] * C[i]
+        endif
+    end do
+end do
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;数据范围&lt;/h2&gt;
+
+&lt;p&gt;1≤ N,M ≤ 10^5 
+1 ≤ B[i] ≤N 
+1 ≤ A[i],C[i] ≤10^5&lt;/p&gt;
+
+&lt;h2&gt;Brute-Force解法&lt;/h2&gt;
+
+&lt;p&gt;暴力解法就是题目中给出的范例，时间复杂度为O(M * N)。那么有没有更优化的解法。&lt;/p&gt;
+
+&lt;h2&gt;筛法&lt;/h2&gt;
+
+&lt;p&gt;从&lt;code&gt;j % B[i] == 0&lt;/code&gt;这个关系我们可以很容易的联想到&lt;a href="https://zh.wikipedia.org/zh-cn/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95"&gt;筛法&lt;/a&gt;，我们不必要从1到N每次去尝试是否可以被B[i]整除，而是直接在数组A的第&lt;code&gt;B[i], B[i] * 2 ... B[i] * k&lt;/code&gt;项上直接乘上C[i]。&lt;/p&gt;
+
+&lt;p&gt;此时，我们的时间复杂度为O(k)，k = sum(N / B[i])&lt;/p&gt;
+
+&lt;p&gt;如果数组B中的值两两不等。那么k的最大值就是调和级数&lt;code&gt;N + N / 2 + N / 3 + ... + N / N&lt;/code&gt;，其值约为&lt;code&gt;N * lnN&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;但是如果数组B中的值有大量相等，并且值非常小（如1或2等），那么此时的时间复杂度仍然会退化到O(N * M)。&lt;/p&gt;
+
+&lt;h2&gt;让我们再优化一小下&lt;/h2&gt;
+
+&lt;p&gt;在上文我们分析到，如果数组B中的值有大量相等时，程序的时间复杂度会严重退化。那么我们的优化方法是什么呢？&lt;/p&gt;
+
+&lt;p&gt;从上面的pseudo-code我们可以看出，如果B[i] == B[i&amp;#39;]，那么它们会对A的同一项进行操作，于是我们就把有着相同值的B[i]合并在一起，而操作数C[i]累乘。此时，我们的时间复杂度就会接近于最优值O(N * lnN)。&lt;/p&gt;
+
+&lt;h2&gt;Show me the code&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;cstdio&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;cstdlib&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;cstring&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;algorithm&amp;gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define print(x) cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; endl&lt;/span&gt;
+&lt;span class="cp"&gt;#define input(x) cin &amp;gt;&amp;gt; x&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;llint&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;SIZE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100010&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;MOD&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000000007&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;vb&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;friend&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="k"&gt;operator&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="n"&gt;node&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;solve&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;llint&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;%=&lt;/span&gt; &lt;span class="n"&gt;MOD&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pa&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pa&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;llint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pa&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;MOD&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;pre&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; 
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;scanf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;scanf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vb&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;scanf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;vc&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;solve&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;MOD&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;puts&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;关键点&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;是否了解筛法，并且可以从题目的提示中联想到筛法&lt;/li&gt;
+&lt;li&gt;是否了解调和级数估计时间复杂度的方法&lt;/li&gt;
+&lt;li&gt;是否了解算法的best-case和worst-case&lt;/li&gt;
+&lt;li&gt;是否可以了解算法的瓶颈，并优化自己的算法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;算法分析用到的一些近似公式&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/book-algorithm-approximate-functions.png" alt="cheetsheet"&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本图来自《算法 第四版》&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;原题链接&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://www.hackerrank.com/challenges/sherlock-and-queries"&gt;戳我么么哒&lt;/a&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 19 Jul 2014 11:00:38 +0800</pubDate><guid>tag:wizmann.tk,2014-07-19:interview-problem-1-sherlock-and-queries.html</guid><category>algorithm</category><category>interview</category></item><item><title>Codeforces Round #253 Tutorial</title><link>http://wizmann.tk/cf-253.html</link><description>&lt;hr&gt;
 
 &lt;h2&gt;443A - Anton and Letters&lt;/h2&gt;
 
@@ -140,7 +275,7 @@
 
 &lt;h2&gt;442B - Andrey and Problem&lt;/h2&gt;
 
-&lt;p&gt;Assuming that the possibility of getting exactly one problem from some of Andrey&amp;#39;s friends is &lt;code&gt;p1&lt;/code&gt; and get no problem is &lt;code&gt;p0&lt;/code&gt;. So, if we want to add one friend whose possibility of comming up a problem is &lt;code&gt;pa&lt;/code&gt; to this very friend set, we can get &lt;code&gt;next_p1 = p1 * (1 - pa) + p0 * pa&lt;/code&gt; and &lt;code&gt;next_p0 = p0 * (1 - p1)&lt;/code&gt;. And it easy to indicate that a greater &lt;code&gt;pa&lt;/code&gt; will lead to a greater &lt;code&gt;next_p1&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Assuming that the possibility of getting exactly one problem from some of Andrey&amp;#39;s friends is &lt;code&gt;p1&lt;/code&gt; and get no problem is &lt;code&gt;p0&lt;/code&gt;. So, if we want to add one friend whose possibility of comming up a problem is &lt;code&gt;pa&lt;/code&gt; to this very friend set, we can get &lt;code&gt;next_p1 = p1 * (1 - pa) + p0 * pa&lt;/code&gt; and &lt;code&gt;next_p0 = p0 * (1 - pa)&lt;/code&gt;. And it easy to indicate that a greater &lt;code&gt;pa&lt;/code&gt; will lead to a greater &lt;code&gt;next_p1&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;The initial value is that &lt;code&gt;p0 == 1; p1 == 0&lt;/code&gt;. And we add the friends one by one ordered by the possibilites reversely. At last, the max &lt;code&gt;p1&lt;/code&gt; is the final result.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
