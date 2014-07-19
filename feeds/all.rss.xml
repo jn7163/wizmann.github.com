@@ -20,13 +20,34 @@ number_of_sets       shared_cpu_map           ways_of_associativity&lt;/code&gt;
 
 &lt;p&gt;使用cat命令查看文件内容，可以获得CPU L1 cache的一些信息。&lt;/p&gt;
 
-&lt;p&gt;| Key | Value |
-|&amp;ndash;|&amp;ndash;|
-| level | 1 |
-| size | 32K |
-| ways_of_associativity | 8 |
-| type | Data |
-| number_of_sets | 64 |&lt;/p&gt;
+&lt;table class="table table-striped-white table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+ &lt;th&gt;Key&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+ &lt;td&gt;level&lt;/td&gt;
+ &lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;size&lt;/td&gt;
+ &lt;td&gt;32K&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;ways_of_associativity&lt;/td&gt;
+ &lt;td&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;type&lt;/td&gt;
+ &lt;td&gt;Data&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;number_of_sets&lt;/td&gt;
+ &lt;td&gt;64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
 
 &lt;p&gt;以上可知，CPU L1 cache有64组，每组有8个cache line。是&lt;strong&gt;8位组相联&lt;/strong&gt;的Cache类型。&lt;/p&gt;
 
@@ -110,11 +131,30 @@ Average for a matrix of 257: 1875==14282==
 
 &lt;h3&gt;测试结果&lt;/h3&gt;
 
-&lt;p&gt;| - | MATSIZE = 256 | MATSIZE = 256 + 1 |
-| - | - | - | 
-|运行时间 (g++ O2) 1024次|  78ms | 39ms |
-| D1 Miss | 2,621,967 | 1,107,687 |
-| D1 Miss Rate | 29.5% | 12.3% |&lt;/p&gt;
+&lt;table class="table table-striped-white table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+ &lt;th&gt;-&lt;/th&gt;
+ &lt;th&gt;MATSIZE = 256&lt;/th&gt;
+ &lt;th&gt;MATSIZE = 256 + 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+ &lt;td&gt;运行时间 (g++ O2) 1024次&lt;/td&gt;
+ &lt;td&gt;78ms&lt;/td&gt;
+ &lt;td&gt;39ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;D1 Miss&lt;/td&gt;
+ &lt;td&gt;2,621,967&lt;/td&gt;
+ &lt;td&gt;1,107,687&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;D1 Miss Rate&lt;/td&gt;
+ &lt;td&gt;29.5%&lt;/td&gt;
+ &lt;td&gt;12.3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
 
 &lt;p&gt;由此可见，Cache的Miss Rate基本决定了程序的运行速度，运行时间比例和D1 MISS RATE的比例基本一致。&lt;/p&gt;
 
