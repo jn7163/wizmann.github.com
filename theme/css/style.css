@@ -52,10 +52,16 @@ a, a:hover {
     border-bottom: 1px solid;
 }
 
-.summary img, entry-content img {
+entry-content img {
     max-width: 100%;
     height: auto;
 }
+
+.summary img {
+    max-width: 100%;
+    height: auto;
+}
+
 
 #categories ul, #tags ul {
     list-style: none;
