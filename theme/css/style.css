@@ -52,7 +52,7 @@ a, a:hover {
     border-bottom: 1px solid;
 }
 
-entry-content img {
+.entry-content img {
     max-width: 100%;
     height: auto;
 }
