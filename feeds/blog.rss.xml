@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 19 Jul 2014 11:00:38 +0800</lastBuildDate><item><title>玩玩算法题1：Sherlock and Queries</title><link>http://wizmann.tk/interview-problem-1-sherlock-and-queries.html</link><description>&lt;h2&gt;题目大意&lt;/h2&gt;
 
-&lt;p&gt;给你三个数组:A[N], B[M], C[M]。让你按如下pseudo-code给出的规则计算，求出最终A[N]每一项的值。
-&lt;code&gt;
-for i = 1 to M do
+&lt;p&gt;给你三个数组:A[N], B[M], C[M]。让你按如下pseudo-code给出的规则计算，求出最终A[N]每一项的值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i = 1 to M do
     for j = 1 to N do
         if j % B[i] == 0 then
             A[j] = A[j] * C[i]
         endif
     end do
-end do
-&lt;/code&gt;&lt;/p&gt;
+end do&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2&gt;数据范围&lt;/h2&gt;
 
-&lt;p&gt;1≤ N,M ≤ 10^5 
-1 ≤ B[i] ≤N 
-1 ≤ A[i],C[i] ≤10^5&lt;/p&gt;
+&lt;p&gt;1≤ N,M ≤ 10^5 &lt;/p&gt;
+
+&lt;p&gt;1 ≤ B[i] ≤ N &lt;/p&gt;
+
+&lt;p&gt;1 ≤ A[i],C[i] ≤10^5&lt;/p&gt;
 
 &lt;h2&gt;Brute-Force解法&lt;/h2&gt;
 
