@@ -6,26 +6,17 @@
 &lt;p&gt;当Python解释器遇到类声明时，会创建一个新的namespace ，并执行其内的所有代码，并将变量注册到这个namespace中。&lt;/p&gt;
 
 &lt;p&gt;举例：&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;Python console session&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;class Foo(object):
-&amp;hellip;     print &amp;#39;Loading&amp;hellip;&amp;#39;
-&amp;hellip;     spam = &amp;#39;eggs&amp;#39;
-&amp;hellip;     print &amp;#39;Done!&amp;#39;
-&amp;hellip; 
-Loading&amp;hellip;
-Done!
-f = Foo()
-f.spam
-&amp;#39;eggs&amp;#39;
-&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Loading...&amp;#39;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;    &lt;span class="n"&gt;spam&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;eggs&amp;#39;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Done!&amp;#39;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;
+&lt;span class="go"&gt;Loading...&lt;/span&gt;
+&lt;span class="go"&gt;Done!&lt;/span&gt;
+&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spam&lt;/span&gt;
+&lt;span class="go"&gt;&amp;#39;eggs&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;动态的实现一个类&lt;/h3&gt;
 
