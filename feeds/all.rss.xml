@@ -166,7 +166,7 @@ p.s. must be exact division&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It useful if the length of the array (L) and the max value of the array (M). If M * L &amp;lt;= MAX_INT, you can storge the counter of number i in the array[i] by &lt;code&gt;array[i] = array[i] + counter * M&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;#39;s a useful way to implement a counter in the array. And it will be a big plus for you in the interview.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 05 Aug 2014 23:07:02 +0800</pubDate><guid>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</guid><category>算法 面试题 面试 leetcode interview</category></item><item><title>简明Python魔法 - 2</title><link>http://wizmann.tk/python-magic-2.html</link><description>&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 05 Aug 2014 23:07:02 +0800</pubDate><guid>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</guid><category>算法</category><category>面试题</category><category>面试</category><category>leetcode</category><category>interview</category></item><item><title>简明Python魔法 - 2</title><link>http://wizmann.tk/python-magic-2.html</link><description>&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
 
 &lt;h3&gt;最简单的描述符&lt;/h3&gt;
 
