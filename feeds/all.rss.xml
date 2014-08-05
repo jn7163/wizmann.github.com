@@ -1,5 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 27 Jul 2014 14:23:10 +0800</lastBuildDate><item><title>简明Python魔法 - 2</title><link>http://wizmann.tk/python-magic-2.html</link><description>&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 05 Aug 2014 23:07:02 +0800</lastBuildDate><item><title>数组上的面试题 - Single Number</title><link>http://wizmann.tk/single-number-in-the-array.html</link><description>&lt;h2&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;There are a lot of interview problem based on the 1D-array, which is the one of the easiest &amp;ldquo;data structure&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;But the problem about that simple data structure might not be that simple. Here is the summary of the problem about 1D-array.&lt;/p&gt;
+
+&lt;p&gt;Of course, most of them come from Leetcode.&lt;/p&gt;
+
+&lt;h2&gt;All Twice Excpet One&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of integers, every element appears twice except for one. Find that single one.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This &lt;a href="https://oj.leetcode.com/problems/single-number/"&gt;problem&lt;/a&gt; is the very basic one. So I just paste my code here. If you are confused with the &lt;code&gt;xor&lt;/code&gt; operator， you might have to review the knowledge of &lt;strong&gt;bit manipulation&lt;/strong&gt; carefully.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="c"&gt;# @param A, a list of integer&lt;/span&gt;
+    &lt;span class="c"&gt;# @return an integer&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;singleNumber&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;reduce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Time complexity: O(n)&lt;/p&gt;
+
+&lt;h2&gt;All Once Except One&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of N integers, which are in the scope of [1&amp;hellip;N - 1]. Every element in the array appears once except one. Find that number.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This one is simple enough. But it looks a &amp;ldquo;hard&amp;rdquo; problem because we can solve this by using the previously &amp;ldquo;xor&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s easy for us to calcuate the summary of the array [1&amp;hellip;N - 1], and easy enough to calculate the summay of the given array as well. And the answer is the diffrence of the two summary.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="c"&gt;# @param A, a list of integer&lt;/span&gt;
+    &lt;span class="c"&gt;# @return an integer&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;singleInteger&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nb"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Time complexity: O(n)&lt;/p&gt;
+
+&lt;p&gt;p.s. &lt;code&gt;xor(A) ^ xor(range(n))&lt;/code&gt; is better if we have a large N that might overflow when we add all the elements.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of integers, every element appears once except for one which appears twice. Find that special number.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This problem is harder because all numbers in the array is arbitrary. And it seems hard to find any rules and patterns in the array.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;#39;t know there is an algorithm which is O(1) space and O(n) time complexity. Tackle it with a hash set may be the best solution, which takes O(n) space and O(n) time complexity.&lt;/p&gt;
+
+&lt;h2&gt;All three times except one&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of integers, every element appears three times except for one. Find that single one.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To slove &lt;a href="https://oj.leetcode.com/problems/single-number-ii/"&gt;this problem&lt;/a&gt;, just using an array of size 32 to keep track on the total count of the ith bit.&lt;/p&gt;
+
+&lt;p&gt;And a tricky solution to reduce the memory usage is use three integers to indicate the remainder of 3 of the total count of the bits.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;singleNumber&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[],&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ones&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;twos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;threes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;twos&lt;/span&gt; &lt;span class="o"&gt;|=&lt;/span&gt; &lt;span class="n"&gt;ones&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="n"&gt;ones&lt;/span&gt; &lt;span class="o"&gt;^=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="n"&gt;threes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ones&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;twos&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;ones&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;=&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;threes&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;twos&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;=&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;threes&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ones&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;All twice except two&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of integers, every element appears twice except for two. Find that two numbers.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;xor(array) = 0 ^ a ^ b&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="http://www.v2ex.com/t/94742"&gt;This problem&lt;/a&gt; is an update of &amp;ldquo;All twice except one&amp;rdquo;. It&amp;#39;s easy to prove that if there is an &amp;ldquo;1&amp;rdquo; in the bits of xor(array), it indicates that a and b are diffrent on that bit. We can separate the whole array by that bit, and then we can get two arrays which each contains a single &amp;ldquo;single number&amp;rdquo;.&lt;/p&gt;
+
+&lt;h3&gt;Once, twice, three times a lady&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array of integers, some of the numbers appear once, and some appear twice, and the others appear three times. Please find the number which appear three times.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Of course, hash map is a panacea, with O(n) space and O(n) time.&lt;/p&gt;
+
+&lt;p&gt;And there is another way to solve &lt;a href="http://www.ituring.com.cn/article/56179"&gt;this problem&lt;/a&gt; with O(1) space and O(n) time. But it has its limitation &amp;ndash; integer overflow. If the max number of this array is too large, it can&amp;#39;t be done.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;randint&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;collections&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Counter&lt;/span&gt;
+
+&lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+
+&lt;span class="n"&gt;ns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;span class="n"&gt;counter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Counter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+    &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;
+    &lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;
+
+&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+    &lt;span class="n"&gt;cnt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ns&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;cnt&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cnt&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;counter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Considering the number &lt;code&gt;ns[i]&lt;/code&gt; with the index &lt;code&gt;i&lt;/code&gt; and with the value &lt;code&gt;val&lt;/code&gt;. We make &lt;code&gt;ns[i] = count(i) * MAX + val&lt;/code&gt;. By that, we can get the count of number &lt;code&gt;i&lt;/code&gt; by &lt;code&gt;ns[i] / MAX&lt;/code&gt;, and get the value of &lt;code&gt;ns[i]&lt;/code&gt; by &lt;code&gt;ns[i] % MAX&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And it&amp;#39;s the same to find the &amp;ldquo;missing number of an array of [1 &amp;hellip; n]&amp;rdquo; or something like that.&lt;/p&gt;
+
+&lt;h2&gt;Summarize&lt;/h2&gt;
+
+&lt;h3&gt;Hash Map is PANACEA&lt;/h3&gt;
+
+&lt;p&gt;Almost every problem on the array which want you to detect a single / two / or more &amp;ldquo;special&amp;rdquo; number can be tackled by the Hash Map. Easy and fast.&lt;/p&gt;
+
+&lt;p&gt;But for almost every problem, a hash map may no the very &lt;strong&gt;BEST&lt;/strong&gt; solution.&lt;/p&gt;
+
+&lt;h3&gt;Bit Map takes less memory&lt;/h3&gt;
+
+&lt;p&gt;An update for the hash map is the bit map. It takes less memory, but can storage less infomation, 0 or 1. Further, you can treat several bits as one to put more information in it.&lt;/p&gt;
+
+&lt;p&gt;By its very nature, bit map is the same with hash map.&lt;/p&gt;
+
+&lt;h3&gt;More powerful tool: Bloomfilter&lt;/h3&gt;
+
+&lt;p&gt;Bloomfilter is a powerful algorithm / data structure which is used to slove the &amp;ldquo;in / not in&amp;rdquo; problem, and takes less memory than hash map, and can do better than bit map if the data is sparse and random.&lt;/p&gt;
+
+&lt;p&gt;But it can&amp;#39;t keep way the &lt;strong&gt;randomizing error&lt;/strong&gt; called &lt;strong&gt;false positive&lt;/strong&gt;, and if you can put up with that error and want to reduce your memory usage, try that.&lt;/p&gt;
+
+&lt;p&gt;I didn&amp;#39;t mention this in my passage, but you can find some information on this &lt;a href="http://en.wikipedia.org/wiki/Bloom_filter"&gt;wikipedia page&lt;/a&gt;. It&amp;#39;s easy.&lt;/p&gt;
+
+&lt;h3&gt;xor and bits manipulation&lt;/h3&gt;
+
+&lt;p&gt;xor is a good way to solve the &amp;ldquo;only one appear once&amp;rdquo; problem. And xor manipulate will never cause overflow which will ruin your whole program.&lt;/p&gt;
+
+&lt;h3&gt;just calculate the sum of the array&lt;/h3&gt;
+
+&lt;p&gt;Somethimes we just forget the simplest way to deal with a &amp;ldquo;hard problem&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;For example, once I was asked &amp;ldquo;give you three integers (a, b, c), and calculate how many (x, y, z) is possible to make ax + by + cz == R&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m glad because it is so much like a &amp;ldquo;3-Sum&amp;rdquo; problem, and I solve it fast. But the interver told me it&amp;#39;s not the best solution. (You know how to deal with 3-sum, right?)&lt;/p&gt;
+
+&lt;p&gt;I thought for a while, and give up at last. And the interver told me that the solution is to enumerate (x, y) and get z by this formula.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;z = (R - ax - by) / c
+p.s. must be exact division&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;#39;s a better and much easier solution, right? It was a shame for me not came up with that idea.&lt;/p&gt;
+
+&lt;p&gt;So, don&amp;#39;t forget the simple way, it may be the very best solution.&lt;/p&gt;
+
+&lt;h3&gt;attach some information to some numbers&lt;/h3&gt;
+
+&lt;p&gt;It useful if the length of the array (L) and the max value of the array (M). If M * L &amp;lt;= MAX_INT, you can storge the counter of number i in the array[i] by &lt;code&gt;array[i] = array[i] + counter * M&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s a useful way to implement a counter in the array. And it will be a big plus for you in the interview.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 05 Aug 2014 23:07:02 +0800</pubDate><guid>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</guid><category>算法 面试题 面试 leetcode interview</category></item><item><title>简明Python魔法 - 2</title><link>http://wizmann.tk/python-magic-2.html</link><description>&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
 
 &lt;h3&gt;最简单的描述符&lt;/h3&gt;
 
