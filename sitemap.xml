@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2014-08-05T23:11:20-00:00</lastmod>
+<lastmod>2014-08-08T01:26:34-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2014-08-05T23:11:20-00:00</lastmod>
+<lastmod>2014-08-08T01:26:34-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2014-08-05T23:11:20-00:00</lastmod>
+<lastmod>2014-08-08T01:26:34-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2014-08-05T23:11:20-00:00</lastmod>
+<lastmod>2014-08-08T01:26:34-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/hottest-ip-address.html</loc>
+<lastmod>2014-08-08T01:25:54-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -299,7 +306,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2014-08-05T23:07:02-00:00</lastmod>
+<lastmod>2014-08-08T01:25:54-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -488,7 +495,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/interview.html</loc>
-<lastmod>2014-08-05T23:07:02-00:00</lastmod>
+<lastmod>2014-08-08T01:25:54-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -711,6 +718,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/system-design.html</loc>
+<lastmod>2014-08-08T01:25:54-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/geohash.html</loc>
 <lastmod>2014-02-04T00:10:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -747,7 +761,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2014-08-05T23:07:02-00:00</lastmod>
+<lastmod>2014-08-08T01:25:54-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

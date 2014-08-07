@@ -1,5 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 05 Aug 2014 23:07:02 +0800</lastBuildDate><item><title>数组上的面试题 - Single Number</title><link>http://wizmann.tk/single-number-in-the-array.html</link><description>&lt;h2&gt;Introduction&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 08 Aug 2014 01:25:54 +0800</lastBuildDate><item><title>System Design - 最热门的IP地址</title><link>http://wizmann.tk/hottest-ip-address.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;问题是非常流行的，也确实流行了一阵的system-design问题。在&lt;a href="http://www.zhihu.com/question/19805967"&gt;知乎&lt;/a&gt;上再次被人提起。然后我非常欣赏&lt;a href="http://zhi.hu/3gJb"&gt;陈硕的回答&lt;/a&gt;。所以要写一篇文章，记下自己的感想。&lt;/p&gt;
+
+&lt;h2&gt;问题&lt;/h2&gt;
+
+&lt;p&gt;海量数据算法:如何从超过10G的记录IP地址的日志中，较快的找出登录次数最多的一个IP？&lt;/p&gt;
+
+&lt;h2&gt;银弹？&lt;/h2&gt;
+
+&lt;p&gt;面对这种system-design问题，尤其是这种，&lt;strong&gt;非高并发、非实时&lt;/strong&gt;的问题，很多人会采用&lt;em&gt;map-reduce&lt;/em&gt; —— 解决system-design问题的银弹。&lt;/p&gt;
+
+&lt;p&gt;我对map-reduce的理解非常肤浅，但是可以解释一下大概的流程。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;将日志进行分片。把hash(ip)相同的ip地址分到同一个片中。（注：这里的hash并不是签名函数，只是一个分片标示）&lt;/li&gt;
+&lt;li&gt;分片后的日志的大小会小很多，可以方便的进行排序，记数。&lt;/li&gt;
+&lt;li&gt;然后再从各个片中，统计出最热门的IP地址。（或TopK的IP地址）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;如果不满意我的答案的话，推荐&lt;a href="http://book.douban.com/subject/19934150/"&gt;Mining of Massive Datasets&lt;/a&gt;一书，其中对map-reduce算法做一番不错的介绍。&lt;/p&gt;
+
+&lt;h2&gt;正确的分析姿势&lt;/h2&gt;
+
+&lt;h3&gt;业务实体&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;业务实体拥有四种主要的组件： 信息模型、生命周期模型、访问策略以及通知。 &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;换句话说，业务实体就是题目中提到的“名词”。&lt;/p&gt;
+
+&lt;p&gt;在本题中，业务实体有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IP地址（默认为ipv4）&lt;/li&gt;
+&lt;li&gt;最热门IP地址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;业务应用&lt;/h3&gt;
+
+&lt;p&gt;业务应用指的是当前场景的&lt;strong&gt;特殊&lt;/strong&gt;应用，以及业务实体的关联关系。&lt;/p&gt;
+
+&lt;p&gt;在本问题中，业务应用指的是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;找到&lt;strong&gt;最热门&lt;/strong&gt;的IP地址&lt;/li&gt;
+&lt;li&gt;大数据量，10G的日志文件 —— 不方便在内存中进行操作
+（在动辙上百G的服务器面前，10G的数据量真是弱爆了^_^)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;物理&lt;/h3&gt;
+
+&lt;p&gt;物理指的是数据的物理模型，包括数据结构、数据库表等。&lt;/p&gt;
+
+&lt;p&gt;在本题中，指的是对IP地址存储和记数的数据结构。&lt;/p&gt;
+
+&lt;h3&gt;让我们做一下分析&lt;/h3&gt;
+
+&lt;p&gt;本题中，业务实体的特点是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IPv4可以由一个uint32_t来表示&lt;/li&gt;
+&lt;li&gt;ip地址是稀疏的
+
+&lt;ul&gt;
+&lt;li&gt;大部分ip地址的访问次数非常少（长尾）&lt;/li&gt;
+&lt;li&gt;很多ip地址是保留地址，所以不可能出现在日志中&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;业务应用的特点是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;“最热门”表示要求得精确解，而不是满意解&lt;/li&gt;
+&lt;li&gt;内存限制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;应用的物理结构的特点是： 支持存储与记数&lt;/p&gt;
+
+&lt;h2&gt;无代码无真相&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;assert.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;stdint.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;static_assert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;64-bit only.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;uint8_t&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;IPcount&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="k"&gt;operator&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IPcount&lt;/span&gt; &lt;span class="n"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;
+  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IPcount&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;overflows_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;IPcount&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;addOverflow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;IPcount&lt;/span&gt; &lt;span class="n"&gt;newItem&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;256&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+  &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;lower_bound&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;overflows_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;overflows_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;newItem&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;overflows_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;assert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;you need larger count variable&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;newItem&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;else&lt;/span&gt;
+  &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;overflows_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;newItem&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;newItem&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newItem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;255&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;addOverflow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;else&lt;/span&gt;
+  &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="nf"&gt;getMostFrequenntIP&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;assert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;max_size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;0xFFFFFFFFUL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1L&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%zd&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;counts_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+
+  &lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1L&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%08x %u&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;从代码说开来&lt;/h3&gt;
+
+&lt;p&gt;这段代码不算最漂亮，有几个小槽点，但也算是非常优雅的。&lt;/p&gt;
+
+&lt;p&gt;从思路上说，这段代码注意到了我们刚才分析到的，这个问题的业务特点。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;ipv4地址可以存在uint32_t中，无需存储字符串&lt;/li&gt;
+&lt;li&gt;ip地址是稀疏的，所以使用一层uint_8进行哈希记数，对于少数的热门ip再进行uint32_t计数
+（同时考虑了ip地址的稀疏性以及内存的限制，并且对内存的优雅使用，可以提高缓存的命中率，提高效率）&lt;/li&gt;
+&lt;li&gt;使用精确计数，获得正确解&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;代码留给我们的思考题&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;练习：找出 worse case，让运行时间长达几分钟甚至十几分钟，然后提出并实施改进措施&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;由于我们拿不出real world中的data，所以很多分析都是纸上谈兵，不过一切的实践也都是从纸上谈兵开始。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;题目中的&lt;code&gt;std::vector&amp;lt;IPcount&amp;gt; overflows_;&lt;/code&gt;使用&lt;code&gt;unordered_map&lt;/code&gt;更好，减少查找的时间（O(logN) =&amp;gt; O(1)），并且减少插入的时间（O(N) =&amp;gt; O(1)）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::vector&amp;lt;uint8_t&amp;gt; counts_;&lt;/code&gt;可以在适当的情况调整为&lt;code&gt;uint16_t&lt;/code&gt;，可以减少哈希节点生成对于内存的频繁申请。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;后记&lt;/h2&gt;
+
+&lt;p&gt;题目中的分析有很多是“执果索因”的成果，毕竟反推比正推要更容易一点。&lt;/p&gt;
+
+&lt;p&gt;想要从反推提升为正推，真的需要良好的发散思维以及敏锐的洞察力。因为面试时，没人会把题目帮你写在纸上。&lt;/p&gt;
+
+&lt;p&gt;话说，我才知道ipv6是128位的。那么当题目中的ip地址为ipv6时，又会有什么好方法呢？&lt;/p&gt;
+
+&lt;h2&gt;参考链接&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.infoq.com/cn/news/2010/05/BEDL"&gt;介绍：业务实体和业务实体定义语言&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 08 Aug 2014 01:25:54 +0800</pubDate><guid>tag:wizmann.tk,2014-08-08:hottest-ip-address.html</guid><category>interview</category><category>system-design</category></item><item><title>数组上的面试题 - Single Number</title><link>http://wizmann.tk/single-number-in-the-array.html</link><description>&lt;h2&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;There are a lot of interview problem based on the 1D-array, which is the one of the easiest &amp;ldquo;data structure&amp;rdquo;.&lt;/p&gt;
 

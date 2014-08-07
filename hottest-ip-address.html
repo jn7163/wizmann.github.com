@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>"alloca" vs "placement new"</title>
+    <title>System Design - 最热门的IP地址</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,9 +12,9 @@
     <!-- Open Graph tags -->
 
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content=""alloca" vs "placement new""/>
-            <meta property="og:url" content="http://wizmann.tk/alloca-vs-placement-new.html"/>
-            <meta property="og:description" content="WHAT?! For most time, we use malloc or new for memory allocation, which will get it on heap. However, access memory on heap is not as effective as the memory on stack, because the heap is “free-floating region of memory”. To the contrary, memory on stack is managed by CPU ..."/>
+            <meta property="og:title" content="System Design - 最热门的IP地址"/>
+            <meta property="og:url" content="http://wizmann.tk/hottest-ip-address.html"/>
+            <meta property="og:description" content="写在前面 问题是非常流行的，也确实流行了一阵的system-design问题。在知乎上再次被人提起。然后我非常欣赏陈硕的回答。所以要写一篇文章，记下自己的感想。 问题 海量数据算法:如何从超过10G的记录IP地址的日志中，较快的找出登录次数最多的一个IP？ 银弹？ 面对这种system-design问题，尤其是这种，非高并发、非实时的问题，很多人会采用map-reduce —— 解决system-design问题的银弹。 我对map-reduce的理解非常肤浅，但是可以解释一下大概的流程。 将日志进行分片。把hash(ip)相同的ip地址分到同一个片中。（注：这里的hash并不是签名函数，只是一个分片标示） 分片后的日志的大小会小很多，可以方便的进行排序，记数。 然后再从各个片中，统计出最热门的IP地址。（或TopK的IP地址） 如果不满意我的答案的话，推荐Mining of Massive Datasets一书，其中对map-reduce算法做一番不错的介绍。 正确的分析姿势 业务实体 业务实体拥有四种主要的组件： 信息模型 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -89,10 +89,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://wizmann.tk/alloca-vs-placement-new.html"
+                    <a href="http://wizmann.tk/hottest-ip-address.html"
                        rel="bookmark"
-                       title="Permalink to "alloca" vs "placement new"">
-                        "alloca" vs "placement new"
+                       title="Permalink to System Design - 最热门的IP地址">
+                        System Design - 最热门的IP地址
                     </a>
                 </h1>
             </header>
@@ -102,129 +102,211 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>2014-04-07
+        <i class="icon-calendar"></i>2014-08-08
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://wizmann.tk/tag/cpp.html">cpp</a>
+	<a href="http://wizmann.tk/tag/interview.html">interview</a>
         /
-	<a href="http://wizmann.tk/tag/memory.html">memory</a>
-        /
-	<a href="http://wizmann.tk/tag/stack.html">stack</a>
-        /
-	<a href="http://wizmann.tk/tag/heap.html">heap</a>
-        /
-	<a href="http://wizmann.tk/tag/allocate.html">allocate</a>
-        /
-	<a href="http://wizmann.tk/tag/alloca.html">alloca</a>
-        /
-	<a href="http://wizmann.tk/tag/c.html">c++</a>
+	<a href="http://wizmann.tk/tag/system-design.html">system-design</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h2>WHAT?!</h2>
+                <h2>写在前面</h2>
 
-<p>For most time, we use <code>malloc</code> or <code>new</code> for memory allocation, which will get it on <em>heap</em>.</p>
+<p>问题是非常流行的，也确实流行了一阵的system-design问题。在<a href="http://www.zhihu.com/question/19805967">知乎</a>上再次被人提起。然后我非常欣赏<a href="http://zhi.hu/3gJb">陈硕的回答</a>。所以要写一篇文章，记下自己的感想。</p>
 
-<p>However, access memory on <em>heap</em> is not as effective as the memory on <em>stack</em>, because the heap is &ldquo;free-floating region of memory&rdquo;. To the contrary, memory on <em>stack</em> is managed by CPU automacitally and tightly. As a result, the further of the <em>stack</em> compared to <em>heap</em> is that we can have a faster read/write speed due to the fact that <em>stack</em> memory is more likely to optimized by <strong>CPU cache</strong>, in addition, it only uses a single instruction to allocate or deallocate <em>stack</em> memory. Just like this.</p>
-<div class="highlight"><pre><span class="n">sub</span> <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="n">allocate</span>
-<span class="n">add</span> <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="n">deallocate</span>
-</pre></div>
+<h2>问题</h2>
 
-<h2>alloca</h2>
+<p>海量数据算法:如何从超过10G的记录IP地址的日志中，较快的找出登录次数最多的一个IP？</p>
 
-<p>The <code>alloca()</code> function allocates memory from the <em>stack</em>.</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span><span class="p">);</span>
-</pre></div>
+<h2>银弹？</h2>
 
-<p>It&#39;s quite the same as the <code>malloc</code> way. But we shouldn&#39;t free the memory allocated on the <em>stack</em>; these memory will be automatically deallocated when you leave the function(<strong>not the code block</strong>).</p>
+<p>面对这种system-design问题，尤其是这种，<strong>非高并发、非实时</strong>的问题，很多人会采用<em>map-reduce</em> —— 解决system-design问题的银弹。</p>
 
-<h2>placement new</h2>
+<p>我对map-reduce的理解非常肤浅，但是可以解释一下大概的流程。</p>
 
-<p>The placement new is one of the overloads of the <code>new</code> functions; this new syntax can do something as the <code>alloca()</code> function.</p>
-<div class="highlight"><pre><span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
-<span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="kt">int</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
-</pre></div>
+<ol>
+<li>将日志进行分片。把hash(ip)相同的ip地址分到同一个片中。（注：这里的hash并不是签名函数，只是一个分片标示）</li>
+<li>分片后的日志的大小会小很多，可以方便的进行排序，记数。</li>
+<li>然后再从各个片中，统计出最热门的IP地址。（或TopK的IP地址）</li>
+</ol>
 
-<p>The placement new can be also used in some other scenarios but won&#39;t be mentioned here.</p>
+<p>如果不满意我的答案的话，推荐<a href="http://book.douban.com/subject/19934150/">Mining of Massive Datasets</a>一书，其中对map-reduce算法做一番不错的介绍。</p>
 
-<h2>variable-length array</h2>
+<h2>正确的分析姿势</h2>
 
-<p>C90 and C++ both support the variable-length array which will be allocated on <em>stack</em>, and it will be deallocted whhen you leave the <strong>clode block</strong>, such as &ldquo;if&rdquo;, &ldquo;while&rdquo;, etc.</p>
+<h3>业务实体</h3>
 
-<p>This is much simplified, but be ware if you use both variable-length array and <code>alloca()</code> in the same function, the deallocation of the array will also free anything more recenly allocated by alloca.</p>
+<blockquote>
+<p>业务实体拥有四种主要的组件： 信息模型、生命周期模型、访问策略以及通知。 </p>
+</blockquote>
 
-<h2>Defects</h2>
+<p>换句话说，业务实体就是题目中提到的“名词”。</p>
 
-<p><em>Stack</em> has its limitation. If the allocation on <em>stack</em> causes <strong>stack overflow</strong> error, then the behavior of the program is undefined.</p>
+<p>在本题中，业务实体有：</p>
 
-<p>Further, the variable-length array and <code>alloca()</code> are not included in <em>ANSI-C</em> standard and therefore could limit portability.</p>
+<ul>
+<li>IP地址（默认为ipv4）</li>
+<li>最热门IP地址</li>
+</ul>
 
-<p>The Google C++ style guide encourage developers to use <code>scoped_ptr</code> or <code>scopted_array</code> instead of variable-length array and <code>alloca()</code>.</p>
+<h3>业务应用</h3>
 
-<h2>Some experiment</h2>
-<div class="highlight"><pre><span class="c1">// compile with: g++ -std=c++0x -O2 -Wall -g -o &quot;foo.cc&quot; &quot;foo&quot;</span>
-<span class="cp">#include &lt;cstdio&gt;</span>
-<span class="cp">#include &lt;cstdlib&gt;</span>
-<span class="cp">#include &lt;cstring&gt;</span>
-<span class="cp">#include &lt;iostream&gt;</span>
-<span class="cp">#include &lt;algorithm&gt;</span>
+<p>业务应用指的是当前场景的<strong>特殊</strong>应用，以及业务实体的关联关系。</p>
 
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<p>在本问题中，业务应用指的是：</p>
 
-<span class="cp">#define print(x) cout &lt;&lt; x &lt;&lt; endl</span>
-<span class="cp">#define input(x) cin &gt;&gt; x</span>
+<ul>
+<li>找到<strong>最热门</strong>的IP地址</li>
+<li>大数据量，10G的日志文件 —— 不方便在内存中进行操作
+（在动辙上百G的服务器面前，10G的数据量真是弱爆了^_^)</li>
+</ul>
 
-<span class="cp">#if defined(__i386__)</span>
-<span class="k">static</span> <span class="n">__inline__</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">rdtsc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<h3>物理</h3>
+
+<p>物理指的是数据的物理模型，包括数据结构、数据库表等。</p>
+
+<p>在本题中，指的是对IP地址存储和记数的数据结构。</p>
+
+<h3>让我们做一下分析</h3>
+
+<p>本题中，业务实体的特点是：</p>
+
+<ul>
+<li>IPv4可以由一个uint32_t来表示</li>
+<li>ip地址是稀疏的
+
+<ul>
+<li>大部分ip地址的访问次数非常少（长尾）</li>
+<li>很多ip地址是保留地址，所以不可能出现在日志中</li>
+</ul></li>
+</ul>
+
+<p>业务应用的特点是：</p>
+
+<ul>
+<li>“最热门”表示要求得精确解，而不是满意解</li>
+<li>内存限制</li>
+</ul>
+
+<p>应用的物理结构的特点是： 支持存储与记数</p>
+
+<h2>无代码无真相</h2>
+<div class="highlight"><pre><span class="cp">#include &lt;assert.h&gt;</span>
+<span class="cp">#include &lt;stdint.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+
+<span class="n">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">,</span> <span class="s">&quot;64-bit only.&quot;</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="n">counts_</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">IPcount</span>
 <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-    <span class="n">__asm__</span> <span class="k">volatile</span> <span class="p">(</span><span class="s">&quot;.byte 0x0f, 0x31&quot;</span> <span class="o">:</span> <span class="s">&quot;=A&quot;</span> <span class="p">(</span><span class="n">x</span><span class="p">));</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cp">#elif defined(__x86_64__)</span>
-<span class="k">static</span> <span class="n">__inline__</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">rdtsc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+  <span class="kt">uint32_t</span> <span class="n">ip</span><span class="p">;</span>
+  <span class="kt">uint32_t</span> <span class="n">count</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">IPcount</span> <span class="n">rhs</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span> <span class="k">return</span> <span class="n">ip</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">ip</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">IPcount</span><span class="o">&gt;</span> <span class="n">overflows_</span><span class="p">;</span>
+
+<span class="n">IPcount</span> <span class="n">top</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">addOverflow</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">ip</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="n">hi</span><span class="p">,</span> <span class="n">lo</span><span class="p">;</span>
-    <span class="n">__asm__</span> <span class="n">__volatile__</span> <span class="p">(</span><span class="s">&quot;rdtsc&quot;</span> <span class="o">:</span> <span class="s">&quot;=a&quot;</span><span class="p">(</span><span class="n">lo</span><span class="p">),</span> <span class="s">&quot;=d&quot;</span><span class="p">(</span><span class="n">hi</span><span class="p">));</span>
-    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">lo</span><span class="p">)</span><span class="o">|</span><span class="p">(</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">hi</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">32</span> <span class="p">);</span>
+  <span class="n">IPcount</span> <span class="n">newItem</span> <span class="o">=</span> <span class="p">{</span> <span class="n">ip</span><span class="p">,</span> <span class="mi">256</span> <span class="p">};</span>
+  <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">overflows_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">overflows_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">newItem</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">overflows_</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">ip</span> <span class="o">==</span> <span class="n">ip</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">it</span><span class="o">-&gt;</span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;you need larger count variable&quot;</span><span class="p">);</span>
+    <span class="n">newItem</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">overflows_</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">newItem</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">newItem</span><span class="p">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">top</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">newItem</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="cp">#endif</span>
 
+<span class="kt">void</span> <span class="nf">add</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">ip</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">counts_</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">addOverflow</span><span class="p">(</span><span class="n">ip</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">counts_</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">counts_</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">top</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">top</span><span class="p">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span><span class="p">;</span>
+      <span class="n">top</span><span class="p">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">counts_</span><span class="p">[</span><span class="n">ip</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="c1">//#define MEMORY_ON_HEAP</span>
-<span class="c1">//#define MEMORY_ON_STACK</span>
-
-<span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">102400</span><span class="p">;</span>
-<span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">NULL</span><span class="p">};</span>
+<span class="kt">uint32_t</span> <span class="nf">getMostFrequenntIP</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">top</span><span class="p">.</span><span class="n">ip</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">rdtsc</span><span class="p">();</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">counts_</span><span class="p">.</span><span class="n">max_size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mh">0xFFFFFFFFUL</span><span class="p">);</span>
+  <span class="n">counts_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1L</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%zd</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">counts_</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMORY_ON_HEAP</span> <span class="c1">// RDSTC: 20586280</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-        <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="err">#</span><span class="n">endif</span>
-
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMORY_ON_STACK</span> <span class="c1">// RDSTC: 3660502</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-        <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="err">#</span><span class="n">endif</span>
-
-
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">rdtsc</span><span class="p">();</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">add</span><span class="p">(</span><span class="mh">0x1</span><span class="p">);</span>
+  <span class="n">add</span><span class="p">(</span><span class="mh">0x2</span><span class="p">);</span>
+  <span class="n">add</span><span class="p">(</span><span class="mh">0x2</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1L</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">add</span><span class="p">(</span><span class="mh">0x3</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%08x %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">top</span><span class="p">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">top</span><span class="p">.</span><span class="n">count</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
-<p>You can use <code>info register esp</code> in gdb to inspect the <em>stack</em> pointer before and after you call the allocation function or declare a variable-length array.</p>
+<h3>从代码说开来</h3>
+
+<p>这段代码不算最漂亮，有几个小槽点，但也算是非常优雅的。</p>
+
+<p>从思路上说，这段代码注意到了我们刚才分析到的，这个问题的业务特点。</p>
+
+<ol>
+<li>ipv4地址可以存在uint32_t中，无需存储字符串</li>
+<li>ip地址是稀疏的，所以使用一层uint_8进行哈希记数，对于少数的热门ip再进行uint32_t计数
+（同时考虑了ip地址的稀疏性以及内存的限制，并且对内存的优雅使用，可以提高缓存的命中率，提高效率）</li>
+<li>使用精确计数，获得正确解</li>
+</ol>
+
+<h3>代码留给我们的思考题</h3>
+
+<blockquote>
+<p>练习：找出 worse case，让运行时间长达几分钟甚至十几分钟，然后提出并实施改进措施</p>
+</blockquote>
+
+<p>由于我们拿不出real world中的data，所以很多分析都是纸上谈兵，不过一切的实践也都是从纸上谈兵开始。</p>
+
+<ul>
+<li>题目中的<code>std::vector&lt;IPcount&gt; overflows_;</code>使用<code>unordered_map</code>更好，减少查找的时间（O(logN) =&gt; O(1)），并且减少插入的时间（O(N) =&gt; O(1)）</li>
+<li><code>std::vector&lt;uint8_t&gt; counts_;</code>可以在适当的情况调整为<code>uint16_t</code>，可以减少哈希节点生成对于内存的频繁申请。</li>
+</ul>
+
+<h2>后记</h2>
+
+<p>题目中的分析有很多是“执果索因”的成果，毕竟反推比正推要更容易一点。</p>
+
+<p>想要从反推提升为正推，真的需要良好的发散思维以及敏锐的洞察力。因为面试时，没人会把题目帮你写在纸上。</p>
+
+<p>话说，我才知道ipv6是128位的。那么当题目中的ip地址为ipv6时，又会有什么好方法呢？</p>
+
+<h2>参考链接</h2>
+
+<ul>
+<li><a href="http://www.infoq.com/cn/news/2010/05/BEDL">介绍：业务实体和业务实体定义语言</a></li>
+</ul>
 
             </div>
             <!-- /.entry-content -->
@@ -235,8 +317,8 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'wizmann'; // required: replace example with your forum shortname
-            var disqus_identifier = 'alloca-vs-placement-new';
-            var disqus_url = 'http://wizmann.tk/alloca-vs-placement-new.html';
+            var disqus_identifier = 'hottest-ip-address';
+            var disqus_url = 'http://wizmann.tk/hottest-ip-address.html';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
