@@ -122,60 +122,58 @@
 <p>水题，杠杆原理。</p>
 
 <p>用<code>^</code>把字符串分割开。然后分别计算两边的重量即可。</p>
+<div class="highlight"><pre><span class="c">#Result: Dec 24, 2013 6:04:41 PM    Wizmann  A - Lever   Python 2   Accepted     312 ms  4200 KB</span>
+<span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="n">ss</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s">&#39;=&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">t</span> <span class="o">*</span> <span class="n">p</span>
+        <span class="n">p</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
 
-<pre><code class="python">#Result: Dec 24, 2013 6:04:41 PM    Wizmann  A - Lever   Python 2   Accepted     312 ms  4200 KB
-def calc(ss):
-    res = 0
-    p = 1
-    for item in ss:
-        if item != &#39;=&#39;:
-            t = int(item)
-            res += t * p
-        p += 1
-    return res
+<span class="n">s</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">()</span>
 
-s = raw_input()
+<span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;^&#39;</span><span class="p">)</span>
 
-(a, b) = s.split(&#39;^&#39;)
+<span class="n">left</span> <span class="o">=</span> <span class="n">calc</span><span class="p">(</span><span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">right</span> <span class="o">=</span> <span class="n">calc</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-left = calc(a[::-1])
-right = calc(b)
-
-if left == right:
-    print &#39;balance&#39;
-elif left &gt; right:
-    print &#39;left&#39;
-else:
-    print &#39;right&#39;
-</code></pre>
+<span class="k">if</span> <span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;balance&#39;</span>
+<span class="k">elif</span> <span class="n">left</span> <span class="o">&gt;</span> <span class="n">right</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;left&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;right&#39;</span>
+</pre></div>
 
 <h2>B. I.O.U.</h2>
 
 <p>水题，算出每个人负债和贷出（这个词的现学的~）的绝对值差。</p>
 
 <p>然后再求和除2。</p>
+<div class="highlight"><pre><span class="c">#Result: Dec 24, 2013 6:12:53 PM    Wizmann  B - I.O.U.  Python 2   Accepted     46 ms   0 KB</span>
+<span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">inv</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="n">outv</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)]</span>
 
-<pre><code class="python">#Result: Dec 24, 2013 6:12:53 PM    Wizmann  B - I.O.U.  Python 2   Accepted     46 ms   0 KB
-(n, m) = map(int, raw_input().split())
-inv = [0 for i in xrange(n + 5)]
-outv = [0 for i in xrange(n + 5)]
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">outv</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span>
+    <span class="n">inv</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span>
 
-for i in xrange(m):
-    (a, b, c) = map(int, raw_input().split())
-    outv[a] += c
-    inv[b] += c
+<span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">inv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">outv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-res = 0
-for i in xrange(n + 5):
-    res += abs(inv[i] - outv[i])
+<span class="k">while</span> <span class="n">res</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c">#Trick，如果res % 2 != 0的话，我的算法就是完全错误的</span>
+    <span class="c">#此时返回TLE而不是WA</span>
+    <span class="k">pass</span>
 
-while res % 2 != 0:
-    #Trick，如果res % 2 != 0的话，我的算法就是完全错误的
-    #此时返回TLE而不是WA
-    pass
-
-print res / 2
-</code></pre>
+<span class="k">print</span> <span class="n">res</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
 
 <h2>C. Divisible by Seven</h2>
 
@@ -188,92 +186,91 @@ print res / 2
 <p>对于只有<code>1，6, 8, 9</code>和很多<code>0</code>的情况。我们就把<code>0</code>放在<code>1, 6，8，9</code>后面。</p>
 
 <p>代码比较乱。不过思路很明显:)</p>
+<div class="highlight"><pre><span class="c1">//Result: Dec 24, 2013 7:48:42 PM   Wizmann  C - Divisible by Seven  GNU C++    Accepted     140 ms  1000 KB</span>
+<span class="cp">#include &lt;cstdio&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+<span class="cp">#include &lt;cstring&gt;</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;algorithm&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;stack&gt;</span>
 
-<pre><code class="cpp">//Result: Dec 24, 2013 7:48:42 PM   Wizmann  C - Divisible by Seven  GNU C++    Accepted     140 ms  1000 KB
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;stack&gt;
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-using namespace std;
+<span class="cp">#define print(x) cout &lt;&lt; x &lt;&lt; endl</span>
+<span class="cp">#define input(x) cin &gt;&gt; x</span>
 
-#define print(x) cout &lt;&lt; x &lt;&lt; endl
-#define input(x) cin &gt;&gt; x
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">1001000</span><span class="p">;</span>
 
-const int SIZE = 1001000;
+<span class="kt">int</span> <span class="n">g</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
 
-int g[12];
-char buffer[SIZE];
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">&quot;input.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">all</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+            <span class="n">g</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">all</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">g</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">g</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">g</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">g</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
 
-int main()
-{
-    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
-    while (scanf(&quot;%s&quot;, buffer) != EOF) {
-        memset(g, 0, sizeof(g));
-        int all = 0;
-        for (int i = 0; buffer[i]; i++) {
-            int t = buffer[i] - &#39;0&#39;;
-            g[t]++;
-            all++;
-        }
-        g[1]--;
-        g[6]--;
-        g[8]--;
-        g[9]--;
+        <span class="n">all</span> <span class="o">-=</span> <span class="mi">4</span><span class="p">;</span>
 
-        all -= 4;
-
-        if (all == g[0]) {
-            printf(&quot;1869&quot;);
-            for (int i = 0; i &lt; all; i++) {
-                printf(&quot;0&quot;);
-            }
-            puts(&quot;&quot;);
-        } else {
-            int mod = 0;
-            for (int i = 1; i &lt;= 10; i++) {
-                int ii = i % 10;
-                for (int j = 0; j &lt; g[ii]; j++) {
-                    printf(&quot;%d&quot;, ii);
-                    mod = mod * 10 + ii;
-                    mod %= 7;
-                }
-            }
-            mod *= 10000;
-            mod %= 7;
-            mod = (7 - mod)% 7;
-            switch(mod) {
-                case 0:
-                    printf(&quot;1869&quot;);
-                    break;
-                case 1:
-                    printf(&quot;6819&quot;);
-                    break;
-                case 2:
-                    printf(&quot;6918&quot;);
-                    break;
-                case 3:
-                    printf(&quot;6891&quot;);
-                    break;
-                case 4:
-                    printf(&quot;8691&quot;);
-                    break;
-                case 5:
-                    printf(&quot;1986&quot;);
-                    break;
-                case 6:
-                    printf(&quot;8196&quot;);
-                    break;
-            }
-            puts(&quot;&quot;);
-        }
-    }
-    return 0;
-}
-</code></pre>
+        <span class="k">if</span> <span class="p">(</span><span class="n">all</span> <span class="o">==</span> <span class="n">g</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;1869&quot;</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">all</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">puts</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">mod</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">[</span><span class="n">ii</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">ii</span><span class="p">);</span>
+                    <span class="n">mod</span> <span class="o">=</span> <span class="n">mod</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">ii</span><span class="p">;</span>
+                    <span class="n">mod</span> <span class="o">%=</span> <span class="mi">7</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">mod</span> <span class="o">*=</span> <span class="mi">10000</span><span class="p">;</span>
+            <span class="n">mod</span> <span class="o">%=</span> <span class="mi">7</span><span class="p">;</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">mod</span><span class="p">)</span><span class="o">%</span> <span class="mi">7</span><span class="p">;</span>
+            <span class="k">switch</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="mi">0</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;1869&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">1</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;6819&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">2</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;6918&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">3</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;6891&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">4</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;8691&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">5</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;1986&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">6</span>:
+                    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;8196&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">puts</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h2>D. Maximum Submatrix 2</h2>
 
@@ -290,70 +287,69 @@ int main()
 <p>如图所示，我们计算到第二列的时候。可以处理出每一行的最大子阵。由于我们可以进行行变换，于是我们将每行的最大子阵进行排序。然后遍历求出当前的最大子阵，从而得出答案。</p>
 
 <p>代码简单。不过有性能问题。没有充分使用cache，不过100+ms就过了，懒得优化了。</p>
+<div class="highlight"><pre><span class="cp">#include &lt;cstdio&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+<span class="cp">#include &lt;cstring&gt;</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;algorithm&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;stack&gt;</span>
 
-<pre><code class="cpp">#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;stack&gt;
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-using namespace std;
+<span class="cp">#define print(x) cout &lt;&lt; x &lt;&lt; endl</span>
+<span class="cp">#define input(x) cin &gt;&gt; x</span>
 
-#define print(x) cout &lt;&lt; x &lt;&lt; endl
-#define input(x) cin &gt;&gt; x
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">5120</span><span class="p">;</span>
 
-const int SIZE = 5120;
+<span class="kt">int</span> <span class="n">g</span><span class="p">[</span><span class="n">SIZE</span><span class="p">][</span><span class="n">SIZE</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+<span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>
 
-int g[SIZE][SIZE];
-char buffer[SIZE];
-int n, m;
-stack&lt;int&gt; st;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">&quot;input.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
 
-int main()
-{
-    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
+    <span class="k">while</span> <span class="p">(</span><span class="n">input</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
 
-    while (input(n &gt;&gt; m)) {
-        memset(g, 0, sizeof(g));
-        memset(buffer, 0, sizeof(buffer));
-        st = stack&lt;int&gt;();
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">buffer</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">p</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        for (int i = 0; i &lt; n; i++) {
-            scanf(&quot;%s&quot;, buffer);
-            int p = 0;
-            for (int j = m - 1; j &gt;= 0; j--) {
-                buffer[j] -= &#39;0&#39;;
-                if (buffer[j] == 1) {
-                    p++;
-                } else {
-                    p = 0;
-                }
-                g[i][j] = p;
-            }
-        }
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
-        int ans = 0;
-        for (int i = 0; i &lt; m; i++) {
-            vector&lt;int&gt; vec;
-            for (int j = 0; j &lt; n; j++) {
-                vec.push_back(g[j][i]);
-            }
-            sort(vec.begin(), vec.end());
+            <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">vec</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">j</span><span class="p">));</span>
+            <span class="p">}</span>
 
-            int t = 0;
-            for (int j = 0; j &lt; n; j++) {
-                t = max(t, vec[j] * (n - j));
-            }
-
-            ans = max(ans, t);
-        }
-        print(ans);
-    }
-    return 0;
-}
-</code></pre>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">print</span><span class="p">(</span><span class="n">ans</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h2>E. Circling Round Treasures</h2>
 
@@ -374,138 +370,137 @@ int main()
 <p>题目中给出了判断一个宝藏是否在路径中的一个判断算法。即判断点是否在多边形中的经典射线法。</p>
 
 <p>我们可以记录某一步是否在某个宝藏的<code>射线</code>上。而射线的方向则可以自定。代码中的射线方向是<code>+x</code>方向。如果某一条边经过了这条射线，则修改当前状态。</p>
+<div class="highlight"><pre><span class="c1">//Result: Dec 25, 2013 2:22:27 PM   Wizmann  E - Circling Round Treasures    GNU C++    Accepted    31 ms   1400 KB</span>
+<span class="cp">#include &lt;cstdio&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+<span class="cp">#include &lt;cstring&gt;</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;algorithm&gt;</span>
+<span class="cp">#include &lt;stack&gt;</span>
+<span class="cp">#include &lt;queue&gt;</span>
+<span class="cp">#include &lt;vector&gt;</span>
 
-<pre><code class="cpp">//Result: Dec 25, 2013 2:22:27 PM   Wizmann  E - Circling Round Treasures    GNU C++    Accepted    31 ms   1400 KB
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;stack&gt;
-#include &lt;queue&gt;
-#include &lt;vector&gt;
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-using namespace std;
+<span class="cp">#define print(x) cout &lt;&lt; x &lt;&lt; endl</span>
+<span class="cp">#define input(x) cin &gt;&gt; x</span>
 
-#define print(x) cout &lt;&lt; x &lt;&lt; endl
-#define input(x) cin &gt;&gt; x
+<span class="k">const</span> <span class="kt">int</span> <span class="n">mx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">my</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
 
-const int mx[] = {1, 0, -1, 0};
-const int my[] = {0, 1, 0, -1};
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">GOLD</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
 
-const int SIZE = 30;
-const int GOLD = 8;
+<span class="k">struct</span> <span class="n">point</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="n">point</span><span class="p">(){}</span>
+    <span class="n">point</span><span class="p">(</span><span class="kt">int</span> <span class="n">ix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">iy</span><span class="p">)</span><span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">ix</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">iy</span><span class="p">){}</span>
+<span class="p">};</span>
 
-struct point {
-    int x, y;
-    point(){}
-    point(int ix, int iy): x(ix), y(iy){}
-};
+<span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="n">point</span> <span class="n">p</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
 
-struct node {
-    point p;
-    int status;
+    <span class="n">node</span><span class="p">(){}</span>
+    <span class="n">node</span><span class="p">(</span><span class="kt">int</span> <span class="n">ix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">iy</span><span class="p">,</span> <span class="kt">int</span> <span class="n">istatus</span><span class="p">)</span><span class="o">:</span> <span class="n">p</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">),</span> <span class="n">status</span><span class="p">(</span><span class="n">istatus</span><span class="p">)</span> <span class="p">{};</span>
+<span class="p">};</span>
 
-    node(){}
-    node(int ix, int iy, int istatus): p(ix, iy), status(istatus) {};
-};
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">gold</span><span class="p">,</span> <span class="n">bomb</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">maze</span><span class="p">[</span><span class="n">SIZE</span><span class="p">][</span><span class="n">SIZE</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">status</span><span class="p">[</span><span class="n">SIZE</span><span class="p">][</span><span class="n">SIZE</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">visit</span><span class="p">[</span><span class="n">SIZE</span><span class="p">][</span><span class="n">SIZE</span><span class="p">][</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">GOLD</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">step</span><span class="p">[</span><span class="n">SIZE</span><span class="p">][</span><span class="n">SIZE</span><span class="p">][</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">GOLD</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">sum</span><span class="p">[</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">GOLD</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">v</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
 
-int n,m;
-int gold, bomb;
-char maze[SIZE][SIZE];
-int status[SIZE][SIZE];
-char visit[SIZE][SIZE][1 &lt;&lt; GOLD];
-int step[SIZE][SIZE][1 &lt;&lt; GOLD];
-int sum[1 &lt;&lt; GOLD];
-int v[SIZE];
+<span class="n">point</span> <span class="n">st</span><span class="p">;</span>
 
-point st;
+<span class="kt">void</span> <span class="nf">bfs</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">][</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
 
-void bfs()
-{
-    queue&lt;node&gt; q;
-    visit[st.y][st.x][0] = 1;
-    q.push(node(st.x, st.y, 0));
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">node</span> <span class="n">now</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">now</span><span class="p">.</span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">now</span><span class="p">.</span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">nowst</span> <span class="o">=</span> <span class="n">now</span><span class="p">.</span><span class="n">status</span><span class="p">;</span>
 
-    while (!q.empty()) {
-        node now = q.front();
-        q.pop();
-        int x = now.p.x, y = now.p.y, nowst = now.status;
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">mx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">my</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 
-        for (int i = 0; i &lt; 4; i++) {
-            int nx = x + mx[i], ny = y + my[i];
+            <span class="k">if</span> <span class="p">(</span><span class="n">nx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">nx</span> <span class="o">==</span> <span class="n">m</span> <span class="o">||</span> 
+                    <span class="n">ny</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">ny</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> 
+                    <span class="n">maze</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
 
-            if (nx &lt; 0 || nx == m || 
-                    ny &lt; 0 || ny == n || 
-                    maze[ny][nx] != &#39;.&#39;) continue;
+            <span class="kt">int</span> <span class="n">nst</span> <span class="o">=</span> <span class="n">nowst</span><span class="p">;</span>
 
-            int nst = nowst;
+            <span class="k">if</span> <span class="p">(</span><span class="n">my</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">nst</span> <span class="o">^=</span> <span class="n">status</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">];</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">my</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">nst</span> <span class="o">^=</span> <span class="n">status</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">];</span>
 
-            if (my[i] == 1) nst ^= status[ny][nx];
-            else if (my[i] == -1) nst ^= status[y][x];
+            <span class="k">if</span> <span class="p">(</span><span class="n">visit</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">][</span><span class="n">nst</span><span class="p">])</span> <span class="p">{</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
 
-            if (visit[ny][nx][nst]) {
-                continue;
-            }
+            <span class="n">visit</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">][</span><span class="n">nst</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nst</span><span class="p">));</span>
 
-            visit[ny][nx][nst] = 1;
-            q.push(node(nx, ny, nst));
+            <span class="n">step</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">][</span><span class="n">nst</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="n">nowst</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-            step[ny][nx][nst] = step[y][x][nowst] + 1;
-        }
-    }
-}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">&quot;input.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+    <span class="n">input</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">);</span>
+    <span class="n">gold</span> <span class="o">=</span> <span class="n">bomb</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;S&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">st</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+                <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;.&#39;</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="n">gold</span><span class="o">++</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">nr</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;1&#39;</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+                    <span class="n">status</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">nr</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gold</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">input</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">gold</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">gold</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">j</span><span class="p">))</span> <span class="n">sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-int main()
-{
-    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
-    input(n &gt;&gt; m);
-    gold = bomb = 0;
-    for (int i = 0; i &lt; n; i++) {
-        scanf(&quot;%s&quot;, maze[i]);
-        for (int j = 0; j &lt; m; j++) {
-            if (maze[i][j] == &#39;S&#39;) {
-                st = point(j, i);
-                maze[i][j] = &#39;.&#39;;
-            } else if (isdigit(maze[i][j])) {
-                gold++;
-                int nr = maze[i][j] - &#39;1&#39;;
-                for (int k = j + 1; k &lt; m; k++)
-                    status[i][k] |= 1 &lt;&lt; nr;
-            }
-        }
-    }
-    for (int i = 0; i &lt; gold; i++) {
-        input(v[i]);
-    }
-    for (int i = 0; i &lt; (1 &lt;&lt; gold); i++) {
-        for (int j = 0; j &lt; gold; j++) {
-            if (i &amp; (1 &lt;&lt; j)) sum[i] += v[j];
-        }
-    }
-
-    bomb = gold;
-    for (int i = 0; i &lt; n; i++) {
-        for (int j = 0; j &lt; m; j++) {
-            if (maze[i][j] == &#39;B&#39;) {
-                for (int k = j + 1; k &lt; m; k++) {
-                    status[i][k] |= 1 &lt;&lt; bomb;
-                }
-                bomb++;
-            }
-        }
-    }
-    bfs();
-    int ans = 0;
-    for (int i = 0; i &lt; (1 &lt;&lt; gold); i++) {
-        if (visit[st.y][st.x][i]) {
-            ans = max(ans, sum[i] - step[st.y][st.x][i]);
-        }
-    }
-    print(ans);
-    return 0;
-}
-</code></pre>
+    <span class="n">bomb</span> <span class="o">=</span> <span class="n">gold</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;B&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">status</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bomb</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">bomb</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">bfs</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">gold</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">visit</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">][</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">step</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">][</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">ans</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h2>最后，炫耀一下</h2>
 
@@ -557,6 +552,11 @@ int main()
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
@@ -567,28 +567,8 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -597,8 +577,13 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/interview.html">
+                        interview
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -606,19 +591,14 @@ int main()
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -627,8 +607,18 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
                     <a href="http://wizmann.tk/tag/leetcode.html">
                         leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -636,199 +626,9 @@ int main()
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
-                        面试题
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -837,8 +637,243 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/graph.html">
+                        graph
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/system-design.html">
+                        system-design
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
+                        面试题
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/heap.html">
                         heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/android.html">
+                        android
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/valgrind.html">
+                        valgrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -849,46 +884,6 @@ int main()
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/yunfile.html">
                         Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
                     </a>
                 </li>
 

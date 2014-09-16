@@ -150,385 +150,378 @@
 <p>由于Tic-tac-toe游戏只有两种操作类型：<code>P1 move</code>和<code>P2 move</code>。</p>
 
 <p>所以我们的接口就很简单。</p>
-
-<pre><code class="cpp">class State {
-public:
-    State(){}
-    int set_game(Game* igame) {
-        game = igame;
-        return 0;
-    }
-    virtual int first(int x, int y) = 0;
-    virtual int second(int x, int y) = 0;
-    virtual void show_state() = 0;
-    virtual ~State(){}
-protected:
-    Game *game;
-private:
-    State(const State&amp;);
-};
-</code></pre>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">State</span><span class="p">(){}</span>
+    <span class="kt">int</span> <span class="n">set_game</span><span class="p">(</span><span class="n">Game</span><span class="o">*</span> <span class="n">igame</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">game</span> <span class="o">=</span> <span class="n">igame</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">State</span><span class="p">(){}</span>
+<span class="nl">protected:</span>
+    <span class="n">Game</span> <span class="o">*</span><span class="n">game</span><span class="p">;</span>
+<span class="nl">private:</span>
+    <span class="n">State</span><span class="p">(</span><span class="k">const</span> <span class="n">State</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
 
 <p>那么<code>FirstState</code>的实现如下：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">FirstState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;FirstState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<pre><code class="cpp">class FirstState: public State {
-public:
-    virtual int first(int x, int y);
-    virtual int second(int x, int y);
-    virtual void show_state() {
-        print(&quot;FirstState&quot;);
-    }
-};
+<span class="kt">int</span> <span class="n">FirstState</span><span class="o">::</span><span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">make_move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">FIRST</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">ILLEGAL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">();</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">SECOND</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">SECOND</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">FIRST_WIN</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">FIRST_WIN</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">DRAW</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">DRAW</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-int FirstState::first(int x, int y) {
-    int res = game -&gt; make_move(x, y, FIRST);
-    if (res == ILLEGAL) {
-        game -&gt; set_state(ILLEGAL);
-        return ILLEGAL;
-    }
-    int next = game -&gt; next();
-    switch(next) {
-        case SECOND:
-            game -&gt; set_state(SECOND);
-            break;
-        case FIRST_WIN:
-            game -&gt; set_state(FIRST_WIN);
-            break;
-        case DRAW:
-            game -&gt; set_state(DRAW);
-            break;
-        default:
-            game -&gt; set_state(ILLEGAL);
-            break;
-    }
-    return 0;
-}
-
-int FirstState::second(int x, int y) {
-    // P2不能操作
-    return ILLEGAL;
-}
-</code></pre>
+<span class="kt">int</span> <span class="n">FirstState</span><span class="o">::</span><span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// P2不能操作</span>
+    <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>同理，<code>SecondState</code>的实现：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">SecondState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span> 
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
 
-<pre><code class="cpp">class SecondState: public State {
-public:
-    virtual int first(int x, int y); 
-    virtual int second(int x, int y);
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;SecondState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-    virtual void show_state() {
-        print(&quot;SecondState&quot;);
-    }
-};
+<span class="kt">int</span> <span class="n">SecondState</span><span class="o">::</span><span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// P1不能操作</span>
+    <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+<span class="p">}</span>
 
-int SecondState::first(int x, int y) {
-    // P1不能操作
-    return ILLEGAL;
-}
+<span class="kt">int</span> <span class="n">SecondState</span><span class="o">::</span><span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">make_move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">SECOND</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">ILLEGAL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
 
-int SecondState::second(int x, int y) {
-    int res = game -&gt; make_move(x, y, SECOND);
-    if (res == ILLEGAL) {
-        return ILLEGAL;
-    }
-
-    int next = game -&gt; next();
-    switch(next) {
-        case FIRST:
-            game -&gt; set_state(FIRST);
-            break;
-        case SECOND_WIN:
-            game -&gt; set_state(SECOND_WIN);
-            break;
-        case DRAW:
-            game -&gt; set_state(DRAW);
-            break;
-        default:
-            game -&gt; set_state(ILLEGAL);
-    }
-    return 0;
-}
-</code></pre>
+    <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">();</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">FIRST</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">FIRST</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">SECOND_WIN</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">SECOND_WIN</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">DRAW</span>:
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">DRAW</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="n">game</span> <span class="o">-&gt;</span> <span class="n">set_state</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>对于结束状态，因为所有的操作都是非法的。我们可以如下实现：</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">EndState</span><span class="o">:</span> <span class="k">public</span> <span class="n">State</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="n">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<pre><code class="cpp">class EndState: public State {
-public:
-    virtual int first(int x, int y) {
-        return ILLEGAL;
-    }
-    virtual int second(int x,int y) {
-        return ILLEGAL;
-    }
-};
-
-class FirstWinState:  public EndState {
-    virtual void show_state() {
-        print(&quot;FirstWinState&quot;);
-    }
-};
-class SecondWinState: public EndState {
-    virtual void show_state() {
-        print(&quot;SecondWinState&quot;);
-    }
-};
-class DrawState:      public EndState {
-    virtual void show_state() {
-        print(&quot;DrawState&quot;);
-    }
-};
-class IllegalState:   public EndState {
-    virtual void show_state() {
-        print(&quot;IllegalState&quot;);
-    }
-};
-</code></pre>
+<span class="k">class</span> <span class="nc">FirstWinState</span><span class="o">:</span>  <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;FirstWinState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">SecondWinState</span><span class="o">:</span> <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;SecondWinState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">DrawState</span><span class="o">:</span>      <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;DrawState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">IllegalState</span><span class="o">:</span>   <span class="k">public</span> <span class="n">EndState</span> <span class="p">{</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">show_state</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="s">&quot;IllegalState&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
 
 <p>到这里，状态机里的所有状态我们都已经声明好了。</p>
 
 <p>于是我们开始实现<code>Game</code>类。因为是示例代码，所以有的函数都内联了。</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Game</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">Game</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">set_state</span><span class="p">(</span><span class="kt">int</span> <span class="n">next_state</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">get_state</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">make_move</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">player</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">next</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">first</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">state_ptr</span> <span class="o">-&gt;</span> <span class="n">first</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="nf">second</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">state_ptr</span> <span class="o">-&gt;</span> <span class="n">second</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">state</span><span class="p">;</span>
+    <span class="n">State</span><span class="o">*</span> <span class="n">state_ptr</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">board</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span>
 
-<pre><code class="cpp">class Game {
-public:
-    Game();
-    int set_state(int next_state);
-    int get_state();
-    int make_move(int x, int y, int player);
-    int next();
-    int first(int x, int y) {
-        return state_ptr -&gt; first(x, y);
-    }
-    int second(int x, int y) {
-        return state_ptr -&gt; second(x, y);
-    }
-private:
-    int state;
-    State* state_ptr;
-    char board[3][3];
+    <span class="n">FirstState</span>      <span class="n">firststate</span><span class="p">;</span>
+    <span class="n">SecondState</span>     <span class="n">secondstate</span><span class="p">;</span>
+    <span class="n">FirstWinState</span>   <span class="n">firstwinstate</span> <span class="p">;</span>
+    <span class="n">SecondWinState</span>  <span class="n">secondwinstate</span><span class="p">;</span>
+    <span class="n">DrawState</span>       <span class="n">drawstate</span><span class="p">;</span>
+    <span class="n">IllegalState</span>    <span class="n">illegalstate</span><span class="p">;</span>
+<span class="p">};</span>
 
-    FirstState      firststate;
-    SecondState     secondstate;
-    FirstWinState   firstwinstate ;
-    SecondWinState  secondwinstate;
-    DrawState       drawstate;
-    IllegalState    illegalstate;
-};
+<span class="n">Game</span><span class="o">::</span><span class="n">Game</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;.&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">firststate</span>    <span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span>
+    <span class="n">secondstate</span>   <span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span>
+    <span class="n">firstwinstate</span> <span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span> 
+    <span class="n">secondwinstate</span><span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span>
+    <span class="n">drawstate</span>     <span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span>
+    <span class="n">illegalstate</span>  <span class="p">.</span><span class="n">set_game</span><span class="p">((</span><span class="n">Game</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">);</span>
 
-Game::Game()
-{
-    for (int i = 0; i &lt; 3; i++) {
-        for (int j = 0; j &lt; 3; j++) {
-            board[i][j] = &#39;.&#39;;
-        }
-    }
-    firststate    .set_game((Game*)this);
-    secondstate   .set_game((Game*)this);
-    firstwinstate .set_game((Game*)this); 
-    secondwinstate.set_game((Game*)this);
-    drawstate     .set_game((Game*)this);
-    illegalstate  .set_game((Game*)this);
+    <span class="c1">// 在开始的时候，要P1先手</span>
+    <span class="n">set_state</span><span class="p">(</span><span class="n">FIRST</span><span class="p">);</span>
+<span class="p">}</span>
 
-    // 在开始的时候，要P1先手
-    set_state(FIRST);
-}
+<span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">set_state</span><span class="p">(</span><span class="kt">int</span> <span class="n">next_state</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span><span class="p">;</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">DRAW</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">drawstate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">FIRST</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">firststate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">SECOND</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">secondstate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">FIRST_WIN</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">firstwinstate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">SECOND_WIN</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">secondwinstate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+        <span class="k">case</span><span class="p">(</span><span class="n">ILLEGAL</span><span class="p">)</span>:
+            <span class="n">state_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">illegalstate</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-int Game::set_state(int next_state)
-{
-    state = next_state;
-    switch(next_state) {
-        case(DRAW):
-            state_ptr = &amp;drawstate;
-            break;
-        case(FIRST):
-            state_ptr = &amp;firststate;
-            break;
-        case(SECOND):
-            state_ptr = &amp;secondstate;
-            break;
-        case(FIRST_WIN):
-            state_ptr = &amp;firstwinstate;
-            break;
-        case(SECOND_WIN):
-            state_ptr = &amp;secondwinstate;
-            break;
-        default:
-        case(ILLEGAL):
-            state_ptr = &amp;illegalstate;
-            break;
-    }
-    return 0;
-}
+<span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">get_state</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">state_ptr</span> <span class="o">-&gt;</span><span class="n">show_state</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">state</span><span class="p">;</span>
+<span class="p">}</span>
 
-int Game::get_state() {
-    state_ptr -&gt;show_state();
-    return state;
-}
+<span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">make_move</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">player</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">FIRST</span>:
+            <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;X&#39;</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">SECOND</span>:
+            <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">board</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-int Game::make_move(int x, int y, int player) {
-    char c;
-    switch(player) {
-        case FIRST:
-            c = &#39;X&#39;;
-            break;
-        case SECOND:
-            c = &#39;0&#39;;
-            break;
-        default:
-            return ILLEGAL;
-            break;
-    }
-    if (board[y][x] != &#39;.&#39;) {
-        return ILLEGAL;
-    }
-    board[y][x] = c;
-    return 0;
-}
+<span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">next</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">judge</span><span class="p">(</span><span class="n">board</span><span class="p">);</span>
+<span class="p">}</span>
 
-int Game::next() {
-    return judge(board);
-}
+<span class="c1">// 这个函数写的太屎了，不忍直视</span>
+<span class="kt">void</span> <span class="n">check_win</span><span class="p">(</span><span class="kt">char</span> <span class="n">board</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">a_cnt</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">b_cnt</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">a_cnt</span> <span class="o">=</span> <span class="n">b_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">type</span> <span class="o">=</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-// 这个函数写的太屎了，不忍直视
-void check_win(char board[3][3], int&amp; a_cnt, int&amp; b_cnt)
-{
-    a_cnt = b_cnt = 0;
-    for (int i = 0; i &lt; 3; i++) {
-        char type = board[i][0];
-        int cnt = 0;
-        for (int j = 0; j &lt; 3; j++) {
-            if (board[i][j] == type) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
+        <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="p">)</span> <span class="n">a_cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">b_cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-        if (cnt == 3) {
-            if (type == &#39;X&#39;) a_cnt++;
-            else if (type == &#39;0&#39;) b_cnt++;
-        }
-    }
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">type</span> <span class="o">=</span> <span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-    for (int i = 0; i &lt; 3; i++) {
-        char type = board[0][i];
-        int cnt = 0;
-        for (int j = 0; j &lt; 3; j++) {
-            if (board[j][i] == type) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
+        <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="p">)</span> <span class="n">a_cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">b_cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-        if (cnt == 3) {
-            if (type == &#39;X&#39;) a_cnt++;
-            else if (type == &#39;0&#39;) b_cnt++;
-        }
-    }
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">type</span> <span class="o">=</span> <span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="p">)</span> <span class="n">a_cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">b_cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-    do {
-        char type = board[0][0];
-        int cnt = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            if (board[i][i] == type) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
-        if (cnt == 3) {
-            if (type == &#39;X&#39;) a_cnt++;
-            else if (type == &#39;0&#39;) b_cnt++;
-        }
-    } while(0);
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">type</span> <span class="o">=</span> <span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">2</span> <span class="o">-</span> <span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="p">)</span> <span class="n">a_cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">b_cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-    do {
-        char type = board[0][2];
-        int cnt = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            if (board[2 - i][i] == type) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
-        if (cnt == 3) {
-            if (type == &#39;X&#39;) a_cnt++;
-            else if (type == &#39;0&#39;) b_cnt++;
-        }
-    } while(0);
-}
+<span class="c1">// 同上。。。模拟题就是那么恶心。。。_(:з」∠)_</span>
+<span class="c1">// 也许我会有机会重构一下。。。</span>
+<span class="kt">int</span> <span class="n">judge</span><span class="p">(</span><span class="kt">char</span> <span class="n">board</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="p">)</span> <span class="n">a_cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">b_cnt</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a_cnt</span> <span class="o">&lt;</span> <span class="n">b_cnt</span> <span class="o">||</span> <span class="n">a_cnt</span> <span class="o">-</span> <span class="n">b_cnt</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span>
 
-// 同上。。。模拟题就是那么恶心。。。_(:з」∠)_
-// 也许我会有机会重构一下。。。
-int judge(char board[3][3])
-{
-    int next = -1;
-    int a_cnt = 0, b_cnt = 0;
-    for (int i = 0; i &lt; 3; i++) {
-        for (int j = 0; j &lt; 3; j++) {
-            if (board[i][j] == &#39;X&#39;) a_cnt++;
-            else if (board[i][j] == &#39;0&#39;) b_cnt++;
-        }
-    }
-    if (a_cnt &lt; b_cnt || a_cnt - b_cnt &gt; 1) {
-        return ILLEGAL;
-    }
+    <span class="k">if</span> <span class="p">(</span><span class="n">a_cnt</span> <span class="o">+</span> <span class="n">b_cnt</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// PASS</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">a_cnt</span> <span class="o">==</span> <span class="n">b_cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    if (a_cnt + b_cnt == 9) {
-        // PASS
-    } else if (a_cnt == b_cnt) {
-        next = 1;
-    } else {
-        next = 2;
-    }
+    <span class="n">a_cnt</span> <span class="o">=</span> <span class="n">b_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">check_win</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">a_cnt</span><span class="p">,</span> <span class="n">b_cnt</span><span class="p">);</span>
 
-    a_cnt = b_cnt = 0;
-    check_win(board, a_cnt, b_cnt);
+    <span class="k">if</span> <span class="p">(</span><span class="n">a_cnt</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b_cnt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//nobody wins and the board is full</span>
+        <span class="k">switch</span><span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="o">-</span><span class="mi">1</span>:
+                <span class="k">return</span> <span class="n">DRAW</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">1</span>:
+                <span class="k">return</span> <span class="n">FIRST</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">2</span>:
+                <span class="k">return</span> <span class="n">SECOND</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">b_cnt</span> <span class="o">&amp;&amp;</span> <span class="n">a_cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">b_cnt</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">a_cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">next</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">SECOND_WIN</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">a_cnt</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">b_cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">next</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">ILLEGAL</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">FIRST_WIN</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// NO ELSE HERE;</span>
+    <span class="p">}</span>
 
-    if (a_cnt == 0 &amp;&amp; b_cnt == 0) {
-        //nobody wins and the board is full
-        switch(next) {
-            case -1:
-                return DRAW;
-            case 1:
-                return FIRST;
-            case 2:
-                return SECOND;
-        }
-    } else if (b_cnt &amp;&amp; a_cnt) {
-        return ILLEGAL;
-    } else if (b_cnt &amp;&amp; !a_cnt) {
-        if (next == 2) {
-            return ILLEGAL;
-        } else {
-            return SECOND_WIN;
-        }
-    } else if (a_cnt &amp;&amp; !b_cnt) {
-        if (next == 1) {
-            return ILLEGAL;
-        } else {
-            return FIRST_WIN;
-        }
-    } else {
-        // NO ELSE HERE;
-    }
-
-    return next == 1? FIRST : SECOND;
-}
-
-</code></pre>
+    <span class="k">return</span> <span class="n">next</span> <span class="o">==</span> <span class="mi">1</span><span class="o">?</span> <span class="n">FIRST</span> <span class="o">:</span> <span class="n">SECOND</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>最后补上我们的常量声明：</p>
-
-<pre><code class="cpp">const int ILLEGAL = -1;
-const int DRAW = 0;
-const int FIRST = 1;
-const int SECOND = 2;
-const int FIRST_WIN = 100;
-const int SECOND_WIN = 200;
-</code></pre>
+<div class="highlight"><pre><span class="k">const</span> <span class="kt">int</span> <span class="n">ILLEGAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">DRAW</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">FIRST</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SECOND</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">FIRST_WIN</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SECOND_WIN</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+</pre></div>
 
 <h2>how it works</h2>
 
@@ -613,6 +606,11 @@ const int SECOND_WIN = 200;
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
@@ -623,28 +621,8 @@ const int SECOND_WIN = 200;
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -653,8 +631,13 @@ const int SECOND_WIN = 200;
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/interview.html">
+                        interview
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -662,19 +645,14 @@ const int SECOND_WIN = 200;
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -683,8 +661,18 @@ const int SECOND_WIN = 200;
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
                     <a href="http://wizmann.tk/tag/leetcode.html">
                         leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -692,199 +680,9 @@ const int SECOND_WIN = 200;
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
-                        面试题
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -893,8 +691,243 @@ const int SECOND_WIN = 200;
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/graph.html">
+                        graph
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/system-design.html">
+                        system-design
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
+                        面试题
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/heap.html">
                         heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/android.html">
+                        android
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/valgrind.html">
+                        valgrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -905,46 +938,6 @@ const int SECOND_WIN = 200;
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/yunfile.html">
                         Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
                     </a>
                 </li>
 

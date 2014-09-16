@@ -128,27 +128,24 @@
 <p>For most time, we use <code>malloc</code> or <code>new</code> for memory allocation, which will get it on <em>heap</em>.</p>
 
 <p>However, access memory on <em>heap</em> is not as effective as the memory on <em>stack</em>, because the heap is &ldquo;free-floating region of memory&rdquo;. To the contrary, memory on <em>stack</em> is managed by CPU automacitally and tightly. As a result, the further of the <em>stack</em> compared to <em>heap</em> is that we can have a faster read/write speed due to the fact that <em>stack</em> memory is more likely to optimized by <strong>CPU cache</strong>, in addition, it only uses a single instruction to allocate or deallocate <em>stack</em> memory. Just like this.</p>
-
-<pre><code class="cpp">sub esp, 0x10; =&gt; allocate
-add esp, 0x10; =&gt; deallocate
-</code></pre>
+<div class="highlight"><pre><span class="n">sub</span> <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="n">allocate</span>
+<span class="n">add</span> <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="n">deallocate</span>
+</pre></div>
 
 <h2>alloca</h2>
 
 <p>The <code>alloca()</code> function allocates memory from the <em>stack</em>.</p>
-
-<pre><code class="cpp">int *p = (int*)alloca(sizeof(int) * size);
-</code></pre>
+<div class="highlight"><pre><span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span><span class="p">);</span>
+</pre></div>
 
 <p>It&#39;s quite the same as the <code>malloc</code> way. But we shouldn&#39;t free the memory allocated on the <em>stack</em>; these memory will be automatically deallocated when you leave the function(<strong>not the code block</strong>).</p>
 
 <h2>placement new</h2>
 
 <p>The placement new is one of the overloads of the <code>new</code> functions; this new syntax can do something as the <code>alloca()</code> function.</p>
-
-<pre><code class="cpp">char buffer[1024];
-int *p = new(buffer) int[64];
-</code></pre>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="kt">int</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+</pre></div>
 
 <p>The placement new can be also used in some other scenarios but won&#39;t be mentioned here.</p>
 
@@ -167,67 +164,65 @@ int *p = new(buffer) int[64];
 <p>The Google C++ style guide encourage developers to use <code>scoped_ptr</code> or <code>scopted_array</code> instead of variable-length array and <code>alloca()</code>.</p>
 
 <h2>Some experiment</h2>
+<div class="highlight"><pre><span class="c1">// compile with: g++ -std=c++0x -O2 -Wall -g -o &quot;foo.cc&quot; &quot;foo&quot;</span>
+<span class="cp">#include &lt;cstdio&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+<span class="cp">#include &lt;cstring&gt;</span>
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;algorithm&gt;</span>
 
-<pre><code class="cpp">// compile with: g++ -std=c++0x -O2 -Wall -g -o &quot;foo.cc&quot; &quot;foo&quot;
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-using namespace std;
+<span class="cp">#define print(x) cout &lt;&lt; x &lt;&lt; endl</span>
+<span class="cp">#define input(x) cin &gt;&gt; x</span>
 
-#define print(x) cout &lt;&lt; x &lt;&lt; endl
-#define input(x) cin &gt;&gt; x
-
-#if defined(__i386__)
-static __inline__ unsigned long long rdtsc(void)
-{
-    unsigned long long int x;
-    __asm__ volatile (&quot;.byte 0x0f, 0x31&quot; : &quot;=A&quot; (x));
-    return x;
-}
-#elif defined(__x86_64__)
-static __inline__ unsigned long long rdtsc(void)
-{
-    unsigned hi, lo;
-    __asm__ __volatile__ (&quot;rdtsc&quot; : &quot;=a&quot;(lo), &quot;=d&quot;(hi));
-    return ( (unsigned long long)lo)|( ((unsigned long long)hi)&lt;&lt;32 );
-}
-#endif
-
-
-//#define MEMORY_ON_HEAP
-//#define MEMORY_ON_STACK
-
-const int SIZE = 102400;
-int *array[SIZE] = {NULL};
-
-int main()
-{
-    unsigned long long start = rdtsc();
-
-    #ifdef MEMORY_ON_HEAP // RDSTC: 20586280
-    for (int i = 0; i &lt; SIZE; i++) {
-        array[i] = (int*)malloc(sizeof(int));
-        *array[i] = i;
-    }
-    #endif
-
-    #ifdef MEMORY_ON_STACK // RDSTC: 3660502
-    for (int i = 0; i &lt; SIZE; i++) {
-        array[i] = (int*)alloca(sizeof(int));
-        *array[i] = i;
-    }
-    #endif
+<span class="cp">#if defined(__i386__)</span>
+<span class="k">static</span> <span class="n">__inline__</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">rdtsc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">__asm__</span> <span class="k">volatile</span> <span class="p">(</span><span class="s">&quot;.byte 0x0f, 0x31&quot;</span> <span class="o">:</span> <span class="s">&quot;=A&quot;</span> <span class="p">(</span><span class="n">x</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">#elif defined(__x86_64__)</span>
+<span class="k">static</span> <span class="n">__inline__</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">rdtsc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="n">hi</span><span class="p">,</span> <span class="n">lo</span><span class="p">;</span>
+    <span class="n">__asm__</span> <span class="n">__volatile__</span> <span class="p">(</span><span class="s">&quot;rdtsc&quot;</span> <span class="o">:</span> <span class="s">&quot;=a&quot;</span><span class="p">(</span><span class="n">lo</span><span class="p">),</span> <span class="s">&quot;=d&quot;</span><span class="p">(</span><span class="n">hi</span><span class="p">));</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">lo</span><span class="p">)</span><span class="o">|</span><span class="p">(</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">hi</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">32</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
 
 
-    unsigned long long end = rdtsc();
-    print(end - start);
-    return 0;
-}
+<span class="c1">//#define MEMORY_ON_HEAP</span>
+<span class="c1">//#define MEMORY_ON_STACK</span>
 
-</code></pre>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">102400</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">NULL</span><span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">rdtsc</span><span class="p">();</span>
+
+    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMORY_ON_HEAP</span> <span class="c1">// RDSTC: 20586280</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+        <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="err">#</span><span class="n">endif</span>
+
+    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMORY_ON_STACK</span> <span class="c1">// RDSTC: 3660502</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+        <span class="o">*</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="err">#</span><span class="n">endif</span>
+
+
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">rdtsc</span><span class="p">();</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>You can use <code>info register esp</code> in gdb to inspect the <em>stack</em> pointer before and after you call the allocation function or declare a variable-length array.</p>
 
@@ -277,6 +272,11 @@ int main()
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
@@ -287,28 +287,8 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -317,8 +297,13 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/interview.html">
+                        interview
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -326,19 +311,14 @@ int main()
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -347,8 +327,18 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
                     <a href="http://wizmann.tk/tag/leetcode.html">
                         leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -356,199 +346,9 @@ int main()
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
-                        面试题
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -557,8 +357,243 @@ int main()
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/graph.html">
+                        graph
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/system-design.html">
+                        system-design
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
+                        面试题
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/heap.html">
                         heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/android.html">
+                        android
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/valgrind.html">
+                        valgrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -569,46 +604,6 @@ int main()
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/yunfile.html">
                         Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
                     </a>
                 </li>
 

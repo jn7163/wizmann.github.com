@@ -118,72 +118,68 @@
 <p>当Python解释器遇到类声明时，会创建一个新的namespace ，并执行其内的所有代码，并将变量注册到这个namespace中。</p>
 
 <p>举例：</p>
-
-<pre><code class="pycon">&gt;&gt;&gt; class Foo(object):
-...     print &#39;Loading...&#39;
-...     spam = &#39;eggs&#39;
-...     print &#39;Done!&#39;
-... 
-Loading...
-Done!
-&gt;&gt;&gt; f = Foo()
-&gt;&gt;&gt; f.spam
-&#39;eggs&#39;
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Loading...&#39;</span>
+<span class="gp">... </span>    <span class="n">spam</span> <span class="o">=</span> <span class="s">&#39;eggs&#39;</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Done!&#39;</span>
+<span class="gp">... </span>
+<span class="go">Loading...</span>
+<span class="go">Done!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">spam</span>
+<span class="go">&#39;eggs&#39;</span>
+</pre></div>
 
 <h3>动态的实现一个类</h3>
 
 <p>使用type方法可以动态的代码中实现一个类，接受三个参数“类名”、“基类”、“属性”。</p>
-
-<pre><code class="pycon">&gt;&gt;&gt; Bar = type(&#39;Bar&#39;, (object,), {&#39;spam&#39;: &#39;eggs&#39;})
-&gt;&gt;&gt; Bar.spam
-&#39;eggs&#39;
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Bar&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s">&#39;spam&#39;</span><span class="p">:</span> <span class="s">&#39;eggs&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span><span class="o">.</span><span class="n">spam</span>
+<span class="go">&#39;eggs&#39;</span>
+</pre></div>
 
 <h3>超类改变一切</h3>
 
 <p>“metaprogramming”是指一种在程序运行时创建或改变代码的编程手段。<code>type</code>是一个metaclass，一个创建其它类的metaclass。</p>
 
 <p>我们可以替换掉原生的<code>type</code>，使用我们自己的版本，从而控制创建类的过程。</p>
-
-<pre><code class="pycon">&gt;&gt;&gt; class MetaClass(type):
-...     def __init__(cls, name, bases, attrs):
-...         print(&#39;Defining %s&#39; % cls)
-...         print(&#39;Name: %s&#39; % name)
-...         print(&#39;Bases: %s&#39; % (bases,))
-...         print(&#39;Attributes:&#39;)
-...         for (name, value) in attrs.items():
-...             print(&#39;    %s: %r&#39; % (name, value))
-...
-&gt;&gt;&gt; class RealClass(object, metaclass=MetaClass):
-...     spam = &#39;eggs&#39;
-...
-Defining &lt;class &#39;__main__.RealClass&#39;&gt;
-Name: RealClass
-Bases: (&lt;class &#39;object&#39;&gt;,)
-Attributes:
-    spam: &#39;eggs&#39;
-    __module__: &#39;__main__&#39;
-    __qualname__: &#39;RealClass&#39;
-&gt;&gt;&gt; RealClass
-&lt;class &#39;__main__.RealClass&#39;&gt;
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Defining </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">cls</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Name: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Bases: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bases</span><span class="p">,))</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Attributes:&#39;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>            <span class="k">print</span><span class="p">(</span><span class="s">&#39;    </span><span class="si">%s</span><span class="s">: </span><span class="si">%r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">RealClass</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaClass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">spam</span> <span class="o">=</span> <span class="s">&#39;eggs&#39;</span>
+<span class="gp">...</span>
+<span class="go">Defining &lt;class &#39;__main__.RealClass&#39;&gt;</span>
+<span class="go">Name: RealClass</span>
+<span class="go">Bases: (&lt;class &#39;object&#39;&gt;,)</span>
+<span class="go">Attributes:</span>
+<span class="go">    spam: &#39;eggs&#39;</span>
+<span class="go">    __module__: &#39;__main__&#39;</span>
+<span class="go">    __qualname__: &#39;RealClass&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RealClass</span>
+<span class="go">&lt;class &#39;__main__.RealClass&#39;&gt;</span>
+</pre></div>
 
 <p>每当一个新的类被创建时，都会触发metaclass的行为。</p>
 
 <h3>基类与超类</h3>
 
 <p>基类与超类一起使用可以实现类方法的复用，以及对于类创建的跟踪。</p>
-
-<pre><code class="pycon"> &gt;&gt;&gt; class SubClass(RealClass):  # Notice there&#39;s no metaclass here.
-...     pass
-...
-Defining &lt;class &#39;__main__.SubClass&#39;&gt;
-Name: SubClass
-Bases: (&lt;class &#39;__main__.RealClass&#39;&gt;,)
-Attributes:
-    __module__: &#39;__main__&#39;
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SubClass</span><span class="p">(</span><span class="n">RealClass</span><span class="p">):</span>  <span class="c"># Notice there&#39;s no metaclass here.</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">Defining &lt;class &#39;__main__.SubClass&#39;&gt;</span>
+<span class="go">Name: SubClass</span>
+<span class="go">Bases: (&lt;class &#39;__main__.RealClass&#39;&gt;,)</span>
+<span class="go">Attributes:</span>
+<span class="go">    __module__: &#39;__main__&#39;</span>
+</pre></div>
 
 <p>在这里，超类对于<code>SubClass</code>是完全透明的，<code>SubClass</code>只需要完成自己的工作，Python会在后台料理好一切。</p>
 
@@ -194,14 +190,13 @@ Attributes:
 </blockquote>
 
 <p>声明式语法是一种把数据和逻辑分离的编程方式，面对经常变动的但是规律明显的需求，声明式编程可以解救你于水火之中。:-P</p>
-
-<pre><code class="python">class Contact(models.Model):
-    &quot;&quot;&quot;
-    Contact information provided when sending messages to the owner of the site.
-    &quot;&quot;&quot;
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-</code></pre>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Contact</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contact information provided when sending messages to the owner of the site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+</pre></div>
 
 <p>上面是Django的模型声明语法，简洁、明了、大气！</p>
 
@@ -214,22 +209,21 @@ Attributes:
 <h3>Callables</h3>
 
 <h4>__call__</h4>
-
-<pre><code class="pycon">&gt;&gt;&gt; class Multiplier(object):
-...     def __init__(self, factor):
-...         self.factor = factor
-...     def __call__(self, value):
-...         return value * self.factor
-...
-&gt;&gt;&gt; times2 = Multiplier(2)
-&gt;&gt;&gt; times2(5)
-10
-&gt;&gt;&gt; times2(10)
-20
-&gt;&gt;&gt; times3 = Multiplier(3)
-&gt;&gt;&gt; times3(10)
-30
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Multiplier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times2</span> <span class="o">=</span> <span class="n">Multiplier</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times2</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times3</span> <span class="o">=</span> <span class="n">Multiplier</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times3</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">30</span>
+</pre></div>
 
 <p>我们可以使用callable函数来构造”有状态的函数“，以及其它可以想的到的一些黑魔法。</p>
 
@@ -242,49 +236,47 @@ Attributes:
 <p>实现<code>read</code>、<code>write</code>和<code>close</code>，你们就可以把我当文件来用啦。</p>
 
 <h3>Iterable</h3>
-
-<pre><code class="pycon">&gt;&gt;&gt; class Fibonacci(object):
-...     def __init__(self, count):
-...         self.count = count
-...     def __iter__(self):
-...         a, b = 0, 1
-...         for x in range(self.count):
-...             if x &lt; 2:
-...                 yield x
-...             else:
-...                 c = a + b
-...                 yield c
-...                 a, b = b, c
-...
-&gt;&gt;&gt; for x in Fibonacci(5):
-...     print(x)
-...
-0
-1
-1
-2
-3
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Fibonacci</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">yield</span> <span class="n">x</span>
+<span class="gp">... </span>            <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">... </span>                <span class="k">yield</span> <span class="n">c</span>
+<span class="gp">... </span>                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Fibonacci</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+</pre></div>
 
 <h2>偏函数</h2>
 
 <p>偏函数和函数式编程中的”柯里化“一样，都是通过填充函数中的一部分参数，从而实现一个新的函数。</p>
-
-<pre><code class="pycon">&gt;&gt;&gt; import functools
-&gt;&gt;&gt; def add(a, b):
-...     return a + b
-...
-&gt;&gt;&gt; add(4, 2)
-6
-&gt;&gt;&gt; plus3 = functools.partial(add, 3)
-&gt;&gt;&gt; plus5 = functools.partial(add, 5)
-&gt;&gt;&gt; plus3(4)
-7
-&gt;&gt;&gt; plus3(7)
-10
-&gt;&gt;&gt; plus5(10)
-15
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus3</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus5</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus3</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus3</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plus5</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">15</span>
+</pre></div>
 
 <h2>描述符</h2>
 
@@ -296,25 +288,24 @@ Attributes:
 <li>对存取的值进行自定义操作</li>
 <li>把值转化为易于写入数据库中的类型</li>
 </ul>
-
-<pre><code class="pycon">&gt;&gt;&gt; import datetime
-&gt;&gt;&gt; class CurrentDate(object):
-...     def __get__(self, instance, owner):
-...         return datetime.date.today()
-...     def __set__(self, instance, value):
-...         raise NotImplementedError(&quot;Can&#39;t change the current date.&quot;)
-...
-&gt;&gt;&gt; class Example(object):
-...     date = CurrentDate()
-...
-&gt;&gt;&gt; e = Example()
-&gt;&gt;&gt; e.date
-datetime.date(2008, 11, 24)
-&gt;&gt;&gt; e.date = datetime.date.today()
-Traceback (most recent call last):
-  ...
-NotImplementedError: Can&#39;t change the current date.
-</code></pre>
+<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">CurrentDate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;Can&#39;t change the current date.&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">date</span> <span class="o">=</span> <span class="n">CurrentDate</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">Example</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">date</span>
+<span class="go">datetime.date(2008, 11, 24)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  <span class="c">...</span>
+<span class="gr">NotImplementedError</span>: <span class="n">Can&#39;t change the current date.</span>
+</pre></div>
 
 <h3>实现</h3>
 
@@ -327,34 +318,33 @@ NotImplementedError: Can&#39;t change the current date.
 <p>对于每一个Case，只需要声明一个类。在类中声明要测试的函数以及测试的Input和预期Output。之后框架可以运行所有测试用例，并输出结果。</p>
 
 <h3>接口设计</h3>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">PyUnitTest</span>
+<span class="kn">from</span> <span class="nn">PyUnitTest</span> <span class="kn">import</span> <span class="n">BaseCase</span>
 
-<pre><code class="python">import PyUnitTest
-from PyUnitTest import BaseCase
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
-def func1(a, b):
-    return a + b
-
-def func2(a, b):
-    return a * b
+<span class="k">def</span> <span class="nf">func2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
 
 
-class TestFunc1(BaseCase):
-    FUNC = func1
-    INPUT = [{&#39;a&#39;: 1, &#39;b&#39;: 2},
-             {&#39;a&#39;: 2, &#39;b&#39;: 3},
-             {&#39;a&#39;: 3, &#39;b&#39;: 4}]
-    OUTPUT = [3, 5, 8]
+<span class="k">class</span> <span class="nc">TestFunc1</span><span class="p">(</span><span class="n">BaseCase</span><span class="p">):</span>
+    <span class="n">FUNC</span> <span class="o">=</span> <span class="n">func1</span>
+    <span class="n">INPUT</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}]</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
 
-class TestFunc2(BaseCase):
-    FUNC = func2
-    INPUT = [{&#39;a&#39;: 1, &#39;b&#39;: 2},
-             {&#39;a&#39;: 2, &#39;b&#39;: 3},
-             {&#39;a&#39;: 3, &#39;b&#39;: 4}]
-    OUTPUT = [2, 8, 12]
+<span class="k">class</span> <span class="nc">TestFunc2</span><span class="p">(</span><span class="n">BaseCase</span><span class="p">):</span>
+    <span class="n">FUNC</span> <span class="o">=</span> <span class="n">func2</span>
+    <span class="n">INPUT</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+             <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}]</span>
+    <span class="n">OUTPUT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
 
-if __name__ == &#39;__main__&#39;:
-    PyUnitTest.run_all_test()
-</code></pre>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">PyUnitTest</span><span class="o">.</span><span class="n">run_all_test</span><span class="p">()</span>
+</pre></div>
 
 <p>在Case中，使用<code>FUNC</code>标明函数，使用<code>INPUT</code>和<code>OUTPUT</code>标明预期输入输出。</p>
 
@@ -367,69 +357,66 @@ if __name__ == &#39;__main__&#39;:
 <p>并且实现<code>run()</code>方法，运行测试用例。</p>
 
 <p>使用<code>assert</code>方法保证用例的正确性。</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Case</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_data</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;INPUT&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_data</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;OUTPUT&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;FUNC&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-<pre><code class="python">class Case(object):
-    def __init__(self, name, attrs):
-        self.name = name
-        self.in_data = attrs.get(&#39;INPUT&#39;, None)
-        self.out_data = attrs.get(&#39;OUTPUT&#39;, None)
-        self.func = attrs.get(&#39;FUNC&#39;, None)
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_data</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_data</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_data</span><span class="p">))</span>
 
-        assert(self.in_data)
-        assert(self.out_data)
-        assert(self.func)
-        assert(len(self.in_data) == len(self.out_data))
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;running case: </span><span class="si">%s</span><span class="s"> ...&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">data_pair</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_data</span><span class="p">)</span>
 
-    def run(self):
-        print &#39;running case: %s ...&#39; % self.name
-        data_pair = zip(self.in_data, self.out_data)
-
-        cnt = 0
-        ok = 0
-        for data_in, data_out in data_pair:
-            res = self.func(**data_in)
-            cnt += 1
-            if data_out == res:
-                ok += 1
-                print &#39;[PASS %d]...&#39; % cnt
-            else:
-                print &#39;[FAILED %d]...&#39; % cnt
-                print &#39;INPUT:&#39;, repr(data_in)
-                print &#39;OUTPUT:&#39;, repr(res)
-                print &#39;EXPECT:&#39;, repr(data_out)
-        print &#39;finish case: %s (%d / %d) ...&#39; % (self.name, ok, cnt)
-        print &#39;-&#39; * 20
-</code></pre>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">data_in</span><span class="p">,</span> <span class="n">data_out</span> <span class="ow">in</span> <span class="n">data_pair</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="o">**</span><span class="n">data_in</span><span class="p">)</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">data_out</span> <span class="o">==</span> <span class="n">res</span><span class="p">:</span>
+                <span class="n">ok</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">print</span> <span class="s">&#39;[PASS </span><span class="si">%d</span><span class="s">]...&#39;</span> <span class="o">%</span> <span class="n">cnt</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;[FAILED </span><span class="si">%d</span><span class="s">]...&#39;</span> <span class="o">%</span> <span class="n">cnt</span>
+                <span class="k">print</span> <span class="s">&#39;INPUT:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">data_in</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&#39;OUTPUT:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&#39;EXPECT:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">data_out</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&#39;finish case: </span><span class="si">%s</span><span class="s"> (</span><span class="si">%d</span><span class="s"> / </span><span class="si">%d</span><span class="s">) ...&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ok</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">20</span>
+</pre></div>
 
 <p>CaseContainer类实现了Case的收集。</p>
-
-<pre><code class="python">class CaseContainer(object):
-    cases = []
-    @classmethod
-    def append(self, case):
-        self.cases.append(case)
-</code></pre>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CaseContainer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">cases</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">case</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+</pre></div>
 
 <h3>超类与基类</h3>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">CaseContainer</span> <span class="kn">import</span> <span class="n">Case</span><span class="p">,</span> <span class="n">CaseContainer</span>
 
-<pre><code class="python">from CaseContainer import Case, CaseContainer
+<span class="k">class</span> <span class="nc">MetaCase</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;BaseCase&#39;</span><span class="p">:</span>
+            <span class="k">return</span>
 
-class MetaCase(type):
-    def __init__(cls, name, bases, attrs):
-        if name == &#39;BaseCase&#39;:
-            return
+        <span class="n">case</span> <span class="o">=</span> <span class="n">Case</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+        <span class="n">CaseContainer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
 
-        case = Case(name, attrs)
-        CaseContainer.append(case)
+<span class="k">class</span> <span class="nc">BaseCase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">MetaCase</span>
+    <span class="k">pass</span>
 
-class BaseCase(object):
-    __metaclass__ = MetaCase
-    pass
-
-def run_all_test():
-    for case in CaseContainer.cases:
-        case.run()
-</code></pre>
+<span class="k">def</span> <span class="nf">run_all_test</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">CaseContainer</span><span class="o">.</span><span class="n">cases</span><span class="p">:</span>
+        <span class="n">case</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 
 <p>超类中，声明Case的收集逻辑。而基类中的<code>__metaclass__</code>使所有Case子类的超类皆为<code>MetaCase</code>。</p>
 
@@ -491,6 +478,11 @@ def run_all_test():
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
@@ -501,28 +493,8 @@ def run_all_test():
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -531,8 +503,13 @@ def run_all_test():
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/interview.html">
+                        interview
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -540,19 +517,14 @@ def run_all_test():
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -561,8 +533,18 @@ def run_all_test():
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
                     <a href="http://wizmann.tk/tag/leetcode.html">
                         leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -570,199 +552,9 @@ def run_all_test():
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
-                        面试题
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -771,8 +563,243 @@ def run_all_test():
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/graph.html">
+                        graph
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/system-design.html">
+                        system-design
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
+                        面试题
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/heap.html">
                         heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/android.html">
+                        android
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/valgrind.html">
+                        valgrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -783,46 +810,6 @@ def run_all_test():
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/yunfile.html">
                         Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
                     </a>
                 </li>
 

@@ -122,29 +122,27 @@
 <h3>bitAnd &amp; bitOr</h3>
 
 <p>德摩根定理的应用</p>
-
-<pre><code class="cpp">/* 
- * bitAnd - x&amp;y using only ~ and | 
- *   Example: bitAnd(6, 5) = 4
- *   Legal ops: ~ |
- *   Max ops: 8
- *   Rating: 1
- */
-int bitAnd(int x, int y) {
-  return ~(~x | ~y);
-</code></pre>
-
-<pre><code class="cpp">/* 
- * bitOr - x|y using only ~ and &amp; 
- *   Example: bitOr(6, 5) = 7
- *   Legal ops: ~ &amp;
- *   Max ops: 8
- *   Rating: 1
- */
-int bitOr(int x, int y) {
-  return ~(~x &amp; ~y);
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * bitAnd - x&amp;y using only ~ and | </span>
+<span class="cm"> *   Example: bitAnd(6, 5) = 4</span>
+<span class="cm"> *   Legal ops: ~ |</span>
+<span class="cm"> *   Max ops: 8</span>
+<span class="cm"> *   Rating: 1</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">bitAnd</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">~</span><span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">|</span> <span class="o">~</span><span class="n">y</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * bitOr - x|y using only ~ and &amp; </span>
+<span class="cm"> *   Example: bitOr(6, 5) = 7</span>
+<span class="cm"> *   Legal ops: ~ &amp;</span>
+<span class="cm"> *   Max ops: 8</span>
+<span class="cm"> *   Rating: 1</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">bitOr</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">~</span><span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>isTmax</h3>
 
@@ -159,64 +157,60 @@ int bitOr(int x, int y) {
 <p>=&gt; <code>-1 + -1 + 2 = 0</code></p>
 
 <p>于是我们还要加一条判断是否是-1的逻辑。</p>
-
-<pre><code class="cpp">/*
- * isTmax - returns 1 if x is the maximum, two&#39;s complement number,
- *     and 0 otherwise 
- *   Legal ops: ! ~ &amp; ^ | +
- *   Max ops: 10
- *   Rating: 1
- */
-int isTmax(int x) {
-  return !((x + x + 2) | !(~x));
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * isTmax - returns 1 if x is the maximum, two&#39;s complement number,</span>
+<span class="cm"> *     and 0 otherwise </span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | +</span>
+<span class="cm"> *   Max ops: 10</span>
+<span class="cm"> *   Rating: 1</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isTmax</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">!</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>isZero</h3>
-
-<pre><code class="cpp">/*
- * isZero - returns 1 if x == 0, and 0 otherwise 
- *   Examples: isZero(5) = 0, isZero(0) = 1
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 2
- *   Rating: 1
- */
-int isZero(int x) {
-  return !x;
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * isZero - returns 1 if x == 0, and 0 otherwise </span>
+<span class="cm"> *   Examples: isZero(5) = 0, isZero(0) = 1</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 2</span>
+<span class="cm"> *   Rating: 1</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isZero</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">!</span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>fitsBits</h3>
-
-<pre><code class="cpp">/* 
- * fitsBits - return 1 if x can be represented as an 
- *  n-bit, two&#39;s complement integer.
- *   1 &lt;= n &lt;= 32
- *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 15
- *   Rating: 2
- */
-int fitsBits(int x, int n) {
-    int shift = 32 + (~n + 1); // equal to 32 - n
-    return !(((x &lt;&lt; shift) &gt;&gt; shift) ^ x);
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * fitsBits - return 1 if x can be represented as an </span>
+<span class="cm"> *  n-bit, two&#39;s complement integer.</span>
+<span class="cm"> *   1 &lt;= n &lt;= 32</span>
+<span class="cm"> *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 15</span>
+<span class="cm"> *   Rating: 2</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">fitsBits</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">shift</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// equal to 32 - n</span>
+    <span class="k">return</span> <span class="o">!</span><span class="p">(((</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">shift</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">shift</span><span class="p">)</span> <span class="o">^</span> <span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>getByte</h3>
-
-<pre><code class="cpp">/* 
- * getByte - Extract byte n from word x
- *   Bytes numbered from 0 (LSB) to 3 (MSB)
- *   Examples: getByte(0x12345678,1) = 0x56
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 6
- *   Rating: 2
- */
-int getByte(int x, int n) {
-    return ((x &amp; (0xFF&lt;&lt;(n &lt;&lt; 3))) &gt;&gt; (n &lt;&lt; 3)) &amp; 0xFF;
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * getByte - Extract byte n from word x</span>
+<span class="cm"> *   Bytes numbered from 0 (LSB) to 3 (MSB)</span>
+<span class="cm"> *   Examples: getByte(0x12345678,1) = 0x56</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 6</span>
+<span class="cm"> *   Rating: 2</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">getByte</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mh">0xFF</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)))</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>isNegative</h3>
 
@@ -255,77 +249,73 @@ int addOK(int x, int y) {
 </code></p>
 
 <h3>isGreater</h3>
-
-<pre><code class="cpp">/* 
- * isGreater - if x &gt; y  then return 1, else return 0 
- *   Example: isGreater(4,5) = 0, isGreater(5,4) = 1
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 24
- *   Rating: 3
- */
-int isGreater(int x, int y) {
-    int sx = (x &gt;&gt; 31) &amp; 1;
-    int sy = (y &gt;&gt; 31) &amp; 1;
-    int x_minus_y = (x + 1 + ~y);
-    int sminus = (((x_minus_y) &gt;&gt; 31) &amp; 1) | !(0 ^ x_minus_y);
-    return (!(sx ^ sy) &amp; !sminus) | ((sx ^ sy) &amp; !sx);
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * isGreater - if x &gt; y  then return 1, else return 0 </span>
+<span class="cm"> *   Example: isGreater(4,5) = 0, isGreater(5,4) = 1</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 24</span>
+<span class="cm"> *   Rating: 3</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isGreater</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">x_minus_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="o">~</span><span class="n">y</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">sminus</span> <span class="o">=</span> <span class="p">(((</span><span class="n">x_minus_y</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span><span class="p">(</span><span class="mi">0</span> <span class="o">^</span> <span class="n">x_minus_y</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">sx</span> <span class="o">^</span> <span class="n">sy</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">!</span><span class="n">sminus</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">sx</span> <span class="o">^</span> <span class="n">sy</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">!</span><span class="n">sx</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>replaceByte</h3>
-
-<pre><code class="cpp">/* 
- * replaceByte(x,n,c) - Replace byte n in x with c
- *   Bytes numbered from 0 (LSB) to 3 (MSB)
- *   Examples: replaceByte(0x12345678,1,0xab) = 0x1234ab78
- *   You can assume 0 &lt;= n &lt;= 3 and 0 &lt;= c &lt;= 255
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 10
- *   Rating: 3
- */
-int replaceByte(int x, int n, int c) {
-  return (x &amp; (~0 ^ 0xFF &lt;&lt; (n &lt;&lt; 3))) | (c &lt;&lt; (n &lt;&lt; 3));
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * replaceByte(x,n,c) - Replace byte n in x with c</span>
+<span class="cm"> *   Bytes numbered from 0 (LSB) to 3 (MSB)</span>
+<span class="cm"> *   Examples: replaceByte(0x12345678,1,0xab) = 0x1234ab78</span>
+<span class="cm"> *   You can assume 0 &lt;= n &lt;= 3 and 0 &lt;= c &lt;= 255</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 10</span>
+<span class="cm"> *   Rating: 3</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">replaceByte</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="mi">0</span> <span class="o">^</span> <span class="mh">0xFF</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)))</span> <span class="o">|</span> <span class="p">(</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>rotateLeft</h3>
-
-<pre><code class="cpp">/* 
- * rotateLeft - Rotate x to the left by n
- *   Can assume that 0 &lt;= n &lt;= 31
- *   Examples: rotateLeft(0x87654321,4) = 0x76543218
- *   Legal ops: ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 25
- *   Rating: 3 
- */
-int rotateLeft(int x, int n) {
-    int mask = ((1 &lt;&lt; n) + 1 + ~1) &lt;&lt; (33 + ~n);
-    int t = ((x &amp; mask) &gt;&gt; (33 + ~n)) &amp; ((1 &lt;&lt; n) + 1 + ~1);
-    return (x &lt;&lt; n) | t;
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/* </span>
+<span class="cm"> * rotateLeft - Rotate x to the left by n</span>
+<span class="cm"> *   Can assume that 0 &lt;= n &lt;= 31</span>
+<span class="cm"> *   Examples: rotateLeft(0x87654321,4) = 0x76543218</span>
+<span class="cm"> *   Legal ops: ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 25</span>
+<span class="cm"> *   Rating: 3 </span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">rotateLeft</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="o">~</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">33</span> <span class="o">+</span> <span class="o">~</span><span class="n">n</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">33</span> <span class="o">+</span> <span class="o">~</span><span class="n">n</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="o">~</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">|</span> <span class="n">t</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>bitCount</h3>
 
 <p>这个是从<a href="http://stackoverflow.com/a/3815253/2927439">stackoverflow</a>上找来的答案，很厉害，不过还没看明白为啥。</p>
-
-<pre><code class="cpp">/*
- * bitCount - returns count of number of 1&#39;s in word
- *   Examples: bitCount(5) = 2, bitCount(7) = 3
- *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
- *   Max ops: 40
- *   Rating: 4
- */
-int bitCount(int x) {
-    int c = 0;
-    c = (x &amp; 0x55555555) + ((x &gt;&gt; 1) &amp; 0x55555555);
-    c = (c &amp; 0x33333333) + ((c &gt;&gt; 2) &amp; 0x33333333);
-    c = (c &amp; 0x0F0F0F0F) + ((c &gt;&gt; 4) &amp; 0x0F0F0F0F);
-    c = (c &amp; 0x00FF00FF) + ((c &gt;&gt; 8) &amp; 0x00FF00FF);
-    c = (c &amp; 0x0000FFFF) + ((c &gt;&gt; 16)&amp; 0x0000FFFF);
-    return c;
-}
-</code></pre>
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * bitCount - returns count of number of 1&#39;s in word</span>
+<span class="cm"> *   Examples: bitCount(5) = 2, bitCount(7) = 3</span>
+<span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;</span>
+<span class="cm"> *   Max ops: 40</span>
+<span class="cm"> *   Rating: 4</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">bitCount</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span><span class="p">);</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">);</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span><span class="p">);</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">&amp;</span> <span class="mh">0x00FF00FF</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x00FF00FF</span><span class="p">);</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">&amp;</span> <span class="mh">0x0000FFFF</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">c</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span><span class="o">&amp;</span> <span class="mh">0x0000FFFF</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h3>isNonZero</h3>
 
@@ -394,6 +384,11 @@ int isNonZero(int x) {
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://wizmann.tk/tag/ti-jie.html">
+                        题解
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/suan-fa.html">
                         算法
                     </a>
@@ -404,28 +399,8 @@ int isNonZero(int x) {
                     </a>
                 </li>
                 <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
                     <a href="http://wizmann.tk/tag/codeforces.html">
                         codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -434,8 +409,13 @@ int isNonZero(int x) {
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
+                    <a href="http://wizmann.tk/tag/interview.html">
+                        interview
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -443,19 +423,14 @@ int isNonZero(int x) {
                         公开课
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
                     </a>
                 </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/chrome-extension.html">
+                        chrome-extension
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -464,8 +439,18 @@ int isNonZero(int x) {
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
                     <a href="http://wizmann.tk/tag/leetcode.html">
                         leetcode
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/cse351.html">
+                        CSE351
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -473,199 +458,9 @@ int isNonZero(int x) {
                         创造力
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
-                        面试题
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -674,8 +469,243 @@ int isNonZero(int x) {
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/graph.html">
+                        graph
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/system-design.html">
+                        system-design
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/mian-shi-ti.html">
+                        面试题
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/heap.html">
                         heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/android.html">
+                        android
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/valgrind.html">
+                        valgrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/useless.html">
+                        useless
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/misaka.html">
+                        misaka
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -686,46 +716,6 @@ int isNonZero(int x) {
                 <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/yunfile.html">
                         Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
                     </a>
                 </li>
 
