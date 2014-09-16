@@ -24,7 +24,7 @@
 &lt;pre&gt;&lt;code&gt;令i=0,j=1
 如果S[i] &amp;gt; S[j] i=j, j=i+1
 如果S[i] &amp;lt; S[j] j++
-如果S[i]==S[j] 设指针k，分别从i和j位置向下比较，直到S[i] != S[j]
+如果S[i] == S[j] 设指针k，分别从i和j位置向下比较，直到S[i] != S[j]
          如果S[i+k] &amp;gt; S[j+k] i=j,j=i+1
          否则j++
 返回i
