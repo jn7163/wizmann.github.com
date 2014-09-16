@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 17 Sep 2014 00:46:16 +0800</lastBuildDate><item><title>最小表示法及其证明</title><link>http://wizmann.tk/minimal-round-string.html</link><description>&lt;h2&gt;问题&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Maerlyn's Rainbow</title><link href="http://wizmann.tk/" rel="alternate"></link><link href="http://wizmann.tk/feeds/wizmann.atom.xml" rel="self"></link><id>http://wizmann.tk/</id><updated>2014-09-17T00:46:16+08:00</updated><entry><title>最小表示法及其证明</title><link href="http://wizmann.tk/minimal-round-string.html" rel="alternate"></link><updated>2014-09-17T00:46:16+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-09-17:minimal-round-string.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;对于一个字符串S，求S的循环的同构字符串S’中字典序最小的一个。&lt;/p&gt;
@@ -161,7 +161,7 @@ int main()
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://blog.csdn.net/cclsoft/article/details/5467743"&gt;理解字符串循环同构的最小表示法&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 17 Sep 2014 00:46:16 +0800</pubDate><guid>tag:wizmann.tk,2014-09-17:minimal-round-string.html</guid><category>string</category><category>字符串</category><category>最小表示法</category><category>algorithm</category></item><item><title>System Design - 最热门的IP地址</title><link>http://wizmann.tk/hottest-ip-address.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
+</summary><category term="string"></category><category term="字符串"></category><category term="最小表示法"></category><category term="algorithm"></category></entry><entry><title>System Design - 最热门的IP地址</title><link href="http://wizmann.tk/hottest-ip-address.html" rel="alternate"></link><updated>2014-08-08T01:25:54+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-08-08:hottest-ip-address.html</id><summary type="html">&lt;h2&gt;写在前面&lt;/h2&gt;
 
 &lt;p&gt;问题是非常流行的，也确实流行了一阵的system-design问题。在&lt;a href="http://www.zhihu.com/question/19805967"&gt;知乎&lt;/a&gt;上再次被人提起。然后我非常欣赏&lt;a href="http://zhi.hu/3gJb"&gt;陈硕的回答&lt;/a&gt;。所以要写一篇文章，记下自己的感想。&lt;/p&gt;
 
@@ -356,7 +356,7 @@ int main()
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.infoq.com/cn/news/2010/05/BEDL"&gt;介绍：业务实体和业务实体定义语言&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 08 Aug 2014 01:25:54 +0800</pubDate><guid>tag:wizmann.tk,2014-08-08:hottest-ip-address.html</guid><category>interview</category><category>system-design</category></item><item><title>数组上的面试题 - Single Number</title><link>http://wizmann.tk/single-number-in-the-array.html</link><description>&lt;h2&gt;Introduction&lt;/h2&gt;
+</summary><category term="interview"></category><category term="system-design"></category></entry><entry><title>数组上的面试题 - Single Number</title><link href="http://wizmann.tk/single-number-in-the-array.html" rel="alternate"></link><updated>2014-08-05T23:07:02+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;There are a lot of interview problem based on the 1D-array, which is the one of the easiest &amp;ldquo;data structure&amp;rdquo;.&lt;/p&gt;
 
@@ -529,7 +529,7 @@ p.s. must be exact division
 &lt;p&gt;It useful if the length of the array (L) and the max value of the array (M). If M * L &amp;lt;= MAX_INT, you can storge the counter of number i in the array[i] by &lt;code&gt;array[i] = array[i] + counter * M&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;#39;s a useful way to implement a counter in the array. And it will be a big plus for you in the interview.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 05 Aug 2014 23:07:02 +0800</pubDate><guid>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</guid><category>算法</category><category>面试题</category><category>面试</category><category>leetcode</category><category>interview</category></item><item><title>简明Python魔法 - 2</title><link>http://wizmann.tk/python-magic-2.html</link><description>&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
+</summary><category term="算法"></category><category term="面试题"></category><category term="面试"></category><category term="leetcode"></category><category term="interview"></category></entry><entry><title>简明Python魔法 - 2</title><link href="http://wizmann.tk/python-magic-2.html" rel="alternate"></link><updated>2014-07-27T14:23:10+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-27:python-magic-2.html</id><summary type="html">&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
 
 &lt;h3&gt;最简单的描述符&lt;/h3&gt;
 
@@ -647,7 +647,7 @@ print b.var
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://book.douban.com/subject/3086812/"&gt;Pro Django&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 27 Jul 2014 14:23:10 +0800</pubDate><guid>tag:wizmann.tk,2014-07-27:python-magic-2.html</guid><category>python</category></item><item><title>简明Python魔法 - 1</title><link>http://wizmann.tk/python-magic-1.html</link><description>&lt;h2&gt;Python中类的实现&lt;/h2&gt;
+</summary><category term="python"></category></entry><entry><title>简明Python魔法 - 1</title><link href="http://wizmann.tk/python-magic-1.html" rel="alternate"></link><updated>2014-07-26T22:23:34+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-26:python-magic-1.html</id><summary type="html">&lt;h2&gt;Python中类的实现&lt;/h2&gt;
 
 &lt;p&gt;在Python的Web框架Django中，Python类的构造特性实现了它大部分的核心功能。&lt;/p&gt;
 
@@ -980,7 +980,7 @@ def run_all_test():
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://book.douban.com/subject/24806569/"&gt;Pro Django&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 26 Jul 2014 22:23:34 +0800</pubDate><guid>tag:wizmann.tk,2014-07-26:python-magic-1.html</guid><category>python</category></item><item><title>Codeforces 447D DZY Loves Modification</title><link>http://wizmann.tk/cf-447d.html</link><description>&lt;h2&gt;题意&lt;/h2&gt;
+</summary><category term="python"></category></entry><entry><title>Codeforces 447D DZY Loves Modification</title><link href="http://wizmann.tk/cf-447d.html" rel="alternate"></link><updated>2014-07-24T23:44:44+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-24:cf-447d.html</id><summary type="html">&lt;h2&gt;题意&lt;/h2&gt;
 
 &lt;p&gt;给你一个n * m的矩阵，让你做K次操作，使得最后得到的值最大。&lt;/p&gt;
 
@@ -1114,7 +1114,7 @@ int main()
 &lt;p&gt;某厂的g++版本是3.4.x，没有C++11，&lt;strong&gt;根本秀不起来啊&lt;/strong&gt;！&lt;/p&gt;
 
 &lt;p&gt;说的就和你会写C++11一样_(:з」∠)_&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 24 Jul 2014 23:44:44 +0800</pubDate><guid>tag:wizmann.tk,2014-07-24:cf-447d.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CPU cache引发的性能血案</title><link>http://wizmann.tk/cpu-cache-miss.html</link><description>&lt;p&gt;在&lt;strong&gt;&lt;a href="http://evol128.is-programmer.com/posts/35453.html"&gt;为什么转置一个512x512的矩阵，会比513x513的矩阵慢很多？&lt;/a&gt;&lt;/strong&gt;一文中，作者引用了一个矩阵转置的例子，来讲解由于CPU cache的失效而带来的性能损失。&lt;/p&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>CPU cache引发的性能血案</title><link href="http://wizmann.tk/cpu-cache-miss.html" rel="alternate"></link><updated>2014-07-20T00:18:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-20:cpu-cache-miss.html</id><summary type="html">&lt;p&gt;在&lt;strong&gt;&lt;a href="http://evol128.is-programmer.com/posts/35453.html"&gt;为什么转置一个512x512的矩阵，会比513x513的矩阵慢很多？&lt;/a&gt;&lt;/strong&gt;一文中，作者引用了一个矩阵转置的例子，来讲解由于CPU cache的失效而带来的性能损失。&lt;/p&gt;
 
 &lt;p&gt;上面的文章对问题的解释与讨论都非常的透彻。我的这篇文章只是对上面文章的一篇读后感和实验报告。就酱。&lt;/p&gt;
 
@@ -1312,7 +1312,7 @@ int main()
 &lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/cn/linux/l-cn-perf"&gt;Perf &amp;ndash; Linux下的系统性能调优工具，第 1 部分&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://coolshell.cn/articles/10249.html"&gt;7个示例科普CPU Cache（扩展阅读）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 20 Jul 2014 00:18:00 +0800</pubDate><guid>tag:wizmann.tk,2014-07-20:cpu-cache-miss.html</guid><category>cpu</category><category>cache</category><category>profile</category><category>valgrind</category><category>cachegrind</category></item><item><title>玩玩算法题1：Sherlock and Queries</title><link>http://wizmann.tk/interview-problem-1-sherlock-and-queries.html</link><description>&lt;h2&gt;题目大意&lt;/h2&gt;
+</summary><category term="cpu"></category><category term="cache"></category><category term="profile"></category><category term="valgrind"></category><category term="cachegrind"></category></entry><entry><title>玩玩算法题1：Sherlock and Queries</title><link href="http://wizmann.tk/interview-problem-1-sherlock-and-queries.html" rel="alternate"></link><updated>2014-07-19T11:00:38+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-19:interview-problem-1-sherlock-and-queries.html</id><summary type="html">&lt;h2&gt;题目大意&lt;/h2&gt;
 
 &lt;p&gt;给你三个数组:A[N], B[M], C[M]。让你按如下pseudo-code给出的规则计算，求出最终A[N]每一项的值。&lt;/p&gt;
 
@@ -1450,7 +1450,7 @@ int main()
 &lt;h2&gt;原题链接&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href="https://www.hackerrank.com/challenges/sherlock-and-queries"&gt;戳我么么哒&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 19 Jul 2014 11:00:38 +0800</pubDate><guid>tag:wizmann.tk,2014-07-19:interview-problem-1-sherlock-and-queries.html</guid><category>algorithm</category><category>interview</category></item><item><title>Codeforces Round #253 Tutorial</title><link>http://wizmann.tk/cf-253.html</link><description>&lt;hr&gt;
+</summary><category term="algorithm"></category><category term="interview"></category></entry><entry><title>Codeforces Round #253 Tutorial</title><link href="http://wizmann.tk/cf-253.html" rel="alternate"></link><updated>2014-06-21T19:24:37+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-06-21:cf-253.html</id><summary type="html">&lt;hr&gt;
 
 &lt;h2&gt;443A - Anton and Letters&lt;/h2&gt;
 
@@ -1614,7 +1614,7 @@ for p in ps[1:]:
 
 print ans
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 21 Jun 2014 19:24:37 +0800</pubDate><guid>tag:wizmann.tk,2014-06-21:cf-253.html</guid><category>codeforces</category><category>algorithm</category></item><item><title>A simple problem - World at War</title><link>http://wizmann.tk/world-at-war.html</link><description>&lt;h2&gt;Background&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category></entry><entry><title>A simple problem - World at War</title><link href="http://wizmann.tk/world-at-war.html" rel="alternate"></link><updated>2014-06-12T17:42:51+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-06-12:world-at-war.html</id><summary type="html">&lt;h2&gt;Background&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;This problem is from the book &amp;ldquo;&lt;a href="http://book.douban.com/subject/19952400/"&gt;Algorithm 4th edition&lt;/a&gt;&amp;rdquo; (Exersise 4.1.10)&lt;/p&gt;
@@ -1687,7 +1687,7 @@ public:
     }
 };
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 12 Jun 2014 17:42:51 +0800</pubDate><guid>tag:wizmann.tk,2014-06-12:world-at-war.html</guid><category>algorithm</category><category>interview</category><category>graph</category></item><item><title>How to implement a queue with stack(s)?</title><link>http://wizmann.tk/implement-queue-with-stacks.html</link><description>&lt;p&gt;This problem is from the book &lt;a href="http://book.douban.com/subject/19952400/"&gt;&lt;em&gt;Algorithms, 4th Edition&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+</summary><category term="algorithm"></category><category term="interview"></category><category term="graph"></category></entry><entry><title>How to implement a queue with stack(s)?</title><link href="http://wizmann.tk/implement-queue-with-stacks.html" rel="alternate"></link><updated>2014-05-20T13:23:03+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-05-20:implement-queue-with-stacks.html</id><summary type="html">&lt;p&gt;This problem is from the book &lt;a href="http://book.douban.com/subject/19952400/"&gt;&lt;em&gt;Algorithms, 4th Edition&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;Queue with three stacks. Implement a queue with three stacks so that each queue operation takes a constant (worst-case) number of stack operations. &lt;/p&gt;
@@ -1912,7 +1912,7 @@ class QueueAdapter(QueueTpl):
 &lt;h2&gt;To sum up&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-queue-with-stack-summary.jpg" alt="summarize"&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 20 May 2014 13:23:03 +0800</pubDate><guid>tag:wizmann.tk,2014-05-20:implement-queue-with-stacks.html</guid><category>algorithm</category><category>stack</category><category>queue</category></item><item><title>逗比带你读论文之Barrier</title><link>http://wizmann.tk/read-paper-barrier.html</link><description>&lt;p&gt;&lt;img src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="知识共享许可协议"&gt;&lt;/p&gt;
+</summary><category term="algorithm"></category><category term="stack"></category><category term="queue"></category></entry><entry><title>逗比带你读论文之Barrier</title><link href="http://wizmann.tk/read-paper-barrier.html" rel="alternate"></link><updated>2014-05-08T19:05:26+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-05-08:read-paper-barrier.html</id><summary type="html">&lt;p&gt;&lt;img src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="知识共享许可协议"&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;逗比带你读论文之Barrier&lt;/em&gt; 由 &lt;a href="http://wizmann.tk"&gt;Wizmann&lt;/a&gt; 创作&lt;/p&gt;
 
@@ -2423,7 +2423,7 @@ fish ) ./a.out
 &lt;p&gt;&lt;a href="https://www.kernel.org/doc/Documentation/memory-barriers.txt"&gt;LINUX KERNEL MEMORY BARRIERS&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.8112"&gt;Memory Consistency and Event Ordering in Scalable Shared-Memory Multiprocessors&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 08 May 2014 19:05:26 +0800</pubDate><guid>tag:wizmann.tk,2014-05-08:read-paper-barrier.html</guid><category>cpp</category><category>memory-barrier</category><category>asm</category><category>multiprocess</category><category>multithread</category><category>thread</category><category>cocurrency</category></item><item><title>Codeforces Round #242 (Div. 2) Tutorials and Solutions</title><link>http://wizmann.tk/cf-242-div-2.html</link><description>&lt;h2&gt;A. Squats&lt;/h2&gt;
+</summary><category term="cpp"></category><category term="memory-barrier"></category><category term="asm"></category><category term="multiprocess"></category><category term="multithread"></category><category term="thread"></category><category term="cocurrency"></category></entry><entry><title>Codeforces Round #242 (Div. 2) Tutorials and Solutions</title><link href="http://wizmann.tk/cf-242-div-2.html" rel="alternate"></link><updated>2014-04-30T17:39:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-04-30:cf-242-div-2.html</id><summary type="html">&lt;h2&gt;A. Squats&lt;/h2&gt;
 
 &lt;p&gt;Trun &lt;code&gt;x =&amp;gt; X&lt;/code&gt; or &lt;code&gt;X =&amp;gt; x&lt;/code&gt; to make the number of &amp;#39;x&amp;#39; is equal to the number of &amp;#39;X&amp;#39;.&lt;/p&gt;
 
@@ -2700,7 +2700,7 @@ int main()
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 30 Apr 2014 17:39:00 +0800</pubDate><guid>tag:wizmann.tk,2014-04-30:cf-242-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>Codeforces Round #240 (Div. 2) Tutorials and Solutions(incomplete and incorrect)</title><link>http://wizmann.tk/cf-240-div-2.html</link><description>&lt;h2&gt;Overview&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>Codeforces Round #240 (Div. 2) Tutorials and Solutions(incomplete and incorrect)</title><link href="http://wizmann.tk/cf-240-div-2.html" rel="alternate"></link><updated>2014-04-08T14:39:11+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-04-08:cf-240-div-2.html</id><summary type="html">&lt;h2&gt;Overview&lt;/h2&gt;
 
 &lt;p&gt;It has been months that I didn&amp;#39;t participate in the contest on CF, now I&amp;#39;m back. :)&lt;/p&gt;
 
@@ -2844,7 +2844,7 @@ int main()
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 08 Apr 2014 14:39:11 +0800</pubDate><guid>tag:wizmann.tk,2014-04-08:cf-240-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>"alloca" vs "placement new"</title><link>http://wizmann.tk/alloca-vs-placement-new.html</link><description>&lt;h2&gt;WHAT?!&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>"alloca" vs "placement new"</title><link href="http://wizmann.tk/alloca-vs-placement-new.html" rel="alternate"></link><updated>2014-04-07T21:08:59+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-04-07:alloca-vs-placement-new.html</id><summary type="html">&lt;h2&gt;WHAT?!&lt;/h2&gt;
 
 &lt;p&gt;For most time, we use &lt;code&gt;malloc&lt;/code&gt; or &lt;code&gt;new&lt;/code&gt; for memory allocation, which will get it on &lt;em&gt;heap&lt;/em&gt;.&lt;/p&gt;
 
@@ -2951,7 +2951,7 @@ int main()
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You can use &lt;code&gt;info register esp&lt;/code&gt; in gdb to inspect the &lt;em&gt;stack&lt;/em&gt; pointer before and after you call the allocation function or declare a variable-length array.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 07 Apr 2014 21:08:59 +0800</pubDate><guid>tag:wizmann.tk,2014-04-07:alloca-vs-placement-new.html</guid><category>cpp</category><category>memory</category><category>stack</category><category>heap</category><category>allocate</category><category>alloca</category><category>c++</category></item><item><title>Quartile and Normal Distribution</title><link>http://wizmann.tk/quartile-and-normal-distribution.html</link><description>&lt;h2&gt;What is Quartile?&lt;/h2&gt;
+</summary><category term="cpp"></category><category term="memory"></category><category term="stack"></category><category term="heap"></category><category term="allocate"></category><category term="alloca"></category><category term="c++"></category></entry><entry><title>Quartile and Normal Distribution</title><link href="http://wizmann.tk/quartile-and-normal-distribution.html" rel="alternate"></link><updated>2014-03-09T22:44:15+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-03-09:quartile-and-normal-distribution.html</id><summary type="html">&lt;h2&gt;What is Quartile?&lt;/h2&gt;
 
 &lt;p&gt;Quartile is a concept of descriptive statics. The quartiles of a ranked data set are the three points that divide the data set into four equal groups, each group comprising a quarter of data.&lt;/p&gt;
 
@@ -2994,7 +2994,7 @@ int main()
 &lt;li&gt;&lt;a href="http://www.physics.csbsju.edu/stats/box2.html"&gt;Box Plot: Display of Distribution&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.wasu.com.cn/fwyzc/wasubzhzl/201207/P020140102519718744101.pdf"&gt;Tables for statistical distributions&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 09 Mar 2014 22:44:15 +0800</pubDate><guid>tag:wizmann.tk,2014-03-09:quartile-and-normal-distribution.html</guid><category>quartile</category><category>normal-distribution</category></item><item><title>破解节操的下限</title><link>http://wizmann.tk/moujiecao.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="quartile"></category><category term="normal-distribution"></category></entry><entry><title>破解节操的下限</title><link href="http://wizmann.tk/moujiecao.html" rel="alternate"></link><updated>2014-02-25T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-02-25:moujiecao.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"&gt;&lt;/p&gt;
 
@@ -3188,7 +3188,7 @@ int main()
 &lt;p&gt;不过Google正在试验一种叫&lt;a href="https://developers.google.com/native-client/dev/"&gt;NaCl&lt;/a&gt;的技术，支持一个轻量的虚拟机，运行一个本地应用并能与前端展现交互。&lt;/p&gt;
 
 &lt;p&gt;我想，如果有一天，NaCl能统一Android与Chrome平台，成为了智能终端开发的主流，那么平台与平台之间的差异就更小了吧。。。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 25 Feb 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-25:moujiecao.html</guid><category>crack</category><category>android</category><category>app</category><category>chrome-extension</category><category>protobuf</category><category>angularjs</category></item><item><title>GeoHash算法</title><link>http://wizmann.tk/geo-hash-algorithm.html</link><description>&lt;h2&gt;GeoHash&lt;/h2&gt;
+</summary><category term="crack"></category><category term="android"></category><category term="app"></category><category term="chrome-extension"></category><category term="protobuf"></category><category term="angularjs"></category></entry><entry><title>GeoHash算法</title><link href="http://wizmann.tk/geo-hash-algorithm.html" rel="alternate"></link><updated>2014-02-04T00:10:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-02-04:geo-hash-algorithm.html</id><summary type="html">&lt;h2&gt;GeoHash&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.&lt;/p&gt;
@@ -3271,7 +3271,7 @@ int main()
 &lt;li&gt;&lt;a href="http://www.cnblogs.com/LBSer/p/3310455.html"&gt;GeoHash核心原理解析&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://code.google.com/p/python-geohash/"&gt;python-geohash&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 04 Feb 2014 00:10:00 +0800</pubDate><guid>tag:wizmann.tk,2014-02-04:geo-hash-algorithm.html</guid><category>GeoHash</category><category>POI</category><category>压缩</category><category>索引</category></item><item><title>如何判断一个网站的地理信息</title><link>http://wizmann.tk/find-the-geo-location-of-a-host.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="GeoHash"></category><category term="POI"></category><category term="压缩"></category><category term="索引"></category></entry><entry><title>如何判断一个网站的地理信息</title><link href="http://wizmann.tk/find-the-geo-location-of-a-host.html" rel="alternate"></link><updated>2014-01-24T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-01-24:find-the-geo-location-of-a-host.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;面试题：&lt;/p&gt;
 
@@ -3366,7 +3366,7 @@ SW1A2AA.find.me.uk. 21600   IN  LOC 51 30 12.748 N 0 7 39.611 W 0.00m 0.00m 0.00
 &lt;p&gt;http://www.private.org.il/IP2geo.html&lt;/p&gt;
 
 &lt;p&gt;http://www.ipgeo.com/&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 24 Jan 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-24:find-the-geo-location-of-a-host.html</guid><category>面试</category></item><item><title>Codeforces Round #223 (Div. 2) 不完全不正确题解</title><link>http://wizmann.tk/cf-223-div-2.html</link><description>&lt;p&gt;由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。&lt;/p&gt;
+</summary><category term="面试"></category></entry><entry><title>Codeforces Round #223 (Div. 2) 不完全不正确题解</title><link href="http://wizmann.tk/cf-223-div-2.html" rel="alternate"></link><updated>2014-01-18T14:47:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-01-18:cf-223-div-2.html</id><summary type="html">&lt;p&gt;由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。&lt;/p&gt;
 
 &lt;p&gt;等有实力切D题了，再去打一区。（弱&lt;/p&gt;
 
@@ -3805,7 +3805,7 @@ int main()
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 18 Jan 2014 14:47:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-18:cf-223-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>用Misaka做为pelican的Markdown解析器</title><link>http://wizmann.tk/misaka-pelican.html</link><description>&lt;h2&gt;为啥？&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>用Misaka做为pelican的Markdown解析器</title><link href="http://wizmann.tk/misaka-pelican.html" rel="alternate"></link><updated>2014-01-09T14:55:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-01-09:misaka-pelican.html</id><summary type="html">&lt;h2&gt;为啥？&lt;/h2&gt;
 
 &lt;p&gt;Pelican内置&lt;a href="http://pythonhosted.org/Markdown/"&gt;python-markdown&lt;/a&gt;做为默认解析器，用来将用户的&lt;code&gt;Markdown&lt;/code&gt;格式的文章转为网页格式展示。&lt;/p&gt;
 
@@ -3896,7 +3896,7 @@ except ImportError:
 
 &lt;p&gt;修改好的&lt;code&gt;readers.py&lt;/code&gt;文件：
 &lt;a href="https://s.yunio.com/_Lt!Lb"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 09 Jan 2014 14:55:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-09:misaka-pelican.html</guid><category>markdown</category><category>misaka</category><category>pelican</category><category>糙快猛</category><category>metadata</category></item><item><title>读书 - 《Head first 设计模式》</title><link>http://wizmann.tk/read-head-first-design-pattern.html</link><description>&lt;p&gt;&lt;img src="http://img5.douban.com/lpic/s2686916.jpg" alt="Head first设计模式"&gt;&lt;/p&gt;
+</summary><category term="markdown"></category><category term="misaka"></category><category term="pelican"></category><category term="糙快猛"></category><category term="metadata"></category></entry><entry><title>读书 - 《Head first 设计模式》</title><link href="http://wizmann.tk/read-head-first-design-pattern.html" rel="alternate"></link><updated>2014-01-03T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-01-03:read-head-first-design-pattern.html</id><summary type="html">&lt;p&gt;&lt;img src="http://img5.douban.com/lpic/s2686916.jpg" alt="Head first设计模式"&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="http://book.douban.com/subject/2243615/"&gt;豆瓣读书&lt;/a&gt;&lt;/p&gt;
 
@@ -3941,7 +3941,7 @@ except ImportError:
 &lt;h2&gt;思维导图&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href="http://wizmann-tk-pic.u.qiniudn.com/blog-design-pattern-mindmap.png"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 03 Jan 2014 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-03:read-head-first-design-pattern.html</guid><category>读书</category><category>head-first</category><category>设计模式</category></item><item><title>匈牙利算法</title><link>http://wizmann.tk/hungary-algorithm.html</link><description>&lt;h2&gt;概念&lt;/h2&gt;
+</summary><category term="读书"></category><category term="head-first"></category><category term="设计模式"></category></entry><entry><title>匈牙利算法</title><link href="http://wizmann.tk/hungary-algorithm.html" rel="alternate"></link><updated>2014-01-01T22:01:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</id><summary type="html">&lt;h2&gt;概念&lt;/h2&gt;
 
 &lt;h3&gt;交错路&lt;/h3&gt;
 
@@ -4061,7 +4061,7 @@ int hungary()
 &lt;p&gt;Matrix67: &lt;a href="http://www.matrix67.com/blog/archives/116"&gt;二分图最大匹配的König定理及其证明&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;wikipedia: &lt;a href="http://zh.wikipedia.org/wiki/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"&gt;匈牙利算法&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 01 Jan 2014 22:01:00 +0800</pubDate><guid>tag:wizmann.tk,2014-01-01:hungary-algorithm.html</guid><category>algorithm</category></item><item><title>Codeforces 3C - Tic-tac-toe</title><link>http://wizmann.tk/cf-3c-tic-tac-toe.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="algorithm"></category></entry><entry><title>Codeforces 3C - Tic-tac-toe</title><link href="http://wizmann.tk/cf-3c-tic-tac-toe.html" rel="alternate"></link><updated>2013-12-29T20:23:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-29:cf-3c-tic-tac-toe.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href="http://codeforces.com/problemset/problem/3/C"&gt;Tic-tac-toe&lt;/a&gt;是我很久之前在CF上做的一道题。非常考细心的模拟题。&lt;/p&gt;
 
@@ -4510,7 +4510,7 @@ const int SECOND_WIN = 200;
 &lt;h2&gt;代码下载&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href="https://s.yunio.com/voeWtA"&gt;云诺网盘 - 戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 20:23:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:cf-3c-tic-tac-toe.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>设计模式</category></item><item><title>这是一篇加密日志</title><link>http://wizmann.tk/this-is-an-encrypted-passage.html</link><description>&lt;p&gt;加密日志使用的是&lt;a href="https://github.com/mindcruzer/pelican-protect-content"&gt;pelican-protect-content&lt;/a&gt;，不过实现方法相当丑。&lt;/p&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="设计模式"></category></entry><entry><title>这是一篇加密日志</title><link href="http://wizmann.tk/this-is-an-encrypted-passage.html" rel="alternate"></link><updated>2013-12-29T13:12:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-29:this-is-an-encrypted-passage.html</id><summary type="html">&lt;p&gt;加密日志使用的是&lt;a href="https://github.com/mindcruzer/pelican-protect-content"&gt;pelican-protect-content&lt;/a&gt;，不过实现方法相当丑。&lt;/p&gt;
 
 &lt;p&gt;不过pelican也没有什么优雅的方法，也许下一个版本会有改观吧。。。&lt;/p&gt;
 
@@ -4551,7 +4551,7 @@ const int SECOND_WIN = 200;
 &lt;p&gt;X同学：写完了！&lt;/p&gt;
 
 &lt;p&gt;面试官：请证明一下你的算法是正确的。。。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 29 Dec 2013 13:12:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-29:this-is-an-encrypted-passage.html</guid><category>encrypted</category></item><item><title>How to "Rotate Image"?</title><link>http://wizmann.tk/how-to-rotate-image-leetcode.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="encrypted"></category></entry><entry><title>How to "Rotate Image"?</title><link href="http://wizmann.tk/how-to-rotate-image-leetcode.html" rel="alternate"></link><updated>2013-12-28T14:42:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-28:how-to-rotate-image-leetcode.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;原题&lt;a href="http://oj.leetcode.com/problems/rotate-image/"&gt;戳我&lt;/a&gt;&lt;/p&gt;
 
@@ -4621,7 +4621,7 @@ const int SECOND_WIN = 200;
 &lt;/ul&gt;
 
 &lt;p&gt;欢迎大家提出自己的看法。代码请贴到&lt;a href="https://gist.github.com/"&gt;gist&lt;/a&gt;或&lt;a href="http://lpaste.net/"&gt;hpaste&lt;/a&gt;等网站上，不要把代码直接写到评论中，我会及时update本文，展示大家的想法。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 28 Dec 2013 14:42:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-28:how-to-rotate-image-leetcode.html</guid><category>Leetcode</category><category>algorithm</category><category>思维</category></item><item><title>Codeforces Round #221 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-221-div-2.html</link><description>&lt;h2&gt;A. Lever&lt;/h2&gt;
+</summary><category term="Leetcode"></category><category term="algorithm"></category><category term="思维"></category></entry><entry><title>Codeforces Round #221 (Div. 2)不完全不正确题解</title><link href="http://wizmann.tk/cf-221-div-2.html" rel="alternate"></link><updated>2013-12-25T19:05:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-25:cf-221-div-2.html</id><summary type="html">&lt;h2&gt;A. Lever&lt;/h2&gt;
 
 &lt;p&gt;水题，杠杆原理。&lt;/p&gt;
 
@@ -5014,7 +5014,7 @@ int main()
 &lt;h2&gt;最后，炫耀一下&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf221-div2-rank.png" alt="rank"&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 25 Dec 2013 19:05:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-25:cf-221-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>自己动手搭建第三方的Codeforces CDN</title><link>http://wizmann.tk/third-party-codeforces-cdn.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>自己动手搭建第三方的Codeforces CDN</title><link href="http://wizmann.tk/third-party-codeforces-cdn.html" rel="alternate"></link><updated>2013-12-14T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-14:third-party-codeforces-cdn.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;校园网上CF那叫一个卡。&lt;/p&gt;
 
@@ -5124,14 +5124,14 @@ chrome.webRequest.onBeforeRequest.addListener(
 &lt;h2&gt;代码&lt;/h2&gt;
 
 &lt;p&gt;Github: &lt;a href="https://github.com/Wizmann/codeforces-cdn"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sat, 14 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-14:third-party-codeforces-cdn.html</guid><category>codeforces</category><category>chrome-extension</category><category>useless</category></item><item><title>在Google面试之后想到的</title><link>http://wizmann.tk/after-google-interview.html</link><description>&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" alt="思维导图"&gt;&lt;/p&gt;
+</summary><category term="codeforces"></category><category term="chrome-extension"></category><category term="useless"></category></entry><entry><title>在Google面试之后想到的</title><link href="http://wizmann.tk/after-google-interview.html" rel="alternate"></link><updated>2013-12-11T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-11:after-google-interview.html</id><summary type="html">&lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview-tiny.png" alt="思维导图"&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="http://wizmann-tk-pic.u.qiniudn.com/about-google-interview.png"&gt;戳我看高清无码大图&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;另外，面试过程中没被吓尿也算是我心理比较强大吧。&lt;/p&gt;
 
 &lt;p&gt;#屌丝心态#。。。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 11 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-11:after-google-interview.html</guid><category>闲聊</category></item><item><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-218-div-2.html</link><description>&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
+</summary><category term="闲聊"></category></entry><entry><title>Codeforces Round #218 (Div. 2)不完全不正确题解</title><link href="http://wizmann.tk/cf-218-div-2.html" rel="alternate"></link><updated>2013-12-09T23:02:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-09:cf-218-div-2.html</id><summary type="html">&lt;h3&gt;A. K-Periodic Array&lt;/h3&gt;
 
 &lt;p&gt;将Array切片，然后按位统计某一位上1的个数C(1)和2的个数C(2)。然后在这一位上的操作数就为M = min(C(1), C(2))。&lt;/p&gt;
 
@@ -5488,7 +5488,7 @@ int main()
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 23:02:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:cf-218-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>使用新类型创建更人性化的代码</title><link>http://wizmann.tk/humanity-code-with-new-classes.html</link><description>&lt;h2&gt;啥？&lt;/h2&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>使用新类型创建更人性化的代码</title><link href="http://wizmann.tk/humanity-code-with-new-classes.html" rel="alternate"></link><updated>2013-12-09T15:01:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-09:humanity-code-with-new-classes.html</id><summary type="html">&lt;h2&gt;啥？&lt;/h2&gt;
 
 &lt;p&gt;这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。&lt;/p&gt;
 
@@ -5801,7 +5801,7 @@ int main() {
 &lt;h3&gt;拓展阅读&lt;/h3&gt;
 
 &lt;p&gt;《C++ Primer第4版》 16.6 模板特化&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 09 Dec 2013 15:01:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-09:humanity-code-with-new-classes.html</guid><category>cpp</category></item><item><title>Yunfile下载破解[废弃]</title><link>http://wizmann.tk/yunfile-cracker.html</link><description>&lt;h2&gt;废弃原因&lt;/h2&gt;
+</summary><category term="cpp"></category></entry><entry><title>Yunfile下载破解[废弃]</title><link href="http://wizmann.tk/yunfile-cracker.html" rel="alternate"></link><updated>2013-12-02T21:16:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-02:yunfile-cracker.html</id><summary type="html">&lt;h2&gt;废弃原因&lt;/h2&gt;
 
 &lt;p&gt;因为Yunfile现在开始限IP + 无限抽风，所以插件已经废弃不用了。现在也没找到解决方法。\o&amp;lt;(=╯□╰=)&amp;gt;o&lt;/p&gt;
 
@@ -5845,7 +5845,7 @@ int main() {
 &lt;h3&gt;代码&lt;/h3&gt;
 
 &lt;p&gt;代码在&lt;a href="https://github.com/Wizmann/Utils/tree/master/Chrome-extension/yunfile-cracker"&gt;这里&lt;/a&gt;呀～&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 21:16:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:yunfile-cracker.html</guid><category>创造力</category><category>Yunfile</category><category>Chrome-Extension</category></item><item><title>Tick-tick</title><link>http://wizmann.tk/tick-tick.html</link><description>&lt;p&gt;Go back to work！&lt;/p&gt;
+</summary><category term="创造力"></category><category term="Yunfile"></category><category term="Chrome-Extension"></category></entry><entry><title>Tick-tick</title><link href="http://wizmann.tk/tick-tick.html" rel="alternate"></link><updated>2013-12-02T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-12-02:tick-tick.html</id><summary type="html">&lt;p&gt;Go back to work！&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://wizmann-tk-pic.u.qiniudn.com/blog-ticktick-big-brother.jpg" alt="Big brother is watching you!"&gt;&lt;/p&gt;
 
@@ -5860,7 +5860,7 @@ int main() {
 &lt;p&gt;推荐一个时间管理的Chrome插件，番茄土豆。&lt;a href="http://www.douban.com/group/pomotodo/"&gt;戳我&lt;/a&gt;进入番茄土豆豆瓣小组。&lt;/p&gt;
 
 &lt;p&gt;背景中的tick-tick的音效就是从插件中搞出来的。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 02 Dec 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-12-02:tick-tick.html</guid><category>闲聊</category><category>创造力</category></item><item><title>機器學習基石 - PLA算法初步</title><link>http://wizmann.tk/ml-foundations-pla.html</link><description>&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
+</summary><category term="闲聊"></category><category term="创造力"></category></entry><entry><title>機器學習基石 - PLA算法初步</title><link href="http://wizmann.tk/ml-foundations-pla.html" rel="alternate"></link><updated>2013-11-29T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</id><summary type="html">&lt;h2&gt;什么是PLA算法&lt;/h2&gt;
 
 &lt;p&gt;PLA = Perceptrons Learning Alogrithm&lt;/p&gt;
 
@@ -5996,7 +5996,7 @@ def pocket_pla(datas, limit):
 &lt;p&gt;修改了pocket-pla算法，提升了效率和准确性。&lt;/p&gt;
 
 &lt;p&gt;参考了&lt;a href="https://class.coursera.org/ntumlone-001/forum/thread?thread_id=116#post-632"&gt;课程论坛&lt;/a&gt;的讨论。并且感谢Li Tianyi同学指出我的问题。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Fri, 29 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-29:ml-foundations-pla.html</guid><category>公开课</category><category>分类器</category></item><item><title>Linux内核中的少锁链表</title><link>http://wizmann.tk/linux-lockless-llist.html</link><description>&lt;h1&gt;前言&lt;/h1&gt;
+</summary><category term="公开课"></category><category term="分类器"></category></entry><entry><title>Linux内核中的少锁链表</title><link href="http://wizmann.tk/linux-lockless-llist.html" rel="alternate"></link><updated>2013-11-28T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-28:linux-lockless-llist.html</id><summary type="html">&lt;h1&gt;前言&lt;/h1&gt;
 
 &lt;p&gt;最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(&lt;a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773"&gt;戳我&lt;/a&gt;)&lt;/p&gt;
 
@@ -6437,7 +6437,7 @@ EXPORT_SYMBOL_GPL(llist_reverse_order);
 &lt;p&gt;本来是想把这llist的代码看明白的。但是，大概只看懂了60%。。。&lt;/p&gt;
 
 &lt;p&gt;以后如果有新的想法，看到了新的东西，也许会有不少有用的update吧。。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 28 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-28:linux-lockless-llist.html</guid><category>linux</category><category>lock-less</category><category>链表</category><category>并发编程</category></item><item><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link>http://wizmann.tk/cf-215-div-2.html</link><description>&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
+</summary><category term="linux"></category><category term="lock-less"></category><category term="链表"></category><category term="并发编程"></category></entry><entry><title>Codeforces Round #215 (Div. 2)不完全不正确题解</title><link href="http://wizmann.tk/cf-215-div-2.html" rel="alternate"></link><updated>2013-11-27T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</id><summary type="html">&lt;h3&gt;A. Sereja and Coat Rack&lt;/h3&gt;
 
 &lt;p&gt;傻逼才错的题。不幸中枪。&lt;/p&gt;
 
@@ -6509,7 +6509,7 @@ yx[zyx][zyx]...
 &lt;h3&gt;代码&lt;/h3&gt;
 
 &lt;p&gt;仅供参考：&lt;a href="https://github.com/Wizmann/ACM-ICPC/tree/master/Codeforces/Codeforces%20Round%20%23216%20(Div.%202)"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cf-215-div-2.html</guid><category>codeforces</category><category>algorithm</category><category>算法</category><category>题解</category></item><item><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link>http://wizmann.tk/cse351-lab1.html</link><description>&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
+</summary><category term="codeforces"></category><category term="algorithm"></category><category term="算法"></category><category term="题解"></category></entry><entry><title>CSE351 - Lab 1: Manipulating Bits Using C</title><link href="http://wizmann.tk/cse351-lab1.html" rel="alternate"></link><updated>2013-11-27T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-27:cse351-lab1.html</id><summary type="html">&lt;p&gt;今天做了CSE351 - Lab1，深深的感觉国外的计算机教学爆了我校一条街。&lt;/p&gt;
 
 &lt;p&gt;以上是前言。&lt;/p&gt;
 
@@ -6743,7 +6743,7 @@ int isNonZero(int x) {
     return ((x | (~x + 1)) &amp;gt;&amp;gt; 31) &amp;amp; 1;
 }
 &lt;/code&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 27 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-27:cse351-lab1.html</guid><category>CSE351</category><category>公开课</category></item><item><title>CSE 351 - Hardware/Software Interface</title><link>http://wizmann.tk/Washington-University-CSE351.html</link><description>&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
+</summary><category term="CSE351"></category><category term="公开课"></category></entry><entry><title>CSE 351 - Hardware/Software Interface</title><link href="http://wizmann.tk/Washington-University-CSE351.html" rel="alternate"></link><updated>2013-11-26T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</id><summary type="html">&lt;p&gt;开一门公开课，Washington University的Hardware/Software Interface。&lt;/p&gt;
 
 &lt;p&gt;传说是很不错的计算机科学公开课。使用&lt;a href="http://book.douban.com/subject/5333562/"&gt;深入理解计算机系统&lt;/a&gt;做教材，正好是我要读的书，所以顺便听听课。&lt;/p&gt;
 
@@ -6756,7 +6756,7 @@ int isNonZero(int x) {
 &lt;p&gt;课程视频：&lt;a href="http://pan.baidu.com/wap/link?&amp;amp;shareid=3687486382&amp;amp;uk=2919707929&amp;amp;third=0&amp;amp;page=1"&gt;戳我&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;课程主页：&lt;a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html"&gt;戳我&lt;/a&gt;&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Tue, 26 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-26:Washington-University-CSE351.html</guid><category>公开课</category><category>计算机科学</category><category>CSE351</category></item><item><title>使用pip和virtuanenv</title><link>http://wizmann.tk/using-pip-and-virtualenv.html</link><description>&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
+</summary><category term="公开课"></category><category term="计算机科学"></category><category term="CSE351"></category></entry><entry><title>使用pip和virtuanenv</title><link href="http://wizmann.tk/using-pip-and-virtualenv.html" rel="alternate"></link><updated>2013-11-25T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</id><summary type="html">&lt;p&gt;让我们从一个无聊的小段子开始。&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;What’s pip?&amp;rdquo;&lt;/p&gt;
@@ -6809,8 +6809,8 @@ int isNonZero(int x) {
 &lt;p&gt;&lt;code&gt;pip bundle env.pybundle -r requirements.txt&lt;/code&gt;会重新下载所有依赖的包，并写入&lt;code&gt;env.pybundle&lt;/code&gt;。然后我们将其上传到线上，使用&lt;code&gt;pip install env.pybundle&lt;/code&gt;安装即可。&lt;/p&gt;
 
 &lt;p&gt;以上是pip和virtualenv配合使用一些技巧。参考自：&lt;a href="http://blog.csdn.net/tulip527/article/details/8478093"&gt;戳我&lt;/a&gt;。&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 25 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-25:using-pip-and-virtualenv.html</guid><category>python</category></item><item><title>Hello World</title><link>http://wizmann.tk/hello-world.html</link><description>&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
+</summary><category term="python"></category></entry><entry><title>Hello World</title><link href="http://wizmann.tk/hello-world.html" rel="alternate"></link><updated>2013-11-24T00:00:00+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2013-11-24:hello-world.html</id><summary type="html">&lt;p&gt;打算把博客迁到这里来了&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="python"&gt;print &amp;#39;Hello World&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 24 Nov 2013 00:00:00 +0800</pubDate><guid>tag:wizmann.tk,2013-11-24:hello-world.html</guid><category>闲聊</category></item></channel></rss>
+</summary><category term="闲聊"></category></entry></feed>

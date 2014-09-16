@@ -86,6 +86,40 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://wizmann.tk/minimal-round-string.html">最小表示法及其证明</a></h2>
+                <div class="summary">
+                    <h2>问题</h2>
+
+<blockquote>
+<p>对于一个字符串S，求S的循环的同构字符串S’中字典序最小的一个。</p>
+</blockquote>
+
+<p>我们举例说明，字符串&quot;abcd&quot;的循环同构字符串有：<code>[&quot;abcd&quot;, &quot;bcda&quot;, &quot;cdab&quot;, &quot;dabc&quot;]</code>。</p>
+
+<p>题目的目标是求这些字符串中字典序最小的那个。</p>
+
+<h2>暴力解法</h2>
+
+<p>暴力解法非常直观，直接枚举字符串的起点，然后找到构成最小字符串的那一个。</p>
+
+<p>代码就不在这里写了。</p>
+
+<h2>最小表示法</h2>
+
+<p>最小表示法是解决同构字符串最小表示的巧妙算法。</p>
+
+<p>其算法描述如下：</p>
+
+<pre><code>令i=0,j=1
+如果S[i] &gt; S[j] i=j, j=i+1
+如果S[i] &lt; S[j] j++
+如果S[i]==S[j] 设指针k，分别从i和j位置向下比较，直到S[i] != S[j]
+         如果S ...</code></pre>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/minimal-round-string.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/hottest-ip-address.html">System Design - 最热门的IP地址</a></h2>
                 <div class="summary">
                     <h2>写在前面</h2>
@@ -142,19 +176,20 @@
 <h3>最简单的描述符</h3>
 
 <p>覆写类的<code>__get__</code>和<code>__setter__</code>函数就可以实现一个简单的描述符。对某个类型实例的读写进行额外的控制。</p>
-<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">CurrentDate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;Can&#39;t change the current date.&quot;</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">date</span> <span class="o">=</span> <span class="n">CurrentDate</span><span class="p">()</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">Example</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">date</span>
-<span class="go">datetime.date(2008, 11, 24 ...</span></pre></div>
+
+<pre><code class="pycon">&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; class CurrentDate(object):
+...     def __get__(self, instance, owner):
+...         return datetime.date.today()
+...     def __set__(self, instance, value):
+...         raise NotImplementedError(&quot;Can&#39;t change the current date.&quot;)
+...
+&gt;&gt;&gt; class Example(object):
+...     date = CurrentDate()
+...
+&gt;&gt;&gt; e = Example()
+&gt;&gt;&gt; e.date
+datetime.date(2008, 11, 24 ...</code></pre>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/python-magic-2.html">more ...</a>
                 </div>
             </article>
@@ -169,32 +204,35 @@
 <p>当Python解释器遇到类声明时，会创建一个新的namespace ，并执行其内的所有代码，并将变量注册到这个namespace中。</p>
 
 <p>举例：</p>
-<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Loading...&#39;</span>
-<span class="gp">... </span>    <span class="n">spam</span> <span class="o">=</span> <span class="s">&#39;eggs&#39;</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Done!&#39;</span>
-<span class="gp">... </span>
-<span class="go">Loading...</span>
-<span class="go">Done!</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">spam</span>
-<span class="go">&#39;eggs&#39;</span>
-</pre></div>
+
+<pre><code class="pycon">&gt;&gt;&gt; class Foo(object):
+...     print &#39;Loading...&#39;
+...     spam = &#39;eggs&#39;
+...     print &#39;Done!&#39;
+... 
+Loading...
+Done!
+&gt;&gt;&gt; f = Foo()
+&gt;&gt;&gt; f.spam
+&#39;eggs&#39;
+</code></pre>
 
 <h3>动态的实现一个类</h3>
 
 <p>使用type方法可以动态的代码中实现一个类，接受三个参数“类名”、“基类”、“属性”。</p>
-<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Bar&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s">&#39;spam&#39;</span><span class="p">:</span> <span class="s">&#39;eggs&#39;</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span><span class="o">.</span><span class="n">spam</span>
-<span class="go">&#39;eggs&#39;</span>
-</pre></div>
+
+<pre><code class="pycon">&gt;&gt;&gt; Bar = type(&#39;Bar&#39;, (object,), {&#39;spam&#39;: &#39;eggs&#39;})
+&gt;&gt;&gt; Bar.spam
+&#39;eggs&#39;
+</code></pre>
 
 <h3>超类改变一切</h3>
 
 <p>“metaprogramming”是指一种在程序运行时创建或改变代码的编程手段。<code>type</code>是一个metaclass，一个创建其它类的metaclass。</p>
 
 <p>我们可以替换掉原生的<code>type</code>，使用我们自己的版本，从而控制创建类的过程。</p>
-<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class ...</span></pre></div>
+
+<pre><code class="pycon">&gt;&gt;&gt; class ...</code></pre>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/python-magic-1.html">more ...</a>
                 </div>
             </article>
@@ -226,43 +264,6 @@
 
 <p>对于行和列同时操作，我们也可以套用这种方法。但是要解决对行操作后，对列上数字的值的影响 ...</p>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-447d.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cpu-cache-miss.html">CPU cache引发的性能血案</a></h2>
-                <div class="summary">
-                    <p>在<strong><a href="http://evol128.is-programmer.com/posts/35453.html">为什么转置一个512x512的矩阵，会比513x513的矩阵慢很多？</a></strong>一文中，作者引用了一个矩阵转置的例子，来讲解由于CPU cache的失效而带来的性能损失。</p>
-
-<p>上面的文章对问题的解释与讨论都非常的透彻。我的这篇文章只是对上面文章的一篇读后感和实验报告。就酱。</p>
-
-<h2>CPU cache 之 组相联</h2>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cpu-cache-2-way-set-assosiate.jpg" alt="组相联"></p>
-
-<p>组相联的实现和原理不必再赘述了。我想讨论的是，如何在编程中优化CPU的cache性能。</p>
-
-<h2>查看CPU信息</h2>
-
-<p>我的系统是Ubuntu 12.04，CPU是i5-3230M。（屌丝机 :D)</p>
-
-<pre><code>wizmann@Wichmann:~$ ls /sys/devices/system/cpu/cpu0/cache/index0/
-coherency_line_size  physical_line_partition  size
-level                shared_cpu_list          type
-number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
-
-<p>使用cat命令查看文件内容，可以获得CPU L1 cache的一些信息。</p>
-
-<table class="table table-striped-white table-bordered">
-<thead>
-<tr>
- <th>Key</th>
- <th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
- <td>level ...</td></tr></tbody></table>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cpu-cache-miss.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -323,23 +324,8 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/python.html">
                         python
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -348,18 +334,23 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/chrome-extension.html">
                         chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -368,13 +359,13 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
+                    <a href="http://wizmann.tk/tag/mian-shi.html">
+                        面试
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        leetcode
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -382,84 +373,14 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                         CSE351
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multithread.html">
-                        multithread
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -468,58 +389,8 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/asm.html">
-                        asm
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/heap.html">
-                        heap
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -528,13 +399,28 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -543,23 +429,68 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/android.html">
                         android
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -573,33 +504,13 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -608,18 +519,123 @@ number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multithread.html">
+                        multithread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/asm.html">
+                        asm
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/heap.html">
+                        heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
 

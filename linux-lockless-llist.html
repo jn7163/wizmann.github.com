@@ -160,19 +160,21 @@
 <p><code>typeof</code>和<code>sizeof</code>类似，sizeof求的是变量/类型的大小，而typeof是求变量/类型的<strong>数据类型</strong>。</p>
 
 <p>typeof在#define中的应用很多，例如：</p>
-<div class="highlight"><pre><span class="cp">#define max(a,b) \</span>
-<span class="cp">   ({ typeof (a) _a = (a); \</span>
-<span class="cp">       typeof (b) _b = (b); \</span>
-<span class="cp">     _a &gt; _b ? _a : _b; })</span>
-</pre></div>
+
+<pre><code class="cpp">#define max(a,b) \
+   ({ typeof (a) _a = (a); \
+       typeof (b) _b = (b); \
+     _a &gt; _b ? _a : _b; })
+</code></pre>
 
 <p><code>typeof(a)</code>获得了<code>a</code>的类型，声明了一个同类型的<code>_a</code>变量。</p>
 
 <p>p.s. 上面是一个安全的用<code>#define</code>实现的<code>max</code>函数。</p>
 
 <h3>ACCESS_ONCE</h3>
-<div class="highlight"><pre><span class="cp">#define ACCESS_ONCE(x) (*(volatile typeof(x) *)&amp;(x))；</span>
-</pre></div>
+
+<pre><code class="cpp">#define ACCESS_ONCE(x) (*(volatile typeof(x) *)&amp;(x))；
+</code></pre>
 
 <p><code>ACCESS_ONCE</code>使用了一个类型转换，使用<code>volatile</code>修饰 <code>x</code>。避免编译器优化带来的潜在岐义。</p>
 
@@ -201,109 +203,115 @@
 <h2>Show me the code</h2>
 
 <h3>数据类型</h3>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">llist_head</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>
-<span class="p">};</span>
 
-<span class="k">struct</span> <span class="n">llist_node</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
+<pre><code class="c">struct llist_head {
+        struct llist_node *first;
+};
+
+struct llist_node {
+        struct llist_node *next;
+};
+</code></pre>
 
 <p>一个简单的类型包裹。</p>
 
 <p><code>llist_head</code>是链表头，而<code>llist_node</code>是链表中<strong>链</strong>的部分。</p>
 
 <h3>初始化</h3>
-<div class="highlight"><pre><span class="cp">#define LLIST_HEAD_INIT(name)        { NULL }</span>
-<span class="cp">#define LLIST_HEAD(name)        struct llist_head name = LLIST_HEAD_INIT(name)</span>
 
-<span class="cm">/**</span>
-<span class="cm"> * init_llist_head - initialize lock-less list head</span>
-<span class="cm"> * @head:        the head for your lock-less list</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">init_llist_head</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">list</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="n">list</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+<pre><code class="c">#define LLIST_HEAD_INIT(name)        { NULL }
+#define LLIST_HEAD(name)        struct llist_head name = LLIST_HEAD_INIT(name)
+
+/**
+ * init_llist_head - initialize lock-less list head
+ * @head:        the head for your lock-less list
+ */
+static inline void init_llist_head(struct llist_head *list)
+{
+        list-&gt;first = NULL;
+}
+</code></pre>
 
 <h3>链表的遍历</h3>
 
 <h4>llist_entry</h4>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_entry - get the struct of this entry</span>
-<span class="cm"> * @ptr:        the &amp;struct llist_node pointer.</span>
-<span class="cm"> * @type:        the type of the struct this is embedded in.</span>
-<span class="cm"> * @member:        the name of the llist_node within the struct.</span>
-<span class="cm"> */</span>
-<span class="cp">#define llist_entry(ptr, type, member)                \</span>
-<span class="cp">        container_of(ptr, type, member)</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_entry - get the struct of this entry
+ * @ptr:        the &amp;struct llist_node pointer.
+ * @type:        the type of the struct this is embedded in.
+ * @member:        the name of the llist_node within the struct.
+ */
+#define llist_entry(ptr, type, member)                \
+        container_of(ptr, type, member)
+</code></pre>
 
 <p>声明一个链表时，我们需要把<code>llist_node</code>包含在链表节点中，<code>llist_head</code>是链表头。</p>
 
 <p><code>llist_entry</code>是从链表节点中的<code>llist_node</code>成员变量获得链表节点的地址。</p>
 
 <p><code>llist_entry</code>宏是从<code>container_of</code>宏继承而来的。</p>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * container_of - cast a member of a structure out to the containing structure</span>
-<span class="cm"> * @ptr:        the pointer to the member.</span>
-<span class="cm"> * @type:        the type of the container struct this is embedded in.</span>
-<span class="cm"> * @member:        the name of the member within the struct.</span>
-<span class="cm"> *</span>
-<span class="cm"> */</span>
-<span class="cp">#define container_of(ptr, type, member) ({                        \</span>
-<span class="cp">        const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr);        \</span>
-<span class="cp">        (type *)( (char *)__mptr - offsetof(type,member) );})</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * container_of - cast a member of a structure out to the containing structure
+ * @ptr:        the pointer to the member.
+ * @type:        the type of the container struct this is embedded in.
+ * @member:        the name of the member within the struct.
+ *
+ */
+#define container_of(ptr, type, member) ({                        \
+        const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr);        \
+        (type *)( (char *)__mptr - offsetof(type,member) );})
+</code></pre>
 
 <p>具体原理可以小小参考一下<a href="http://hi.baidu.com/holinux/item/af2e32c9dcbd3953ac00ef49">这里</a>。</p>
 
 <h4>for_each</h4>
 
 <h5>llist_for_each</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_for_each - iterate over some deleted entries of a lock-less list</span>
-<span class="cm"> * @pos:        the &amp;struct llist_node to use as a loop cursor</span>
-<span class="cm"> * @node:        the first entry of deleted list entries</span>
-<span class="cm"> *</span>
-<span class="cm"> * In general, some entries of the lock-less list can be traversed</span>
-<span class="cm"> * safely only after being deleted from list, so start with an entry</span>
-<span class="cm"> * instead of list head.</span>
-<span class="cm"> *</span>
-<span class="cm"> * If being used on entries deleted from lock-less list directly, the</span>
-<span class="cm"> * traverse order is from the newest to the oldest added entry.  If</span>
-<span class="cm"> * you want to traverse from the oldest to the newest, you must</span>
-<span class="cm"> * reverse the order by yourself before traversing.</span>
-<span class="cm"> */</span>
-<span class="cp">#define llist_for_each(pos, node)                        \</span>
-<span class="cp">        for ((pos) = (node); pos; (pos) = (pos)-&gt;next)</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_for_each - iterate over some deleted entries of a lock-less list
+ * @pos:        the &amp;struct llist_node to use as a loop cursor
+ * @node:        the first entry of deleted list entries
+ *
+ * In general, some entries of the lock-less list can be traversed
+ * safely only after being deleted from list, so start with an entry
+ * instead of list head.
+ *
+ * If being used on entries deleted from lock-less list directly, the
+ * traverse order is from the newest to the oldest added entry.  If
+ * you want to traverse from the oldest to the newest, you must
+ * reverse the order by yourself before traversing.
+ */
+#define llist_for_each(pos, node)                        \
+        for ((pos) = (node); pos; (pos) = (pos)-&gt;next)
+</code></pre>
 
 <p>一个<code>for循环</code>。简单的宏。</p>
 
 <h5>llist_for_each_entry</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_for_each_entry - iterate over some deleted entries of lock-less list of given type</span>
-<span class="cm"> * @pos:        the type * to use as a loop cursor.</span>
-<span class="cm"> * @node:        the fist entry of deleted list entries.</span>
-<span class="cm"> * @member:        the name of the llist_node with the struct.</span>
-<span class="cm"> *</span>
-<span class="cm"> * In general, some entries of the lock-less list can be traversed</span>
-<span class="cm"> * safely only after being removed from list, so start with an entry</span>
-<span class="cm"> * instead of list head.</span>
-<span class="cm"> *</span>
-<span class="cm"> * If being used on entries deleted from lock-less list directly, the</span>
-<span class="cm"> * traverse order is from the newest to the oldest added entry.  If</span>
-<span class="cm"> * you want to traverse from the oldest to the newest, you must</span>
-<span class="cm"> * reverse the order by yourself before traversing.</span>
-<span class="cm"> */</span>
-<span class="cp">#define llist_for_each_entry(pos, node, member)                                \</span>
-<span class="cp">        for ((pos) = llist_entry((node), typeof(*(pos)), member);        \</span>
-<span class="cp">             &amp;(pos)-&gt;member != NULL;                                        \</span>
-<span class="cp">             (pos) = llist_entry((pos)-&gt;member.next, typeof(*(pos)), member))</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_for_each_entry - iterate over some deleted entries of lock-less list of given type
+ * @pos:        the type * to use as a loop cursor.
+ * @node:        the fist entry of deleted list entries.
+ * @member:        the name of the llist_node with the struct.
+ *
+ * In general, some entries of the lock-less list can be traversed
+ * safely only after being removed from list, so start with an entry
+ * instead of list head.
+ *
+ * If being used on entries deleted from lock-less list directly, the
+ * traverse order is from the newest to the oldest added entry.  If
+ * you want to traverse from the oldest to the newest, you must
+ * reverse the order by yourself before traversing.
+ */
+#define llist_for_each_entry(pos, node, member)                                \
+        for ((pos) = llist_entry((node), typeof(*(pos)), member);        \
+             &amp;(pos)-&gt;member != NULL;                                        \
+             (pos) = llist_entry((pos)-&gt;member.next, typeof(*(pos)), member))
+</code></pre>
 
 <p>遍历链表的类。
 用伪代码来表述一下就是。</p>
@@ -313,221 +321,235 @@
         (pos) = 链表下一个节点) {
     // 遍历操作
     pos.foo = bar;
-}</code></pre>
+}
+</code></pre>
 
 <h5>llist_for_each_entry_safe</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_for_each_entry_safe - iterate over some deleted entries of lock-less list of given type</span>
-<span class="cm"> *                               safe against removal of list entry</span>
-<span class="cm"> * @pos:        the type * to use as a loop cursor.</span>
-<span class="cm"> * @n:                another type * to use as temporary storage</span>
-<span class="cm"> * @node:        the first entry of deleted list entries.</span>
-<span class="cm"> * @member:        the name of the llist_node with the struct.</span>
-<span class="cm"> *</span>
-<span class="cm"> * In general, some entries of the lock-less list can be traversed</span>
-<span class="cm"> * safely only after being removed from list, so start with an entry</span>
-<span class="cm"> * instead of list head.</span>
-<span class="cm"> *</span>
-<span class="cm"> * If being used on entries deleted from lock-less list directly, the</span>
-<span class="cm"> * traverse order is from the newest to the oldest added entry.  If</span>
-<span class="cm"> * you want to traverse from the oldest to the newest, you must</span>
-<span class="cm"> * reverse the order by yourself before traversing.</span>
-<span class="cm"> */</span>
-<span class="cp">#define llist_for_each_entry_safe(pos, n, node, member)                               \</span>
-<span class="cp">        for (pos = llist_entry((node), typeof(*pos), member);                       \</span>
-<span class="cp">             &amp;pos-&gt;member != NULL &amp;&amp;                                               \</span>
-<span class="cp">                (n = llist_entry(pos-&gt;member.next, typeof(*n), member), true); \</span>
-<span class="cp">             pos = n)</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_for_each_entry_safe - iterate over some deleted entries of lock-less list of given type
+ *                               safe against removal of list entry
+ * @pos:        the type * to use as a loop cursor.
+ * @n:                another type * to use as temporary storage
+ * @node:        the first entry of deleted list entries.
+ * @member:        the name of the llist_node with the struct.
+ *
+ * In general, some entries of the lock-less list can be traversed
+ * safely only after being removed from list, so start with an entry
+ * instead of list head.
+ *
+ * If being used on entries deleted from lock-less list directly, the
+ * traverse order is from the newest to the oldest added entry.  If
+ * you want to traverse from the oldest to the newest, you must
+ * reverse the order by yourself before traversing.
+ */
+#define llist_for_each_entry_safe(pos, n, node, member)                               \
+        for (pos = llist_entry((node), typeof(*pos), member);                       \
+             &amp;pos-&gt;member != NULL &amp;&amp;                                               \
+                (n = llist_entry(pos-&gt;member.next, typeof(*n), member), true); \
+             pos = n)
+</code></pre>
 
 <p><code>safe</code>表示单链表中的节点有可能被增加/删除。</p>
 
 <p>使用<code>(n = llist_entry(pos-&gt;member.next, typeof(*n), member), true)</code>可以保持遍历的安全性。</p>
 
 <h6>llist_next</h6>
-<div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="nf">llist_next</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">return</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+
+<pre><code class="c">static inline struct llist_node *llist_next(struct llist_node *node)
+{
+        return node-&gt;next;
+}
+</code></pre>
 
 <h3>链表元素的操作</h3>
 
 <h5>llist_add_batch</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_add_batch - add several linked entries in batch</span>
-<span class="cm"> * @new_first:        first entry in batch to be added</span>
-<span class="cm"> * @new_last:        last entry in batch to be added</span>
-<span class="cm"> * @head:        the head for your lock-less list</span>
-<span class="cm"> *</span>
-<span class="cm"> * Return whether list is empty before adding.</span>
-<span class="cm"> */</span>
-<span class="kt">bool</span> <span class="nf">llist_add_batch</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">new_first</span><span class="p">,</span> <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">new_last</span><span class="p">,</span>
-                     <span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">first</span><span class="p">;</span>
 
-        <span class="k">do</span> <span class="p">{</span>
-                <span class="n">new_last</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span> <span class="o">=</span> <span class="n">ACCESS_ONCE</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">new_first</span><span class="p">)</span> <span class="o">!=</span> <span class="n">first</span><span class="p">);</span>
+<pre><code class="c">/**
+ * llist_add_batch - add several linked entries in batch
+ * @new_first:        first entry in batch to be added
+ * @new_last:        last entry in batch to be added
+ * @head:        the head for your lock-less list
+ *
+ * Return whether list is empty before adding.
+ */
+bool llist_add_batch(struct llist_node *new_first, struct llist_node *new_last,
+                     struct llist_head *head)
+{
+        struct llist_node *first;
 
-        <span class="k">return</span> <span class="o">!</span><span class="n">first</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+        do {
+                new_last-&gt;next = first = ACCESS_ONCE(head-&gt;first);
+        } while (cmpxchg(&amp;head-&gt;first, first, new_first) != first);
+
+        return !first;
+}
+</code></pre>
 
 <p>批量增加命令，使用<code>cmpxchg</code>保持线程安全。</p>
 
 <h5>llist_add</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_add - add a new entry</span>
-<span class="cm"> * @new:        new entry to be added</span>
-<span class="cm"> * @head:        the head for your lock-less list</span>
-<span class="cm"> *</span>
-<span class="cm"> * Returns true if the list was empty prior to adding this entry.</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">llist_add</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">new</span><span class="p">,</span> <span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">return</span> <span class="n">llist_add_batch</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">head</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_add - add a new entry
+ * @new:        new entry to be added
+ * @head:        the head for your lock-less list
+ *
+ * Returns true if the list was empty prior to adding this entry.
+ */
+static inline bool llist_add(struct llist_node *new, struct llist_head *head)
+{
+        return llist_add_batch(new, new, head);
+}
+</code></pre>
 
 <h5>llist_empty</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_empty - tests whether a lock-less list is empty</span>
-<span class="cm"> * @head:        the list to test</span>
-<span class="cm"> *</span>
-<span class="cm"> * Not guaranteed to be accurate or up to date.  Just a quick way to</span>
-<span class="cm"> * test whether the list is empty without deleting something from the</span>
-<span class="cm"> * list.</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">llist_empty</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">return</span> <span class="n">ACCESS_ONCE</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">)</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_empty - tests whether a lock-less list is empty
+ * @head:        the list to test
+ *
+ * Not guaranteed to be accurate or up to date.  Just a quick way to
+ * test whether the list is empty without deleting something from the
+ * list.
+ */
+static inline bool llist_empty(const struct llist_head *head)
+{
+        return ACCESS_ONCE(head-&gt;first) == NULL;
+}
+</code></pre>
 
 <p>使用<code>ACCESS_ONCE</code>避免编译器优化，保持线程安全性。</p>
 
 <h5>llist_del_all</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_del_all - delete all entries from lock-less list</span>
-<span class="cm"> * @head:        the head of lock-less list to delete all entries</span>
-<span class="cm"> *</span>
-<span class="cm"> * If list is empty, return NULL, otherwise, delete all entries and</span>
-<span class="cm"> * return the pointer to the first entry.  The order of entries</span>
-<span class="cm"> * deleted is from the newest to the oldest added one.</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="nf">llist_del_all</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">return</span> <span class="n">xchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
+
+<pre><code class="c">/**
+ * llist_del_all - delete all entries from lock-less list
+ * @head:        the head of lock-less list to delete all entries
+ *
+ * If list is empty, return NULL, otherwise, delete all entries and
+ * return the pointer to the first entry.  The order of entries
+ * deleted is from the newest to the oldest added one.
+ */
+static inline struct llist_node *llist_del_all(struct llist_head *head)
+{
+        return xchg(&amp;head-&gt;first, NULL);
+}
+</code></pre>
 
 <h5>llist_del_first</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_del_first - delete the first entry of lock-less list</span>
-<span class="cm"> * @head:        the head for your lock-less list</span>
-<span class="cm"> *</span>
-<span class="cm"> * If list is empty, return NULL, otherwise, return the first entry</span>
-<span class="cm"> * deleted, this is the newest added one.</span>
-<span class="cm"> *</span>
-<span class="cm"> * Only one llist_del_first user can be used simultaneously with</span>
-<span class="cm"> * multiple llist_add users without lock.  Because otherwise</span>
-<span class="cm"> * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,</span>
-<span class="cm"> * llist_add) sequence in another user may change @head-&gt;first-&gt;next,</span>
-<span class="cm"> * but keep @head-&gt;first.  If multiple consumers are needed, please</span>
-<span class="cm"> * use llist_del_all or use lock between consumers.</span>
-<span class="cm"> */</span>
-<span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="nf">llist_del_first</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_head</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">entry</span><span class="p">,</span> <span class="o">*</span><span class="n">old_entry</span><span class="p">,</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
 
-        <span class="n">entry</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">entry</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-                        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-                <span class="n">old_entry</span> <span class="o">=</span> <span class="n">entry</span><span class="p">;</span>
-                <span class="n">next</span> <span class="o">=</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="n">entry</span> <span class="o">=</span> <span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">old_entry</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">entry</span> <span class="o">==</span> <span class="n">old_entry</span><span class="p">)</span>
-                        <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
+<pre><code class="c">/**
+ * llist_del_first - delete the first entry of lock-less list
+ * @head:        the head for your lock-less list
+ *
+ * If list is empty, return NULL, otherwise, return the first entry
+ * deleted, this is the newest added one.
+ *
+ * Only one llist_del_first user can be used simultaneously with
+ * multiple llist_add users without lock.  Because otherwise
+ * llist_del_first, llist_add, llist_add (or llist_del_all, llist_add,
+ * llist_add) sequence in another user may change @head-&gt;first-&gt;next,
+ * but keep @head-&gt;first.  If multiple consumers are needed, please
+ * use llist_del_all or use lock between consumers.
+ */
+struct llist_node *llist_del_first(struct llist_head *head)
+{
+        struct llist_node *entry, *old_entry, *next;
 
-        <span class="k">return</span> <span class="n">entry</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+        entry = head-&gt;first;
+        for (;;) {
+                if (entry == NULL)
+                        return NULL;
+                old_entry = entry;
+                next = entry-&gt;next;
+                entry = cmpxchg(&amp;head-&gt;first, old_entry, next);
+                if (entry == old_entry)
+                        break;
+        }
+
+        return entry;
+}
+</code></pre>
 
 <p>删除第一个值。同样的无锁操作。</p>
 
 <h5>llist_reverse_order</h5>
-<div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * llist_reverse_order - reverse order of a llist chain</span>
-<span class="cm"> * @head:        first item of the list to be reversed</span>
-<span class="cm"> *</span>
-<span class="cm"> * Reverse the order of a chain of llist entries and return the</span>
-<span class="cm"> * new first entry.</span>
-<span class="cm"> */</span>
-<span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="nf">llist_reverse_order</span><span class="p">(</span><span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">new_head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-        <span class="k">while</span> <span class="p">(</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">struct</span> <span class="n">llist_node</span> <span class="o">*</span><span class="n">tmp</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-                <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_head</span><span class="p">;</span>
-                <span class="n">new_head</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
-        <span class="p">}</span>
+<pre><code class="c">/**
+ * llist_reverse_order - reverse order of a llist chain
+ * @head:        first item of the list to be reversed
+ *
+ * Reverse the order of a chain of llist entries and return the
+ * new first entry.
+ */
+struct llist_node *llist_reverse_order(struct llist_node *head)
+{
+        struct llist_node *new_head = NULL;
 
-        <span class="k">return</span> <span class="n">new_head</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">EXPORT_SYMBOL_GPL</span><span class="p">(</span><span class="n">llist_reverse_order</span><span class="p">);</span>
-</pre></div>
+        while (head) {
+                struct llist_node *tmp = head;
+                head = head-&gt;next;
+                tmp-&gt;next = new_head;
+                new_head = tmp;
+        }
+
+        return new_head;
+}
+EXPORT_SYMBOL_GPL(llist_reverse_order);
+</code></pre>
 
 <p>如何反转一个单链表</p>
 
 <h2>少锁链表是如何实现的</h2>
 
 <h3>add函数中的原子操作</h3>
-<div class="highlight"><pre><span class="k">do</span> <span class="p">{</span>
-    <span class="n">new_last</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span> <span class="o">=</span> <span class="n">ACCESS_ONCE</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">new_first</span><span class="p">)</span> <span class="o">!=</span> <span class="n">first</span><span class="p">);</span>
-</pre></div>
+
+<pre><code class="c">do {
+    new_last-&gt;next = first = ACCESS_ONCE(head-&gt;first);
+} while (cmpxchg(&amp;head-&gt;first, first, new_first) != first);
+</code></pre>
 
 <p>其中<code>cmpxchg</code>的性质类似于锁。保证赋值是成功的且是是原子的。</p>
 
 <h3>del_first中的原子操作</h3>
-<div class="highlight"><pre><span class="n">entry</span> <span class="o">=</span> <span class="n">cmpxchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="n">old_entry</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
-</pre></div>
+
+<pre><code class="c">entry = cmpxchg(&amp;head-&gt;first, old_entry, next);
+</code></pre>
 
 <h3>del_all中的原子操作</h3>
-<div class="highlight"><pre><span class="k">return</span> <span class="nf">xchg</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-</pre></div>
+
+<pre><code class="c">return xchg(&amp;head-&gt;first, NULL);
+</code></pre>
 
 <h3>少锁链表如何处理并发</h3>
 
 <p>在llist.h中有如下的注释表明如果两种操作并发执行，是否需要加额外的锁。</p>
 
-<pre><code>/*
+<pre><code> /*
  *           |   add    | del_first |  del_all
  * add       |    -     |     -     |     -
  * del_first |          |     L     |     L
  * del_all   |          |           |     -
- */</code></pre>
+ */
+</code></pre>
 
 <p><code>add</code>操作和头指针没有关系，所以它可以和其它操作并行。
 <code>del_first</code>依赖于<code>list-&gt;first-&gt;next</code>在操作时不变化。
 而<code>del_all</code>只对<code>list-&gt;first</code>的指针进行操作。所以是可以并行的。</p>
 
 <h3>少锁链表如何处理遍历</h3>
-<div class="highlight"><pre><span class="cm">/*</span>
-<span class="cm"> * The list entries deleted via llist_del_all can be traversed with</span>
-<span class="cm"> * traversing function such as llist_for_each etc.  But the list</span>
-<span class="cm"> * entries can not be traversed safely before deleted from the list.</span>
-<span class="cm"> * The order of deleted entries is from the newest to the oldest added</span>
-<span class="cm"> * one.  If you want to traverse from the oldest to the newest, you</span>
-<span class="cm"> * must reverse the order by yourself before traversing.</span>
-<span class="cm"> */</span>
-</pre></div>
+
+<pre><code class="c">/*
+ * The list entries deleted via llist_del_all can be traversed with
+ * traversing function such as llist_for_each etc.  But the list
+ * entries can not be traversed safely before deleted from the list.
+ * The order of deleted entries is from the newest to the oldest added
+ * one.  If you want to traverse from the oldest to the newest, you
+ * must reverse the order by yourself before traversing.
+ */
+</code></pre>
 
 <p>大概意思是说只有从列表上删除下来的元素才可以安全的遍历。（这点理解的不深入）</p>
 
@@ -603,23 +625,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/python.html">
                         python
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -628,18 +635,23 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                        公开课
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/cpp.html">
+                        cpp
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://wizmann.tk/tag/xian-liao.html">
+                        闲聊
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
                     <a href="http://wizmann.tk/tag/chrome-extension.html">
                         chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -648,13 +660,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
+                    <a href="http://wizmann.tk/tag/mian-shi.html">
+                        面试
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
+                    <a href="http://wizmann.tk/tag/leetcode.html">
+                        leetcode
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -662,84 +674,14 @@
                         CSE351
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multithread.html">
-                        multithread
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/stack.html">
+                        stack
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
+                <li class="list-group-item tag-3">
+                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
+                        设计模式
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -748,58 +690,8 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/asm.html">
-                        asm
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        c++
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/heap.html">
-                        heap
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
+                    <a href="http://wizmann.tk/tag/metadata.html">
+                        metadata
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -808,13 +700,28 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
+                    <a href="http://wizmann.tk/tag/lian-biao.html">
+                        链表
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
+                    <a href="http://wizmann.tk/tag/crack.html">
+                        crack
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/app.html">
+                        app
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/linux.html">
+                        linux
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/poi.html">
+                        POI
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -823,23 +730,68 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
                     <a href="http://wizmann.tk/tag/android.html">
                         android
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
+                    <a href="http://wizmann.tk/tag/cachegrind.html">
+                        cachegrind
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/pelican.html">
+                        pelican
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/allocate.html">
+                        allocate
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                        字符串
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/suo-yin.html">
+                        索引
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/yunfile.html">
+                        Yunfile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/queue.html">
+                        queue
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/c.html">
+                        c++
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/markdown.html">
+                        markdown
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                        并发编程
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/alloca.html">
+                        alloca
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory.html">
+                        memory
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -853,33 +805,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
+                    <a href="http://wizmann.tk/tag/encrypted.html">
+                        encrypted
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
+                    <a href="http://wizmann.tk/tag/cpu.html">
+                        cpu
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -888,18 +820,123 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
+                    <a href="http://wizmann.tk/tag/quartile.html">
+                        quartile
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
+                    <a href="http://wizmann.tk/tag/ya-suo.html">
+                        压缩
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
+                    <a href="http://wizmann.tk/tag/cocurrency.html">
+                        cocurrency
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multiprocess.html">
+                        multiprocess
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/thread.html">
+                        thread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/protobuf.html">
+                        protobuf
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/du-shu.html">
+                        读书
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/angularjs.html">
+                        angularjs
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/multithread.html">
+                        multithread
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/asm.html">
+                        asm
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/si-wei.html">
+                        思维
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/string.html">
+                        string
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                        计算机科学
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/memory-barrier.html">
+                        memory-barrier
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cache.html">
+                        cache
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                        糙快猛
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/geohash.html">
+                        GeoHash
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                        分类器
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/heap.html">
+                        heap
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/lock-less.html">
+                        lock-less
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                        最小表示法
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/profile.html">
+                        profile
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/head-first.html">
+                        head-first
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://wizmann.tk/tag/normal-distribution.html">
+                        normal-distribution
                     </a>
                 </li>
 
