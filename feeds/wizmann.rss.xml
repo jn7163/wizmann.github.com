@@ -41,10 +41,14 @@
 
 &lt;p&gt;并且以i为起点的字符串为&lt;code&gt;RS[i]&lt;/code&gt;，以j为起点的字符串为&lt;code&gt;RS[j]&lt;/code&gt;。&lt;/p&gt;
 
+&lt;p&gt;且&lt;code&gt;RS[i]&lt;/code&gt;为&lt;code&gt;RS[0...i-1]&lt;/code&gt;字典序最小的。&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;RS[i] = S[i...i+k] ++ S[i+k+1 ... i+n-1]
 RS[j] = S[j...j+k] ++ S[j+k+1 ... j+n-1]&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;以上为我们的假设。&lt;/p&gt;
+&lt;p&gt;以上为我们的子问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;i = 0, j = 1&lt;/code&gt;时，子问题即成立。&lt;/p&gt;
 
 &lt;h4&gt;情况0&lt;/h4&gt;
 
@@ -68,7 +72,7 @@ RS[j] = S[j...j+k] ++ S[j+k+1 ... j+n-1]&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;所以i指向j点，保持最小性质。而j则指向&lt;code&gt;j + k + 1&lt;/code&gt;。&lt;/p&gt;
 
-&lt;p&gt;保持i &amp;lt; j，且S[i] &amp;lt;= S[j]的性质。&lt;/p&gt;
+&lt;p&gt;保持i &amp;lt; j，且S[i] &amp;lt;= S[j]的性质。使问题回到我们归纳的子问题上来。&lt;/p&gt;
 
 &lt;h4&gt;情况3&lt;/h4&gt;
 
@@ -78,7 +82,7 @@ RS[j] = S[j...j+k] ++ S[j+k+1 ... j+n-1]&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;所以i不变，保持最小性质。而j指向&lt;code&gt;j + k + 1&lt;/code&gt;。&lt;/p&gt;
 
-&lt;p&gt;保持i &amp;lt; j，且S[i] &amp;lt;= S[j]的性质。&lt;/p&gt;
+&lt;p&gt;保持i &amp;lt; j，且S[i] &amp;lt;= S[j]的性质。使问题回到我们归纳的子问题上来。&lt;/p&gt;
 
 &lt;h2&gt;代码&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Result: wizmann  1509    Accepted    272K    16MS    C++ 1247B   2014-09-17 00:44:22&lt;/span&gt;
