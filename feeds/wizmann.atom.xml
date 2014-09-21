@@ -59,7 +59,7 @@ Flatbuffer使用严格的字节对齐和字节顺序（通常是小端）以保�
 
 &lt;h2&gt;Benchmark&lt;/h2&gt;
 
-&lt;table class="doxtable"&gt;
+&lt;table class="table-bordered table-hover"&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;th&gt;&lt;/th&gt;&lt;th&gt;FlatBuffers (binary) &lt;/th&gt;&lt;th&gt;Protocol Buffers LITE &lt;/th&gt;&lt;th&gt;Rapid JSON &lt;/th&gt;&lt;th&gt;FlatBuffers (JSON) &lt;/th&gt;&lt;th&gt;pugixml  &lt;/th&gt;&lt;/tr&gt;
