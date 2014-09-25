@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/index.html</loc>
-<lastmod>2014-09-21T23:05:41-00:00</lastmod>
+<lastmod>2014-09-26T00:12:32-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2014-09-21T23:05:41-00:00</lastmod>
+<lastmod>2014-09-26T00:12:32-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2014-09-21T23:05:41-00:00</lastmod>
+<lastmod>2014-09-26T00:12:32-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2014-09-21T23:05:41-00:00</lastmod>
+<lastmod>2014-09-26T00:12:32-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/thinking-in-induction.html</loc>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -320,7 +327,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2014-09-21T00:00:00-00:00</lastmod>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -488,7 +495,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/codeforces.html</loc>
-<lastmod>2014-07-24T23:44:44-00:00</lastmod>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -543,6 +550,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/induction.html</loc>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/normal-distribution.html</loc>
 <lastmod>2014-03-09T22:44:15-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -573,6 +587,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/misaka.html</loc>
 <lastmod>2014-01-09T14:55:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/binary-tree.html</loc>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -803,7 +824,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2014-09-21T00:00:00-00:00</lastmod>
+<lastmod>2014-09-26T00:10:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
