@@ -6737,39 +6737,37 @@ yx[zyx][zyx]...
 
 &lt;h3&gt;isNegative&lt;/h3&gt;
 
-&lt;p&gt;找到符号位
-&lt;code&gt;cpp
-/* 
- * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise 
- *   Example: isNegative(-1) = 1.
- *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;
- *   Max ops: 6
- *   Rating: 2
- */
-int isNegative(int x) {
-    return !!(x &amp;amp; (1 &amp;lt;&amp;lt; 31));
-}
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;找到符号位&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * isNegative - return 1 if x &amp;lt; 0, return 0 otherwise &lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: isNegative(-1) = 1.&lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 6&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 2&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;isNegative&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;!!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;addOK&lt;/h3&gt;
 
-&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加
-&lt;code&gt;cpp
-/* 
- * addOK - Determine if can compute x+y without overflow
- *   Example: addOK(0x80000000,0x80000000) = 0,
- *            addOK(0x80000000,0x70000000) = 1, 
- *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;
- *   Max ops: 20
- *   Rating: 3
- */
-int addOK(int x, int y) {
-    int sum = ((x + y) &amp;gt;&amp;gt; 31) &amp;amp; 1;
-    int sx = (x &amp;gt;&amp;gt; 31) &amp;amp; 1;
-    int sy = (y &amp;gt;&amp;gt; 31) &amp;amp; 1;
-    return  !((!(sx ^ sy)) &amp;amp; (sx ^ sum));
-}
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;如果a和b同号，且a + b与a异号，则不可以加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
+&lt;span class="cm"&gt; * addOK - Determine if can compute x+y without overflow&lt;/span&gt;
+&lt;span class="cm"&gt; *   Example: addOK(0x80000000,0x80000000) = 0,&lt;/span&gt;
+&lt;span class="cm"&gt; *            addOK(0x80000000,0x70000000) = 1, &lt;/span&gt;
+&lt;span class="cm"&gt; *   Legal ops: ! ~ &amp;amp; ^ | + &amp;lt;&amp;lt; &amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="cm"&gt; *   Max ops: 20&lt;/span&gt;
+&lt;span class="cm"&gt; *   Rating: 3&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;addOK&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt;  &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sy&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sx&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;isGreater&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* &lt;/span&gt;
