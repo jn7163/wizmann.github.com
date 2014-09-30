@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 糙快猛</title>
+    <title>Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,28 +86,38 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/misaka-pelican.html">用Misaka做为pelican的Markdown解析器</a></h2>
+                <h2><a href="http://wizmann.tk/hello-world.html">Hello World</a></h2>
                 <div class="summary">
-                    <h2>为啥？</h2>
+                    <p>打算把博客迁到这里来了</p>
+<div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Hello World&#39;</span>
+</pre></div>
 
-<p>Pelican内置<a href="http://pythonhosted.org/Markdown/">python-markdown</a>做为默认解析器，用来将用户的<code>Markdown</code>格式的文章转为网页格式展示。</p>
-
-<p><strong>然而</strong>，<code>python-markdown</code>模块的解析逻辑有严重的Bug。例如一个<code>未标明语言的代码块</code>会被标出很多莫名奇妙的错误；还有<code>C++</code>中的指针符号<code>*</code>会被解析为斜体的符号<code>*SomeText*</code>，在代码块中会产生大量和语法高亮无关的斜体字。</p>
-
-<p>在网上寻找了很久的答案，终于找到了一篇<a href="http://qiita.com/5t111111/items/4614b207f3942d05e55c">日文博客</a>，其中讲到了使用<a href="http://misaka.61924.nl/">misaka</a>来替换<code>python-markdown</code>来解析日志。</p>
-
-<h2>两难的Metadata</h2>
-
-<p>我使用了上文提到的日志中的方法来替换解析器，效果拔群，日志中的解析问题完全解决了。但是日志中的<code>Metadata</code>并没有被隐藏，而是显示在了日志的最前面，非常影响心情（强迫症？）。</p>
-
-<p>于是我分析了解析模块的代码。原来的解析模块使用了<code>python-markdown</code>的一个处理<code>Metadata</code>的<a href="https://github.com/waylan/Python-Markdown/blob/master/markdown/extensions/meta.py">扩展</a>，用来解析<code>Metadata</code>，并从正文中删除这一部分。</p>
-
-<p>但是<code>Misaka</code>并不支持这种语法 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/misaka-pelican.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hello-world.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="http://wizmann.tk/index7.html">&laquo;</a>
+                </li>
+                <li class=""><a
+                        href="http://wizmann.tk/index.html">1</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index2.html">2</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index3.html">3</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index4.html">4</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index5.html">5</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index6.html">6</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/index7.html">7</a></li>
+                <li class="active"><a
+                        href="http://wizmann.tk/index8.html">8</a></li>
+                <li class="next disabled"><a href="#">&laquo;</a></li>
+        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
