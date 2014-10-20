@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 算法</title>
+    <title>Maerlyn's Rainbow - geometric</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,107 +86,36 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/cf-221-div-2.html">Codeforces Round #221 (Div. 2)不完全不正确题解</a></h2>
+                <h2><a href="http://wizmann.tk/snake-problem.html">Snake Problem</a></h2>
                 <div class="summary">
-                    <h2>A. Lever</h2>
+                    <h2>题目</h2>
 
-<p>水题，杠杆原理。</p>
+<p>在一个平面上，有n+m条蛇，其中n条蛇沿水平方向（y轴方向）移动，m条蛇沿竖直方向（x轴方向）移动。</p>
 
-<p>用<code>^</code>把字符串分割开。然后分别计算两边的重量即可。</p>
-<div class="highlight"><pre><span class="c">#Result: Dec 24, 2013 6:04:41 PM    Wizmann  A - Lever   Python 2   Accepted     312 ms  4200 KB</span>
-<span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="n">ss</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s">&#39;=&#39;</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="n">res</span> <span class="o">+=</span> <span class="n">t</span> <span class="o">*</span> <span class="n">p</span>
-        <span class="n">p</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">res</span>
+<p>现给出这些蛇头和尾所在的坐标点，求出这n+m条蛇在此时共有多少个交点。在同一个方向移动的蛇不会有交点。</p>
 
-<span class="n">s</span> <span class="o">=</span> <span class="nb">raw_input ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-221-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-218-div-2.html">Codeforces Round #218 (Div. 2)不完全不正确题解</a></h2>
-                <div class="summary">
-                    <h3>A. K-Periodic Array</h3>
+<p>如图所示，n = 5, m = 4，这些蛇一共有5个交点。</p>
 
-<p>将Array切片，然后按位统计某一位上1的个数C(1)和2的个数C(2)。然后在这一位上的操作数就为M = min(C(1), C(2))。</p>
+<p><img src="data:image/png;base64,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" alt="Alt text"></p>
 
-<p>简单题</p>
+<h2>分析</h2>
 
-<h3>B. Fox Dividing Cheese</h3>
+<p>对于此题，最简单直接的方法就是枚举蛇两两之间的关系，这种算法的时间复杂度为O(n^2)。</p>
 
-<p>傻逼才错的题，不幸中枪。</p>
+<p>当然，我们不能满足于这种暴力的解法。那么，有没有更优美的方法呢？</p>
 
-<p>不想多说了，直接看代码吧。手贱不是病，贱起来要人命。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH8AAAFECAYAAAAOd+HJAAAABHNCSVQICAgIfAhkiAAABy9JREFUeJzt3D9s1AUYxvHnbFNCwmETEkybmE4ciRFDcozXwC5xpzs1uDqYuiBTdTBxsqHM2t3EGc3Vif4coDGhG5iUwFR6Rf4kxzm0d/1R7q2iba+8z/cztbTWI19ffk9JbKWzvtQRLL0z6BeAwSG+MeIbI74x4hsjvjHiGyO+MeIbI74x4hsjvjHiGyO+MYv4rWahVrMY9Ms4dIYH/QIOwursvCoVqTp5fdAv5VBJf/mtZqGNxYLr7yN9/NXZ+d7bD76e3+Uz/aSO37368vtc/7bU8ctX38X1b0sbf+fVl3+d69+UNn6/q+/i+jeljB9dffnjXH/S+OWrPzF1UfX1JdXXl3Ri6mLv17n+hPF3Xv34zHTft7n+hPF3Xv3IxHjv/ZGJca6/JFX8fle/Ojuv4vg5FcfPaXV2nusvSRV/t6vv4vq3pYn/4t6qnt6523u/fOE7lT/21+27enFvdV9f22FVyfR/6bbXWno4t6D2Wkvvf/P5rp/75xffami0qveuXNLQaPWAXuHhkio+3kyaP/bx5tLH37n2sS19fMSIb4zBZ4zLN0Z8Y+njs/Zj6eMjRnxjrH1jXL4x4htLH5+1H0sfHzHiG2PtG+PyjRHfWPr4rP1Y+viIEd8Ya98Yl2+M+MbSx2ftx9LHR4z4xlj7xrh8Y8Q3lj4+az+WPj5ixDfG2jc2fI3noCTpfKOuC5P1Qb+MA1WRlO7yK5XKv/q8Tmf7t351Zlpf7fLj2zIavpr8N1xrFjq99VM57zbqWgmu+0LD6+olg2f+6uy8Hmw92sZmpnf94YxuWPvG0l8+Yly+MeIbSx+fv9uPpY+PGPGNsfaNcfnGiG8sfXzWfix9fMSIb4y1b4zLN0Z8Y+njs/Zj6eMjRnxjrH1jXL4x4htLH5+1H0sfHzHiG2PtG+PyjRHfWPr4rP1Y+viIEd8Ya98Yl2+M+MbSx2ftx9LHR4z4xlj7xrh8Y8Q3lj4+az+WPj5ixDfG2jfG5RsjvrH08Vn7sfTxESO+Mda+MS7fGPGNpY/P2o+lj48Y8Y2x9o1x+caIbyx9fNZ+LH18xIhvjLVvjMs3Rnxj6eOz9mPp4yNGfGOsfWNcvjHiG0sfn7UfSx8fMeIbY+0b4/KNEd/Y8KBfQD+/NAv9uljsydeqNQvVtr7WSqOulcn6nnzdDA5n/MVC1/7Ht2WVSqX39uVOR7XS173x2++9j3U63nPnUMa/0KhLM9N78rVqzULauvzzjbrGuPwe1r4xBp8x4htLH5+/24+lj48Y8Y2x9o1x+caIbyx9fNZ+LH18xIhvjLVvjMs3Rnxj6eOz9mPp4yNGfGOsfWNcvjHiG0sfn7UfSx8fMeIbY+0b4/KNEd9Y+vis/Vj6+IgR3xhr3xiXb4z4xtLHZ+3H0sdHjPjGWPvGuHxjxDeWPj5rP5Y+PmLEN8baN8blGyO+sfTxWfux9PERI74x1r4xLt8Y8Y2lj8/aj6WPjxjxjbH2jXH5xohvLH181n4sfXzEiG+MtW+MyzdGfGPp47P2Y+njI0Z8Y6x9Y1y+MeIbSx+ftR9LHx8x4htj7Rvj8o0R31j6+Kz9WPr4iBHfGGvfGJdvjPjG0sdn7cfSx0eM+MZY+8a4fGPEN5Y+Pms/lj4+YsQ3xto3xuUbI76x9PFZ+7H08REjvjHWvjEu3xjxjQ1fS76Aa81CtcVCkrTSqGtlsr6v/76rM9P7+vX3UkVSumd+pVLpvX2501E3x7ykG6WPdTp7/1vvrC/t+dfcL8Nv03+p/0WtWUhbl3++UdfYPl/+24S1b4zBZ4z4xtLH5+/2Y+njI0Z8Y6x9Y1y+MeIbSx+ftR9LHx8x4htj7Rvj8o0R31j6+Kz9WPr4iBHfGGvfGJdvjPjG0sdn7cfSx0eM+MZY+8a4fGPEN5Y+Pms/lj4+YsQ3xto3xuUbI76x9PFZ+7H08REbHvQL2EvttZYezS1o6N1jOvnZ1K6f++j7H9V+vKGTVy5paLR6QK/wcEmz9l/cW9UfjSm1H29oaLSqM7d/CqO211q689Enaq+1NDRa1QfNHzQyMX7Ar3jw0vyxPzIxrqNnTkvajPtwbiH83IdzC2qvtSRJRz+sWYaXEsWXpPHSj5V7VApc1n009Ptn3KR65lcn6zrWqGtjsXjl+h9srfyxrdDd/yiONeqqGv9cvlSXL71+/S+fPe+9//LZc66+JF387vVLmxf+5NZy72NPbi1z9SXp4kuvXvTT5RWdvX9TZ+/f1NPllb6f4yrVM78revZz9a9K833+Tq1moZWPP5Wk3vf73fi1n68TX0n/2Jdef/Zz9a9LG1/q/1znWb8tdfzqZF1HTk303j9yaoKrL0kdX5Imvvuy79tIuvbLys9+rv5V6eNLPOcjab/Vwz9L/8xHjPjGiG+M+MaIb4z4xohvjPjGiG+M+MaIb4z4xohvjPjGiG+M+MaIb4z4xohvjPjG/gYdfhbrYRov+AAAAABJRU5ErkJggg==" alt="Alt text"></p>
 
-<h3>C. Hamburgers</h3>
+<p>对于这一条在y轴方向上的（红）蛇来说，它与x轴方向上的（黑）蛇共有三个交点。那么，也就意味着，问题的关键在于，我们如何快速确定某一条红蛇（或黑蛇）与其它蛇一共有多少个交点。</p>
 
-<p>模拟 + 二分。</p>
+<p>我们可以做出如下假设，我们知道当x = k时，所有在平面上的蛇的位置。根据这个假设，我们可以使用区间求和的算法来确定竖直位置上的蛇会有多少个焦点。</p>
 
-<p>和CJL还讨论过这题的纯模拟做法，看了半天代码没找到问题。于是刚才用Python自己实现了一个，在代码正确的情况下，没有WA，但是T在了22组上。</p>
-
-<p>所以这题最好使用二分，如果用模拟的话，需要考虑各种情况。代码见下，细节上注意就好。</p>
-
-<h3>D. Vessels</h3>
-
-<p>这题得好好讲一下～比赛时做出来了好得意～</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-d-vessels.png" alt="Vessels"></p>
-
-<p>题意是给出一组层层叠的容器，每一个容器都有自己的容量。然后我们向某些容器里灌水，如果水的体积超过了某个容器的容量，则剩余的水溢出到下一个容器中。最后一个容器溢出的水会落到地面上 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-218-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-215-div-2.html">Codeforces Round #215 (Div. 2)不完全不正确题解</a></h2>
-                <div class="summary">
-                    <h3>A. Sereja and Coat Rack</h3>
-
-<p>傻逼才错的题。不幸中枪。</p>
-
-<p>没什么可说的。直接看代码就好。</p>
-
-<h3>B. Sereja and Suffixes</h3>
-
-<p>关键思想在于统计A[i&hellip;n-1]中有多少互不相同的数。</p>
-
-<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
-
-<h3>C. Sereja and Algorithm</h3>
-
-<p>思路题。</p>
-
-<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
-
-<p>所以我们只需要统计出A[i&hellip;j]中x, y, z的个数。</p>
-
-<p>然后进行排列。</p>
-
-<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
-
-<pre><code>zy[xzy][xzy]...
-xz[yxz][yxz]...
-yx[zyx ...</code></pre>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-215-div-2.html">more ...</a>
+<p>假设我们从x = 0到x ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/snake-problem.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
-        <ul class="pagination">
-                <li class="prev"><a href="http://wizmann.tk/tag/suan-fa.html">&laquo;</a>
-                </li>
-                <li class=""><a
-                        href="http://wizmann.tk/tag/suan-fa.html">1</a></li>
-                <li class="active"><a
-                        href="http://wizmann.tk/tag/suan-fa2.html">2</a></li>
-                <li class="next disabled"><a href="#">&laquo;</a></li>
-        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
