@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - cachegrind</title>
+    <title>Maerlyn's Rainbow - programming interview</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,39 +86,21 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/cpu-cache-miss.html">CPU cache引发的性能血案</a></h2>
+                <h2><a href="http://wizmann.tk/reasons-they-recruit.html">Reasons They Recruit</a></h2>
                 <div class="summary">
-                    <p>在<strong><a href="http://evol128.is-programmer.com/posts/35453.html">为什么转置一个512x512的矩阵，会比513x513的矩阵慢很多？</a></strong>一文中，作者引用了一个矩阵转置的例子，来讲解由于CPU cache的失效而带来的性能损失。</p>
+                    <blockquote>
+<p>From <em>Ace of Programming Interview</em>, Cpt1 - Hiring Programmers: The Inside Story</p>
+</blockquote>
 
-<p>上面的文章对问题的解释与讨论都非常的透彻。我的这篇文章只是对上面文章的一篇读后感和实验报告。就酱。</p>
+<h2>Establish a Rapport</h2>
 
-<h2>CPU cache 之 组相联</h2>
+<p>For an interviewee, one the the most efficient way to build a rapport is to <strong>try to see things in from the interviewer&#39;s perspective</strong>.</p>
 
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-cpu-cache-2-way-set-assosiate.jpg" alt="组相联"></p>
-
-<p>组相联的实现和原理不必再赘述了。我想讨论的是，如何在编程中优化CPU的cache性能。</p>
-
-<h2>查看CPU信息</h2>
-
-<p>我的系统是Ubuntu 12.04，CPU是i5-3230M。（屌丝机 :D)</p>
-
-<pre><code>wizmann@Wichmann:~$ ls /sys/devices/system/cpu/cpu0/cache/index0/
-coherency_line_size  physical_line_partition  size
-level                shared_cpu_list          type
-number_of_sets       shared_cpu_map           ways_of_associativity</code></pre>
-
-<p>使用cat命令查看文件内容，可以获得CPU L1 cache的一些信息。</p>
-
-<table class="table table-striped-white table-bordered">
-<thead>
-<tr>
- <th>Key</th>
- <th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
- <td>level ...</td></tr></tbody></table>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cpu-cache-miss.html">more ...</a>
+<ul>
+<li>understand the motivation of the interviewer</li>
+<li>establishing a common ground</li>
+<li>adapting ...</li></ul>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/reasons-they-recruit.html">more ...</a>
                 </div>
             </article>
             <hr/>

@@ -1,5 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 15 Nov 2014 16:08:10 +0800</lastBuildDate><item><title>Quora - What are effective ways to assess if someone is good at "getting things done"?</title><link>http://wizmann.tk/good-at-get-things-done.html</link><description>&lt;blockquote&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 16 Nov 2014 01:03:14 +0800</lastBuildDate><item><title>Reasons They Recruit</title><link>http://wizmann.tk/reasons-they-recruit.html</link><description>&lt;blockquote&gt;
+&lt;p&gt;From &lt;em&gt;Ace of Programming Interview&lt;/em&gt;, Cpt1 - Hiring Programmers: The Inside Story&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;Establish a Rapport&lt;/h2&gt;
+
+&lt;p&gt;For an interviewee, one the the most efficient way to build a rapport is to &lt;strong&gt;try to see things in from the interviewer&amp;#39;s perspective&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;understand the motivation of the interviewer&lt;/li&gt;
+&lt;li&gt;establishing a common ground&lt;/li&gt;
+&lt;li&gt;adapting your responses appropritely&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Reasons They Recruit&lt;/h2&gt;
+
+&lt;p&gt;If you know what the reason is and understand the motivation for it, then you can optimize your approach accordingly.&lt;/p&gt;
+
+&lt;h3&gt;Planned Expansion&lt;/h3&gt;
+
+&lt;p&gt;This is a common scenario that the company&amp;#39;s expansion require them to take on more programmers accordance with the comming business growth. &lt;/p&gt;
+
+&lt;h4&gt;The Interviewer vs. You&lt;/h4&gt;
+
+&lt;p&gt;As the hiring is due to a long plan, so the interviewer is unlikely to feel a great sence of urgency. The interviewer will have a well prepared job description (a.k.a JD), or even a person profile. The interviewer are unlikely to compromise their pre-determined requirements. If you are deviate from their expectation, they will probable be less open to giving you the offer.&lt;/p&gt;
+
+&lt;p&gt;Your approach is to &lt;strong&gt;highlight&lt;/strong&gt; these areas which matches to the job profile. That&amp;#39;s the easy part.&lt;/p&gt;
+
+&lt;p&gt;If your skills are not a good fit, you can use these three tricks below to change the situation.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Play it down&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Your first choice is to downplay the perceived gap in skills &amp;ndash; including the option of substituting other experience as being of equivalent value.&lt;/p&gt;
+
+&lt;p&gt;For example,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“It’s been my experience that it never takes long to learn the basics of a new component library, since, as programmers, we face an endless supply of new components and frameworks both open source and from the major vendors.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;or,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“One thing I really like about programming is the experience of learning new
+technologies and platforms. It’s part of the ongoing attraction of the job.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;However, the biggest risk in taking this approach is that you might appear evasive, so be wary of overdoing it.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Take it on the chin&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you decide to take it on the chin, simply agree with the interviewer&amp;#39;s observation and at the same time show your enthusiasm for learning something new.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“I don’t have experience of that particular technology but I would really enjoy learning it.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If the interviewer persists, you might feel it appropriate to ask how other developers in the team might learn new things.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“Could you describe how the developers in your team generally learn new skills?”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Each example the interviewer gives you is an opportunity to show how, as a part of the team, you would &lt;strong&gt;benefit the same approach&lt;/strong&gt; and so acquire the necessary skill.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Understand the requirement&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Your third option is to gently probe the motives underpinning the requirement. The basic idea is that you explore the requirement looking to show that you understand and can meaningfully address the underlying requirement despite lacking a specific skill or experience.&lt;/p&gt;
+
+&lt;p&gt;Whatever approach you take, keep in mind that you should not &lt;strong&gt;dwell on any particular mismatch&lt;/strong&gt;. In particular, keep you comment brief and to the point. The more you talk about it, the more prominence it will have in the interviewer&amp;#39;s memory of the interview when they reflect afterward.&lt;/p&gt;
+
+&lt;h3&gt;Specific Projet&lt;/h3&gt;
+
+&lt;p&gt;When a company spots an opportunity in the market, it might scramble to put 
+together a development team focused on delivering a solution to capitalize on 
+the opportunity. &lt;/p&gt;
+
+&lt;h4&gt;The Interviewer vs. You&lt;/h4&gt;
+
+&lt;p&gt;The interviewer wants to know that you can work under pressure, and that you are someone who finishes what you start. Sometimes that the pressure to hire can relax the strictness with which the interviewer will match your experience against the details of job specification, although of course you can&amp;#39;t assume that case.&lt;/p&gt;
+
+&lt;p&gt;Be ware that although you have to demonstrate how your skills and experience are good match for the position, the interviewer also probable has the need of specific project in mind. You enthusiasm and ability to adapt might count for more than usual. Showing an ability of &lt;strong&gt;grasp key aspect of project&lt;/strong&gt; give you an advantage over others.&lt;/p&gt;
+
+&lt;p&gt;If you are not sure of the motivation of hiring, there&amp;#39;s absolutely no harm to ask directly:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Could I ask why you are recruiting? Is it for a specific project?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;Replacing Someone&lt;/h3&gt;
+
+&lt;p&gt;This is another common reason for hiring simply to replace someone who is leaving or has left the company.&lt;/p&gt;
+
+&lt;h4&gt;The Interviewer vs. You&lt;/h4&gt;
+
+&lt;p&gt;An interesting aspect of this situation is that they will probably have experience of a previous person i  lling this role, for better or for worse, and will therefore have a list of things they want to ensure the next person will and won’t bring to the role.&lt;/p&gt;
+
+&lt;p&gt;Unless you are very lucky, you can&amp;#39;t gather insight into what interviewer like or dislike prior to the interview. What you can do at the interview is ask about &lt;strong&gt;unique challenge for the role&lt;/strong&gt;, things for which you might to need to be on guard, and so on:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“Could you tell me a bit about the challenges of this role that might make it different from the usual programming job?”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you ask right questions, you may get vatal clues about the things you need to highlight with regard to your experience and ability:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“Can I ask whether there have been issues about how the team has been working together that make this ability particularly important?”&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 16 Nov 2014 01:03:14 +0800</pubDate><guid>tag:wizmann.tk,2014-11-16:reasons-they-recruit.html</guid><category>interview</category><category>programming interview</category><category>读书</category></item><item><title>Quora - What are effective ways to assess if someone is good at "getting things done"?</title><link>http://wizmann.tk/good-at-get-things-done.html</link><description>&lt;blockquote&gt;
 &lt;p&gt;Ian McAllister, GM at Amazon. I lead the AmazonSmile program.&lt;/p&gt;
 &lt;/blockquote&gt;
 
