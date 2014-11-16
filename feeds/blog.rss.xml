@@ -1,5 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 16 Nov 2014 01:03:14 +0800</lastBuildDate><item><title>Reasons They Recruit</title><link>http://wizmann.tk/reasons-they-recruit.html</link><description>&lt;blockquote&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><atom:link href="http://wizmann.tk/feeds/blog.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 17 Nov 2014 00:25:42 +0800</lastBuildDate><item><title>类型-长度-值（TLV）协议</title><link>http://wizmann.tk/tlv-protocol.html</link><description>&lt;p&gt;在数据通信协议中，可选的信息或字段通常使用type-length-value（a.k.a TLV）元素来进行编码。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Type - 类型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;用来标示字段类型的值，通常是一个二进制值或简单的字母&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Length - 长度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;字段长度，单位通常为Byte&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Value - 值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个变长的比特数组用来存储这个字段的值&lt;/p&gt;
+
+&lt;h2&gt;优势&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TLV序列方便遍历查找&lt;/li&gt;
+&lt;li&gt;新的字段可以无痛的加入现有的协议中。解析的时候，对于未知的字段，可以轻松的跳过。这点与XML类似&lt;/li&gt;
+&lt;li&gt;TLV元素的顺序可以是随意的&lt;/li&gt;
+&lt;li&gt;TLV元素通常使用二进制存储，可以使解析速度加快并且使数据更小&lt;/li&gt;
+&lt;li&gt;TLV可以与XML数据相互转换，易于人类阅读&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;例子&lt;/h2&gt;
+
+&lt;p&gt;在这里，我们以protobuf的可选和变长字段为例。&lt;/p&gt;
+
+&lt;h3&gt;field_number ++ wire_type&lt;/h3&gt;
+
+&lt;p&gt;每一个protobuf的字段在传输时，都会加上&lt;code&gt;field_number&lt;/code&gt;和&lt;code&gt;wire_type&lt;/code&gt;这两个值，这两个值组成这个字段的key。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key = (field_number &amp;lt;&amp;lt; 3) | wire_type&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;field_number&lt;/code&gt;标明了字段的编号，方便协议向前向后的兼容。而&lt;code&gt;wire_type&lt;/code&gt;标明字段的类型，方便解析程序使用相应的方法来进行反序列化。&lt;/p&gt;
+
+&lt;h3&gt;Varint 变长整型&lt;/h3&gt;
+
+&lt;p&gt;对于一个变长整型字段，protobuf中使用Type(0)来标示，而长度并没有显式的标出。&lt;/p&gt;
+
+&lt;p&gt;Varint的值使用如下编码方法：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Varint使用分段存储方法，每个Byte为一段&lt;/li&gt;
+&lt;li&gt;Varint每段的第一个字节是标示位，如果这一位是1，则下一个Byte也是这个数的一部分，如果这一位是0，则在这个Byte是这个Varint的最后一个Byte&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;String 变长字符串&lt;/h3&gt;
+
+&lt;p&gt;字符串被标示为Type(2)，长度使用Varint类型显式标出。&lt;/p&gt;
+
+&lt;p&gt;一个string在protobuf中被编码为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;encoded_string = key ++ length ++ string&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;其它方法&lt;/h2&gt;
+
+&lt;p&gt;TLV同样也可以表示tag-length value，例如HTTP、FTP、POP3等协议都是使用这种基于可读文本的&amp;quot;Field: Value&amp;quot;协议。这样设计的原因大概是由于在“上古时代”，互联网速度远小于CPU处理的速率（现在更应该是&lt;strong&gt;远远小于&lt;/strong&gt;，CPU已经爆了IO一条街了），设计一些更可读的协议对人类来说确实比较方便。&lt;/p&gt;
+
+&lt;p&gt;而TCP/IP核心协议都使用的定长不可变的协议，这样可以使编码、解析速率达到最快。&lt;/p&gt;
+
+&lt;p&gt;对于XML和json这种奇行种，我们就不说了吧 :)&lt;/p&gt;
+
+&lt;h2&gt;参考链接&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Type-length-value"&gt;Type-length-value&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cnblogs.com/shitouer/archive/2013/04/12/google-protocol-buffers-encoding.html"&gt;Google Protocol Buffers 编码(Encoding)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://wizmann.tk/moujiecao.html"&gt;破解节操的下限&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Mon, 17 Nov 2014 00:25:42 +0800</pubDate><guid>tag:wizmann.tk,2014-11-17:tlv-protocol.html</guid><category>TLV</category><category>protocol</category><category>network</category><category>protobuf</category><category>flatbuffer</category></item><item><title>Reasons They Recruit</title><link>http://wizmann.tk/reasons-they-recruit.html</link><description>&lt;blockquote&gt;
 &lt;p&gt;From &lt;em&gt;Ace of Programming Interview&lt;/em&gt;, Cpt1 - Hiring Programmers: The Inside Story&lt;/p&gt;
 &lt;/blockquote&gt;
 

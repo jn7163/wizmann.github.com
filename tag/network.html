@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 计算机科学</title>
+    <title>Maerlyn's Rainbow - network</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,23 +86,50 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/Washington-University-CSE351.html">CSE 351 - Hardware/Software Interface</a></h2>
+                <h2><a href="http://wizmann.tk/tlv-protocol.html">类型-长度-值（TLV）协议</a></h2>
                 <div class="summary">
-                    <p>开一门公开课，Washington University的Hardware/Software Interface。</p>
+                    <p>在数据通信协议中，可选的信息或字段通常使用type-length-value（a.k.a TLV）元素来进行编码。</p>
 
-<p>传说是很不错的计算机科学公开课。使用<a href="http://book.douban.com/subject/5333562/">深入理解计算机系统</a>做教材，正好是我要读的书，所以顺便听听课。</p>
+<ul>
+<li>Type - 类型</li>
+</ul>
 
-<p>豆瓣上有人写了<a href="http://book.douban.com/review/6093947/">推荐</a>，观点是这课虽然不错，但是比较浅。根据我现在的理解来说，确实比较浅，如果有不错的高级语言编程基础（C/C++/Java/Pascal等，脚本就算了），很多东西可以速推。</p>
+<p>用来标示字段类型的值，通常是一个二进制值或简单的字母</p>
 
-<p>接下来的一些日志会是这门课的作业、实验和感想。现在先挖个坑。慢慢填上。</p>
+<ul>
+<li>Length - 长度</li>
+</ul>
 
-<hr>
+<p>字段长度，单位通常为Byte</p>
 
-<p>课程视频：<a href="http://pan.baidu.com/wap/link?&amp;shareid=3687486382&amp;uk=2919707929&amp;third=0&amp;page=1">戳我</a></p>
+<ul>
+<li>Value - 值</li>
+</ul>
 
-<p>课程主页：<a href="https://courses.cs.washington.edu/courses/cse351/13su/index.html">戳我</a></p>
+<p>一个变长的比特数组用来存储这个字段的值</p>
 
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/Washington-University-CSE351.html">more ...</a>
+<h2>优势</h2>
+
+<ul>
+<li>TLV序列方便遍历查找</li>
+<li>新的字段可以无痛的加入现有的协议中。解析的时候，对于未知的字段，可以轻松的跳过。这点与XML类似</li>
+<li>TLV元素的顺序可以是随意的</li>
+<li>TLV元素通常使用二进制存储，可以使解析速度加快并且使数据更小</li>
+<li>TLV可以与XML数据相互转换，易于人类阅读</li>
+</ul>
+
+<h2>例子</h2>
+
+<p>在这里，我们以protobuf的可选和变长字段为例。</p>
+
+<h3>field_number ++ wire_type</h3>
+
+<p>每一个protobuf的字段在传输时，都会加上<code>field_number</code>和<code>wire_type</code>这两个值，这两个值组成这个字段的key。</p>
+
+<pre><code>key = (field_number &lt;&lt; 3) | wire_type</code></pre>
+
+<p><code>field_number</code>标明了字段的编号，方便协议向前向后的兼容。而 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/tlv-protocol.html">more ...</a>
                 </div>
             </article>
             <hr/>
