@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - 最小表示法</title>
+    <title>Maerlyn's Rainbow - algorithm</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,40 +86,53 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/minimal-round-string.html">最小表示法及其证明</a></h2>
+                <h2><a href="http://wizmann.tk/cf-215-div-2.html">Codeforces Round #215 (Div. 2)不完全不正确题解</a></h2>
                 <div class="summary">
-                    <h2>问题</h2>
+                    <h3>A. Sereja and Coat Rack</h3>
 
-<blockquote>
-<p>对于一个字符串S，求S的循环的同构字符串S’中字典序最小的一个。</p>
-</blockquote>
+<p>傻逼才错的题。不幸中枪。</p>
 
-<p>我们举例说明，字符串&quot;abcd&quot;的循环同构字符串有：<code>[&quot;abcd&quot;, &quot;bcda&quot;, &quot;cdab&quot;, &quot;dabc&quot;]</code>。</p>
+<p>没什么可说的。直接看代码就好。</p>
 
-<p>题目的目标是求这些字符串中字典序最小的那个。</p>
+<h3>B. Sereja and Suffixes</h3>
 
-<h2>暴力解法</h2>
+<p>关键思想在于统计A[i&hellip;n-1]中有多少互不相同的数。</p>
 
-<p>暴力解法非常直观，直接枚举字符串的起点，然后找到构成最小字符串的那一个。</p>
+<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
 
-<p>代码就不在这里写了。</p>
+<h3>C. Sereja and Algorithm</h3>
 
-<h2>最小表示法</h2>
+<p>思路题。</p>
 
-<p>最小表示法是解决同构字符串最小表示的巧妙算法。</p>
+<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
 
-<p>其算法描述如下：</p>
+<p>所以我们只需要统计出A[i&hellip;j]中x, y, z的个数。</p>
 
-<pre><code>令i=0,j=1
-如果S[i] &gt; S[j] i=j, j=i+1
-如果S[i] &lt; S[j] j++
-如果S[i] == S[j] 设指针k，分别从i和j位置向下比较，直到S[i] != S[j]
-         如果S ...</code></pre>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/minimal-round-string.html">more ...</a>
+<p>然后进行排列。</p>
+
+<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
+
+<pre><code>zy[xzy][xzy]...
+xz[yxz][yxz]...
+yx[zyx ...</code></pre>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-215-div-2.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="http://wizmann.tk/tag/algorithm3.html">&laquo;</a>
+                </li>
+                <li class=""><a
+                        href="http://wizmann.tk/tag/algorithm.html">1</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/tag/algorithm2.html">2</a></li>
+                <li class=""><a
+                        href="http://wizmann.tk/tag/algorithm3.html">3</a></li>
+                <li class="active"><a
+                        href="http://wizmann.tk/tag/algorithm4.html">4</a></li>
+                <li class="next disabled"><a href="#">&laquo;</a></li>
+        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
