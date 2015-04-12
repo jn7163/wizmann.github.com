@@ -193,12 +193,7 @@
 
 &lt;p&gt;对于i和j，我们可以这样考虑。循环节之积只有以下几种可能：&lt;code&gt;±1, ±i, ±j, ±k&lt;/code&gt;。&lt;/p&gt;
 
-&lt;p&gt;| - | n^1 | n^2 | n^3 | n^4 |
-| - | &amp;mdash; | &amp;mdash; | &amp;mdash; | &amp;mdash; |
-| 1 | 1 | 1 | 1 | 1 |
-| -1| -1 | 1 | -1 | 1 |
-| i(jk) | i | -1 | -i | 1 |
-| -i(jk) | -i | -1 | i | 1 |&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://wizmann-pic.qiniudn.com/252e0e81143f2dd5cb6e01e1e69d0709" alt="the table"&gt;&lt;/p&gt;
 
 &lt;p&gt;我们可以看出，对于&lt;code&gt;1, i, j, k&lt;/code&gt;，乘法都是有一个循环节的。这里不需要定量分析，我们可以直接断定，如果在一定的循环节中，不能把算式转化为&lt;code&gt;i * j&lt;/code&gt;的形式，那么就不可能转化。&lt;/p&gt;
 
