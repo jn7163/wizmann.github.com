@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - codeforces</title>
+    <title>Maerlyn's Rainbow - GCJ</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -86,177 +86,48 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/cf-290-div-2.html">Codeforces Round #290 (Div. 2) Tutorial</a></h2>
+                <h2><a href="http://wizmann.tk/gcj-qualification-round-2015-tutorial.html">GCJ Qualification Round 2015 题解</a></h2>
                 <div class="summary">
-                    <h2>A. Fox And Snake</h2>
+                    <h2>前言</h2>
 
-<p>Implementation</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<p>这篇日志用中文写是因为想省点时间打游戏。。。（请鄙视我吧。。。</p>
 
-<span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;#&#39;</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;.&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;#&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;#&#39;</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">line</span>
-</pre></div>
-
-<h2>B. Fox And Two Dots</h2>
-
-<p>DFS ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-290-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-289-div-2.html">Codeforces Round #289 (Div. 2) Tutorial</a></h2>
-                <div class="summary">
-                    <h2>A. Maximum in Table</h2>
-
-<p>Simulation. </p>
-<div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">())</span>
-<span class="n">g</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-
-<span class="k">print</span> <span class="n">g</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-<h2>B ...</h2>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-289-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-288-div-2.html">Codeforces Round #288 (Div. 2)</a></h2>
-                <div class="summary">
-                    <h2>A. Pasha and Pixels</h2>
-
-<p>Brute force.</p>
-
-<p>There are multiple ways to form a 2*2 square at one single step.</p>
-
-<p><img src="http://wizmann-pic.qiniudn.com/6fb53c51539b47559cf0d122a832cf63" alt="Alt text"></p>
-
-<p>So at every step, we have to check the neighbours of pixel that is colored black.</p>
-<div class="highlight"><pre><span class="cp">#include &lt;cstdio&gt;</span>
-<span class="cp">#include &lt;cstdlib&gt;</span>
-<span class="cp">#include &lt;cstring&gt;</span>
-<span class="cp">#include &lt;iostream&gt;</span>
-<span class="cp">#include &lt;vector&gt;</span>
-
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="cp">#define ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-288-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/thinking-in-induction.html">面试题解析 - Thinkin' in induction</a></h2>
-                <div class="summary">
-                    <h2>热身题 - 24Game</h2>
-
-<p><a href="http://codeforces.com/contest/469/problem/C">原题请戳我</a></p>
+<h2>A. Standing Ovation</h2>
 
 <h3>题意</h3>
 
-<p>给你一个包含整数1&hellip;n的集合S。接下来进行n-1次操作，每次操作从集合S中选取两个数，在加、减、乘三种运算中选取一种，将结果放回再集合S。在n-1次操作完成后，集合S中只剩下一个数。求问一种取数和运算策略，使最后的结果为24。</p>
+<p>这是一个骗掌声的故事。</p>
 
-<p>举例：</p>
+<p>当演出结束后，观众们要站起来鼓掌。但是有些观众比较羞涩，只有在k个人站起来鼓掌后才会故障。</p>
 
-<p>S = [1, 2, 3, 4, 5]</p>
+<p>你的目标是在观众中安插一些卧底领掌，让所有观众都站起来鼓掌。（臭不要脸）</p>
 
-<p>我们选取(2, 5)，并进行加法运算，获得结果7。再将7放回集合S中。</p>
+<p>求最少的卧底数。</p>
 
-<p>此时，S = [1, 3, 4, 7]。</p>
-
-<h3>数据范围</h3>
-
-<p>1 &lt;= n &lt;= 100000</p>
-
-<h3>解答</h3>
+<h3>数据规模</h3>
 
 <blockquote>
-<p>建议：请思考10分钟后再来看答案</p>
+<p>抛开数据规模谈解题，都是TM耍流氓。 —— Wizmann</p>
 </blockquote>
 
-<p>我们日常写代码，往往是为了实现一个功能或者实现一套逻辑。这时候，我们做的事一般是从零开始，然后逐步迭代，最终实现目标。</p>
+<p>100组数据。</p>
 
-<p>这是正常的一种思维方式，也是不错的思维 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/thinking-in-induction.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-447d.html">Codeforces 447D DZY Loves Modification</a></h2>
-                <div class="summary">
-                    <h2>题意</h2>
+<p>小数据集，观众羞涩值的范围：0 ≤ Smax ≤ 6.</p>
 
-<p>给你一个n * m的矩阵，让你做K次操作，使得最后得到的值最大。</p>
+<p>大数据集，观众羞涩值的范围：0 ≤ Smax ≤ 1000.</p>
 
-<p>操作有两种：</p>
+<h3>解题</h3>
 
-<p>一是<strong>在任意一行上</strong>操作，最终的结果值加上这一行数的和，然后这一行每一个数都要减去p。</p>
+<p>本题比较简单。有两种方法，一是暴力枚举，因为大数据集中，观众羞涩值最大只为1000,即最大安插卧底数不超过1000。(当然，二分也可以，不过对于1000的数据集，真心没啥必要。)</p>
 
-<p>二是<strong>在任意一列上</strong>操作，最终的结果值加上这一列数的和，然后这一列每一个数都要减去p。</p>
+<p>二是O(N)的一个遍历，在观众羞涩的不想鼓掌时，安插相应数量的卧底。</p>
 
-<p>数据范围：1 ≤ n, m ≤ 10^3; 1 ≤ k ≤ 10^6; 1 ≤ p ≤ 100</p>
-
-<h2>退化版的题目思路</h2>
-
-<p>如果我们只限定一种操作，此题就是简单题了。我们维护一个大根堆，堆中保存每一行（或列）之和。</p>
-
-<p>每次操作只需要取出最大值，加到最终结果上。之后将这个值减去对应的p * n（或p * m），再加入堆中。</p>
-
-<p>经过K次循环，就可以得到最后的答案了。</p>
-
-<h2>真正的题目思路</h2>
-
-<p>对于行和列同时操作，我们也可以套用这种方法。但是要解决对行操作后，对列上数字的值的影响 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-447d.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-253.html">Codeforces Round #253 Tutorial</a></h2>
-                <div class="summary">
-                    <hr>
-
-<h2>443A - Anton and Letters</h2>
-
-<p>Simple and easy, solved by two lines of python code.</p>
-<div class="highlight"><pre><span class="n">ls</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="nb">raw_input</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)))</span>
-<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ls</span><span class="p">))</span>
-</pre></div>
-
-<h2>443B - Kolya and Tandem Repeat</h2>
-
-<p>Brute force. Just enumerate the beginning and the end of the substring, and ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-253.html">more ...</a>
+<p>本题推荐方法一。因为个人感觉，在编程竞赛中 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/gcj-qualification-round-2015-tutorial.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
-        <ul class="pagination">
-                <li class="prev disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a
-                        href="http://wizmann.tk/tag/codeforces.html">1</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/tag/codeforces2.html">2</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/tag/codeforces3.html">3</a></li>
-                <li class="next"><a
-                        href="http://wizmann.tk/tag/codeforces2.html">&raquo;</a></li>
-        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
