@@ -2257,7 +2257,7 @@ the opportunity. &lt;/p&gt;
 &lt;p&gt;Side projects - I have a hard time hiring engineers, web developers, or designers (maker roles) who don’t have a history of side projects. These days, if you’re hiring a young engineer you’re looking for one who has been coding since she was twelve (or younger).&lt;/p&gt;
 
 &lt;p&gt;I intend to add more signals as I think of them, but hopefully these are a start.&lt;/p&gt;
-</summary><category term="get things done"></category><category term="quora"></category><category term="career"></category></entry><entry><title>Steve Yegge的面试Checklist</title><link href="http://wizmann.tk/steve-yegge-interview-checklist.html" rel="alternate"></link><updated>2014-10-26T00:24:44+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-26:steve-yegge-interview-checklist.html</id><summary type="html">&lt;blockquote&gt;
+</summary><category term="get things done"></category><category term="quora"></category><category term="career"></category></entry><entry><title>The Checklist of Steve Yegge</title><link href="http://wizmann.tk/steve-yegge-interview-checklist.html" rel="alternate"></link><updated>2014-10-26T00:24:44+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-26:steve-yegge-interview-checklist.html</id><summary type="html">&lt;blockquote&gt;
 &lt;p&gt;Hey man, I don&amp;#39;t know that stuff&lt;/p&gt;
 
 &lt;p&gt;Stevey&amp;#39;s talking aboooooout&lt;/p&gt;
@@ -2384,7 +2384,7 @@ Udi Manber 的&lt;a href="http://book.douban.com/subject/1436134/"&gt;《算法�
 &lt;blockquote&gt;
 &lt;p&gt;好好热身。实际工作只会让你反应迟钝！&lt;/p&gt;
 &lt;/blockquote&gt;
-</summary><category term="interview"></category><category term="面试"></category><category term="Google"></category></entry><entry><title>Snake Problem</title><link href="http://wizmann.tk/snake-problem.html" rel="alternate"></link><updated>2014-10-20T09:11:27+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-20:snake-problem.html</id><summary type="html">&lt;h2&gt;题目&lt;/h2&gt;
+</summary><category term="interview"></category><category term="Google"></category></entry><entry><title>Snake Problem</title><link href="http://wizmann.tk/snake-problem.html" rel="alternate"></link><updated>2014-10-20T09:11:27+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-20:snake-problem.html</id><summary type="html">&lt;h2&gt;题目&lt;/h2&gt;
 
 &lt;p&gt;在一个平面上，有n+m条蛇，其中n条蛇沿水平方向（y轴方向）移动，m条蛇沿竖直方向（x轴方向）移动。&lt;/p&gt;
 
@@ -2524,7 +2524,7 @@ Udi Manber 的&lt;a href="http://book.douban.com/subject/1436134/"&gt;《算法�
 &lt;h2&gt;扩展题目&lt;/h2&gt;
 
 &lt;p&gt;POJ-2482 &lt;a href="http://poj.org/problem?id=2482"&gt;Stars in Your Window&lt;/a&gt;&lt;/p&gt;
-</summary><category term="binary indexed tree"></category><category term="algorithm"></category><category term="geometric"></category></entry><entry><title>面试题解析 - Thinkin' in induction 2</title><link href="http://wizmann.tk/thinking-in-induction-2.html" rel="alternate"></link><updated>2014-10-01T00:05:29+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-01:thinking-in-induction-2.html</id><summary type="html">&lt;h2&gt;最大导出子图（maximal induced graph）&lt;/h2&gt;
+</summary><category term="binary indexed tree"></category><category term="algorithm"></category><category term="geometric"></category></entry><entry><title>思维训练 - Thinkin' in induction 2</title><link href="http://wizmann.tk/thinking-in-induction-2.html" rel="alternate"></link><updated>2014-10-01T00:05:29+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-10-01:thinking-in-induction-2.html</id><summary type="html">&lt;h2&gt;最大导出子图（maximal induced graph）&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;你现在在组织一个学术会议。现在你有一份人员名单。假定名单中的每一个人都同意到达，并且有充足的时间交流意见。同时，每一个科学家都写下了他愿意与其进行交流的科学家的名字。&lt;/p&gt;
@@ -2581,7 +2581,7 @@ Udi Manber 的&lt;a href="http://book.douban.com/subject/1436134/"&gt;《算法�
 &lt;p&gt;以上三题都是&lt;strong&gt;Thinkin&amp;#39; in induction&lt;/strong&gt;的良好范例。对于有些题目，做出大胆的假设并不是纯粹的碰运气，而是一种科学的尝试。同时，在思考时，如果不能直观的找出“谁是对的“，我们不妨反向思考一下，找出“谁是不对的”。&lt;/p&gt;
 
 &lt;p&gt;本文参考Udi Manber的《Introduction to algorithms - A creative approach》.&lt;/p&gt;
-</summary><category term="induction"></category><category term="algorithm"></category></entry><entry><title>面试题解析 - Thinkin' in induction</title><link href="http://wizmann.tk/thinking-in-induction.html" rel="alternate"></link><updated>2014-09-26T00:10:45+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-09-26:thinking-in-induction.html</id><summary type="html">&lt;h2&gt;热身题 - 24Game&lt;/h2&gt;
+</summary><category term="induction"></category><category term="algorithm"></category></entry><entry><title>思维训练 - Thinkin' in induction</title><link href="http://wizmann.tk/thinking-in-induction.html" rel="alternate"></link><updated>2014-09-26T00:10:45+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-09-26:thinking-in-induction.html</id><summary type="html">&lt;h2&gt;热身题 - 24Game&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href="http://codeforces.com/contest/469/problem/C"&gt;原题请戳我&lt;/a&gt;&lt;/p&gt;
 
@@ -3215,7 +3215,7 @@ RS[j] = S[j...j+k] ++ S[j+k+1 ... j+n-1]&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.infoq.com/cn/news/2010/05/BEDL"&gt;介绍：业务实体和业务实体定义语言&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</summary><category term="interview"></category><category term="system-design"></category></entry><entry><title>数组上的面试题 - Single Number</title><link href="http://wizmann.tk/single-number-in-the-array.html" rel="alternate"></link><updated>2014-08-05T23:07:02+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+</summary><category term="interview"></category><category term="system-design"></category></entry><entry><title>Single Number Problem</title><link href="http://wizmann.tk/single-number-in-the-array.html" rel="alternate"></link><updated>2014-08-05T23:07:02+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-08-05:single-number-in-the-array.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;There are a lot of interview problem based on the 1D-array, which is the one of the easiest &amp;ldquo;data structure&amp;rdquo;.&lt;/p&gt;
 
@@ -3382,7 +3382,7 @@ p.s. must be exact division&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It useful if the length of the array (L) and the max value of the array (M). If M * L &amp;lt;= MAX_INT, you can storge the counter of number i in the array[i] by &lt;code&gt;array[i] = array[i] + counter * M&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;It&amp;#39;s a useful way to implement a counter in the array. And it will be a big plus for you in the interview.&lt;/p&gt;
-</summary><category term="算法"></category><category term="面试题"></category><category term="面试"></category><category term="leetcode"></category><category term="interview"></category></entry><entry><title>简明Python魔法 - 2</title><link href="http://wizmann.tk/python-magic-2.html" rel="alternate"></link><updated>2014-07-27T14:23:10+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-27:python-magic-2.html</id><summary type="html">&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
+</summary><category term="算法"></category><category term="leetcode"></category><category term="algorithm"></category></entry><entry><title>简明Python魔法 - 2</title><link href="http://wizmann.tk/python-magic-2.html" rel="alternate"></link><updated>2014-07-27T14:23:10+08:00</updated><author><name>Wizmann</name></author><id>tag:wizmann.tk,2014-07-27:python-magic-2.html</id><summary type="html">&lt;h2&gt;再说描述符 - Descriptor&lt;/h2&gt;
 
 &lt;h3&gt;最简单的描述符&lt;/h3&gt;
 
