@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Maerlyn's Rainbow - Blog</title>
+    <title>Maerlyn's Rainbow - sort</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -70,7 +70,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://wizmann.tk/category/blog.html">Blog</a>
                         </li>
             </ul>
@@ -86,187 +86,48 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://wizmann.tk/alloca-vs-placement-new.html">"alloca" vs "placement new"</a></h2>
+                <h2><a href="http://wizmann.tk/a-common-sorting-function-with-cpp.html">用C++实现一个通用的sort函数</a></h2>
                 <div class="summary">
-                    <h2>WHAT?!</h2>
+                    <h2>问题</h2>
 
-<p>For most time, we use <code>malloc</code> or <code>new</code> for memory allocation, which will get it on <em>heap</em>.</p>
+<p>用C++实现一个尽可能通用的sort函数</p>
 
-<p>However, access memory on <em>heap</em> is not as effective as the memory on <em>stack</em>, because the heap is &ldquo;free-floating region of memory&rdquo;. To the contrary, memory on <em>stack</em> is managed by CPU ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/alloca-vs-placement-new.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/quartile-and-normal-distribution.html">Quartile and Normal Distribution</a></h2>
-                <div class="summary">
-                    <h2>What is Quartile?</h2>
+<h2>分析</h2>
 
-<p>Quartile is a concept of descriptive statics. The quartiles of a ranked data set are the three points that divide the data set into four equal groups, each group comprising a quarter of data.</p>
-
-<h2>Definitions</h2>
-
-<h3>first quartile (Q1)</h3>
-
-<p>First quartile, also known as lower quartile, splits off ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/quartile-and-normal-distribution.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/moujiecao.html">破解节操的下限</a></h2>
-                <div class="summary">
-                    <h2>啥？</h2>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-icon.png" alt="节操精选"></p>
-
-<p><a href="http://jiecao.fm/">节操精选</a>是一个<strong>没有下限</strong>的文字图片聚合类移动应用，现在支持Android/iOS移动平台。</p>
-
-<p><img src="http://wizmann-tk-pic.u.qiniudn.com/blog-jiecao-ui.png" alt="界面"></p>
-
-<p>本人是一个非常懒的人，有电脑就不想碰手机。。。于是萌生了一个在PC端使用这个应用的想法。。。</p>
-
-<h2>HowTo</h2>
-
-<p>从界面上我们可以看出，这个App的逻辑其实比较简单。重要的部分有如下几个：</p>
+<p>一个通用的sort函数应该包含以下要点：</p>
 
 <ul>
-<li><p>获取CS通信协议<strong>（最重要）</strong></p></li>
-<li><p>频道间切换（精选 - 热门 - 音频- 阅读）</p></li>
-<li><p>展示某一条精选</p></li>
-<li><p>在某一条精选中播放语音</p></li>
+<li>确实可以排序(LOL)</li>
+<li>可以应对C-style array和C++-style container的排序需求</li>
+<li>可以应用于任意random access container</li>
+<li>可以使用用户自定义的排序函数 / 仿函数 / lambda函数</li>
 </ul>
 
-<h2>获取通信协议</h2>
+<h2>实现</h2>
 
-<p>节操还是非常良心的！并没有在后台数据通信中进行任何加密的措施。</p>
+<p>为了与std中的通用函数做区别，这里的命名规则，包括类型与函数，都在前面加了&quot;my&quot;以示区别。可能与标准的命名法有出入，所以仅做示例用。</p>
 
-<p>抓包工具我使用的是在Windows环境下的<a href="http://www.telerik.com/fiddler">Fiddler</a>。</p>
+<h3>思路</h3>
 
-<p>这个工具可以建立一个HTTP代理，手机通过代理上网，在电脑上就可以截获所有的数据包进行分析。</p>
+<p>** 拷贝代码是愚蠢的行为。**</p>
 
-<p>在Linux下，可以使用TinyProxy + Wireshark进行抓包，不过配置小麻烦。不过我一直是在Windows下抓包，然后在Linux下做分析和开发的。=。=。。。</p>
+<p>或者说，</p>
 
-<p>图就不上了，如果大家有兴趣自己来搞的话，可以抓来试试。</p>
+<p>** 对于同一钟实现，尽量使用同一份代码。 **</p>
 
-<p>简而言之，我们从HTTP包中的<code>Content-type</code>字段中，发现了我们想要的信息 —— <code>application/xprotobuf</code>。</p>
+<p>感谢C++ Templates，对于不同类型与需求的函数，我们可以将生成多份代码的劳动放心的交给编译器。并且，Templates的代码生成是在编译期完成的，即不会造成额外的代码膨胀（如果你姿势正确的话），也一般不会造成额外的运行时开销。</p>
 
-<p>我去！真良心～</p>
+<h3>函数原型</h3>
 
-<h3>Protobuf简介 ...</h3>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/moujiecao.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/geo-hash-algorithm.html">GeoHash算法</a></h2>
-                <div class="summary">
-                    <h2>GeoHash</h2>
+<p>我们模仿std::sort来进行开发。</p>
 
-<blockquote>
-<p>Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.</p>
-</blockquote>
-
-<p>简单说，GeoHash是一个将经纬度信息编码成一个string的算法。从而便于储存、查找。</p>
-
-<h2>GeoHash算法的步骤</h2>
-
-<p>GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。</p>
-
-<p>我们以纬度举例 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/geo-hash-algorithm.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/find-the-geo-location-of-a-host.html">如何判断一个网站的地理信息</a></h2>
-                <div class="summary">
-                    <h2>啥？</h2>
-
-<p>面试题：</p>
-
-<blockquote>
-<p>有一个网站，如何判断这个网站的地理信息</p>
-</blockquote>
-
-<h2>方法</h2>
-
-<h3>使用反向DNS</h3>
-
-<p>当我们只有网站的IP地址时，我们可以使用<strong>反向DNS</strong>来获得这个IP地址对应的域名。</p>
-
-<blockquote>
-<p>反向域名解析，Reverse DNS。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。</p>
-</blockquote>
-
-<p>我们可以使用<code>dig -x</code>来进行查询</p>
-
-<pre><code>$ dig -x 75.126.43.235
-
-; &lt;&lt;&gt;&gt; DiG 9.8.1-P1 &lt;&lt;&gt;&gt; -x 75.126.43.235
-;; global options: +cmd
-;; Got answer:
-;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 26688
-;; flags: qr rd ra ...</code></pre>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/find-the-geo-location-of-a-host.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-223-div-2.html">Codeforces Round #223 (Div. 2) 不完全不正确题解</a></h2>
-                <div class="summary">
-                    <p>由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。</p>
-
-<p>等有实力切D题了，再去打一区。（弱</p>
-
-<p>事情一直很多，所以题解落后了好久才发。</p>
-
-<h2>A. Sereja and Dima</h2>
-
-<p>纯模拟，Python随便搞</p>
-<div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">())</span>
-<span class="n">pokers</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-
-<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pokers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">del</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pokers</span><span class="p">[</span><span class="o">-</span><span class="mi">1 ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-223-div-2.html">more ...</a>
+<pre><code>template&lt; class It, class Compare &gt;
+void sort ...</code></pre>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/a-common-sorting-function-with-cpp.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
-        <ul class="pagination">
-                <li class="prev"><a href="http://wizmann.tk/category/blog5.html">&laquo;</a>
-                </li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog.html">1</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog2.html">2</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog3.html">3</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog4.html">4</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog5.html">5</a></li>
-                <li class="active"><a
-                        href="http://wizmann.tk/category/blog6.html">6</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog7.html">7</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog8.html">8</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog9.html">9</a></li>
-                <li class=""><a
-                        href="http://wizmann.tk/category/blog10.html">10</a></li>
-                <li class="next"><a
-                        href="http://wizmann.tk/category/blog7.html">&raquo;</a></li>
-        </ul>
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
