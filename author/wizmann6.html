@@ -65,6 +65,25 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="http://wizmann.tk/cf-242-div-2.html">Codeforces Round #242 (Div. 2) Tutorials and Solutions</a></h2>
+                <div class="summary"><h2>A. Squats</h2>
+<p>Trun <code>x =&gt; X</code> or <code>X =&gt; x</code> to make the number of 'x' is equal to the number of 'X'.</p>
+<div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">())</span>
+<span class="n">hamsters</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">raw_input</span><span class="p">()]</span>
+
+<span class="n">sits</span> <span class="o">=</span> <span class="n">hamsters</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">stands</span> <span class="o">=</span> <span class="n">hamsters</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;X&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sits</span> <span class="o">==</span> <span class="n">stands</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">0</span>
+    <span class="k">print</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hamsters</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sits</span> <span class="o">&gt;</span> <span class="n">stands ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-242-div-2.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/cf-240-div-2.html">Codeforces Round #240 (Div. 2) Tutorials and Solutions(incomplete and incorrect)</a></h2>
                 <div class="summary"><h2>Overview</h2>
 <p>It has been months that I didn't participate in the contest on CF, now I'm back. :)</p>
@@ -140,31 +159,6 @@ Maerlyn's Rainbow            </a>
 <p>GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。</p>
 <p>我们以纬度举例 ...</p>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/geo-hash-algorithm.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/find-the-geo-location-of-a-host.html">如何判断一个网站的地理信息</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p>面试题：</p>
-<blockquote>
-<p>有一个网站，如何判断这个网站的地理信息</p>
-</blockquote>
-<h2>方法</h2>
-<h3>使用反向DNS</h3>
-<p>当我们只有网站的IP地址时，我们可以使用<strong>反向DNS</strong>来获得这个IP地址对应的域名。</p>
-<blockquote>
-<p>反向域名解析，Reverse DNS。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。</p>
-</blockquote>
-<p>我们可以使用<code>dig -x</code>来进行查询</p>
-<div class="highlight"><pre><span class="nv">$ </span>dig -x 75.126.43.235
-
-<span class="p">;</span> &lt;&lt;&gt;&gt; DiG 9.8.1-P1 &lt;&lt;&gt;&gt; -x 75.126.43.235
-<span class="p">;;</span> global options: +cmd
-<span class="p">;;</span> Got answer:
-<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: 26688
-<span class="p">;;</span> flags: qr rd ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/find-the-geo-location-of-a-host.html">more ...</a>
                 </div>
             </article>
             <hr/>

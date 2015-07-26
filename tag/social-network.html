@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>System Design - Maerlyn's Rainbow</title>
+    <title>Social Network - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="System Design" />
+    <meta name="keywords" content="Social Network" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -72,46 +72,6 @@ Maerlyn's Rainbow            </a>
 <p>Such as, "You and Mr.Obama share 10 mutual friends" or "You have 1,000 second-degree connections".</p>
 <p>This feature is very common for a ...</p>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/using-set-cover-algorithm-to-optimize-a-large-scale-low-latency-distributed-graph.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/inspiration-from-zeromq.html">ZeroMQ启示录</a></h2>
-                <div class="summary"><h2>ØMQ是一个消息系统</h2>
-<p>ZeroMQ是一个消息系统，也被称为“消息中间件”。它被广泛的用于经济、游戏、嵌入式等领域。</p>
-<h3>什么是消息系统</h3>
-<p>打个比方，消息系统就像我们使用的IM软件一样。首先，一方决定将消息发往何处（一对一或一对多）。然后将信息打包，点击发送按钮。之后，IM系统会帮你料理剩余的事务。</p>
-<p>但是，它们也有很大的不同点。IM系统对于消息系统似乎太低效了一点。另外，消息系统是没有用户界面（GUI）的。在错误发生时，消息的另一端也不会有人来智能的介入处理。</p>
-<p>所以，我们可以这样下定义。消息系统是具有高效性和容错性的消息传递解决方案。</p>
-<h3>ZeroMQ的起源和发展</h3>
-<p>ZeroMQ最先的设想是实现一个炒鸡快的用于证券交易的消息系统，所以在设计初期的关注点就是在极致的优化上。</p>
-<p>第一年的工作重点，在于发明性能测试的方法，和设计高效架构。</p>
-<p>之后，大约在第二年，工作重点转移到实现一个通用的消息系统，以应用于分布式系统，使其可以利用<strong>不同的编程语言</strong>，使用<strong>不同方式</strong>，来传递<strong>各种模式</strong>的信息。</p>
-<h2>启示1：独立应用 vs. 程序库 ...</h2>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/inspiration-from-zeromq.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/hottest-ip-address.html">System Design - 最热门的IP地址</a></h2>
-                <div class="summary"><h2>写在前面</h2>
-<p>问题是非常流行的，也确实流行了一阵的system-design问题。在<a href="http://www.zhihu.com/question/19805967">知乎</a>上再次被人提起。然后我非常欣赏<a href="http://zhi.hu/3gJb">陈硕的回答</a>。所以要写一篇文章，记下自己的感想。</p>
-<h2>问题</h2>
-<p>海量数据算法:如何从超过10G的记录IP地址的日志中，较快的找出登录次数最多的一个IP？</p>
-<h2>银弹？</h2>
-<p>面对这种system-design问题，尤其是这种，<strong>非高并发、非实时</strong>的问题，很多人会采用_map-reduce_ —— 解决system-design问题的银弹。</p>
-<p>我对map-reduce的理解非常肤浅，但是可以解释一下大概的流程。</p>
-<ol>
-<li>将日志进行分片。把hash(ip)相同的ip地址分到同一个片中。（注：这里的hash并不是签名函数，只是一个分片标示）</li>
-<li>分片后的日志的大小会小很多，可以方便的进行排序，记数。</li>
-<li>然后再从各个片中，统计出最热门的IP地址。（或TopK的IP地址）</li>
-</ol>
-<p>如果不满意我的答案的话，推荐<a href="http://book.douban.com/subject/19934150/">Mining of Massive Datasets</a>一书，其中对map-reduce算法做一番不错的介绍。</p>
-<h2>正确的分析姿势</h2>
-<h3>业务实体</h3>
-<blockquote>
-<p>业务实体拥有四种主要的组件： 信息模型、生命周期模型 ...</p></blockquote>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hottest-ip-address.html">more ...</a>
                 </div>
             </article>
             <hr/>
