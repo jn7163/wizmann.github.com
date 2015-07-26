@@ -120,39 +120,23 @@
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <h2>前言</h2>
-
 <p>这篇日志用中文写是因为想省点时间打游戏。。。（请鄙视我吧。。。</p>
-
 <h2>A. Standing Ovation</h2>
-
 <h3>题意</h3>
-
 <p>这是一个骗掌声的故事。</p>
-
 <p>当演出结束后，观众们要站起来鼓掌。但是有些观众比较羞涩，只有在k个人站起来鼓掌后才会故障。</p>
-
 <p>你的目标是在观众中安插一些卧底领掌，让所有观众都站起来鼓掌。（臭不要脸）</p>
-
 <p>求最少的卧底数。</p>
-
 <h3>数据规模</h3>
-
 <blockquote>
 <p>抛开数据规模谈解题，都是TM耍流氓。 —— Wizmann</p>
 </blockquote>
-
 <p>100组数据。</p>
-
 <p>小数据集，观众羞涩值的范围：0 ≤ Smax ≤ 6.</p>
-
 <p>大数据集，观众羞涩值的范围：0 ≤ Smax ≤ 1000.</p>
-
 <h3>解题</h3>
-
 <p>本题比较简单。有两种方法，一是暴力枚举，因为大数据集中，观众羞涩值最大只为1000,即最大安插卧底数不超过1000。(当然，二分也可以，不过对于1000的数据集，真心没啥必要。)</p>
-
 <p>二是O(N)的一个遍历，在观众羞涩的不想鼓掌时，安插相应数量的卧底。</p>
-
 <p>本题推荐方法一。因为个人感觉，在编程竞赛中，在时限和空间允许的情况下，尽量让方法简单化。这样不容易出错。但是在要体现逼格的时候，尽量“优化”你的代码，提升思考复杂度来换取尽可能多的优化。</p>
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">solve</span><span class="p">():</span>
     <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">aud</span><span class="p">)</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -176,41 +160,28 @@
     <span class="k">print</span> <span class="s">&#39;Case #</span><span class="si">%d</span><span class="s">: </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">solve</span><span class="p">())</span>
 </pre></div>
 
+
 <h2>B. Infinite House of Pancakes</h2>
-
 <h3>题意</h3>
-
 <p>在一个宴会厅中（想到了“米阿的宴会厅”)，有无限的客人，但是只有有限的煎饼。你的目标是让所有客人尽可能快的吃完所有的煎饼。</p>
-
 <p>每个客人在一个单位时间只能吃一块煎饼。你也可以在一个单位时间内，调整一个客人的煎饼，即把他的煎饼给别人。</p>
-
 <p>求所有客人吃完所有煎饼的时间。</p>
-
 <blockquote>
-<p>&#39;Here comes Mia, daughter of none!&#39;<br>
-&ndash; <em>The Dark Tower V: Wolves of the Calla</em></p>
+<p>'Here comes Mia, daughter of none!'  <br />
+-- <em>The Dark Tower V: Wolves of the Calla</em></p>
 </blockquote>
-
 <h3>数据规模</h3>
-
 <p>100组测试数据。</p>
-
 <p>D为有煎饼的客人的数目。Pi为客人拥有煎饼的最大值。</p>
-
-<p>小数据：<br>
-1 ≤ D ≤ 6.<br>
+<p>小数据：  <br />
+1 ≤ D ≤ 6. <br />
 1 ≤ Pi ≤ 9.</p>
-
-<p>大数据：<br>
-1 ≤ D ≤ 1000.<br>
+<p>大数据：  <br />
+1 ≤ D ≤ 1000. <br />
 1 ≤ Pi ≤ 1000.</p>
-
 <h3>解题</h3>
-
 <p>一开始想用二分做。但是这道题并不能满足二分的条件。因为无论是二分时间还是二分最大煎饼数，客人都可以吃完煎饼，这样的二分是没有意义的。</p>
-
 <p>换个思路，在吃煎饼前，我们可以对所有客人的煎饼数进行调整。又由于客人的数目是无限多的，所以我们的调整就是<strong>把煎饼送给没有煎饼的客人</strong>。调整的目标是<strong>让煎饼数尽量平均</strong>（“尽量”和“尽可能”是不同的，“尽量”的范围更宽范一些）。</p>
-
 <p>于是，我们尝试枚举“调整后的最大煎饼数量”。通过枚举这个值，我们可以很容易得到“调整煎饼时间 + 吃煎饼时间”。又由于数据规模比较小，搞起来不是很困难。</p>
 <div class="highlight"><pre><span class="cp">#include &lt;cstdio&gt;</span>
 <span class="cp">#include &lt;cstdlib&gt;</span>
@@ -246,9 +217,9 @@
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
             <span class="kt">int</span> <span class="n">maxi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">num</span><span class="o">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">num</span><span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">step</span> <span class="o">+=</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="o">?</span> <span class="n">num</span> <span class="o">/</span> <span class="n">i</span><span class="o">:</span> <span class="n">num</span> <span class="o">/</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="n">step</span> <span class="o">+=</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="o">?</span> <span class="n">num</span> <span class="o">/</span> <span class="nl">i</span><span class="p">:</span> <span class="n">num</span> <span class="o">/</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
                     <span class="n">maxi</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
                 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                     <span class="n">maxi</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxi</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span>
@@ -264,59 +235,36 @@
 <span class="p">}</span>
 </pre></div>
 
+
 <h2>C. Dijkstra</h2>
-
 <h3>题意</h3>
-
 <p>给你一个代数系统（可以这么说吧），包括“1, i, j, k”。</p>
-
 <p>已知它们的运算规律。</p>
-
-<p><img src="http://wizmann-pic.qiniudn.com/ba89abba98064a7e42e52e9e5b2de57f" alt="Alt text"></p>
-
-<p>现在，有一个包含&quot;i, j, k&quot;的连乘式。它是由一段连乘式重复X遍得出的。</p>
-
+<p><img alt="Alt text" src="http://wizmann-pic.qiniudn.com/ba89abba98064a7e42e52e9e5b2de57f" /></p>
+<p>现在，有一个包含"i, j, k"的连乘式。它是由一段连乘式重复X遍得出的。</p>
 <p>问，能否把它转化为<code>i * j * k</code>的形式。</p>
-
 <h3>数据规模</h3>
-
-<p>测试组数： 1 ≤ T ≤ 100.<br>
+<p>测试组数： 1 ≤ T ≤ 100.   <br />
 给出的连乘式长度： 1 ≤ L ≤ 10000.     </p>
-
 <p>连乘式的重复次数为X。</p>
-
-<p>小数据集：<br>
-1 ≤ X ≤ 10000.<br>
+<p>小数据集：  <br />
+1 ≤ X ≤ 10000.   <br />
 1 ≤ L * X ≤ 10000.     </p>
-
-<p>大数据集：<br>
-1 ≤ X ≤ 10^12.<br>
+<p>大数据集： <br />
+1 ≤ X ≤ 10^12.  <br />
 1 ≤ L * X ≤ 10^16.    </p>
-
 <h3>解题</h3>
-
 <p>题中给出了乘法的规律。我们不难从中推测出除法的规律。</p>
-
 <p>假设我们已经把连乘式转化为<code>i * j</code>的形式，那么我们只需要把剩下的部分转化为数字<code>k</code>，即可满足题意。</p>
-
 <p>我们可以去思考转化的过程，当然，也可以逆向思考，去思考转化后的结果。</p>
-
 <p>我们知道，<code>i * j * k == -1</code>，当我们把前辍转化为<code>i * j</code>的形式后，如果判断整个连乘式的结果为<code>-1</code>，此时，我们可以断定，该连乘式可以转化为<code>i * j * k</code>的形式。</p>
-
 <p>i与j的转化是类似的。</p>
-
 <p>所以整个算法的时间复杂度为O(N)。</p>
-
 <p>但是，O(N)的算法是无法通过大数据集的。因为，连乘式是循环的，总长度可能会非常长。</p>
-
 <p>我们继续使用同样的思路。如果我们有了i和j，当整体连乘式之积为<code>-1</code>时，即断定满足条件。这里，我们使用快速幂算法，直接计算循环节的乘积。复杂度为<code>O(L) + O(logX)</code>。</p>
-
 <p>对于i和j，我们可以这样考虑。循环节之积只有以下几种可能：<code>±1, ±i, ±j, ±k</code>。</p>
-
-<p><img src="http://wizmann-pic.qiniudn.com/252e0e81143f2dd5cb6e01e1e69d0709" alt="the table"></p>
-
+<p><img alt="the table" src="http://wizmann-pic.qiniudn.com/252e0e81143f2dd5cb6e01e1e69d0709" /></p>
 <p>我们可以看出，对于<code>1, i, j, k</code>，乘法都是有一个循环节的。这里不需要定量分析，我们可以直接断定，如果在一定的循环节中，不能把算式转化为<code>i * j</code>的形式，那么就不可能转化。</p>
-
 <p>所以，代码如下：</p>
 <div class="highlight"><pre><span class="cp">#include &lt;cstdio&gt;</span>
 <span class="cp">#include &lt;cstdlib&gt;</span>
@@ -350,10 +298,10 @@
 
 <span class="kt">int</span> <span class="nf">conv</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="sc">&#39;1&#39;</span>: <span class="k">return</span> <span class="n">ONE</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39;i&#39;</span>: <span class="k">return</span> <span class="n">II</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39;j&#39;</span>: <span class="k">return</span> <span class="n">JJ</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39;k&#39;</span>: <span class="k">return</span> <span class="n">KK</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">ONE</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;i&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">II</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;j&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">JJ</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;k&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">KK</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
@@ -387,7 +335,7 @@
 
 <span class="kt">bool</span> <span class="nf">get_whole</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Number</span> <span class="n">num</span><span class="p">(</span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">c</span><span class="o">:</span> <span class="n">_word</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">c</span><span class="p">:</span> <span class="n">_word</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="n">Number</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="n">Number</span> <span class="n">ans</span><span class="p">(</span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
@@ -440,20 +388,14 @@
 <span class="p">}</span>
 </pre></div>
 
+
 <p><code>19</code>是一个magic number。还有，小心<del>Dandelo</del>数据超int。</p>
-
-<p><img src="http://wizmann-pic.qiniudn.com/625c5bb804b76545978bcb11310099a6" alt="Alt text"></p>
-
+<p><img alt="Alt text" src="http://wizmann-pic.qiniudn.com/625c5bb804b76545978bcb11310099a6" /></p>
 <h2>D. Ominous Omino</h2>
-
 <p>充满玄学的一题。网上看到的最精彩的题解是人工模拟出了所有可能。</p>
-
 <p>我觉得像我这种内存小的人，估计是想不出来的。</p>
-
 <p>貌似也有人用模拟。。。我觉得。。。可能会有更优雅的方法。。。</p>
-
 <p>题解在<a href="http://www.huangwenchao.com.cn/2015/04/gcj-2015-qual-d.html">这里</a>，真心是给跪了。</p>
-
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -499,461 +441,6 @@
 
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/algorithm.html">
-                        algorithm
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/google.html">
-                        google
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/induction.html">
-                        induction
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/flatbuffer.html">
-                        flatbuffer
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        C++
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quick-sort.html">
-                        quick sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geometric.html">
-                        geometric
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/sort.html">
-                        sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/front-end-development.html">
-                        front-end development
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/career.html">
-                        career
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/css.html">
-                        css
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/microsoft.html">
-                        Microsoft
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zeromq.html">
-                        zeromq
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/programming-interview.html">
-                        programming interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/tlv.html">
-                        TLV
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/asm.html">
-                        asm
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/heap.html">
-                        heap
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/gcj.html">
-                        GCJ
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/network.html">
-                        network
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
-                        binary indexed tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/distributed-system.html">
-                        distributed system
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/median.html">
-                        median
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-tree.html">
-                        binary tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/partition.html">
-                        partition
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/stylish.html">
-                        stylish
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multithread.html">
-                        multithread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protocol.html">
-                        protocol
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/get-things-done.html">
-                        get things done
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/priority-queue.html">
-                        priority queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quora.html">
-                        quora
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
 
             <li class="list-group-item"><h4><i class="icon-bullhorn icon-large"></i>Links</h4></li>
                 <li class="list-group-item"><a href="http://getpelican.com/"><i

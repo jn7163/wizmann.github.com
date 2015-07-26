@@ -112,11 +112,8 @@
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <h2>Python中类的实现</h2>
-
 <p>在Python的Web框架Django中，Python类的构造特性实现了它大部分的核心功能。</p>
-
 <p>当Python解释器遇到类声明时，会创建一个新的namespace ，并执行其内的所有代码，并将变量注册到这个namespace中。</p>
-
 <p>举例：</p>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Loading...&#39;</span>
@@ -130,18 +127,17 @@
 <span class="go">&#39;eggs&#39;</span>
 </pre></div>
 
-<h3>动态的实现一个类</h3>
 
+<h3>动态的实现一个类</h3>
 <p>使用type方法可以动态的代码中实现一个类，接受三个参数“类名”、“基类”、“属性”。</p>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Bar&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s">&#39;spam&#39;</span><span class="p">:</span> <span class="s">&#39;eggs&#39;</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Bar</span><span class="o">.</span><span class="n">spam</span>
 <span class="go">&#39;eggs&#39;</span>
 </pre></div>
 
+
 <h3>超类改变一切</h3>
-
 <p>“metaprogramming”是指一种在程序运行时创建或改变代码的编程手段。<code>type</code>是一个metaclass，一个创建其它类的metaclass。</p>
-
 <p>我们可以替换掉原生的<code>type</code>，使用我们自己的版本，从而控制创建类的过程。</p>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
@@ -166,12 +162,11 @@
 <span class="go">&lt;class &#39;__main__.RealClass&#39;&gt;</span>
 </pre></div>
 
+
 <p>每当一个新的类被创建时，都会触发metaclass的行为。</p>
-
 <h3>基类与超类</h3>
-
 <p>基类与超类一起使用可以实现类方法的复用，以及对于类创建的跟踪。</p>
-<div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SubClass</span><span class="p">(</span><span class="n">RealClass</span><span class="p">):</span>  <span class="c"># Notice there&#39;s no metaclass here.</span>
+<div class="highlight"><pre><span class="go"> &gt;&gt;&gt; class SubClass(RealClass):  # Notice there&#39;s no metaclass here.</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="go">Defining &lt;class &#39;__main__.SubClass&#39;&gt;</span>
@@ -181,14 +176,12 @@
 <span class="go">    __module__: &#39;__main__&#39;</span>
 </pre></div>
 
+
 <p>在这里，超类对于<code>SubClass</code>是完全透明的，<code>SubClass</code>只需要完成自己的工作，Python会在后台料理好一切。</p>
-
 <h3>声明式语法</h3>
-
 <blockquote>
-<p>This syntax (Declarative Syntax) is designed to make minimize &ldquo;boilerplate&rdquo; repetitive syntax and provide elegant, readable code.</p>
+<p>This syntax (Declarative Syntax) is designed to make minimize "boilerplate" repetitive syntax and provide elegant, readable code.</p>
 </blockquote>
-
 <p>声明式语法是一种把数据和逻辑分离的编程方式，面对经常变动的但是规律明显的需求，声明式编程可以解救你于水火之中。:-P</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Contact</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -198,16 +191,13 @@
     <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
 </pre></div>
 
+
 <p>上面是Django的模型声明语法，简洁、明了、大气！</p>
-
 <h2>让我们一起做鸭</h2>
-
 <blockquote>
-<p>Shakespeare: &ldquo;If it walks like a duck and talks like a duck, it&#39;s a Duck.&rdquo; </p>
+<p>Shakespeare: "If it walks like a duck and talks like a duck, it's a Duck." </p>
 </blockquote>
-
 <h3>Callables</h3>
-
 <h4>__call__</h4>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Multiplier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">):</span>
@@ -225,16 +215,12 @@
 <span class="go">30</span>
 </pre></div>
 
+
 <p>我们可以使用callable函数来构造”有状态的函数“，以及其它可以想的到的一些黑魔法。</p>
-
 <h3>Dictionaries</h3>
-
 <p>使用<code>__contains</code>、<code>__getitem__</code>和<code>__setitem__</code>内建函数，可以让一个类实例模拟字典的行为。</p>
-
 <h3>File</h3>
-
 <p>实现<code>read</code>、<code>write</code>和<code>close</code>，你们就可以把我当文件来用啦。</p>
-
 <h3>Iterable</h3>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Fibonacci</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
@@ -259,8 +245,8 @@
 <span class="go">3</span>
 </pre></div>
 
-<h2>偏函数</h2>
 
+<h2>偏函数</h2>
 <p>偏函数和函数式编程中的”柯里化“一样，都是通过填充函数中的一部分参数，从而实现一个新的函数。</p>
 <div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">functools</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -278,10 +264,9 @@
 <span class="go">15</span>
 </pre></div>
 
+
 <h2>描述符</h2>
-
 <p>描述符用来存取类属性，并且可以提供如下的便利：</p>
-
 <ul>
 <li>从复杂的对象中取出数据，例如数据库或是配置文件</li>
 <li>把一个简单的值传入一个复杂对象中</li>
@@ -307,16 +292,12 @@
 <span class="gr">NotImplementedError</span>: <span class="n">Can&#39;t change the current date.</span>
 </pre></div>
 
+
 <h3>实现</h3>
-
 <p>覆写类的<code>__get__</code>和<code>__set__</code>函数就可以实现类的描述符。</p>
-
 <h2>实践：一个简单的UnitTest框架</h2>
-
 <h3>设计思路</h3>
-
 <p>对于每一个Case，只需要声明一个类。在类中声明要测试的函数以及测试的Input和预期Output。之后框架可以运行所有测试用例，并输出结果。</p>
-
 <h3>接口设计</h3>
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">PyUnitTest</span>
 <span class="kn">from</span> <span class="nn">PyUnitTest</span> <span class="kn">import</span> <span class="n">BaseCase</span>
@@ -346,16 +327,12 @@
     <span class="n">PyUnitTest</span><span class="o">.</span><span class="n">run_all_test</span><span class="p">()</span>
 </pre></div>
 
+
 <p>在Case中，使用<code>FUNC</code>标明函数，使用<code>INPUT</code>和<code>OUTPUT</code>标明预期输入输出。</p>
-
 <p>使用<code>PyUnitTest.run_all_test()</code>自动运行所有用例。</p>
-
 <h3>CaseContainer</h3>
-
 <p><code>Case</code>类获得<code>Case</code>名，待测试函数名，输入和输出数据。</p>
-
 <p>并且实现<code>run()</code>方法，运行测试用例。</p>
-
 <p>使用<code>assert</code>方法保证用例的正确性。</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Case</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
@@ -390,6 +367,7 @@
         <span class="k">print</span> <span class="s">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">20</span>
 </pre></div>
 
+
 <p>CaseContainer类实现了Case的收集。</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">CaseContainer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">cases</span> <span class="o">=</span> <span class="p">[]</span>
@@ -397,6 +375,7 @@
     <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">case</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
 </pre></div>
+
 
 <h3>超类与基类</h3>
 <div class="highlight"><pre><span class="kn">from</span> <span class="nn">CaseContainer</span> <span class="kn">import</span> <span class="n">Case</span><span class="p">,</span> <span class="n">CaseContainer</span>
@@ -418,20 +397,15 @@
         <span class="n">case</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 
+
 <p>超类中，声明Case的收集逻辑。而基类中的<code>__metaclass__</code>使所有Case子类的超类皆为<code>MetaCase</code>。</p>
-
 <p>最后的<code>run_all_test</code>可以批处理所有的test case。</p>
-
 <h3>后续</h3>
-
 <p>这个小的单元测试框架并不完善，只是实现了最基本的测试功能。并且也没有完全应用上面所提到的所有Python的魔法特性。所以后续如果有时间和精力，应该继续完善吧。</p>
-
 <h2>参考</h2>
-
 <ul>
 <li><a href="http://book.douban.com/subject/24806569/">Pro Django</a></li>
 </ul>
-
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -477,461 +451,6 @@
 
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/algorithm.html">
-                        algorithm
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/google.html">
-                        google
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/induction.html">
-                        induction
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/flatbuffer.html">
-                        flatbuffer
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        C++
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quick-sort.html">
-                        quick sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geometric.html">
-                        geometric
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/sort.html">
-                        sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/front-end-development.html">
-                        front-end development
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/career.html">
-                        career
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/css.html">
-                        css
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/microsoft.html">
-                        Microsoft
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zeromq.html">
-                        zeromq
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/programming-interview.html">
-                        programming interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/tlv.html">
-                        TLV
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/asm.html">
-                        asm
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/heap.html">
-                        heap
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/gcj.html">
-                        GCJ
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/network.html">
-                        network
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
-                        binary indexed tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/distributed-system.html">
-                        distributed system
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/median.html">
-                        median
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-tree.html">
-                        binary tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/partition.html">
-                        partition
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/stylish.html">
-                        stylish
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multithread.html">
-                        multithread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protocol.html">
-                        protocol
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/get-things-done.html">
-                        get things done
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/priority-queue.html">
-                        priority queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quora.html">
-                        quora
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
 
             <li class="list-group-item"><h4><i class="icon-bullhorn icon-large"></i>Links</h4></li>
                 <li class="list-group-item"><a href="http://getpelican.com/"><i

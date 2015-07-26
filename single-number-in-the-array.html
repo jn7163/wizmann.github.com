@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="Single Number Problem"/>
             <meta property="og:url" content="http://wizmann.tk/single-number-in-the-array.html"/>
-            <meta property="og:description" content="Introduction There are a lot of interview problem based on the 1D-array, which is the one of the easiest “data structure”. But the problem about that simple data structure might not be that simple. Here is the summary of the problem about 1D-array. Of course, most of them come from ..."/>
+            <meta property="og:description" content="Introduction There are a lot of interview problem based on the 1D-array, which is the one of the easiest &#34;data structure&#34;. But the problem about that simple data structure might not be that simple. Here is the summary of the problem about 1D-array. Of course, most of them come from ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://wizmann.tk/theme/css/bootstrap.min.css" type="text/css"/>
@@ -116,19 +116,13 @@
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <h2>Introduction</h2>
-
-<p>There are a lot of interview problem based on the 1D-array, which is the one of the easiest &ldquo;data structure&rdquo;.</p>
-
+<p>There are a lot of interview problem based on the 1D-array, which is the one of the easiest "data structure".</p>
 <p>But the problem about that simple data structure might not be that simple. Here is the summary of the problem about 1D-array.</p>
-
 <p>Of course, most of them come from Leetcode.</p>
-
 <h2>All Twice Excpet One</h2>
-
 <blockquote>
 <p>Given an array of integers, every element appears twice except for one. Find that single one.</p>
 </blockquote>
-
 <p>This <a href="https://oj.leetcode.com/problems/single-number/">problem</a> is the very basic one. So I just paste my code here. If you are confused with the <code>xor</code> operator， you might have to review the knowledge of <strong>bit manipulation</strong> carefully.</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="c"># @param A, a list of integer</span>
@@ -137,17 +131,14 @@
         <span class="k">return</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">^</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 </pre></div>
 
+
 <p>Time complexity: O(n)</p>
-
 <h2>All Once Except One</h2>
-
 <blockquote>
-<p>Given an array of N integers, which are in the scope of [1&hellip;N - 1]. Every element in the array appears once except one. Find that number.</p>
+<p>Given an array of N integers, which are in the scope of [1...N - 1]. Every element in the array appears once except one. Find that number.</p>
 </blockquote>
-
-<p>This one is simple enough. But it looks a &ldquo;hard&rdquo; problem because we can solve this by using the previously &ldquo;xor&rdquo;.</p>
-
-<p>It&#39;s easy for us to calcuate the summary of the array [1&hellip;N - 1], and easy enough to calculate the summay of the given array as well. And the answer is the diffrence of the two summary.</p>
+<p>This one is simple enough. But it looks a "hard" problem because we can solve this by using the previously "xor".</p>
+<p>It's easy for us to calcuate the summary of the array [1...N - 1], and easy enough to calculate the summay of the given array as well. And the answer is the diffrence of the two summary.</p>
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="c"># @param A, a list of integer</span>
     <span class="c"># @return an integer</span>
@@ -156,26 +147,19 @@
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 </pre></div>
 
+
 <p>Time complexity: O(n)</p>
-
 <p>p.s. <code>xor(A) ^ xor(range(n))</code> is better if we have a large N that might overflow when we add all the elements.</p>
-
 <blockquote>
 <p>Given an array of integers, every element appears once except for one which appears twice. Find that special number.</p>
 </blockquote>
-
 <p>This problem is harder because all numbers in the array is arbitrary. And it seems hard to find any rules and patterns in the array.</p>
-
-<p>I don&#39;t know there is an algorithm which is O(1) space and O(n) time complexity. Tackle it with a hash set may be the best solution, which takes O(n) space and O(n) time complexity.</p>
-
+<p>I don't know there is an algorithm which is O(1) space and O(n) time complexity. Tackle it with a hash set may be the best solution, which takes O(n) space and O(n) time complexity.</p>
 <h2>All three times except one</h2>
-
 <blockquote>
 <p>Given an array of integers, every element appears three times except for one. Find that single one.</p>
 </blockquote>
-
 <p>To slove <a href="https://oj.leetcode.com/problems/single-number-ii/">this problem</a>, just using an array of size 32 to keep track on the total count of the ith bit.</p>
-
 <p>And a tricky solution to reduce the memory usage is use three integers to indicate the remainder of 3 of the total count of the bits.</p>
 <div class="highlight"><pre><span class="kt">int</span> <span class="nf">singleNumber</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">ones</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">twos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">threes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -190,25 +174,22 @@
 <span class="p">}</span>
 </pre></div>
 
-<h2>All twice except two</h2>
 
+<h2>All twice except two</h2>
 <blockquote>
 <p>Given an array of integers, every element appears twice except for two. Find that two numbers.</p>
 </blockquote>
+<div class="highlight"><pre>xor(array) = 0 ^ a ^ b
+</pre></div>
 
-<pre><code>xor(array) = 0 ^ a ^ b</code></pre>
 
-<p><a href="http://www.v2ex.com/t/94742">This problem</a> is an update of &ldquo;All twice except one&rdquo;. It&#39;s easy to prove that if there is an &ldquo;1&rdquo; in the bits of xor(array), it indicates that a and b are diffrent on that bit. We can separate the whole array by that bit, and then we can get two arrays which each contains a single &ldquo;single number&rdquo;.</p>
-
+<p><a href="http://www.v2ex.com/t/94742">This problem</a> is an update of "All twice except one". It's easy to prove that if there is an "1" in the bits of xor(array), it indicates that a and b are diffrent on that bit. We can separate the whole array by that bit, and then we can get two arrays which each contains a single "single number".</p>
 <h3>Once, twice, three times a lady</h3>
-
 <blockquote>
 <p>Given an array of integers, some of the numbers appear once, and some appear twice, and the others appear three times. Please find the number which appear three times.</p>
 </blockquote>
-
 <p>Of course, hash map is a panacea, with O(n) space and O(n) time.</p>
-
-<p>And there is another way to solve <a href="http://www.ituring.com.cn/article/56179">this problem</a> with O(1) space and O(n) time. But it has its limitation &ndash; integer overflow. If the max number of this array is too large, it can&#39;t be done.</p>
+<p>And there is another way to solve <a href="http://www.ituring.com.cn/article/56179">this problem</a> with O(1) space and O(n) time. But it has its limitation -- integer overflow. If the max number of this array is too large, it can't be done.</p>
 <div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
@@ -230,59 +211,37 @@
 <span class="k">print</span> <span class="n">d</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
 </pre></div>
 
+
 <p>Considering the number <code>ns[i]</code> with the index <code>i</code> and with the value <code>val</code>. We make <code>ns[i] = count(i) * MAX + val</code>. By that, we can get the count of number <code>i</code> by <code>ns[i] / MAX</code>, and get the value of <code>ns[i]</code> by <code>ns[i] % MAX</code>.</p>
-
-<p>And it&#39;s the same to find the &ldquo;missing number of an array of [1 &hellip; n]&rdquo; or something like that.</p>
-
+<p>And it's the same to find the "missing number of an array of [1 ... n]`` or something like that.</p>
 <h2>Summarize</h2>
-
 <h3>Hash Map is PANACEA</h3>
-
-<p>Almost every problem on the array which want you to detect a single / two / or more &ldquo;special&rdquo; number can be tackled by the Hash Map. Easy and fast.</p>
-
+<p>Almost every problem on the array which want you to detect a single / two / or more "special" number can be tackled by the Hash Map. Easy and fast.</p>
 <p>But for almost every problem, a hash map may no the very <strong>BEST</strong> solution.</p>
-
 <h3>Bit Map takes less memory</h3>
-
 <p>An update for the hash map is the bit map. It takes less memory, but can storage less infomation, 0 or 1. Further, you can treat several bits as one to put more information in it.</p>
-
 <p>By its very nature, bit map is the same with hash map.</p>
-
 <h3>More powerful tool: Bloomfilter</h3>
-
-<p>Bloomfilter is a powerful algorithm / data structure which is used to slove the &ldquo;in / not in&rdquo; problem, and takes less memory than hash map, and can do better than bit map if the data is sparse and random.</p>
-
-<p>But it can&#39;t keep way the <strong>randomizing error</strong> called <strong>false positive</strong>, and if you can put up with that error and want to reduce your memory usage, try that.</p>
-
-<p>I didn&#39;t mention this in my passage, but you can find some information on this <a href="http://en.wikipedia.org/wiki/Bloom_filter">wikipedia page</a>. It&#39;s easy.</p>
-
+<p>Bloomfilter is a powerful algorithm / data structure which is used to slove the "in / not in" problem, and takes less memory than hash map, and can do better than bit map if the data is sparse and random.</p>
+<p>But it can't keep way the <strong>randomizing error</strong> called <strong>false positive</strong>, and if you can put up with that error and want to reduce your memory usage, try that.</p>
+<p>I didn't mention this in my passage, but you can find some information on this <a href="http://en.wikipedia.org/wiki/Bloom_filter">wikipedia page</a>. It's easy.</p>
 <h3>xor and bits manipulation</h3>
-
-<p>xor is a good way to solve the &ldquo;only one appear once&rdquo; problem. And xor manipulate will never cause overflow which will ruin your whole program.</p>
-
+<p>xor is a good way to solve the "only one appear once" problem. And xor manipulate will never cause overflow which will ruin your whole program.</p>
 <h3>just calculate the sum of the array</h3>
-
-<p>Somethimes we just forget the simplest way to deal with a &ldquo;hard problem&rdquo;.</p>
-
-<p>For example, once I was asked &ldquo;give you three integers (a, b, c), and calculate how many (x, y, z) is possible to make ax + by + cz == R&rdquo;.</p>
-
-<p>I&#39;m glad because it is so much like a &ldquo;3-Sum&rdquo; problem, and I solve it fast. But the interver told me it&#39;s not the best solution. (You know how to deal with 3-sum, right?)</p>
-
+<p>Somethimes we just forget the simplest way to deal with a "hard problem".</p>
+<p>For example, once I was asked "give you three integers (a, b, c), and calculate how many (x, y, z) is possible to make ax + by + cz == R".</p>
+<p>I'm glad because it is so much like a "3-Sum" problem, and I solve it fast. But the interver told me it's not the best solution. (You know how to deal with 3-sum, right?)</p>
 <p>I thought for a while, and give up at last. And the interver told me that the solution is to enumerate (x, y) and get z by this formula.</p>
+<div class="highlight"><pre>z = (R - ax - by) / c
+p.s. must be exact division
+</pre></div>
 
-<pre><code>z = (R - ax - by) / c
-p.s. must be exact division</code></pre>
 
-<p>It&#39;s a better and much easier solution, right? It was a shame for me not came up with that idea.</p>
-
-<p>So, don&#39;t forget the simple way, it may be the very best solution.</p>
-
+<p>It's a better and much easier solution, right? It was a shame for me not came up with that idea.</p>
+<p>So, don't forget the simple way, it may be the very best solution.</p>
 <h3>attach some information to some numbers</h3>
-
 <p>It useful if the length of the array (L) and the max value of the array (M). If M * L &lt;= MAX_INT, you can storge the counter of number i in the array[i] by <code>array[i] = array[i] + counter * M</code>.</p>
-
-<p>It&#39;s a useful way to implement a counter in the array. And it will be a big plus for you in the interview.</p>
-
+<p>It's a useful way to implement a counter in the array. And it will be a big plus for you in the interview.</p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -328,461 +287,6 @@ p.s. must be exact division</code></pre>
 
 
             <li class="list-group-item"><a href="http://wizmann.tk/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/algorithm.html">
-                        algorithm
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/suan-fa.html">
-                        算法
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/ti-jie.html">
-                        题解
-                    </a>
-                </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://wizmann.tk/tag/codeforces.html">
-                        codeforces
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/cpp.html">
-                        cpp
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/interview.html">
-                        interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/xian-liao.html">
-                        闲聊
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                        公开课
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/python.html">
-                        python
-                    </a>
-                </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://wizmann.tk/tag/chrome-extension.html">
-                        chrome-extension
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/google.html">
-                        google
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/induction.html">
-                        induction
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/protobuf.html">
-                        protobuf
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/system-design.html">
-                        system-design
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/du-shu.html">
-                        读书
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/cse351.html">
-                        CSE351
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/stack.html">
-                        stack
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/flatbuffer.html">
-                        flatbuffer
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                        创造力
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/c.html">
-                        C++
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/leetcode.html">
-                        leetcode
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
-                        设计模式
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quick-sort.html">
-                        quick sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quartile.html">
-                        quartile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                        字符串
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geometric.html">
-                        geometric
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/graph.html">
-                        graph
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/misaka.html">
-                        misaka
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/mian-shi.html">
-                        面试
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/crack.html">
-                        crack
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/thread.html">
-                        thread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/sort.html">
-                        sort
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/useless.html">
-                        useless
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/front-end-development.html">
-                        front-end development
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/poi.html">
-                        POI
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multiprocess.html">
-                        multiprocess
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/si-wei.html">
-                        思维
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/yunfile.html">
-                        Yunfile
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/career.html">
-                        career
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/css.html">
-                        css
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/queue.html">
-                        queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/microsoft.html">
-                        Microsoft
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zeromq.html">
-                        zeromq
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                        计算机科学
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/valgrind.html">
-                        valgrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/markdown.html">
-                        markdown
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/geohash.html">
-                        GeoHash
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/programming-interview.html">
-                        programming interview
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                        分类器
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/tlv.html">
-                        TLV
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/asm.html">
-                        asm
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/allocate.html">
-                        allocate
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cpu.html">
-                        cpu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/android.html">
-                        android
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/heap.html">
-                        heap
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/gcj.html">
-                        GCJ
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/string.html">
-                        string
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/normal-distribution.html">
-                        normal-distribution
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/suo-yin.html">
-                        索引
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/alloca.html">
-                        alloca
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory.html">
-                        memory
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/network.html">
-                        network
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/encrypted.html">
-                        encrypted
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lian-biao.html">
-                        链表
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
-                        binary indexed tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                        并发编程
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/distributed-system.html">
-                        distributed system
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                        最小表示法
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cachegrind.html">
-                        cachegrind
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cache.html">
-                        cache
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/head-first.html">
-                        head-first
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/ya-suo.html">
-                        压缩
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/app.html">
-                        app
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/median.html">
-                        median
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/lock-less.html">
-                        lock-less
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/metadata.html">
-                        metadata
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/binary-tree.html">
-                        binary tree
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/angularjs.html">
-                        angularjs
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/partition.html">
-                        partition
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                        糙快猛
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/memory-barrier.html">
-                        memory-barrier
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/stylish.html">
-                        stylish
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/pelican.html">
-                        pelican
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/cocurrency.html">
-                        cocurrency
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/multithread.html">
-                        multithread
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/protocol.html">
-                        protocol
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/linux.html">
-                        linux
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/get-things-done.html">
-                        get things done
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/priority-queue.html">
-                        priority queue
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/quora.html">
-                        quora
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://wizmann.tk/tag/profile.html">
-                        profile
-                    </a>
-                </li>
 
             <li class="list-group-item"><h4><i class="icon-bullhorn icon-large"></i>Links</h4></li>
                 <li class="list-group-item"><a href="http://getpelican.com/"><i
