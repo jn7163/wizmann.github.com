@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>POI - Maerlyn's Rainbow</title>
+    <title>STL - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="POI" />
+    <meta name="keywords" content="STL" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -66,16 +66,19 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://wizmann.tk/geo-hash-algorithm.html">GeoHash算法</a></h2>
-                <div class="summary"><h2>GeoHash</h2>
+                <h2><a href="http://wizmann.tk/phxrpc-2.html">定时器以及其它 - phxrpc代码阅读(2)</a></h2>
+                <div class="summary"><h2>写在前面</h2>
+<p>phxrpc使用了协程(ucontext)和IO复用技术(epoll)来实现网络通信。定时器在其中起到了非常重要的作用。下面我们就来分析一下phxrpc的<code>timer.[h|cpp]</code>中的代码。</p>
+<h2>system_clock vs steady_clock</h2>
+<p><code>system_clock</code>和<code>steadly_clock</code>都是来自<code>&lt;chrono&gt;</code>库，都是用来获取当前时间的。</p>
+<p><code>system_clock</code>用来从系统时钟获取时钟时间(wall clock time)，而<code>steadly_clock</code>获取的是时钟tick，而且保证随着时间的推移，时钟tick数不会变小。</p>
+<p>然而实际上，在某些系统下，这两个时钟的实现是一致的。详细信息可以参考<a href="http://stackoverflow.com/questions/13263277/difference-between-stdsystem-clock-and-stdsteady-clock">这里</a>。</p>
 <blockquote>
-<p>Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.</p>
+<p>注：在clang++ 4.2.1, g++ 5.4 下实验，这两个时钟是不同的。所以个人认为在这里最好不要做任何无意义的假设。</p>
 </blockquote>
-<p>简单说，GeoHash是一个将经纬度信息编码成一个string的算法。从而便于储存、查找。</p>
-<h2>GeoHash算法的步骤</h2>
-<p>GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。</p>
-<p>我们以纬度举例 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/geo-hash-algorithm.html">more ...</a>
+<h2>几毫秒的安睡</h2>
+<div class="highlight"><pre><span class="kt">void ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/phxrpc-2.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -625,7 +628,7 @@ Maerlyn's Rainbow            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2014 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

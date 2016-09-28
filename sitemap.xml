@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/</loc>
-<lastmod>2016-09-28T22:37:21-00:00</lastmod>
+<lastmod>2016-09-29T01:29:27-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2016-09-28T22:37:21-00:00</lastmod>
+<lastmod>2016-09-29T01:29:27-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2016-09-28T22:37:21-00:00</lastmod>
+<lastmod>2016-09-29T01:29:27-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2016-09-28T22:37:21-00:00</lastmod>
+<lastmod>2016-09-29T01:29:27-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/phxrpc-2.html</loc>
+<lastmod>2016-09-29T01:28:09+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -446,7 +453,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2016-09-28T22:35:55+08:06</lastmod>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -690,6 +697,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/priority_queue.html</loc>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/yunfile.html</loc>
 <lastmod>2013-12-02T21:16:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -726,7 +740,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/c.html</loc>
-<lastmod>2016-09-28T22:35:55+08:06</lastmod>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -803,7 +817,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/phxrpc.html</loc>
-<lastmod>2016-09-28T22:35:55+08:06</lastmod>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -817,7 +831,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/rpc.html</loc>
-<lastmod>2016-09-28T22:35:55+08:06</lastmod>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -916,6 +930,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/heap.html</loc>
 <lastmod>2014-04-07T21:08:59+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/stl.html</loc>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1125,7 +1146,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2016-09-28T22:35:55+08:06</lastmod>
+<lastmod>2016-09-29T01:28:09+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
