@@ -22,7 +22,7 @@
 
 
 &lt;p&gt;这里phxrpc使用了&lt;code&gt;nanosleep&lt;/code&gt;实现了高精度的sleep。&lt;/p&gt;
-&lt;p&gt;注意这里的用法，由于&lt;code&gt;nanosleep&lt;/code&gt;可能被&lt;code&gt;EINTR&lt;/code&gt;信号中断。所以我们需要进行额外的判断。当nanosleep被信号中断时，会把剩余时间写入第二个参数指向的&lt;code&gt;timespec&lt;/code&gt;变量中，之后我们再次调用&lt;code&gt;nanosleep&lt;/code&gt;，就可以把剩余的时间再睡一个回笼觉了。&lt;/p&gt;
+&lt;p&gt;注意这里的用法，由于&lt;code&gt;nanosleep&lt;/code&gt;可能被信号中断，此时errno被设为&lt;code&gt;EINTR&lt;/code&gt;。所以我们需要进行额外的判断。当nanosleep被信号中断时，会把剩余时间写入第二个参数指向的&lt;code&gt;timespec&lt;/code&gt;变量中，之后我们再次调用&lt;code&gt;nanosleep&lt;/code&gt;，就可以把剩余的时间再睡一个回笼觉了。&lt;/p&gt;
 &lt;h2&gt;可删除优先队列&lt;/h2&gt;
 &lt;p&gt;这个设计一颗赛艇啊。&lt;/p&gt;
 &lt;p&gt;对于&lt;code&gt;std::priority_queue&lt;/code&gt;以及大多数手写的优先队列（又称堆，heap）。一般只有&lt;code&gt;top()&lt;/code&gt;, &lt;code&gt;push()&lt;/code&gt;, &lt;code&gt;pop()&lt;/code&gt;这三个操作接口，如果想实现删除操作，大多数情况（为了偷懒）会把&lt;code&gt;std::priority_queue&lt;/code&gt;替换为&lt;code&gt;std::set&lt;/code&gt;。&lt;code&gt;std::set&lt;/code&gt;的内部实现是平衡树（确切的说，红黑树），可以实现获得最大最小值，查找某个值，以及删除某个值的操作。&lt;/p&gt;
