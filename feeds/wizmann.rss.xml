@@ -39,6 +39,8 @@
 &lt;/blockquote&gt;
 &lt;p&gt;这里phxrpc使用了一种侵入式的手段，将下标写入堆中元素。然后堆外持有指针。然后在维护堆性质的时候，同步更新堆中元素，使其中保存的下标与其在堆中的下标一致。&lt;/p&gt;
 &lt;p&gt;这样我们就可以通过指针拿到相应元素的下标，删除操作也变得简单了起来。&lt;/p&gt;
+&lt;p&gt;那么侵入式堆下标有什么问题吗？一来我们对于元素的查找只能根据容器外持有的指针来进行，并不能像&lt;code&gt;std::set&lt;/code&gt;那样通过比较关系来查找。二来侵入式下标需要额外的内存空间，对于小型对象会造成可观比例的overhead。同时容器内只能持有元素指针，在某种程度上会带来额外的寻址开销。&lt;/p&gt;
+&lt;p&gt;不过，这大概也是让堆支持删除的唯一方法了。&lt;/p&gt;
 &lt;h2&gt;小小吐槽&lt;/h2&gt;
 &lt;p&gt;这段代码写的，貌似耦合的太紧了一点。&lt;code&gt;class Timer&lt;/code&gt;内部提供的功能有&lt;/p&gt;
 &lt;ol&gt;
@@ -50,7 +52,13 @@
 &lt;p&gt;至少在我看来，这并不符合“高内聚，低耦合”代码风格。&lt;/p&gt;
 &lt;p&gt;你问我为啥不给改改？&lt;/p&gt;
 &lt;p&gt;因为他们没写测试啊！&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/16-9-29/12309965.jpg" /&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 29 Sep 2016 01:28:09 +0800</pubDate><guid>tag:wizmann.tk,2016-09-29:phxrpc-2.html</guid><category>RPC</category><category>STL</category><category>priority_queue</category><category>C++</category><category>phxrpc</category></item><item><title>自定义你的stream buffer - phxrpc阅读笔记(1)</title><link>http://wizmann.tk/phxrpc-1.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/16-9-29/12309965.jpg" /&gt;&lt;/p&gt;
+&lt;h2&gt;补充&lt;/h2&gt;
+&lt;p&gt;其实对于&lt;code&gt;class Timer&lt;/code&gt;，phxrpc是有写测试的(test_timer.cpp)。但是这个代码写的就更迷了。这里再分析一下。&lt;/p&gt;
+&lt;p&gt;一开始，先创建100个timer，sleep时间随机。然后将50个timer放入&lt;code&gt;need_remove&lt;/code&gt;数组中。&lt;/p&gt;
+&lt;p&gt;之后每删一个timer，就配套睡到超时时间pop一个timer。弹出超时timer后，再判断一下时间误差是否超过10ms，如果是，就报错。&lt;/p&gt;
+&lt;p&gt;这。。。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/16-9-29/43591449.jpg" /&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 29 Sep 2016 01:28:09 +0800</pubDate><guid>tag:wizmann.tk,2016-09-29:phxrpc-2.html</guid><category>RPC</category><category>STL</category><category>priority_queue</category><category>C++</category><category>phxrpc</category></item><item><title>自定义你的stream buffer - phxrpc阅读笔记(1)</title><link>http://wizmann.tk/phxrpc-1.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://github.com/tencent-wechat/phxrpc"&gt;phxrpc&lt;/a&gt;是微信团队开源的一个轻量级RPC框架。&lt;/p&gt;
 &lt;p&gt;我对RPC这些东西了解不多，看到phxrpc的代码相对简单，而且还在初步开发阶段（在本文写作时，版本号是0.8）。所以想读一读，提高一下姿势水平。&lt;/p&gt;
 &lt;p&gt;就是这样。&lt;/p&gt;
