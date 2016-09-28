@@ -66,6 +66,31 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="http://wizmann.tk/gcj-qualification-round-2015-tutorial.html">GCJ Qualification Round 2015 题解</a></h2>
+                <div class="summary"><h2>前言</h2>
+<p>这篇日志用中文写是因为想省点时间打游戏。。。（请鄙视我吧。。。</p>
+<h2>A. Standing Ovation</h2>
+<h3>题意</h3>
+<p>这是一个骗掌声的故事。</p>
+<p>当演出结束后，观众们要站起来鼓掌。但是有些观众比较羞涩，只有在k个人站起来鼓掌后才会故障。</p>
+<p>你的目标是在观众中安插一些卧底领掌，让所有观众都站起来鼓掌。（臭不要脸）</p>
+<p>求最少的卧底数。</p>
+<h3>数据规模</h3>
+<blockquote>
+<p>抛开数据规模谈解题，都是TM耍流氓。 —— Wizmann</p>
+</blockquote>
+<p>100组数据。</p>
+<p>小数据集，观众羞涩值的范围：0 ≤ Smax ≤ 6.</p>
+<p>大数据集，观众羞涩值的范围：0 ≤ Smax ≤ 1000.</p>
+<h3>解题</h3>
+<p>本题比较简单。有两种方法，一是暴力枚举，因为大数据集中，观众羞涩值最大只为1000,即最大安插卧底数不超过1000。(当然，二分也可以，不过对于1000的数据集，真心没啥必要。)</p>
+<p>二是O(N)的一个遍历，在观众羞涩的不想鼓掌时，安插相应数量的卧底。</p>
+<p>本题推荐方法一。因为个人感觉，在编程竞赛中 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/gcj-qualification-round-2015-tutorial.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/inspiration-from-zeromq.html">ZeroMQ启示录</a></h2>
                 <div class="summary"><h2>ØMQ是一个消息系统</h2>
 <p>ZeroMQ是一个消息系统，也被称为“消息中间件”。它被广泛的用于经济、游戏、嵌入式等领域。</p>
@@ -161,42 +186,6 @@ Maerlyn's Rainbow            </a>
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/tlv-protocol.html">类型-长度-值（TLV）协议</a></h2>
-                <div class="summary"><p>在数据通信协议中，可选的信息或字段通常使用type-length-value（a.k.a TLV）元素来进行编码。</p>
-<ul>
-<li>Type - 类型</li>
-</ul>
-<p>用来标示字段类型的值，通常是一个二进制值或简单的字母</p>
-<ul>
-<li>Length - 长度</li>
-</ul>
-<p>字段长度，单位通常为Byte</p>
-<ul>
-<li>Value - 值</li>
-</ul>
-<p>一个变长的比特数组用来存储这个字段的值</p>
-<h2>优势</h2>
-<ul>
-<li>TLV序列方便遍历查找</li>
-<li>新的字段可以无痛的加入现有的协议中。解析的时候，对于未知的字段，可以轻松的跳过。这点与XML类似</li>
-<li>TLV元素的顺序可以是随意的</li>
-<li>TLV元素通常使用二进制存储，可以使解析速度加快并且使数据更小</li>
-<li>TLV可以与XML数据相互转换，易于人类阅读</li>
-</ul>
-<h2>例子</h2>
-<p>在这里，我们以protobuf的可选和变长字段为例。</p>
-<h3>field_number ++ wire_type</h3>
-<p>每一个protobuf的字段在传输时，都会加上<code>field_number</code>和<code>wire_type</code>这两个值，这两个值组成这个字段的key。</p>
-<div class="highlight"><pre>key = (field_number &lt;&lt; 3) | wire_type
-</pre></div>
-
-
-<p><code>field_number</code>标明了字段的编号，方便协议向前向后的兼容。而 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/tlv-protocol.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pagination">
                 <li class="prev"><a href="http://wizmann.tk/category/blog.html">&laquo;</a>
@@ -247,6 +236,11 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
+                        <a href="http://wizmann.tk/tag/suan-fa.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
                         <a href="http://wizmann.tk/tag/algorithm.html">
                             algorithm
                         </a>
@@ -256,14 +250,29 @@ Maerlyn's Rainbow            </a>
                             题解
                         </a>
                     </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://wizmann.tk/tag/suan-fa.html">
-                            算法
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/interview.html">
+                            interview
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/system-design.html">
+                            System Design
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/c.html">
+                            C++
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
                         <a href="http://wizmann.tk/tag/python.html">
                             python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                            公开课
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -281,59 +290,9 @@ Maerlyn's Rainbow            </a>
                             闲聊
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/system-design.html">
-                            System Design
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/interview.html">
-                            interview
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                            公开课
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/stack.html">
-                            stack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/induction.html">
-                            induction
-                        </a>
-                    </li>
                     <li class="list-group-item tag-3">
                         <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
                             设计模式
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/du-shu.html">
-                            读书
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/google.html">
-                            google
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/protobuf.html">
-                            protobuf
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/c.html">
-                            C++
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/flatbuffer.html">
-                            flatbuffer
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -342,8 +301,18 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/stack.html">
+                            stack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
                         <a href="http://wizmann.tk/tag/cse351.html">
                             CSE351
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/protobuf.html">
+                            protobuf
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -351,69 +320,29 @@ Maerlyn's Rainbow            </a>
                             leetcode
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linux.html">
-                            linux
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/du-shu.html">
+                            读书
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/induction.html">
+                            induction
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/flatbuffer.html">
+                            flatbuffer
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/google.html">
+                            google
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cache.html">
-                            cache
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/asm.html">
-                            asm
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/microsoft.html">
-                            Microsoft
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/geometric.html">
-                            geometric
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quora.html">
-                            quora
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/thread.html">
-                            thread
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                            并发编程
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/lock-less.html">
-                            lock-less
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/multithread.html">
-                            multithread
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/memory.html">
-                            memory
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/head-first.html">
-                            head-first
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/misaka.html">
-                            misaka
+                        <a href="http://wizmann.tk/tag/network.html">
+                            network
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -422,8 +351,13 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/binary-tree.html">
-                            binary tree
+                        <a href="http://wizmann.tk/tag/stylish.html">
+                            stylish
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/sort.html">
+                            sort
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -432,23 +366,23 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quartile.html">
-                            quartile
+                        <a href="http://wizmann.tk/tag/priority-queue.html">
+                            priority queue
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/angularjs.html">
-                            angularjs
+                        <a href="http://wizmann.tk/tag/programming-interview.html">
+                            programming interview
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/app.html">
-                            app
+                        <a href="http://wizmann.tk/tag/mian-shi.html">
+                            面试
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/stylish.html">
-                            stylish
+                        <a href="http://wizmann.tk/tag/head-first.html">
+                            head-first
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -457,43 +391,38 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cocurrency.html">
-                            cocurrency
+                        <a href="http://wizmann.tk/tag/crack.html">
+                            crack
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zeromq.html">
-                            zeromq
+                        <a href="http://wizmann.tk/tag/thread.html">
+                            thread
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/css.html">
-                            css
+                        <a href="http://wizmann.tk/tag/multithread.html">
+                            multithread
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                            分类器
+                        <a href="http://wizmann.tk/tag/app.html">
+                            app
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/valgrind.html">
-                            valgrind
+                        <a href="http://wizmann.tk/tag/suo-yin.html">
+                            索引
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/multiprocess.html">
-                            multiprocess
+                        <a href="http://wizmann.tk/tag/angularjs.html">
+                            angularjs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/geohash.html">
-                            GeoHash
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/gcj.html">
-                            GCJ
+                        <a href="http://wizmann.tk/tag/cachegrind.html">
+                            cachegrind
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -502,28 +431,88 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quick-sort.html">
-                            quick sort
+                        <a href="http://wizmann.tk/tag/multiprocess.html">
+                            multiprocess
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                            最小表示法
+                        <a href="http://wizmann.tk/tag/si-wei.html">
+                            思维
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
-                            binary indexed tree
+                        <a href="http://wizmann.tk/tag/graph.html">
+                            graph
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/poi.html">
-                            POI
+                        <a href="http://wizmann.tk/tag/misaka.html">
+                            misaka
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/tlv.html">
-                            TLV
+                        <a href="http://wizmann.tk/tag/geohash.html">
+                            GeoHash
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/pelican.html">
+                            pelican
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/alloca.html">
+                            alloca
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cocurrency.html">
+                            cocurrency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/quora.html">
+                            quora
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/distributed-system.html">
+                            distributed system
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/career.html">
+                            career
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                            计算机科学
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/median.html">
+                            median
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/profile.html">
+                            profile
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cpu.html">
+                            cpu
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/queue.html">
+                            queue
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/valgrind.html">
+                            valgrind
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -537,8 +526,23 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/front-end-development.html">
+                            front-end development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/poi.html">
+                            POI
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/lian-biao.html">
                             链表
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/quick-sort.html">
+                            quick sort
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -547,68 +551,13 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/network.html">
-                            network
+                        <a href="http://wizmann.tk/tag/ya-suo.html">
+                            压缩
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/mian-shi.html">
-                            面试
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/markdown.html">
-                            markdown
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/front-end-development.html">
-                            front-end development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/get-things-done.html">
-                            get things done
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/protocol.html">
-                            protocol
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/graph.html">
-                            graph
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/si-wei.html">
-                            思维
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/normal-distribution.html">
-                            normal-distribution
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/programming-interview.html">
-                            programming interview
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linkedin.html">
-                            Linkedin
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/priority-queue.html">
-                            priority queue
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/queue.html">
-                            queue
+                        <a href="http://wizmann.tk/tag/geometric.html">
+                            geometric
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -617,18 +566,23 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/alloca.html">
-                            alloca
+                        <a href="http://wizmann.tk/tag/social-network.html">
+                            Social Network
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cpu.html">
-                            cpu
+                        <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                            并发编程
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cachegrind.html">
-                            cachegrind
+                        <a href="http://wizmann.tk/tag/lock-less.html">
+                            lock-less
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/protocol.html">
+                            protocol
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -637,13 +591,53 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/profile.html">
-                            profile
+                        <a href="http://wizmann.tk/tag/android.html">
+                            android
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                            计算机科学
+                        <a href="http://wizmann.tk/tag/linkedin.html">
+                            Linkedin
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/microsoft.html">
+                            Microsoft
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/gcj.html">
+                            GCJ
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/css.html">
+                            css
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/markdown.html">
+                            markdown
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/linux.html">
+                            linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/tlv.html">
+                            TLV
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                            最小表示法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/normal-distribution.html">
+                            normal-distribution
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -652,58 +646,68 @@ Maerlyn's Rainbow            </a>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/career.html">
-                            career
+                        <a href="http://wizmann.tk/tag/get-things-done.html">
+                            get things done
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/pelican.html">
-                            pelican
+                        <a href="http://wizmann.tk/tag/memory.html">
+                            memory
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/suo-yin.html">
-                            索引
+                        <a href="http://wizmann.tk/tag/binary-tree.html">
+                            binary tree
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/android.html">
-                            android
+                        <a href="http://wizmann.tk/tag/quartile.html">
+                            quartile
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/streambuf.html">
+                            streambuf
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cache.html">
+                            cache
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/phxrpc.html">
+                            phxrpc
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/zeromq.html">
+                            zeromq
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/asm.html">
+                            asm
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
+                            binary indexed tree
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/rpc.html">
+                            RPC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                            分类器
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/useless.html">
                             useless
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/sort.html">
-                            sort
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ya-suo.html">
-                            压缩
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/distributed-system.html">
-                            distributed system
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/median.html">
-                            median
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/crack.html">
-                            crack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/social-network.html">
-                            Social Network
                         </a>
                     </li>
                 </ul>
@@ -744,7 +748,7 @@ Maerlyn's Rainbow            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2015 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

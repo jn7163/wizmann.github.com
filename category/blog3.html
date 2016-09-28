@@ -66,6 +66,42 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="http://wizmann.tk/tlv-protocol.html">类型-长度-值（TLV）协议</a></h2>
+                <div class="summary"><p>在数据通信协议中，可选的信息或字段通常使用type-length-value（a.k.a TLV）元素来进行编码。</p>
+<ul>
+<li>Type - 类型</li>
+</ul>
+<p>用来标示字段类型的值，通常是一个二进制值或简单的字母</p>
+<ul>
+<li>Length - 长度</li>
+</ul>
+<p>字段长度，单位通常为Byte</p>
+<ul>
+<li>Value - 值</li>
+</ul>
+<p>一个变长的比特数组用来存储这个字段的值</p>
+<h2>优势</h2>
+<ul>
+<li>TLV序列方便遍历查找</li>
+<li>新的字段可以无痛的加入现有的协议中。解析的时候，对于未知的字段，可以轻松的跳过。这点与XML类似</li>
+<li>TLV元素的顺序可以是随意的</li>
+<li>TLV元素通常使用二进制存储，可以使解析速度加快并且使数据更小</li>
+<li>TLV可以与XML数据相互转换，易于人类阅读</li>
+</ul>
+<h2>例子</h2>
+<p>在这里，我们以protobuf的可选和变长字段为例。</p>
+<h3>field_number ++ wire_type</h3>
+<p>每一个protobuf的字段在传输时，都会加上<code>field_number</code>和<code>wire_type</code>这两个值，这两个值组成这个字段的key。</p>
+<div class="highlight"><pre>key = (field_number &lt;&lt; 3) | wire_type
+</pre></div>
+
+
+<p><code>field_number</code>标明了字段的编号，方便协议向前向后的兼容。而 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/tlv-protocol.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://wizmann.tk/reasons-they-recruit.html">Reasons They Recruit</a></h2>
                 <div class="summary"><blockquote>
 <p>From <em>Ace of Programming Interview</em>, Cpt1 - Hiring Programmers: The Inside Story</p>
@@ -151,28 +187,6 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/thinking-in-induction.html">思维训练 - Thinkin' in induction</a></h2>
-                <div class="summary"><h2>热身题 - 24Game</h2>
-<p><a href="http://codeforces.com/contest/469/problem/C">原题请戳我</a></p>
-<h3>题意</h3>
-<p>给你一个包含整数1...n的集合S。接下来进行n-1次操作，每次操作从集合S中选取两个数，在加、减、乘三种运算中选取一种，将结果放回再集合S。在n-1次操作完成后，集合S中只剩下一个数。求问一种取数和运算策略，使最后的结果为24。</p>
-<p>举例：</p>
-<p>S = [1, 2, 3, 4, 5]</p>
-<p>我们选取(2, 5)，并进行加法运算，获得结果7。再将7放回集合S中。</p>
-<p>此时，S = [1, 3, 4, 7]。</p>
-<h3>数据范围</h3>
-<p>1 &lt;= n &lt;= 100000</p>
-<h3>解答</h3>
-<blockquote>
-<p>建议：请思考10分钟后再来看答案</p>
-</blockquote>
-<p>我们日常写代码，往往是为了实现一个功能或者实现一套逻辑。这时候，我们做的事一般是从零开始，然后逐步迭代，最终实现目标。</p>
-<p>这是正常的一种思维方式，也是不错的思维 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/thinking-in-induction.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pagination">
                 <li class="prev"><a href="http://wizmann.tk/category/blog2.html">&laquo;</a>
@@ -223,6 +237,11 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
+                        <a href="http://wizmann.tk/tag/suan-fa.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
                         <a href="http://wizmann.tk/tag/algorithm.html">
                             algorithm
                         </a>
@@ -232,14 +251,29 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                             题解
                         </a>
                     </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://wizmann.tk/tag/suan-fa.html">
-                            算法
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/interview.html">
+                            interview
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/system-design.html">
+                            System Design
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/c.html">
+                            C++
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
                         <a href="http://wizmann.tk/tag/python.html">
                             python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                            公开课
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -257,59 +291,9 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                             闲聊
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/system-design.html">
-                            System Design
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/interview.html">
-                            interview
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                            公开课
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/stack.html">
-                            stack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/induction.html">
-                            induction
-                        </a>
-                    </li>
                     <li class="list-group-item tag-3">
                         <a href="http://wizmann.tk/tag/she-ji-mo-shi.html">
                             设计模式
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/du-shu.html">
-                            读书
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/google.html">
-                            google
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/protobuf.html">
-                            protobuf
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/c.html">
-                            C++
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/flatbuffer.html">
-                            flatbuffer
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -318,8 +302,18 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/stack.html">
+                            stack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
                         <a href="http://wizmann.tk/tag/cse351.html">
                             CSE351
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/protobuf.html">
+                            protobuf
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -327,69 +321,29 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                             leetcode
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linux.html">
-                            linux
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/du-shu.html">
+                            读书
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/induction.html">
+                            induction
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/flatbuffer.html">
+                            flatbuffer
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/google.html">
+                            google
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cache.html">
-                            cache
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/asm.html">
-                            asm
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/microsoft.html">
-                            Microsoft
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/geometric.html">
-                            geometric
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quora.html">
-                            quora
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/thread.html">
-                            thread
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
-                            并发编程
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/lock-less.html">
-                            lock-less
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/multithread.html">
-                            multithread
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/memory.html">
-                            memory
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/head-first.html">
-                            head-first
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/misaka.html">
-                            misaka
+                        <a href="http://wizmann.tk/tag/network.html">
+                            network
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -398,8 +352,13 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/binary-tree.html">
-                            binary tree
+                        <a href="http://wizmann.tk/tag/stylish.html">
+                            stylish
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/sort.html">
+                            sort
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -408,23 +367,23 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quartile.html">
-                            quartile
+                        <a href="http://wizmann.tk/tag/priority-queue.html">
+                            priority queue
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/angularjs.html">
-                            angularjs
+                        <a href="http://wizmann.tk/tag/programming-interview.html">
+                            programming interview
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/app.html">
-                            app
+                        <a href="http://wizmann.tk/tag/mian-shi.html">
+                            面试
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/stylish.html">
-                            stylish
+                        <a href="http://wizmann.tk/tag/head-first.html">
+                            head-first
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -433,43 +392,38 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cocurrency.html">
-                            cocurrency
+                        <a href="http://wizmann.tk/tag/crack.html">
+                            crack
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zeromq.html">
-                            zeromq
+                        <a href="http://wizmann.tk/tag/thread.html">
+                            thread
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/css.html">
-                            css
+                        <a href="http://wizmann.tk/tag/multithread.html">
+                            multithread
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                            分类器
+                        <a href="http://wizmann.tk/tag/app.html">
+                            app
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/valgrind.html">
-                            valgrind
+                        <a href="http://wizmann.tk/tag/suo-yin.html">
+                            索引
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/multiprocess.html">
-                            multiprocess
+                        <a href="http://wizmann.tk/tag/angularjs.html">
+                            angularjs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/geohash.html">
-                            GeoHash
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/gcj.html">
-                            GCJ
+                        <a href="http://wizmann.tk/tag/cachegrind.html">
+                            cachegrind
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -478,28 +432,88 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quick-sort.html">
-                            quick sort
+                        <a href="http://wizmann.tk/tag/multiprocess.html">
+                            multiprocess
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
-                            最小表示法
+                        <a href="http://wizmann.tk/tag/si-wei.html">
+                            思维
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
-                            binary indexed tree
+                        <a href="http://wizmann.tk/tag/graph.html">
+                            graph
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/poi.html">
-                            POI
+                        <a href="http://wizmann.tk/tag/misaka.html">
+                            misaka
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/tlv.html">
-                            TLV
+                        <a href="http://wizmann.tk/tag/geohash.html">
+                            GeoHash
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/pelican.html">
+                            pelican
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/alloca.html">
+                            alloca
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cocurrency.html">
+                            cocurrency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/quora.html">
+                            quora
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/distributed-system.html">
+                            distributed system
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/career.html">
+                            career
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                            计算机科学
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/median.html">
+                            median
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/profile.html">
+                            profile
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cpu.html">
+                            cpu
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/queue.html">
+                            queue
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/valgrind.html">
+                            valgrind
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -513,8 +527,23 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/front-end-development.html">
+                            front-end development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/poi.html">
+                            POI
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/lian-biao.html">
                             链表
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/quick-sort.html">
+                            quick sort
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -523,68 +552,13 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/network.html">
-                            network
+                        <a href="http://wizmann.tk/tag/ya-suo.html">
+                            压缩
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/mian-shi.html">
-                            面试
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/markdown.html">
-                            markdown
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/front-end-development.html">
-                            front-end development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/get-things-done.html">
-                            get things done
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/protocol.html">
-                            protocol
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/graph.html">
-                            graph
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/si-wei.html">
-                            思维
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/normal-distribution.html">
-                            normal-distribution
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/programming-interview.html">
-                            programming interview
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linkedin.html">
-                            Linkedin
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/priority-queue.html">
-                            priority queue
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/queue.html">
-                            queue
+                        <a href="http://wizmann.tk/tag/geometric.html">
+                            geometric
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -593,18 +567,23 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/alloca.html">
-                            alloca
+                        <a href="http://wizmann.tk/tag/social-network.html">
+                            Social Network
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cpu.html">
-                            cpu
+                        <a href="http://wizmann.tk/tag/bing-fa-bian-cheng.html">
+                            并发编程
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cachegrind.html">
-                            cachegrind
+                        <a href="http://wizmann.tk/tag/lock-less.html">
+                            lock-less
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/protocol.html">
+                            protocol
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -613,13 +592,53 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/profile.html">
-                            profile
+                        <a href="http://wizmann.tk/tag/android.html">
+                            android
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                            计算机科学
+                        <a href="http://wizmann.tk/tag/linkedin.html">
+                            Linkedin
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/microsoft.html">
+                            Microsoft
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/gcj.html">
+                            GCJ
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/css.html">
+                            css
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/markdown.html">
+                            markdown
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/linux.html">
+                            linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/tlv.html">
+                            TLV
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/zui-xiao-biao-shi-fa.html">
+                            最小表示法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/normal-distribution.html">
+                            normal-distribution
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -628,58 +647,68 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/career.html">
-                            career
+                        <a href="http://wizmann.tk/tag/get-things-done.html">
+                            get things done
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/pelican.html">
-                            pelican
+                        <a href="http://wizmann.tk/tag/memory.html">
+                            memory
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/suo-yin.html">
-                            索引
+                        <a href="http://wizmann.tk/tag/binary-tree.html">
+                            binary tree
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/android.html">
-                            android
+                        <a href="http://wizmann.tk/tag/quartile.html">
+                            quartile
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/streambuf.html">
+                            streambuf
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cache.html">
+                            cache
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/phxrpc.html">
+                            phxrpc
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/zeromq.html">
+                            zeromq
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/asm.html">
+                            asm
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
+                            binary indexed tree
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/rpc.html">
+                            RPC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                            分类器
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/useless.html">
                             useless
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/sort.html">
-                            sort
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ya-suo.html">
-                            压缩
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/distributed-system.html">
-                            distributed system
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/median.html">
-                            median
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/crack.html">
-                            crack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/social-network.html">
-                            Social Network
                         </a>
                     </li>
                 </ul>
@@ -720,7 +749,7 @@ Udi Manber 的<a href="http://book.douban.com/subject/1436134/">《算法引论�
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2015 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
