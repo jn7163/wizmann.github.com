@@ -44,7 +44,7 @@
 &lt;p&gt;参考：Effective TCP/IP 3.8 3.9节&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;IO复用：Poll&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/16-10-3/91563073.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/16-10-3/84501111.jpg" /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;图片来源：UNIX网络编程卷一：套接字编程 6.2节&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -64,7 +64,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;Client：“不管你们信不信，是Server先动的手。”&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;具体为什么先用poll，再把fd设为&lt;code&gt;blocking&lt;/code&gt;的，我表示二脸懵逼。在我的实验中，即使不这么做，测试代码也是可以work的。可能在后面的代码阅读中，这个问题可以获得解释吧。&lt;/p&gt;
+&lt;p&gt;具体为什么先用poll，再把fd设为&lt;code&gt;blocking&lt;/code&gt;的，我表示二脸懵逼。在我的实验中，即使把poll删掉，测试代码也是可以work的。可能在后面的代码阅读中，这个问题可以获得解释吧。&lt;/p&gt;
 &lt;p&gt;和select一样，poll也存在被中断的情况，在phxrpc的代码里，我们给了中断“a second chance”。当poll被中断后，会重新再poll一次；如果这次再被中断，则直接返回TIMEOUT。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// retry again for EINTR&lt;/span&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
