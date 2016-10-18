@@ -52,11 +52,13 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
 &lt;h3&gt;epoll测试服务端&lt;/h3&gt;
 &lt;p&gt;服务端和客户端区别不大，主要区别在于客户端在一开始只有一个协程。之后在accept连接时，会主动新建工作协程。&lt;/p&gt;
 &lt;p&gt;这里解释一下&lt;code&gt;listen(fd, backlog)&lt;/code&gt;函数的第二个参数&lt;code&gt;backlog&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;backlog意为内核为相应套接字排队的最大连接个数。内核为任何一个给定的监听套接字维护两个队列：
-&lt;em&gt; 未完成连接队列(incomplete connection queue)     &lt;br /&gt;
-已由某个客户发出并到达服务器，而服务器正在等待完成相应的TCP三路握手过程。这些套接字处于SYN_RCVD状态
-&lt;/em&gt; 已完成连接队列(completed connection queue)    &lt;br /&gt;
-每个已完成TCP三路握手过程的客户对应其中一项。这些套接字处于ESTABLISHED状态&lt;/p&gt;
+&lt;p&gt;backlog意为内核为相应套接字排队的最大连接个数。内核为任何一个给定的监听套接字维护两个队列：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;未完成连接队列(incomplete connection queue)        &lt;br /&gt;
+已由某个客户发出并到达服务器，而服务器正在等待完成相应的TCP三路握手过程。这些套接字处于SYN_RCVD状态&lt;/li&gt;
+&lt;li&gt;已完成连接队列(completed connection queue)     &lt;br /&gt;
+每个已完成TCP三路握手过程的客户对应其中一项。这些套接字处于ESTABLISHED状态&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;当队列满时，TCP会忽略改分节，但是不发送RST。服务端会期望客户端重发SYN，采用正常的重传机制来处理&lt;/p&gt;
 &lt;p&gt;队列的真实大小往往比设定backlog值要大一些（~1.5倍）&lt;/p&gt;
 &lt;p&gt;我们继续看工作函数&lt;code&gt;echoaccept&lt;/code&gt;。第一步是新建一个&lt;code&gt;UThreadSocket_t&lt;/code&gt;对象，用来监听accept事件。当有新的连接进入时，我们就将新的连接，以及连接所用的工作函数&lt;code&gt;echoserver&lt;/code&gt;加入到调度器中。&lt;/p&gt;
