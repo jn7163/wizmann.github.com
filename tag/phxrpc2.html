@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>思维 - Maerlyn's Rainbow</title>
+    <title>phxrpc - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="思维" />
+    <meta name="keywords" content="phxrpc" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -66,30 +66,30 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://wizmann.tk/how-to-rotate-image-leetcode.html">How to "Rotate Image"?</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p>原题<a href="http://oj.leetcode.com/problems/rotate-image/">戳我</a></p>
-<blockquote>
-<p>Rotate Image</p>
-<p>You are given an n x n 2D matrix representing an image.</p>
-<p>Rotate the image by 90 degrees (clockwise).</p>
-<p>Follow up:</p>
-<p>Could you do this in-place?</p>
-</blockquote>
-<p>示意图如下：</p>
-<p><img alt="rotate-image" src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png" /></p>
-<p>当然，矩阵中的数字<strong>不一定</strong>是规律的。</p>
-<h2>为什么要提出这个问题</h2>
-<p>自觉是一个<strong>不聪明</strong>的人（双低。。。&lt;(=＠_＠;=)?&gt;）。</p>
-<p>别人一下子就想明白的事，在我这里要计算好几个来回。</p>
-<p>所以努力想找到一个思维方法去弥补这个不足。</p>
-<p>就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。</p>
-<h2>初步思路 ...</h2>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/how-to-rotate-image-leetcode.html">more ...</a>
+                <h2><a href="http://wizmann.tk/phxrpc-1.html">自定义你的stream buffer - phxrpc阅读笔记(1)</a></h2>
+                <div class="summary"><h2>写在前面</h2>
+<p><a href="https://github.com/tencent-wechat/phxrpc">phxrpc</a>是微信团队开源的一个轻量级RPC框架。</p>
+<p>我对RPC这些东西了解不多，看到phxrpc的代码相对简单，而且还在初步开发阶段（在本文写作时，版本号是0.8）。所以想读一读，提高一下姿势水平。</p>
+<p>就是这样。</p>
+<h2>自定义stream buffer</h2>
+<p><code>network/socket_stream_base.[h|cpp]</code>中的<code>class BaseTcpStreamBuf</code>继承了<code>std::streambuf</code>，自定义了一个流缓冲区，用于接收/发送TCP数据包。</p>
+<p>这个用法比较新颖（或者是我见识少），网上的资料也不多。这里翻译一篇<a href="http://www.mr-edd.co.uk/blog/beginners_guide_streambuf">介绍文章</a>，学习一下新姿势。</p>
+<h2>A beginner's guide to writing a custom stream buffer</h2>
+<p>流(streams)是STL中提供的一个重要的抽象概念。著名的“Hello world”程序 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/phxrpc-1.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="http://wizmann.tk/tag/phxrpc.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="http://wizmann.tk/tag/phxrpc.html">1</a></li>
+                    <li class="active"><a
+                            href="http://wizmann.tk/tag/phxrpc2.html">2</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -645,7 +645,7 @@ Maerlyn's Rainbow            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2013 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
