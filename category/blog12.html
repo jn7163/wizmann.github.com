@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>lock-less - Maerlyn's Rainbow</title>
+    <title>Blog - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="lock-less" />
+    <meta name="keywords" content="Blog" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -49,7 +49,7 @@ Maerlyn's Rainbow            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="http://wizmann.tk/category/blog.html">Blog</a>
                         </li>
             </ul>
@@ -66,29 +66,44 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://wizmann.tk/linux-lockless-llist.html">Linux内核中的少锁链表</a></h2>
-                <div class="summary"><h1>前言</h1>
-<p>最近在stackexchange上看到一个问答，讨论我们常用的数据结构与算法在实际工程中的应用。(<a href="http://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/19773#19773">戳我</a>)</p>
-<p>我打算借助这个问答中的内容，以我比较熟悉的数据结构与算法为索引来阅读开源代码。</p>
-<h1>正文</h1>
-<h2>Talk is cheap</h2>
-<blockquote>
-<p>Lock-less NULL terminated single linked list</p>
-</blockquote>
-<p><a href="https://github.com/mirrors/linux-2.6/blob/master/include/linux/llist.h">linux-2.6/include/linux/llist.h</a></p>
-<p><a href="https://github.com/mirrors/linux-2.6/blob/master/lib/llist.c">linux-2.6/lib/llist.c</a></p>
-<h2>知识准备</h2>
-<h3>volatile</h3>
-<blockquote>
-<p>volatile关键字声明的变量或对象通常拥有和优化和（或）多线程相关的特殊属性。</p>
-<p>通常，volatile关键字用来阻止（伪）编译器对那些它认为变量的值不能“被代码本身”改变的代码上执行任何优化。 </p>
-<p>如果不使用volatile关键字，编译器将假设当前程序是系统中唯一能改变这个值部分。 为了阻止编译器像上面那样优化代码，需要使用volatile关键字。</p>
-<p>From: http://zh.wikipedia.org/wiki/Volatile%E5 ...</p></blockquote>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/linux-lockless-llist.html">more ...</a>
+                <h2><a href="http://wizmann.tk/hello-world.html">Hello World</a></h2>
+                <div class="summary"><p>打算把博客迁到这里来了</p>
+<div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Hello World&#39;</span>
+</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hello-world.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="http://wizmann.tk/category/blog11.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog.html">1</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog2.html">2</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog3.html">3</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog4.html">4</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog5.html">5</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog6.html">6</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog7.html">7</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog8.html">8</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog9.html">9</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog10.html">10</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/category/blog11.html">11</a></li>
+                    <li class="active"><a
+                            href="http://wizmann.tk/category/blog12.html">12</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -644,7 +659,7 @@ Maerlyn's Rainbow            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2013 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
