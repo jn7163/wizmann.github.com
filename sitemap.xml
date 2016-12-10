@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/</loc>
-<lastmod>2016-11-11T22:08:08-00:00</lastmod>
+<lastmod>2016-12-10T11:35:30-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2016-11-11T22:08:08-00:00</lastmod>
+<lastmod>2016-12-10T11:35:30-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2016-11-11T22:08:08-00:00</lastmod>
+<lastmod>2016-12-10T11:35:30-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2016-11-11T22:08:08-00:00</lastmod>
+<lastmod>2016-12-10T11:35:30-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/twisted-defer-and-deferredqueue.html</loc>
+<lastmod>2016-12-10T11:34:38+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -509,7 +516,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2016-11-11T22:04:13+08:06</lastmod>
+<lastmod>2016-12-10T11:34:38+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -816,6 +823,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/async.html</loc>
+<lastmod>2016-12-10T11:34:38+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/asm.html</loc>
 <lastmod>2014-05-08T19:05:26+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -991,6 +1005,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/twisted.html</loc>
+<lastmod>2016-12-10T11:34:38+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/memory.html</loc>
 <lastmod>2014-04-07T21:08:59+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -1091,6 +1112,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/misaka.html</loc>
 <lastmod>2014-01-09T14:55:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/defer.html</loc>
+<lastmod>2016-12-10T11:34:38+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1286,7 +1314,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2016-11-11T22:04:13+08:06</lastmod>
+<lastmod>2016-12-10T11:34:38+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

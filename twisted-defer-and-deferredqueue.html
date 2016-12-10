@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>cpp - Maerlyn's Rainbow</title>
+    <title>Twisted Defer and DeferredQueue - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,16 +9,23 @@
 
 
 
+<link rel="canonical" href="http://wizmann.tk/twisted-defer-and-deferredqueue.html">
 
-    <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="cpp" />
+        <meta name="author" content="Wizmann" />
+        <meta name="keywords" content="twisted,defer,async" />
+        <meta name="description" content="写在最前面 这篇文章本来是想用英文写的，但是最近英文水平下降的和狗一样。还是怂一波吧。 写在前面 最近在用Twisted库写一个诡异的项目，具体内容暂且不在这里讨论。在写的过程中，被Twisted里面的一个重要概念 —— defer，折腾的不行。最终通过阅读twisted的部分源码，以及与代码做斗争的丰富经验，最终算是解决了问题。 本文算是使用twisted开发踩坑的一个小小总结，如果一切顺利，后面会有大菜。：） Twisted介绍 Twisted is an event-driven networking engine written in Python. Twisted是一个基于事件驱动的网络框架。那么什么是“事件驱动”呢？ 事件驱动指的是将事件与事件回调绑定起来，在程序运行时根据实时的事件触发相应的响应的一种机制。 例如select/poll/epoll这些IO复用函数，在文件描述符（fd）可读/可写/出错时，会立即返回，由相应的处理函数来对新事件进行处理。事实上，twisted的事件驱动功能，正是由这些IO复用函数提供的。 但与IO复用函数不同的是，twisted中的事件可以是“更高层次的事件”，即对网络的读 ..." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Maerlyn's Rainbow"/>
-        <meta property="og:url" content="http://wizmann.tk"/>
-        <meta property="og:description" content="Maerlyn's Rainbow"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Twisted Defer and DeferredQueue"/>
+        <meta property="og:url" content="http://wizmann.tk/twisted-defer-and-deferredqueue.html"/>
+        <meta property="og:description" content="写在最前面 这篇文章本来是想用英文写的，但是最近英文水平下降的和狗一样。还是怂一波吧。 写在前面 最近在用Twisted库写一个诡异的项目，具体内容暂且不在这里讨论。在写的过程中，被Twisted里面的一个重要概念 —— defer，折腾的不行。最终通过阅读twisted的部分源码，以及与代码做斗争的丰富经验，最终算是解决了问题。 本文算是使用twisted开发踩坑的一个小小总结，如果一切顺利，后面会有大菜。：） Twisted介绍 Twisted is an event-driven networking engine written in Python. Twisted是一个基于事件驱动的网络框架。那么什么是“事件驱动”呢？ 事件驱动指的是将事件与事件回调绑定起来，在程序运行时根据实时的事件触发相应的响应的一种机制。 例如select/poll/epoll这些IO复用函数，在文件描述符（fd）可读/可写/出错时，会立即返回，由相应的处理函数来对新事件进行处理。事实上，twisted的事件驱动功能，正是由这些IO复用函数提供的。 但与IO复用函数不同的是，twisted中的事件可以是“更高层次的事件”，即对网络的读 ..."/>
+        <meta property="article:published_time" content="2016-12-10" />
+            <meta property="article:section" content="Blog" />
+            <meta property="article:tag" content="twisted" />
+            <meta property="article:tag" content="defer" />
+            <meta property="article:tag" content="async" />
+            <meta property="article:author" content="Wizmann" />
 
 
     <!-- Bootstrap -->
@@ -49,7 +56,7 @@ Maerlyn's Rainbow            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="http://wizmann.tk/category/blog.html">Blog</a>
                         </li>
             </ul>
@@ -65,68 +72,163 @@ Maerlyn's Rainbow            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="http://wizmann.tk/read-paper-barrier.html">逗比带你读论文之Barrier</a></h2>
-                <div class="summary"><p><img alt="知识共享许可协议" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></p>
-<p><em>逗比带你读论文之Barrier</em> 由 <a href="http://wizmann.tk">Wizmann</a> 创作</p>
-<p>采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a>进行许可。</p>
-<h2>原文地址</h2>
-<p><a href="http://ridiculousfish.com/blog/posts/barrier.html">Barrier February 17th, 2007</a></p>
-<h2>前言：我艹！好多核！</h2>
-<p>虽然80核心的浮点数运算巨兽离我们还有些遥远，但是多核处理器已经走进了我们的生活。</p>
-<p>其实多核处理器已经不是新鲜名词了，在Power Macintosh 9500中，就使用了多核处理器。</p>
-<p>现在让我们深入了理解一下多核心处理器吧。</p>
-<h2>线程技术</h2>
-<h3>一些名词定义</h3>
-<h4>线程</h4>
-<p>线程只是 <strong>抢占调度的</strong>（pre-emptively scheduled） <strong>共享地址空间的</strong> 执行上下文。</p>
-<h4>多线程</h4>
-<p>用来简化控制流和绕开阻塞的系统调用的方法，并非用来实现程序的并行化</p>
-<h4>并发多线程</h4>
-<p>在物理上并发的线程，用来利用多核处理器来优化系统性能</p>
-<h3>为什么“并发多线程”是个神坑</h3>
-<p>人人都在说”并发多线程“是个神坑，但这种老生常谈并不是因为自然原因 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/read-paper-barrier.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/alloca-vs-placement-new.html">"alloca" vs "placement new"</a></h2>
-                <div class="summary"><h2>WHAT?!</h2>
-<p>For most time, we use <code>malloc</code> or <code>new</code> for memory allocation, which will get it on <em>heap</em>.</p>
-<p>However, access memory on <em>heap</em> is not as effective as the memory on <em>stack</em>, because the heap is "free-floating region of memory". To the contrary, memory on <em>stack</em> is managed by CPU ...</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/alloca-vs-placement-new.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/humanity-code-with-new-classes.html">使用新类型创建更人性化的代码</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p>这篇文章讨论了如何通过新建并非”必要“的新类型，来产生更人性化的C++代码。</p>
-<p>关键词：</p>
-<ul>
-<li>RAII</li>
-<li>智能指针</li>
-<li>接口友好</li>
-<li>模板</li>
-<li>模板特化</li>
-<li>依赖编译器的缺省行为</li>
-</ul>
-<p>对于C++的艺术，我只是个入门者。如果文章中有什么问题，欢迎大家指出，我会及时进行修改。</p>
-<h2>一个友好的互斥锁</h2>
-<h3>互斥锁的定义</h3>
-<blockquote>
-<p>互斥锁（英语：英语：Mutual exclusion，缩写 Mutex）是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。</p>
-</blockquote>
-<h3>如何使用互斥锁</h3>
-<p>这里只做最简单的示范。具体的使用方法和原理不在本文的讨论范围之内。</p>
-<div class="highlight"><pre><span class="cp">#include &lt;pthread.h&gt;</span>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://wizmann.tk/twisted-defer-and-deferredqueue.html"
+                       rel="bookmark"
+                       title="Permalink to Twisted Defer and DeferredQueue">
+                        Twisted Defer and DeferredQueue
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-12-10T11:34:38+08:00"> 2016-12-10</time>
+    </span>
 
-<span class="k">class</span> <span class="nc">MyIntArray ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/humanity-code-with-new-classes.html">more ...</a>
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://wizmann.tk/tag/twisted.html">twisted</a>
+        /
+	<a href="http://wizmann.tk/tag/defer.html">defer</a>
+        /
+	<a href="http://wizmann.tk/tag/async.html">async</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
+                <h2>写在最前面</h2>
+<p>这篇文章本来是想用英文写的，但是最近英文水平下降的和狗一样。还是怂一波吧。</p>
+<h2>写在前面</h2>
+<p>最近在用Twisted库写一个诡异的项目，具体内容暂且不在这里讨论。在写的过程中，被Twisted里面的一个重要概念 —— defer，折腾的不行。最终通过阅读twisted的部分源码，以及与代码做斗争的丰富经验，最终算是解决了问题。</p>
+<p>本文算是使用twisted开发踩坑的一个小小总结，如果一切顺利，后面会有大菜。：）</p>
+<h2>Twisted介绍</h2>
+<blockquote>
+<p>Twisted is an event-driven networking engine written in Python.</p>
+</blockquote>
+<p>Twisted是一个基于事件驱动的网络框架。那么什么是“事件驱动”呢？</p>
+<p>事件驱动指的是将事件与事件回调绑定起来，在程序运行时根据实时的事件触发相应的响应的一种机制。</p>
+<p>例如select/poll/epoll这些IO复用函数，在文件描述符（fd）可读/可写/出错时，会立即返回，由相应的处理函数来对新事件进行处理。事实上，twisted的事件驱动功能，正是由这些IO复用函数提供的。</p>
+<p>但与IO复用函数不同的是，twisted中的事件可以是“更高层次的事件”，即对网络的读/写/错等基础事件进行更进一步的封装。</p>
+<p>这里我们以<code>LineReceiver</code>为例（<a href="http://twistedmatrix.com/documents/current/api/twisted.protocols.basic.LineReceiver.html">API文档</a>）。<code>LineReceiver</code>是对传输层协议的二次封装，当我们读完一整行之后，就触发<code>lineReceived</code>事件，对获取的数据进行处理。</p>
+<p>这种封装，将开发者与底层的网络交互隔离开来。利用这些“高级事件”，开发者可以将更多的精力放到程序本身逻辑的开发之中。</p>
+<p>还有一点，正如Python语言本身的一大优点一样，Twisted现成的协议实现的非常丰富，同时在工业界也较为广泛的使用。虽然赶不上golang这种“明星语言”，但是也还是可以“自成一派”，搞点事情。</p>
+<h2>Defer与回调</h2>
+<p>Twisted使用Defer来管理callback链，如果你写过js，就可能对被回调链（callback chains）所支配的恐惧记忆深刻。当然，Twisted的defer也并没有好到哪里去。（蛤！）</p>
+<p>Seriously，defer允许我们使用一般的顺序型编程模型来编写回调代码。我们只需要把函数按照顺序注册到defer当中，就可以完整的实现一个回调链了。</p>
+<p><img alt="" src="http://wizmann-pic.qiniudn.com/public/16-12-9/90670835.jpg" /></p>
+<p>本文不会对defer进行过多讲解，如果想要了解更多的话，可以参考twisted的<a href="https://twistedmatrix.com/documents/current/core/howto/defer.html">官方文档</a>。</p>
+<p>defer做为一个回调链的抽象，有一个非常重要的性质，就是你不fire它，它是不会调用它的callbacks的。正像俗话说的一样：</p>
+<blockquote>
+<p>事不说不知，木不钻不透，砂锅不打一辈子不漏</p>
+</blockquote>
+<p>又有人说过（异步发卡）：</p>
+<blockquote>
+<p>A: There's something between us.   <br />
+B: What is it?    <br />
+A: An unfired defer.</p>
+</blockquote>
+<p>如果你想激活defer中的callbacks，就需要手动的fire它。那么什么时候来fire它呢？当然是在需要的时候啦。</p>
+<h3>一个典型的defer使用场景 - txmongo</h3>
+<p>txmongo是一个异步的mongodb python sdk。而我们常用的pymongo库则是同步的，所有的请求都要同步等待数据库返回结果。</p>
+<p>由于是异步的sdk，所以在同一时间，txmongo会同时持有多个mongodb连接（连接池）。并且由于我们不能预测mongodb的响应时间，所以需要在收到mongodb响应后，启动相应的回调函数，以触发更高级别的消息事件。</p>
+<div class="highlight"><pre><span class="c"># txmongo/protocol.py#L368</span>
+<span class="k">def</span> <span class="nf">handle_REPLY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">response_to</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__deferreds</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__deferreds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">response_to</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">response_flags</span> <span class="o">&amp;</span> <span class="n">REPLY_QUERY_FAILURE</span><span class="p">:</span>
+            <span class="c"># some error handling code</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</pre></div>
+
+
+<p>我们从这段代码中看出，当txmongo收到响应后，会先从<code>self.__deferreds</code>字典中取出相应的defer，之后使用<code>request</code>做为参数，启动defer中的callbacks，将查到的数据返回给调用者。</p>
+<h3>新手会遇到的defer坑 —— 测试</h3>
+<p>做为一个马上就要步入中年的程序员，我最大的一个优点就是不相信自己（汗）。所以在开发时会及时写单元测试来尽可能保证代码的正确性。于是在开发的很早就踩到了defer的坑，包括：</p>
+<ol>
+<li>测试hang住</li>
+<li>测试通过，但是报错"reactor was unclean"</li>
+<li>由于回调没有执行，测试挂掉</li>
+</ol>
+<p>坑1比较好解决，defer没有callback，hang住了只能怪自己。不过查哪里hang住了会比较麻烦，最直接的方法是多打log，从log里很容易就知道哪里有问题。</p>
+<p>坑2和坑3都属于我们使用defer的姿势不对。defer是“延时”的，我们不能像调用函数一样的直接调用，测试代码需要defer执行完最后一个callback函数后再继续执行。那么我们需要把测试代码也写成callbacks，然后附在需要测试的defer后面吗？</p>
+<p>答案是否定的，twisted为我们提供了一个神奇的工具<code>@defer.inlineCallbacks</code>。这个装饰器可以用于开发环境与测试环境。我们可以使用yield等待defer执行完成，并且可以获得defer的返回值。这类似于C#的async/await语法，使用起来非常方便。</p>
+<p>所以在我们的测试当中如果使用了defer，就需要将测试case使用<code>inlineCallbacks</code>装饰起来，在等待defer时，需要使用yield语法，等待异步代码的执行。在case的最后，将不需要的defer cancel掉即可。</p>
+<h2>DeferredQueue与循环</h2>
+<p>Queue的一个重要用法就是循环。包括线程/进程通信的Queue，BFS中使用的Queue，都是需要循环读取数据。</p>
+<p>DeferredQueue是Twisted中通信的一个重要数据结构，其使用方法和一般的Queue从逻辑上是一样的，接口也只有两个：<code>put</code>和<code>get</code>。</p>
+<p>DeferredQueue之所以有一个Deferred前辍，是因为它的get函数返回的是一个defer。我们可以在这个defer上绑定callbacks，即有数据可读时，触发相应的回调函数。</p>
+<p>所以我们很容易就把代码写成了这样：</p>
+<div class="highlight"><pre><span class="n">q</span> <span class="o">=</span> <span class="n">defer</span><span class="o">.</span><span class="n">DeferredQueue</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_and_print</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">item</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">addCallback</span><span class="p">(</span><span class="n">get_and_print</span><span class="p">)</span>
+
+<span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">addCallback</span><span class="p">(</span><span class="n">get_and_print</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+
+<p>一眼看上去，这个代码没有什么问题，我们会循环的从队列中获取数据并打印。但实际上，这段代码有一个神奇的坑。</p>
+<p>说一下这个坑是怎么发现的吧，我把代码写的差不多之后，就想跑benchmark来测性能。然后发现CPython的性能一般，就想试试pypy。然后却怎么也得不到正确的结果，最后发现是因为DeferredQueue引发了递归过深的异常。但是为什么CPython没有这个问题呢。原因在于CPython的递归栈是按深度算的，而pypy的递归栈是按大小算的，但是这两个参数的标量是一样的，所以pypy的递归栈就远小于CPython的。这才暴露了这个问题。不过单纯的扩栈也是不合理的，因为我们很难估计极端情况，并且Python的递归性能非常差。</p>
+<p>感兴趣的同学可以去参考<a href="https://github.com/twisted/twisted/blob/twisted-16.5.0/src/twisted/internet/defer.py#L1600">源码</a>，这里就直接说结论了。当队列中有元素时，<code>q.get().addCallback(get_and_print)</code>会直接调用<code>get_and_print</code>函数本身，如果队列中的元素非常多，那么我们就有递归过深的危险了。</p>
+<p>解决方案也很简单，与其让Twisted把我们的循环写成递归，还不如我们自己实现Queue的循环。至于方法，看看DeferredQueue的内部实现就清楚了，然后我们就发现了另外一个坑。</p>
+<h2>DeferredQueue与性能</h2>
+<p>我啥都不说，就贴一行<a href="https://github.com/twisted/twisted/blob/twisted-16.5.0/src/twisted/internet/defer.py#L1647">代码</a>：</p>
+<div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">waiting</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+
+
+<p>您这就是在逗我。</p>
+<p><img alt="" src="http://wizmann-pic.qiniudn.com/public/16-12-9/36902015.jpg" /></p>
+<p>再贴个性能对比，使用<code>list.pop(0)</code>弹出10^5个数据需要2.23s，而使用<code>deque.popleft()</code>只需要0.12s。</p>
+<p>不要功能实现了就不管性能了嘛同学。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'wizmann'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'twisted-defer-and-deferredqueue';
+                var disqus_url = 'http://wizmann.tk/twisted-defer-and-deferredqueue.html';
+
+            var disqus_config = function () {
+                this.language = "zhs";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -683,7 +785,7 @@ Maerlyn's Rainbow            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2014 Wizmann
+         <div class="col-xs-10">&copy; 2016 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
