@@ -80,8 +80,8 @@ A: An unfired defer.&lt;/p&gt;
 &lt;p&gt;感兴趣的同学可以去参考&lt;a href="https://github.com/twisted/twisted/blob/twisted-16.5.0/src/twisted/internet/defer.py#L1600"&gt;源码&lt;/a&gt;，这里就直接说结论了。当队列中有元素时，&lt;code&gt;q.get().addCallback(get_and_print)&lt;/code&gt;会直接调用&lt;code&gt;get_and_print&lt;/code&gt;函数本身，如果队列中的元素非常多，那么我们就有递归过深的危险了。&lt;/p&gt;
 &lt;p&gt;解决方案也很简单，与其让Twisted把我们的循环写成递归，还不如我们自己实现Queue的循环。至于方法，看看DeferredQueue的内部实现就清楚了，然后我们就发现了另外一个坑。&lt;/p&gt;
 &lt;h2&gt;DeferredQueue与性能&lt;/h2&gt;
-&lt;p&gt;我啥都不说，就贴一行&lt;a href="https://github.com/twisted/twisted/blob/twisted-16.5.0/src/twisted/internet/defer.py#L1647"&gt;代码&lt;/a&gt;：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;waiting&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;p&gt;我啥都不说，就贴一行&lt;a href="https://github.com/twisted/twisted/blob/twisted-16.5.0/src/twisted/internet/defer.py#L1665"&gt;代码&lt;/a&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;succeed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pending&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
