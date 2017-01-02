@@ -13,13 +13,13 @@
 
         <meta name="author" content="Wizmann" />
         <meta name="keywords" content="phxrpc" />
-        <meta name="description" content="写在前面 其实这点东西有点鸡肋。因为TCP流在前面已经讲过，难点在于“流”和“流缓冲区”部分。而HttpClient只是TCP流的一个应用，代码不多，且重点在于HTTP协议的调教上面。 不过因为前面有写阻塞TCP流，还是前后呼应，把非阻塞TCP流也小小的讲解一下。顺便饶一段HttpClient的讲解，算是充实一下内容吧。 非阻塞TCP流缓冲区 - UThreadTcpStreamBuf 这个其实没啥可讲的，传入一个socket，然后读写分别调用UThreadRecv和UThreadSend，IO复用和协程切换的复杂操作都被封装在里面了。剩下的操作都由基类函数来解决。 非阻塞TCP流 - UThreadTcpStream 确实没啥可说的，你们自己去读代码吧。。。 非阻塞TCP流和阻塞TCP流的区别是~~它不阻塞~~，在阻塞TCP流中，我们传入的是一个TCP流，而非阻塞TCP流传入的是一个协程调度器和一个TCP流。 这个很好理解，一个阻塞流自然会占满一个线程的IO和CPU —— 在阻塞流IO读写时，CPU空闲；在CPU忙时，IO空闲。 而非阻塞流会将自己IO wait的时间托管给epoll，把剩下的时间用于CPU计算（和一些overhead上）。所以一个线程可以handle多个socket，协程调度器就是必须的了。之后的读写操作就交由我们前面讨论过的epoll和ucontext协程来共同完成了。 HttpClient ..." />
+        <meta name="description" content="写在前面 其实这点东西有点鸡肋。因为TCP流在前面已经讲过，难点在于“流”和“流缓冲区”部分。而HttpClient只是TCP流的一个应用，代码不多，且重点在于HTTP协议的调教上面。 不过因为前面有写阻塞TCP流，还是前后呼应，把非阻塞TCP流也小小的讲解一下。顺便饶一段HttpClient的讲解，算是充实一下内容吧。 非阻塞TCP流缓冲区 - UThreadTcpStreamBuf 这个其实没啥可讲的，传入一个socket，然后读写分别调用UThreadRecv和UThreadSend，IO复用和协程切换的复杂操作都被封装在里面了。剩下的操作都由基类函数来解决。 非阻塞TCP流 - UThreadTcpStream 确实没啥可说的，你们自己去读代码吧。。。 非阻塞TCP流和阻塞TCP流的区别是~~它不阻塞~~，在阻塞TCP流中，我们传入的是一个TCP流，而非阻塞TCP流传入的是一个协程调度器和一个TCP流。 这个很好理解，一个阻塞流自然会占满一个线程的IO和CPU —— 在阻塞流IO读写时，CPU空闲；在CPU忙时，IO空闲。 而非阻塞流会将自己IO wait的时间托管给epoll，把剩下的时间用于CPU计算（和一些overhead上）。所以一个线程可以handle多个socket，协程调度器就是必须的了。之后的读写操作就交由我们前面讨论过的epoll和ucontext协程来共同完成了。 HttpClient …" />
 
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="非阻塞TCP流和HttpClient - phxrpc代码阅读(6)"/>
         <meta property="og:url" content="http://wizmann.tk/phxrpc-6.html"/>
-        <meta property="og:description" content="写在前面 其实这点东西有点鸡肋。因为TCP流在前面已经讲过，难点在于“流”和“流缓冲区”部分。而HttpClient只是TCP流的一个应用，代码不多，且重点在于HTTP协议的调教上面。 不过因为前面有写阻塞TCP流，还是前后呼应，把非阻塞TCP流也小小的讲解一下。顺便饶一段HttpClient的讲解，算是充实一下内容吧。 非阻塞TCP流缓冲区 - UThreadTcpStreamBuf 这个其实没啥可讲的，传入一个socket，然后读写分别调用UThreadRecv和UThreadSend，IO复用和协程切换的复杂操作都被封装在里面了。剩下的操作都由基类函数来解决。 非阻塞TCP流 - UThreadTcpStream 确实没啥可说的，你们自己去读代码吧。。。 非阻塞TCP流和阻塞TCP流的区别是~~它不阻塞~~，在阻塞TCP流中，我们传入的是一个TCP流，而非阻塞TCP流传入的是一个协程调度器和一个TCP流。 这个很好理解，一个阻塞流自然会占满一个线程的IO和CPU —— 在阻塞流IO读写时，CPU空闲；在CPU忙时，IO空闲。 而非阻塞流会将自己IO wait的时间托管给epoll，把剩下的时间用于CPU计算（和一些overhead上）。所以一个线程可以handle多个socket，协程调度器就是必须的了。之后的读写操作就交由我们前面讨论过的epoll和ucontext协程来共同完成了。 HttpClient ..."/>
+        <meta property="og:description" content="写在前面 其实这点东西有点鸡肋。因为TCP流在前面已经讲过，难点在于“流”和“流缓冲区”部分。而HttpClient只是TCP流的一个应用，代码不多，且重点在于HTTP协议的调教上面。 不过因为前面有写阻塞TCP流，还是前后呼应，把非阻塞TCP流也小小的讲解一下。顺便饶一段HttpClient的讲解，算是充实一下内容吧。 非阻塞TCP流缓冲区 - UThreadTcpStreamBuf 这个其实没啥可讲的，传入一个socket，然后读写分别调用UThreadRecv和UThreadSend，IO复用和协程切换的复杂操作都被封装在里面了。剩下的操作都由基类函数来解决。 非阻塞TCP流 - UThreadTcpStream 确实没啥可说的，你们自己去读代码吧。。。 非阻塞TCP流和阻塞TCP流的区别是~~它不阻塞~~，在阻塞TCP流中，我们传入的是一个TCP流，而非阻塞TCP流传入的是一个协程调度器和一个TCP流。 这个很好理解，一个阻塞流自然会占满一个线程的IO和CPU —— 在阻塞流IO读写时，CPU空闲；在CPU忙时，IO空闲。 而非阻塞流会将自己IO wait的时间托管给epoll，把剩下的时间用于CPU计算（和一些overhead上）。所以一个线程可以handle多个socket，协程调度器就是必须的了。之后的读写操作就交由我们前面讨论过的epoll和ucontext协程来共同完成了。 HttpClient …"/>
         <meta property="article:published_time" content="2016-10-19" />
             <meta property="article:section" content="Blog" />
             <meta property="article:tag" content="phxrpc" />
@@ -117,13 +117,13 @@ Maerlyn's Rainbow            </a>
 <h3>在HttpDispatcher中使用的一个小技巧</h3>
 <p>在<code>http_dispatcher.h</code>文件中，作者使用了一个比较新奇的技巧：“<a href="http://tipsandtricks.runicsoft.com/Cpp/MemberFunctionPointers.html">Function Pointers to Member Functions</a>”。</p>
 <p>我们来看代码：</p>
-<div class="highlight"><pre><span class="nt">typedef</span> <span class="nt">int</span> <span class="o">(</span><span class="nt">Dispatcher</span><span class="o">::*</span><span class="nt">URIFunc_t</span><span class="o">)(</span><span class="nt">const</span> <span class="nt">HttpRequest</span> <span class="o">&amp;</span> <span class="nt">request</span><span class="o">,</span> <span class="nt">HttpResponse</span> <span class="o">*</span> <span class="nt">response</span><span class="o">);</span>
+<div class="highlight"><pre><span></span><span class="nt">typedef</span> <span class="nt">int</span> <span class="o">(</span><span class="nt">Dispatcher</span><span class="o">::*</span><span class="nt">URIFunc_t</span><span class="o">)(</span><span class="nt">const</span> <span class="nt">HttpRequest</span> <span class="o">&amp;</span> <span class="nt">request</span><span class="o">,</span> <span class="nt">HttpResponse</span> <span class="o">*</span> <span class="nt">response</span><span class="o">);</span>
 </pre></div>
 
 
 <p>这行代码的意思是，为一个参数为<code>(const HttpRequest&amp;, HttpResponse*)</code>且返回值为<code>int</code>的函数声明一个别名<code>URIFunc_t</code>，并且这个函数，一定是<code>Dispatcher</code>类的成员函数。</p>
 <p>到目前为止，一切都还是正常的样子，语法也是我们常见的类型。但是下面这种写法，确实是我第一次见。</p>
-<div class="highlight"><pre>if (uri_func_map_.end() != iter) {
+<div class="highlight"><pre><span></span>if (uri_func_map_.end() != iter) {
     ret = (dispatcher_.*iter-&gt;second)(request, response);
 }
 </pre></div>
@@ -136,14 +136,14 @@ Maerlyn's Rainbow            </a>
 <p>首先，我们读取命令行参数，新建一个调度器，由参数决定调度器的woker协程数量。之后新建<code>UThreadEpollArgs_t</code>，把调度器指针塞进去。再之后把<code>echoclient</code>工作函数和<code>args</code>参数放由调度器中进行调度。</p>
 <p>接下来我们看看工作函数<code>echoclient</code>。</p>
 <p>工作函数的第一步是申请一个socket fd：</p>
-<div class="highlight"><pre>int fd = ::socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+<div class="highlight"><pre><span></span>int fd = ::socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
 </pre></div>
 
 
 <p>这里我解释一下最后一个参数<code>IPPROTO_IP</code>：</p>
 <blockquote>
-<p>In the in.h file, the comment says: Dummy protocol for TCP.    <br />
-This constant has the value 0. It's actually an automatic choice depending on socket type and family.    <br />
+<p>In the in.h file, the comment says: Dummy protocol for TCP.    <br>
+This constant has the value 0. It's actually an automatic choice depending on socket type and family.    <br>
 If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, then the protocol will automatically be TCP (exactly the same as if you'd used IPPROTO_TCP). Buf if you use IPPROTO_IP together with AF_INET and SOCK_RAW, you will have an error, because the kernel cannot choose a protocol automatically in this case.</p>
 </blockquote>
 <p>这个参数的意义是告诉内核，如果只有一个选项的话，你特么爱用哪个协议就用哪个吧。所以有一些时候，我们会直接把最后一个参数写成0，这就是<code>IPPROTO_IP</code>宏的字面值。</p>
@@ -154,9 +154,9 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
 <p>这里解释一下<code>listen(fd, backlog)</code>函数的第二个参数<code>backlog</code>：</p>
 <p>backlog意为内核为相应套接字排队的最大连接个数。内核为任何一个给定的监听套接字维护两个队列：</p>
 <ul>
-<li>未完成连接队列(incomplete connection queue)        <br />
+<li>未完成连接队列(incomplete connection queue)        <br>
 已由某个客户发出并到达服务器，而服务器正在等待完成相应的TCP三路握手过程。这些套接字处于SYN_RCVD状态</li>
-<li>已完成连接队列(completed connection queue)     <br />
+<li>已完成连接队列(completed connection queue)     <br>
 每个已完成TCP三路握手过程的客户对应其中一项。这些套接字处于ESTABLISHED状态</li>
 </ul>
 <p>当队列满时，TCP会忽略改分节，但是不发送RST。服务端会期望客户端重发SYN，采用正常的重传机制来处理</p>
@@ -167,7 +167,7 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
 <p>不过因为这里ping pong的消息都比较短，可以强行认为每一个包都包含着一个完整的字符串。当然，这种假设也是无意义的。所以我们要留意phxrpc在真正的生产环境，是怎样处理这种“粘包”的问题的。</p>
 <h2>写在最后</h2>
 <p>上一张女神的图：</p>
-<p><img alt="" src="http://wizmann-pic.qiniudn.com/16-10-19/89151689.jpg" /></p>
+<p><img alt="" src="http://wizmann-pic.qiniudn.com/16-10-19/89151689.jpg"></p>
 <p>没啦~</p>
             </div>
             <!-- /.entry-content -->
@@ -222,11 +222,6 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
             <li class="list-group-item"><a href="http://wizmann.tk/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="http://wizmann.tk/tag/algorithm.html">
-                            algorithm
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="http://wizmann.tk/tag/ti-jie.html">
                             题解
                         </a>
@@ -237,48 +232,13 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
+                        <a href="http://wizmann.tk/tag/algorithm.html">
+                            algorithm
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
                         <a href="http://wizmann.tk/tag/codeforces.html">
                             codeforces
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/phxrpc.html">
-                            phxrpc
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/c.html">
-                            C++
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/xian-liao.html">
-                            闲聊
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/rpc.html">
-                            rpc
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/python.html">
-                            python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/chrome-extension.html">
-                            chrome-extension
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
-                            公开课
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://wizmann.tk/tag/interview.html">
-                            interview
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -287,8 +247,63 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/gong-kai-ke.html">
+                            公开课
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/phxrpc.html">
+                            phxrpc
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/rpc.html">
+                            rpc
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/c.html">
+                            C++
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="http://wizmann.tk/tag/system-design.html">
                             System Design
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/interview.html">
+                            interview
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/xian-liao.html">
+                            闲聊
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://wizmann.tk/tag/chrome-extension.html">
+                            chrome-extension
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/cse351.html">
+                            CSE351
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/protobuf.html">
+                            protobuf
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="http://wizmann.tk/tag/leetcode.html">
+                            leetcode
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -302,8 +317,8 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/protobuf.html">
-                            protobuf
+                        <a href="http://wizmann.tk/tag/chuang-zao-li.html">
+                            创造力
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -312,8 +327,8 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/cse351.html">
-                            CSE351
+                        <a href="http://wizmann.tk/tag/ucontext.html">
+                            ucontext
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -322,8 +337,8 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/ucontext.html">
-                            ucontext
+                        <a href="http://wizmann.tk/tag/du-shu.html">
+                            读书
                         </a>
                     </li>
                     <li class="list-group-item tag-3">
@@ -331,179 +346,9 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                             induction
                         </a>
                     </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/du-shu.html">
-                            读书
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/leetcode.html">
-                            leetcode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-3">
-                        <a href="http://wizmann.tk/tag/chuang-zao-li.html">
-                            创造力
-                        </a>
-                    </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/twisted.html">
-                            twisted
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/queue.html">
-                            queue
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cocurrency.html">
-                            cocurrency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/streambuf.html">
-                            streambuf
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linkedin.html">
-                            Linkedin
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/misaka.html">
-                            misaka
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/thread.html">
-                            thread
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/head-first.html">
-                            head-first
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/lock-less.html">
-                            lock-less
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
-                            糙快猛
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/code-golf.html">
-                            code golf
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/social-network.html">
-                            Social Network
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/linux.html">
-                            linux
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
-                            分类器
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/async.html">
-                            async
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/multiprocess.html">
-                            multiprocess
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/memory-barrier.html">
-                            memory-barrier
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/graph.html">
-                            graph
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
-                            字符串
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/geometric.html">
-                            geometric
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cachegrind.html">
-                            cachegrind
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ergodone.html">
-                            ergodone
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ya-suo.html">
-                            压缩
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/mq.html">
-                            mq
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quora.html">
-                            quora
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/valgrind.html">
-                            valgrind
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/alloca.html">
-                            alloca
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/epoll.html">
-                            epoll
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/string.html">
-                            string
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/median.html">
-                            median
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/protocol.html">
-                            protocol
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/defer.html">
-                            defer
+                        <a href="http://wizmann.tk/tag/stylish.html">
+                            stylish
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -512,33 +357,23 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/poi.html">
-                            POI
+                        <a href="http://wizmann.tk/tag/head-first.html">
+                            head-first
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/angularjs.html">
-                            angularjs
+                        <a href="http://wizmann.tk/tag/tlv.html">
+                            TLV
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/si-wei.html">
-                            思维
+                        <a href="http://wizmann.tk/tag/network.html">
+                            network
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/zeromq.html">
-                            zeromq
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ot.html">
-                            ot
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/allocate.html">
-                            allocate
+                        <a href="http://wizmann.tk/tag/twisted.html">
+                            twisted
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -547,8 +382,8 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/socket.html">
-                            socket
+                        <a href="http://wizmann.tk/tag/misaka.html">
+                            misaka
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -557,48 +392,18 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/crack.html">
-                            crack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/geohash.html">
                             GeoHash
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/front-end-development.html">
-                            front-end development
+                        <a href="http://wizmann.tk/tag/valgrind.html">
+                            valgrind
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/cache.html">
-                            cache
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/stl.html">
-                            STL
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/tcpip.html">
-                            tcpip
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/heap.html">
-                            heap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/metadata.html">
-                            metadata
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/xie-cheng.html">
-                            协程
+                        <a href="http://wizmann.tk/tag/defer.html">
+                            defer
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -607,8 +412,143 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/sort.html">
+                            sort
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/poi.html">
+                            POI
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/code-golf.html">
+                            code golf
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/string.html">
+                            string
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/pelican.html">
+                            pelican
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/streambuf.html">
+                            streambuf
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://wizmann.tk/tag/binary-indexed-tree.html">
                             binary indexed tree
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cao-kuai-meng.html">
+                            糙快猛
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cache.html">
+                            cache
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/asm.html">
+                            asm
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/zeromq.html">
+                            zeromq
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/async.html">
+                            async
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/metadata.html">
+                            metadata
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/social-network.html">
+                            Social Network
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/geometric.html">
+                            geometric
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/ya-suo.html">
+                            压缩
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/tcpip.html">
+                            tcpip
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/memory.html">
+                            memory
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/front-end-development.html">
+                            front-end development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/heap.html">
+                            heap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/epoll.html">
+                            epoll
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/queue.html">
+                            queue
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/socket.html">
+                            socket
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/app.html">
+                            app
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/protocol.html">
+                            protocol
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/normal-distribution.html">
+                            normal-distribution
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/linkedin.html">
+                            Linkedin
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/multiprocess.html">
+                            multiprocess
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -622,28 +562,13 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/priority_queue.html">
-                            priority_queue
+                        <a href="http://wizmann.tk/tag/alloca.html">
+                            alloca
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/network.html">
-                            network
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
-                            计算机科学
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/distributed-system.html">
-                            distributed system
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/tlv.html">
-                            TLV
+                        <a href="http://wizmann.tk/tag/memory-barrier.html">
+                            memory-barrier
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -652,38 +577,48 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/quick-sort.html">
-                            quick sort
+                        <a href="http://wizmann.tk/tag/binary-tree.html">
+                            binary tree
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/asm.html">
-                            asm
+                        <a href="http://wizmann.tk/tag/angularjs.html">
+                            angularjs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/yunfile.html">
-                            Yunfile
+                        <a href="http://wizmann.tk/tag/graph.html">
+                            graph
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/message-queue.html">
-                            message queue
+                        <a href="http://wizmann.tk/tag/quora.html">
+                            quora
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/app.html">
-                            app
+                        <a href="http://wizmann.tk/tag/si-wei.html">
+                            思维
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/pelican.html">
-                            pelican
+                        <a href="http://wizmann.tk/tag/thread.html">
+                            thread
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/normal-distribution.html">
-                            normal-distribution
+                        <a href="http://wizmann.tk/tag/median.html">
+                            median
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/crack.html">
+                            crack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/ergodone.html">
+                            ergodone
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -692,8 +627,23 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/stylish.html">
-                            stylish
+                        <a href="http://wizmann.tk/tag/zi-fu-chuan.html">
+                            字符串
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/allocate.html">
+                            allocate
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/xie-cheng.html">
+                            协程
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/message-queue.html">
+                            message queue
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -702,8 +652,23 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/binary-tree.html">
-                            binary tree
+                        <a href="http://wizmann.tk/tag/ot.html">
+                            ot
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/mq.html">
+                            mq
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cocurrency.html">
+                            cocurrency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/stl.html">
+                            STL
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -712,13 +677,48 @@ If you use it, and if the socket type is SOCK_STREAM and the family is AF_INET, 
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/sort.html">
-                            sort
+                        <a href="http://wizmann.tk/tag/linux.html">
+                            linux
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://wizmann.tk/tag/memory.html">
-                            memory
+                        <a href="http://wizmann.tk/tag/fen-lei-qi.html">
+                            分类器
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/quick-sort.html">
+                            quick sort
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/cachegrind.html">
+                            cachegrind
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/lock-less.html">
+                            lock-less
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/distributed-system.html">
+                            distributed system
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/yunfile.html">
+                            Yunfile
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/ji-suan-ji-ke-xue.html">
+                            计算机科学
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://wizmann.tk/tag/priority_queue.html">
+                            priority_queue
                         </a>
                     </li>
                 </ul>
