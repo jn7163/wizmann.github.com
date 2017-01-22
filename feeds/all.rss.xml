@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Sat, 10 Dec 2016 11:34:38 +0800</lastBuildDate><item><title>Twisted Defer and DeferredQueue</title><link>http://wizmann.tk/twisted-defer-and-deferredqueue.html</link><description>&lt;h2&gt;写在最前面&lt;/h2&gt;
+<rss version="2.0"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Sun, 22 Jan 2017 22:52:28 +0800</lastBuildDate><item><title>Parallel patterns in C#</title><link>http://wizmann.tk/parallel-in-csharp.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;与C/C++所使用的，传统的基于线程的并行模式不同，C#实现了丰富的并发编程模型，其中以异步模型最为流行。&lt;/p&gt;
+&lt;p&gt;本文中我们重点讨论C#在发展过程中出现的几种异步编程模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Async Programming Model（APM）&lt;/li&gt;
+&lt;li&gt;Event-based Async Pattern (EAP)&lt;/li&gt;
+&lt;li&gt;Task-based Async Pattern（TAP）&lt;/li&gt;
+&lt;li&gt;async/await语法糖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;异步编程入门&lt;/h2&gt;
+&lt;p&gt;同步模式是最常见，也是最被人熟知的编程模型，每一个任务按顺序执行，前一个任务执行完之后才会执行下一个任务。&lt;/p&gt;
+&lt;p&gt;异步编程和同步编程不同，程序的执行流程是由“事件”所驱动的。异步编程有两种实现方式，回调与future模式。&lt;/p&gt;
+&lt;p&gt;回调函数在Javascript中被大量使用，相信大家也都不会陌生。但是大量的回调函数会让代码失去可读性，陷入“Callback hell”。&lt;/p&gt;
+&lt;p&gt;Promise模式是回调函数的一种“包装”。我们使用一个占位符来表示“未来”将会产生的一个异步处理结果。&lt;/p&gt;
+&lt;p&gt;这个占位符在不同的语言/框架里面有不同的名字，其定义也不尽相同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Task …&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Sun, 22 Jan 2017 22:52:28 +0800</pubDate><guid isPermaLink="false">tag:wizmann.tk,2017-01-22:/parallel-in-csharp.html</guid><category>csharp</category><category>parallel</category><category>thread</category><category>async</category></item><item><title>Twisted Defer and DeferredQueue</title><link>http://wizmann.tk/twisted-defer-and-deferredqueue.html</link><description>&lt;h2&gt;写在最前面&lt;/h2&gt;
 &lt;p&gt;这篇文章本来是想用英文写的，但是最近英文水平下降的和狗一样。还是怂一波吧。&lt;/p&gt;
 &lt;h2&gt;写在前面&lt;/h2&gt;
 &lt;p&gt;最近在用Twisted库写一个诡异的项目，具体内容暂且不在这里讨论。在写的过程中，被Twisted里面的一个重要概念 —— defer，折腾的不行。最终通过阅读twisted的部分源码，以及与代码做斗争的丰富经验，最终算是解决了问题。&lt;/p&gt;

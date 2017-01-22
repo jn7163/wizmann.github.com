@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>async - Maerlyn's Rainbow</title>
+    <title>parallel - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="async" />
+    <meta name="keywords" content="parallel" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -85,25 +85,6 @@ Maerlyn's Rainbow            </a>
 <ul>
 <li>Task …</li></ul>
                     <a class="btn btn-default btn-xs" href="http://wizmann.tk/parallel-in-csharp.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/twisted-defer-and-deferredqueue.html">Twisted Defer and DeferredQueue</a></h2>
-                <div class="summary"><h2>写在最前面</h2>
-<p>这篇文章本来是想用英文写的，但是最近英文水平下降的和狗一样。还是怂一波吧。</p>
-<h2>写在前面</h2>
-<p>最近在用Twisted库写一个诡异的项目，具体内容暂且不在这里讨论。在写的过程中，被Twisted里面的一个重要概念 —— defer，折腾的不行。最终通过阅读twisted的部分源码，以及与代码做斗争的丰富经验，最终算是解决了问题。</p>
-<p>本文算是使用twisted开发踩坑的一个小小总结，如果一切顺利，后面会有大菜。：）</p>
-<h2>Twisted介绍</h2>
-<blockquote>
-<p>Twisted is an event-driven networking engine written in Python.</p>
-</blockquote>
-<p>Twisted是一个基于事件驱动的网络框架。那么什么是“事件驱动”呢？</p>
-<p>事件驱动指的是将事件与事件回调绑定起来，在程序运行时根据实时的事件触发相应的响应的一种机制。</p>
-<p>例如select/poll/epoll这些IO复用函数，在文件描述符（fd）可读/可写/出错时，会立即返回，由相应的处理函数来对新事件进行处理。事实上，twisted的事件驱动功能，正是由这些IO复用函数提供的。</p>
-<p>但与IO复用函数不同的是，twisted中的事件可以是“更高层次的事件”，即对网络的读 …</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/twisted-defer-and-deferredqueue.html">more ...</a>
                 </div>
             </article>
             <hr/>
