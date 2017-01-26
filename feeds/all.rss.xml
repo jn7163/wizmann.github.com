@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Sun, 22 Jan 2017 22:52:28 +0800</lastBuildDate><item><title>Parallel patterns in C#</title><link>http://wizmann.tk/parallel-in-csharp.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
+<rss version="2.0"><channel><title>Maerlyn's Rainbow</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Thu, 26 Jan 2017 21:07:28 +0800</lastBuildDate><item><title>WorkflowyMd Release Note</title><link>http://wizmann.tk/workflowymd.html</link><description>&lt;h2&gt;What is it?&lt;/h2&gt;
+&lt;p&gt;I've writen several workflowy enhance plugins by UserScript. The very first one is show the full content of the note of a bullet. The second one is to show images under the bullet. Then I worked on the background image to make a more colorful workflowy.&lt;/p&gt;
+&lt;p&gt;Yeah …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Thu, 26 Jan 2017 21:07:28 +0800</pubDate><guid isPermaLink="false">tag:wizmann.tk,2017-01-26:/workflowymd.html</guid><category>workflowy</category><category>userscript</category></item><item><title>Parallel patterns in C#</title><link>http://wizmann.tk/parallel-in-csharp.html</link><description>&lt;h2&gt;写在前面&lt;/h2&gt;
 &lt;p&gt;与C/C++所使用的，传统的基于线程的并行模式不同，C#实现了丰富的并发编程模型，其中以异步模型最为流行。&lt;/p&gt;
 &lt;p&gt;本文中我们重点讨论C#在发展过程中出现的几种异步编程模型：&lt;/p&gt;
 &lt;ul&gt;
