@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>algorithm - Maerlyn's Rainbow</title>
+    <title>Articles by Wizmann - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,8 +10,7 @@
 
 
 
-    <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="algorithm" />
+        <meta name="author" content="Wizmann" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -66,129 +65,44 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://wizmann.tk/cf-3c-tic-tac-toe.html">Codeforces 3C - Tic-tac-toe</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p><a href="http://codeforces.com/problemset/problem/3/C">Tic-tac-toe</a>是我很久之前在CF上做的一道题。非常考细心的模拟题。</p>
-<p>最近有同学和我讨论过类似的问题。于是拿出来重新做一遍。练练手。</p>
-<h2>原题做法</h2>
-<p>没有任何“算法”成分。纯模拟。</p>
-<p>又由于数据量实在是太小（3 × 3的矩阵），所以只要是思路正确。代码怎么写都能过。</p>
-<p>于是在这里就不赘述。手快的众位10分钟切此题无压力。</p>
-<h2>What's new?</h2>
-<p>如果我们扩展一下这个问题。如果让你设计一个Tic-tac-toe的对战系统（人机对战、人人对战等），你将如何设计？</p>
-<h2>the STATE pattern</h2>
-<p>我们可以看出，这个对战系统其实可以用一个状态机来表示。</p>
-<p><img alt="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png" src="http://wizmann-tk-pic.u.qiniudn.com/blog-tick-tac-toe.png"></p>
-<p>于是我们的对战系统也可以写成一个状态机的模式。</p>
-<h2>show me the CODE</h2>
-<p>首先我们声明一个<code>State</code>接口类型。</p>
-<p>由于Tic-tac-toe游戏只有两种操作类型：<code>P1 move</code>和<code>P2 move</code>。</p>
-<p>所以我们的接口就很简单。</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">State</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">State …</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-3c-tic-tac-toe.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/how-to-rotate-image-leetcode.html">How to "Rotate Image"?</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p>原题<a href="http://oj.leetcode.com/problems/rotate-image/">戳我</a></p>
-<blockquote>
-<p>Rotate Image</p>
-<p>You are given an n x n 2D matrix representing an image.</p>
-<p>Rotate the image by 90 degrees (clockwise).</p>
-<p>Follow up:</p>
-<p>Could you do this in-place?</p>
-</blockquote>
-<p>示意图如下：</p>
-<p><img alt="rotate-image" src="http://wizmann-tk-pic.u.qiniudn.com/blog-rotate-image-leetcode.png"></p>
-<p>当然，矩阵中的数字<strong>不一定</strong>是规律的。</p>
-<h2>为什么要提出这个问题</h2>
-<p>自觉是一个<strong>不聪明</strong>的人（双低。。。&lt;(=＠_＠;=)?&gt;）。</p>
-<p>别人一下子就想明白的事，在我这里要计算好几个来回。</p>
-<p>所以努力想找到一个思维方法去弥补这个不足。</p>
-<p>就以这题为例，如何使用简单、直接的方法，迅速正确的找出变化的映射规律。</p>
-<h2>初步思路 …</h2>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/how-to-rotate-image-leetcode.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-221-div-2.html">Codeforces Round #221 (Div. 2)不完全不正确题解</a></h2>
-                <div class="summary"><h2>A. Lever</h2>
-<p>水题，杠杆原理。</p>
-<p>用<code>^</code>把字符串分割开。然后分别计算两边的重量即可。</p>
-<div class="highlight"><pre><span></span><span class="c1">#Result: Dec 24, 2013 6:04:41 PM    Wizmann  A - Lever   Python 2   Accepted     312 ms  4200 KB</span>
-<span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="n">ss</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="n">res</span> <span class="o">+=</span> <span class="n">t</span> <span class="o">*</span> <span class="n">p</span>
-        <span class="n">p</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">res</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="nb">raw_input …</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-221-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-218-div-2.html">Codeforces Round #218 (Div. 2)不完全不正确题解</a></h2>
-                <div class="summary"><h3>A. K-Periodic Array</h3>
-<p>将Array切片，然后按位统计某一位上1的个数C(1)和2的个数C(2)。然后在这一位上的操作数就为M = min(C(1), C(2))。</p>
-<p>简单题</p>
-<h3>B. Fox Dividing Cheese</h3>
-<p>傻逼才错的题，不幸中枪。</p>
-<p>不想多说了，直接看代码吧。手贱不是病，贱起来要人命。</p>
-<h3>C. Hamburgers</h3>
-<p>模拟 + 二分。</p>
-<p>和CJL还讨论过这题的纯模拟做法，看了半天代码没找到问题。于是刚才用Python自己实现了一个，在代码正确的情况下，没有WA，但是T在了22组上。</p>
-<p>所以这题最好使用二分，如果用模拟的话，需要考虑各种情况。代码见下，细节上注意就好。</p>
-<h3>D. Vessels</h3>
-<p>这题得好好讲一下～比赛时做出来了好得意～</p>
-<p><img alt="Vessels" src="http://wizmann-tk-pic.u.qiniudn.com/blog-cf-218-div-2-d-vessels.png"></p>
-<p>题意是给出一组层层叠的容器，每一个容器都有自己的容量。然后我们向某些容器里灌水，如果水的体积超过了某个容器的容量，则剩余的水溢出到下一个容器中。最后一个容器溢出的水会落到地面上 …</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-218-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-215-div-2.html">Codeforces Round #215 (Div. 2)不完全不正确题解</a></h2>
-                <div class="summary"><h3>A. Sereja and Coat Rack</h3>
-<p>傻逼才错的题。不幸中枪。</p>
-<p>没什么可说的。直接看代码就好。</p>
-<h3>B. Sereja and Suffixes</h3>
-<p>关键思想在于统计A[i...n-1]中有多少互不相同的数。</p>
-<p>使用离线思想，把查询按<code>greater&lt;int&gt;</code>排序，然后使用Hash表进行统计，简单题。</p>
-<h3>C. Sereja and Algorithm</h3>
-<p>思路题。</p>
-<p>我们容易想到如果可以交换相邻两个字母的位置，我们就可以获得这个字符串所有的排列。</p>
-<p>所以我们只需要统计出A[i...j]中x, y, z的个数。</p>
-<p>然后进行排列。</p>
-<p>我们可以推出，稳定的排列（即可以使算法停下来的排列）只有如下几种情况。</p>
-<div class="highlight"><pre><span></span>zy[xzy][xzy]...
-xz[yxz][yxz]...
-yx[zyx …</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-215-div-2.html">more ...</a>
+                <h2><a href="http://wizmann.tk/hello-world.html">Hello World</a></h2>
+                <div class="summary"><p>打算把博客迁到这里来了</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s1">&#39;Hello World&#39;</span>
+</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hello-world.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
         <ul class="pagination">
-                <li class="prev"><a href="http://wizmann.tk/tag/algorithm3.html">&laquo;</a>
+                <li class="prev"><a href="http://wizmann.tk/author/wizmann12.html">&laquo;</a>
                 </li>
                     <li class=""><a
-                            href="http://wizmann.tk/tag/algorithm.html">1</a></li>
+                            href="http://wizmann.tk/author/wizmann.html">1</a></li>
                     <li class=""><a
-                            href="http://wizmann.tk/tag/algorithm2.html">2</a></li>
+                            href="http://wizmann.tk/author/wizmann2.html">2</a></li>
                     <li class=""><a
-                            href="http://wizmann.tk/tag/algorithm3.html">3</a></li>
+                            href="http://wizmann.tk/author/wizmann3.html">3</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann4.html">4</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann5.html">5</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann6.html">6</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann7.html">7</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann8.html">8</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann9.html">9</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann10.html">10</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann11.html">11</a></li>
+                    <li class=""><a
+                            href="http://wizmann.tk/author/wizmann12.html">12</a></li>
                     <li class="active"><a
-                            href="http://wizmann.tk/tag/algorithm4.html">4</a></li>
+                            href="http://wizmann.tk/author/wizmann13.html">13</a></li>
                 <li class="next disabled"><a href="#">&raquo;</a></li>
         </ul>
         </div>
@@ -746,7 +660,7 @@ yx[zyx …</pre></div>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2015 Wizmann
+         <div class="col-xs-10">&copy; 2017 Wizmann
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
