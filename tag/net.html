@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zhs" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Blog - Maerlyn's Rainbow</title>
+    <title>.NET - Maerlyn's Rainbow</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Wizmann" />
-    <meta name="keywords" content="Blog" />
+    <meta name="keywords" content=".NET" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Maerlyn's Rainbow" />
@@ -49,7 +49,7 @@ Maerlyn's Rainbow            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://wizmann.tk/category/blog.html">Blog</a>
                         </li>
             </ul>
@@ -66,158 +66,27 @@ Maerlyn's Rainbow            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://wizmann.tk/geo-hash-algorithm.html">GeoHash算法</a></h2>
-                <div class="summary"><h2>GeoHash</h2>
-<blockquote>
-<p>Geohash is a latitude/longitude geocode system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. It is a hierarchical spatial data structure which subdivides space into buckets of grid shape.</p>
-</blockquote>
-<p>简单说，GeoHash是一个将经纬度信息编码成一个string的算法。从而便于储存、查找。</p>
-<h2>GeoHash算法的步骤</h2>
-<p>GeoHash对经度纬度分别编码，原理是迭代做二分，进而逼近真实值。</p>
-<p>我们以纬度举例 …</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/geo-hash-algorithm.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/find-the-geo-location-of-a-host.html">如何判断一个网站的地理信息</a></h2>
-                <div class="summary"><h2>啥？</h2>
-<p>面试题：</p>
-<blockquote>
-<p>有一个网站，如何判断这个网站的地理信息</p>
-</blockquote>
-<h2>方法</h2>
-<h3>使用反向DNS</h3>
-<p>当我们只有网站的IP地址时，我们可以使用<strong>反向DNS</strong>来获得这个IP地址对应的域名。</p>
-<blockquote>
-<p>反向域名解析，Reverse DNS。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。</p>
-</blockquote>
-<p>我们可以使用<code>dig -x</code>来进行查询</p>
-<div class="highlight"><pre><span></span>$ dig -x 75.126.43.235
-
-<span class="p">;</span> &lt;&lt;&gt;&gt; DiG 9.8.1-P1 &lt;&lt;&gt;&gt; -x 75.126.43.235
-<span class="p">;;</span> global options: +cmd
-<span class="p">;;</span> Got answer:
-<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: 26688
-<span class="p">;;</span> flags: qr rd …</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/find-the-geo-location-of-a-host.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/cf-223-div-2.html">Codeforces Round #223 (Div. 2) 不完全不正确题解</a></h2>
-                <div class="summary"><p>由于大号已经进Div. 1了，所以接下来的几场Div. 2都是用小号做的。</p>
-<p>等有实力切D题了，再去打一区。（弱</p>
-<p>事情一直很多，所以题解落后了好久才发。</p>
-<h2>A. Sereja and Dima</h2>
-<p>纯模拟，Python随便搞</p>
-<div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">())</span>
-<span class="n">pokers</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-
-<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pokers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">del</span> <span class="n">pokers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pokers</span><span class="p">[</span><span class="o">-</span><span class="mi">1 …</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/cf-223-div-2.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/misaka-pelican.html">用Misaka做为pelican的Markdown解析器</a></h2>
-                <div class="summary"><h2>为啥？</h2>
-<p>Pelican内置<a href="http://pythonhosted.org/Markdown/">python-markdown</a>做为默认解析器，用来将用户的<code>Markdown</code>格式的文章转为网页格式展示。</p>
-<p><strong>然而</strong>，<code>python-markdown</code>模块的解析逻辑有严重的Bug。例如一个<code>未标明语言的代码块</code>会被标出很多莫名奇妙的错误；还有<code>C++</code>中的指针符号<code>*</code>会被解析为斜体的符号<code>*SomeText*</code>，在代码块中会产生大量和语法高亮无关的斜体字。</p>
-<p>在网上寻找了很久的答案，终于找到了一篇<a href="http://qiita.com/5t111111/items/4614b207f3942d05e55c">日文博客</a>，其中讲到了使用<a href="http://misaka.61924.nl/">misaka</a>来替换<code>python-markdown</code>来解析日志。</p>
-<h2>两难的Metadata</h2>
-<p>我使用了上文提到的日志中的方法来替换解析器，效果拔群，日志中的解析问题完全解决了。但是日志中的<code>Metadata</code>并没有被隐藏，而是显示在了日志的最前面，非常影响心情（强迫症？）。</p>
-<p>于是我分析了解析模块的代码。原来的解析模块使用了<code>python-markdown</code>的一个处理<code>Metadata</code>的<a href="https://github.com/waylan/Python-Markdown/blob/master/markdown/extensions/meta.py">扩展</a>，用来解析<code>Metadata</code>，并从正文中删除这一部分。</p>
-<p>但是<code>Misaka</code>并不支持这种语法 …</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/misaka-pelican.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/read-head-first-design-pattern.html">读书 - 《Head first 设计模式》</a></h2>
-                <div class="summary"><p><img alt="Head first设计模式" src="http://img5.douban.com/lpic/s2686916.jpg"></p>
-<p><a href="http://book.douban.com/subject/2243615/">豆瓣读书</a></p>
-<h2>为什么读这本书</h2>
-<p>在面XX家的时候，被问过一个设计模式问题。当时连面向对象都搞不懂，更不用说设计模式。</p>
-<p>于是入了“四人帮”的<a href="http://book.douban.com/subject/1052241/">设计模式</a>来看，被里面的内容彻底搞晕。然后只能找了这本看起来很娱乐化的书来读。</p>
-<p>这本书大概有600多页，比“四人帮”书厚很多。一个原因是这本书是“范例驱动”的，包含很多“项目”背景介绍，以及实现思路；第二个原因是，这本书的示例代码用的是<strong>Java</strong>。</p>
-<p>（笑，不黑了好嘛。。。</p>
-<h2>为什么要设计模式</h2>
-<blockquote>
-<p>这世界唯一不变的，就是变化</p>
-</blockquote>
-<p>（没有逼格的人连名人名言都引用不好。。。</p>
-<p>我们的代码总是需要不断的改变来适应现实世界中不断的变化。（烧死那个PM！）</p>
-<p>我们需要一种<code>对代码影响最小</code>的方式来修改软件以适应变化。这就是我们使用设计模式的原因。</p>
-<h2>“内隐知识”</h2>
-<blockquote>
-<p>设计模式有了名字，人们就可以认识到它的存在。对于没有名字的东西，人们几乎不可能认识到它的存在，并对之进行讨论。这种不能用语言表达的知识我们称之为内隐知识。</p>
-</blockquote>
-<p>其实我们在写程序的时候，或多或少都用到了“设计模式”，只是我们没有意识到而已 …</p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/read-head-first-design-pattern.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://wizmann.tk/hungary-algorithm.html">匈牙利算法</a></h2>
-                <div class="summary"><h2>概念</h2>
-<h3>交错路</h3>
-<blockquote>
-<p>交错路：设P是图G的一条路，如果P的任意两条相邻的边一定是一条属于M而另一条不属于M，就称P是一条交错路。</p>
-</blockquote>
-<p>通俗点来说，就是把一个图中的路径染成红黑两种。然后找出一条路，使这条路<strong>红黑交错</strong>。</p>
-<p>注：交错路是无向图，图中的箭头只是为了便于观察。</p>
-<p>例如下图中的：<code>(3) -&gt; (2) -&gt; (1)</code></p>
-<p><img alt="图1" src="http://wizmann-tk-pic.u.qiniudn.com/blog-hungary-1.png"></p>
-<h3>从端点扩张交错路</h3>
-<p>假设我们已经有一个红黑交错路<code>P</code>，其端点为<code>A</code>和<code>B</code>，其路径被标记为<code>黑红</code>。此时，我们向<code>P</code>中的一个端点（假设为<code>A</code>）加入一条边<code>T</code>。</p>
-<p>此时我们有<code>边T + 交错路P（黑红）</code>。当我们将边<code>T</code>标记为<code>黑色</code>时，我们就扩展了交错路<code>P</code>。
-如果我们要保持红黑交错路的<strong>性质</strong>。则我们必须将边<code>T …</code></p>
-                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/hungary-algorithm.html">more ...</a>
+                <h2><a href="http://wizmann.tk/metaprogramming-in-dotnet-1.html">Metaprogramming in .NET 读书笔记 - 1</a></h2>
+                <div class="summary"><h2>什么是 Metaprogramming (元编程)</h2>
+<p><img alt="" src="http://wizmann-pic.qiniudn.com/17-2-15/1418894-file_1487139497158_1868c.jpg"></p>
+<p>元编程从字面上理解就是“能处理程序的程序”。</p>
+<p>这里的“处理”，有两个意思。</p>
+<p>一是“编写”、“生成”，最经典例子就是编译器，它将我们的所编写的高级语言翻译成机器代码。编译器就像建筑工人，将“蓝图”（高级语言）转化成“高楼大厦”（机器语言）。还有一个我们经常用到的就是“宏”(Macro)。我们可以在代码中使用预先编写好的宏，在编译期，宏会被自动展开成相应的代码。这样的好处是用机器带替人类劳动。</p>
+<p>“处理”的另外一个意思就是“处理自己”，元编程让程序在运行时了解自己的状态，并动态的扩展并执行的相应逻辑。</p>
+<p>当然，最高级的“处理”就是能完全代替人脑的人工智能。如果那一天到来，我们就距离生活在Matrix里不远了。</p>
+<h2>元编程的实现</h2>
+<p>元编程主要实现在编译期前后以及运行时。</p>
+<p>元编程主要依赖于以下技术：</p>
+<ul>
+<li>代码生成(code generation)</li>
+<li>反射(reflection)</li>
+<li>汇编重写(assembly rewriting)</li>
+<li>表达式 …</li></ul>
+                    <a class="btn btn-default btn-xs" href="http://wizmann.tk/metaprogramming-in-dotnet-1.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
-        <ul class="pagination">
-                <li class="prev"><a href="http://wizmann.tk/category/blog9.html">&laquo;</a>
-                </li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog.html">1</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog2.html">2</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog3.html">3</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog4.html">4</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog5.html">5</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog6.html">6</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog7.html">7</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog8.html">8</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog9.html">9</a></li>
-                    <li class="active"><a
-                            href="http://wizmann.tk/category/blog10.html">10</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog11.html">11</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog12.html">12</a></li>
-                    <li class=""><a
-                            href="http://wizmann.tk/category/blog13.html">13</a></li>
-                <li class="next"><a
-                        href="http://wizmann.tk/category/blog11.html">&raquo;</a></li>
-        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>

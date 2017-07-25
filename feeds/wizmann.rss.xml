@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Maerlyn's Rainbow - Wizmann</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Wed, 07 Jun 2017 01:53:42 +0800</lastBuildDate><item><title>Why do I quit Leetcode contest?</title><link>http://wizmann.tk/why-do-i-quit-leetcode-contest.html</link><description>&lt;h2&gt;Foreword&lt;/h2&gt;
+<rss version="2.0"><channel><title>Maerlyn's Rainbow - Wizmann</title><link>http://wizmann.tk/</link><description></description><lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0800</lastBuildDate><item><title>Metaprogramming in .NET 读书笔记 - 1</title><link>http://wizmann.tk/metaprogramming-in-dotnet-1.html</link><description>&lt;h2&gt;什么是 Metaprogramming (元编程)&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/17-2-15/1418894-file_1487139497158_1868c.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;元编程从字面上理解就是“能处理程序的程序”。&lt;/p&gt;
+&lt;p&gt;这里的“处理”，有两个意思。&lt;/p&gt;
+&lt;p&gt;一是“编写”、“生成”，最经典例子就是编译器，它将我们的所编写的高级语言翻译成机器代码。编译器就像建筑工人，将“蓝图”（高级语言）转化成“高楼大厦”（机器语言）。还有一个我们经常用到的就是“宏”(Macro)。我们可以在代码中使用预先编写好的宏，在编译期，宏会被自动展开成相应的代码。这样的好处是用机器带替人类劳动。&lt;/p&gt;
+&lt;p&gt;“处理”的另外一个意思就是“处理自己”，元编程让程序在运行时了解自己的状态，并动态的扩展并执行的相应逻辑。&lt;/p&gt;
+&lt;p&gt;当然，最高级的“处理”就是能完全代替人脑的人工智能。如果那一天到来，我们就距离生活在Matrix里不远了。&lt;/p&gt;
+&lt;h2&gt;元编程的实现&lt;/h2&gt;
+&lt;p&gt;元编程主要实现在编译期前后以及运行时。&lt;/p&gt;
+&lt;p&gt;元编程主要依赖于以下技术：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;代码生成(code generation)&lt;/li&gt;
+&lt;li&gt;反射(reflection)&lt;/li&gt;
+&lt;li&gt;汇编重写(assembly rewriting)&lt;/li&gt;
+&lt;li&gt;表达式 …&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 26 Jul 2017 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:wizmann.tk,2017-07-26:/metaprogramming-in-dotnet-1.html</guid><category>Metaprogramming</category><category>.NET</category><category>C#</category></item><item><title>Why do I quit Leetcode contest?</title><link>http://wizmann.tk/why-do-i-quit-leetcode-contest.html</link><description>&lt;h2&gt;Foreword&lt;/h2&gt;
 &lt;p&gt;The title is quite "Yin-ish" as it seems, but I'm not a "Yin-ist". You know what I mean.&lt;/p&gt;
 &lt;h2&gt;Why I quit?&lt;/h2&gt;
 &lt;p&gt;I did a quite a good job in Leetcode Weekly Contest, at least in my point of view. I won a 4th place and a 6th place in …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Wizmann</dc:creator><pubDate>Wed, 07 Jun 2017 01:53:42 +0800</pubDate><guid isPermaLink="false">tag:wizmann.tk,2017-06-07:/why-do-i-quit-leetcode-contest.html</guid><category>leetcode</category></item><item><title>STUP - the Implementation (3)</title><link>http://wizmann.tk/stup-3.html</link><description>&lt;h2&gt;throughput and window size&lt;/h2&gt;
