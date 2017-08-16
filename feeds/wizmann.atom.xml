@@ -334,7 +334,7 @@ It's understandble that TCP has to negotiate the sliding window size with zero k
 &lt;p&gt;You have to add &lt;code&gt;[md]&lt;/code&gt; tag at the end of the bullet to let the plugin render your markdown note. If you delete the tag, your note will return to the plain text note.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/17-1-26/48097654-file_1485411968675_15abe.gif"&gt;&lt;/p&gt;
 &lt;h2&gt;Edit mode&lt;/h2&gt;
-&lt;p&gt;If you want to edit your markdown note. There is need to type and delete the &lt;code&gt;[md]&lt;/code&gt; tag every time. Just double click on the note, the notes will toggle between the markdown style (read-only) and plain text style (editable).&lt;/p&gt;
+&lt;p&gt;If you want to edit your markdown note. There is no need to type and delete the &lt;code&gt;[md]&lt;/code&gt; tag every time. Just double click on the note, the notes will toggle between the markdown style (read-only) and plain text style (editable).&lt;/p&gt;
 &lt;p&gt;&lt;img alt="" src="http://wizmann-pic.qiniudn.com/17-1-26/59010877-file_1485412203554_8eea.gif"&gt;&lt;/p&gt;
 &lt;h2&gt;Better image support&lt;/h2&gt;
 &lt;p&gt;There always one annoy stuff about the image - the size. Sometimes the image size is too large for the page, and some oter time we need an image with full size so we can see every details in the image.&lt;/p&gt;
