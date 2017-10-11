@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/</loc>
-<lastmod>2017-08-16T23:38:41-00:00</lastmod>
+<lastmod>2017-10-11T21:13:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/archives.html</loc>
-<lastmod>2017-08-16T23:38:41-00:00</lastmod>
+<lastmod>2017-10-11T21:13:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/tags.html</loc>
-<lastmod>2017-08-16T23:38:41-00:00</lastmod>
+<lastmod>2017-10-11T21:13:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://wizmann.tk/categories.html</loc>
-<lastmod>2017-08-16T23:38:41-00:00</lastmod>
+<lastmod>2017-10-11T21:13:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/azure-storage-made-simple.html</loc>
+<lastmod>2017-10-11T21:12:15+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -565,14 +572,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/category/blog.html</loc>
-<lastmod>2017-07-26T00:00:00+08:06</lastmod>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/ergodone.html</loc>
-<lastmod>2016-10-05T21:38:58+08:06</lastmod>
+<loc>http://wizmann.tk/tag/gcj.html</loc>
+<lastmod>2015-04-12T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -655,13 +662,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/workflowy.html</loc>
-<lastmod>2017-01-26T21:07:28+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>http://wizmann.tk/tag/crack.html</loc>
 <lastmod>2014-02-25T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -725,8 +725,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/net.html</loc>
-<lastmod>2017-07-26T00:00:00+08:06</lastmod>
+<loc>http://wizmann.tk/tag/workflowy.html</loc>
+<lastmod>2017-01-26T21:07:28+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1005,6 +1005,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/azure.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/ot.html</loc>
 <lastmod>2016-10-05T21:38:58+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -1138,6 +1145,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/was.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/sort.html</loc>
 <lastmod>2015-04-25T11:17:01+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -1173,8 +1187,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/multithread.html</loc>
-<lastmod>2014-05-08T19:05:26+08:06</lastmod>
+<loc>http://wizmann.tk/tag/get-things-done.html</loc>
+<lastmod>2014-11-15T16:08:10+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1203,6 +1217,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://wizmann.tk/tag/stl.html</loc>
 <lastmod>2016-09-29T01:28:09+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/cap.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1292,8 +1313,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/gcj.html</loc>
-<lastmod>2015-04-12T00:00:00+08:06</lastmod>
+<loc>http://wizmann.tk/tag/ergodone.html</loc>
+<lastmod>2016-10-05T21:38:58+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1369,6 +1390,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>http://wizmann.tk/tag/fen-bu-shi-xi-tong.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/net.html</loc>
+<lastmod>2017-07-26T00:00:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://wizmann.tk/tag/stack.html</loc>
 <lastmod>2014-05-20T13:23:03+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -1383,8 +1418,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://wizmann.tk/tag/get-things-done.html</loc>
-<lastmod>2014-11-15T16:08:10+08:06</lastmod>
+<loc>http://wizmann.tk/tag/multithread.html</loc>
+<lastmod>2014-05-08T19:05:26+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1405,7 +1440,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/tag/microsoft.html</loc>
-<lastmod>2015-04-25T00:54:08+08:06</lastmod>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/yi-zhi-xing.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://wizmann.tk/tag/consistency.html</loc>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1433,7 +1482,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://wizmann.tk/author/wizmann.html</loc>
-<lastmod>2017-07-26T00:00:00+08:06</lastmod>
+<lastmod>2017-10-11T21:12:15+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
